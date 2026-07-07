@@ -1,0 +1,3946 @@
+{
+  "patient_count": 5,
+  "patients": [
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07642414-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches migraine"
+                },
+                {
+                  "criterion_id": "NCT07642414-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT07642414-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT07642414"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches urothelial cancer"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 2"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "criterion_type": "exclusion",
+                  "requirement": "no prior organ transplant"
+                }
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches metastatic urothelial cancer or bladder cancer"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches AYA cancer patient/survivor population"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                }
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches B-cell lymphoma"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 18-75 years"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                }
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_output": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07642414-I-condition",
+                  "reason": "Diagnosis migraine matches migraine.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07642414-I-age",
+                  "reason": "Age 72 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07642414-E-uncontrolled-cardiac-disease",
+                  "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07642414"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis migraine does not match urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 72 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is in the allowed stage list IV.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 satisfies maximum 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address prior organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis migraine does not match metastatic urothelial cancer or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 72 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is in the allowed stage list IV.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 satisfies maximum 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis migraine does not match AYA cancer patient/survivor population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 72 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is in the allowed stage list IV.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis migraine does not match B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 72 satisfies 18-75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 satisfies maximum 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "post_interaction_patient_updates": {
+            "ecog": 1,
+            "exclusion_flags": {
+              "active_autoimmune_disease": false,
+              "active_interstitial_lung_disease": false,
+              "active_uncontrolled_infection": false,
+              "organ_transplant": false
+            },
+            "prior_platinum_chemotherapy": false,
+            "stage": "IV"
+          },
+          "simulated_patient_answers": [
+            {
+              "answer": "The simulated follow-up reports that the patient has not received platinum-containing chemotherapy and has not received prior systemic therapy.",
+              "fact_key": "prior_platinum_chemotherapy",
+              "normalized_value": false,
+              "question_id": "Q1"
+            },
+            {
+              "answer": "The simulated follow-up reports no active interstitial lung disease.",
+              "fact_key": "active_interstitial_lung_disease",
+              "normalized_value": false,
+              "question_id": "Q2"
+            },
+            {
+              "answer": "The simulated follow-up reports no active autoimmune disease.",
+              "fact_key": "active_autoimmune_disease",
+              "normalized_value": false,
+              "question_id": "Q3"
+            },
+            {
+              "answer": "The simulated follow-up reports no active uncontrolled infection.",
+              "fact_key": "active_uncontrolled_infection",
+              "normalized_value": false,
+              "question_id": "Q4"
+            },
+            {
+              "answer": "The simulated follow-up reports no prior organ transplant.",
+              "fact_key": "organ_transplant",
+              "normalized_value": false,
+              "question_id": "Q5"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 72,
+            "diagnosis": "migraine",
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "CA"
+            },
+            "prior_systemic_therapy": "not listed",
+            "reported_exclusion_flags": {
+              "uncontrolled_cardiac_disease": true
+            },
+            "sex": "female",
+            "stage": "IV"
+          },
+          "missing_facts": [
+            "prior platinum-containing chemotherapy history",
+            "active autoimmune disease",
+            "active interstitial lung disease",
+            "active uncontrolled infection",
+            "prior organ transplant"
+          ]
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "fact_key": "prior_platinum_chemotherapy",
+              "question": "Has the patient ever received platinum-containing chemotherapy, and if so in what setting and when?",
+              "question_id": "Q1",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_interstitial_lung_disease",
+              "question": "Does the patient have active interstitial lung disease?",
+              "question_id": "Q2",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_autoimmune_disease",
+              "question": "Does the patient have active autoimmune disease?",
+              "question_id": "Q3",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "active_uncontrolled_infection",
+              "question": "Does the patient have active uncontrolled infection?",
+              "question_id": "Q4",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "organ_transplant",
+              "question": "Does the patient have prior organ transplant?",
+              "question_id": "Q5",
+              "relevant_trial_ids": [
+                "NCT03237780"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_recommendations": [
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT07642414-E-uncontrolled-cardiac-disease.",
+              "trial_id": "NCT07642414"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-prior-platinum-chemotherapy,NCT03237780-E-uncontrolled-cardiac-disease.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-prior-platinum-chemotherapy,NCT04724018-E-uncontrolled-cardiac-disease.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT07091617-I-condition.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT06830031-I-condition,NCT06830031-E-uncontrolled-cardiac-disease.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "explanation": "Violated criteria: NCT07642414-E-uncontrolled-cardiac-disease.",
+              "label": "ineligible",
+              "trial_id": "NCT07642414"
+            },
+            {
+              "explanation": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-prior-platinum-chemotherapy,NCT03237780-E-uncontrolled-cardiac-disease.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-prior-platinum-chemotherapy,NCT04724018-E-uncontrolled-cardiac-disease.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "Violated criteria: NCT07091617-I-condition.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "explanation": "Violated criteria: NCT06830031-I-condition,NCT06830031-E-uncontrolled-cardiac-disease.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00051",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07642414-I-condition",
+                "reason": "Diagnosis migraine matches migraine.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07642414-I-age",
+                "reason": "Age 72 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07642414-E-uncontrolled-cardiac-disease",
+                "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07642414",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07642414",
+            "trial_title": "A Comprehensive Digital Care Program for Migraine Management"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis migraine does not match urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 72 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is in the allowed stage list IV.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 1 satisfies maximum 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The referral does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis migraine does not match metastatic urothelial cancer or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 72 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is in the allowed stage list IV.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 1 satisfies maximum 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis migraine does not match AYA cancer patient/survivor population.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 72 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is in the allowed stage list IV.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis migraine does not match B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 72 satisfies 18-75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 1 satisfies maximum 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The record reports uncontrolled cardiac disease, so the exclusion applies.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07642414",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07642414",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00051 is a 72-year-old female with migraine. Stage is recorded as IV. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. The note reports uncontrolled cardiac disease. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00051"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04743141-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches acute migraine treatment"
+                },
+                {
+                  "criterion_id": "NCT04743141-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 6-17 years"
+                }
+              ],
+              "trial_id": "NCT04743141"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches urothelial cancer"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 2"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "criterion_type": "exclusion",
+                  "requirement": "no prior organ transplant"
+                }
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches B-cell lymphoma"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 18-75 years"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                }
+              ],
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches metastatic urothelial cancer or bladder cancer"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches AYA cancer patient/survivor population"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                }
+              ],
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_output": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04743141-I-condition",
+                  "reason": "Diagnosis acute treatment of migraine matches acute migraine treatment.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04743141-I-age",
+                  "reason": "Age 8 satisfies 6-17 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "trial_id": "NCT04743141"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis acute treatment of migraine does not match urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 8 violates >=18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage I is not in the allowed stage list IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 satisfies maximum 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address prior organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis acute treatment of migraine does not match B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 8 violates 18-75 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 satisfies maximum 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis acute treatment of migraine does not match metastatic urothelial cancer or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 8 violates >=18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage I is not in the allowed stage list IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 satisfies maximum 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis acute treatment of migraine does not match AYA cancer patient/survivor population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 8 violates >=18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage I is not in the allowed stage list IV.",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "post_interaction_patient_updates": {
+            "ecog": 1,
+            "exclusion_flags": {
+              "active_autoimmune_disease": false,
+              "active_interstitial_lung_disease": false,
+              "active_uncontrolled_infection": false,
+              "organ_transplant": false,
+              "uncontrolled_cardiac_disease": false
+            },
+            "prior_platinum_chemotherapy": false,
+            "stage": "I"
+          },
+          "simulated_patient_answers": [
+            {
+              "answer": "The simulated follow-up reports that the patient has not received platinum-containing chemotherapy and has not received prior systemic therapy.",
+              "fact_key": "prior_platinum_chemotherapy",
+              "normalized_value": false,
+              "question_id": "Q1"
+            },
+            {
+              "answer": "The simulated follow-up reports no active interstitial lung disease.",
+              "fact_key": "active_interstitial_lung_disease",
+              "normalized_value": false,
+              "question_id": "Q2"
+            },
+            {
+              "answer": "The simulated follow-up reports no active autoimmune disease.",
+              "fact_key": "active_autoimmune_disease",
+              "normalized_value": false,
+              "question_id": "Q3"
+            },
+            {
+              "answer": "The simulated follow-up reports no uncontrolled cardiac disease.",
+              "fact_key": "uncontrolled_cardiac_disease",
+              "normalized_value": false,
+              "question_id": "Q4"
+            },
+            {
+              "answer": "The simulated follow-up reports no active uncontrolled infection.",
+              "fact_key": "active_uncontrolled_infection",
+              "normalized_value": false,
+              "question_id": "Q5"
+            },
+            {
+              "answer": "The simulated follow-up reports no prior organ transplant.",
+              "fact_key": "organ_transplant",
+              "normalized_value": false,
+              "question_id": "Q6"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 8,
+            "diagnosis": "acute treatment of migraine",
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "NY"
+            },
+            "prior_systemic_therapy": "not listed",
+            "reported_exclusion_flags": {},
+            "sex": "male",
+            "stage": "I"
+          },
+          "missing_facts": [
+            "prior platinum-containing chemotherapy history",
+            "active autoimmune disease",
+            "active interstitial lung disease",
+            "active uncontrolled infection",
+            "prior organ transplant",
+            "uncontrolled cardiac disease"
+          ]
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "fact_key": "prior_platinum_chemotherapy",
+              "question": "Has the patient ever received platinum-containing chemotherapy, and if so in what setting and when?",
+              "question_id": "Q1",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_interstitial_lung_disease",
+              "question": "Does the patient have active interstitial lung disease?",
+              "question_id": "Q2",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_autoimmune_disease",
+              "question": "Does the patient have active autoimmune disease?",
+              "question_id": "Q3",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT06830031",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "uncontrolled_cardiac_disease",
+              "question": "Does the patient have uncontrolled cardiac disease?",
+              "question_id": "Q4",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT06830031",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_uncontrolled_infection",
+              "question": "Does the patient have active uncontrolled infection?",
+              "question_id": "Q5",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "organ_transplant",
+              "question": "Does the patient have prior organ transplant?",
+              "question_id": "Q6",
+              "relevant_trial_ids": [
+                "NCT03237780"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_recommendations": [
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria are satisfied.",
+              "trial_id": "NCT04743141"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-age,NCT03237780-I-stage,NCT03237780-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT06830031-I-condition,NCT06830031-I-age.",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-age,NCT04724018-I-stage,NCT04724018-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT07091617-I-condition,NCT07091617-I-age,NCT07091617-I-stage.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "explanation": "All supplied criteria are satisfied.",
+              "label": "eligible",
+              "trial_id": "NCT04743141"
+            },
+            {
+              "explanation": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-age,NCT03237780-I-stage,NCT03237780-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "Violated criteria: NCT06830031-I-condition,NCT06830031-I-age.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "explanation": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-age,NCT04724018-I-stage,NCT04724018-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "Violated criteria: NCT07091617-I-condition,NCT07091617-I-age,NCT07091617-I-stage.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00052",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04743141-I-condition",
+                "reason": "Diagnosis acute treatment of migraine matches acute migraine treatment.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04743141-I-age",
+                "reason": "Age 8 satisfies 6-17 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04743141",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04743141",
+            "trial_title": "Long-term Safety Study of Rimegepant in Pediatric Subjects for the Acute Treatment of Migraine"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis acute treatment of migraine does not match urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 8 violates >=18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage I is not in the allowed stage list IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 1 satisfies maximum 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The referral does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis acute treatment of migraine does not match B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 8 violates 18-75 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 1 satisfies maximum 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis acute treatment of migraine does not match metastatic urothelial cancer or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 8 violates >=18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage I is not in the allowed stage list IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 1 satisfies maximum 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis acute treatment of migraine does not match AYA cancer patient/survivor population.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 8 violates >=18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage I is not in the allowed stage list IV.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT04743141",
+          "NCT03237780",
+          "NCT06830031",
+          "NCT04724018",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT04743141",
+          "NCT03237780",
+          "NCT06830031",
+          "NCT04724018",
+          "NCT07091617"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00052 is a 8-year-old male with acute treatment of migraine. Stage is recorded as I. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00052"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06414044-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches migraine"
+                },
+                {
+                  "criterion_id": "NCT06414044-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                }
+              ],
+              "trial_id": "NCT06414044"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches urothelial cancer"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 2"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "criterion_type": "exclusion",
+                  "requirement": "no prior organ transplant"
+                }
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches AYA cancer patient/survivor population"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                }
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches metastatic urothelial cancer or bladder cancer"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches B-cell lymphoma"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 18-75 years"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                }
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_output": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06414044-I-condition",
+                  "reason": "Diagnosis migraine matches migraine.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06414044-I-age",
+                  "reason": "Age 39 satisfies >=18 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "trial_id": "NCT06414044"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis migraine does not match urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 39 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is in the allowed stage list IV.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 3 exceeds maximum 2.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address prior organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis migraine does not match AYA cancer patient/survivor population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 39 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is in the allowed stage list IV.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis migraine does not match metastatic urothelial cancer or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 39 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is in the allowed stage list IV.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 3 exceeds maximum 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis migraine does not match B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 39 satisfies 18-75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 3 exceeds maximum 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "post_interaction_patient_updates": {
+            "ecog": 3,
+            "exclusion_flags": {
+              "active_autoimmune_disease": false,
+              "active_interstitial_lung_disease": false,
+              "active_uncontrolled_infection": false,
+              "organ_transplant": false,
+              "uncontrolled_cardiac_disease": false
+            },
+            "prior_platinum_chemotherapy": false,
+            "stage": "IV"
+          },
+          "simulated_patient_answers": [
+            {
+              "answer": "The simulated follow-up reports that the patient has not received platinum-containing chemotherapy and has not received prior systemic therapy.",
+              "fact_key": "prior_platinum_chemotherapy",
+              "normalized_value": false,
+              "question_id": "Q1"
+            },
+            {
+              "answer": "The simulated follow-up reports no active interstitial lung disease.",
+              "fact_key": "active_interstitial_lung_disease",
+              "normalized_value": false,
+              "question_id": "Q2"
+            },
+            {
+              "answer": "The simulated follow-up reports no active autoimmune disease.",
+              "fact_key": "active_autoimmune_disease",
+              "normalized_value": false,
+              "question_id": "Q3"
+            },
+            {
+              "answer": "The simulated follow-up reports no uncontrolled cardiac disease.",
+              "fact_key": "uncontrolled_cardiac_disease",
+              "normalized_value": false,
+              "question_id": "Q4"
+            },
+            {
+              "answer": "The simulated follow-up reports no active uncontrolled infection.",
+              "fact_key": "active_uncontrolled_infection",
+              "normalized_value": false,
+              "question_id": "Q5"
+            },
+            {
+              "answer": "The simulated follow-up reports no prior organ transplant.",
+              "fact_key": "organ_transplant",
+              "normalized_value": false,
+              "question_id": "Q6"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 39,
+            "diagnosis": "migraine",
+            "ecog": 3,
+            "location": {
+              "country": "US",
+              "state": "TX"
+            },
+            "prior_systemic_therapy": "not listed",
+            "reported_exclusion_flags": {},
+            "sex": "male",
+            "stage": "IV"
+          },
+          "missing_facts": [
+            "prior platinum-containing chemotherapy history",
+            "active autoimmune disease",
+            "active interstitial lung disease",
+            "active uncontrolled infection",
+            "prior organ transplant",
+            "uncontrolled cardiac disease"
+          ]
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "fact_key": "prior_platinum_chemotherapy",
+              "question": "Has the patient ever received platinum-containing chemotherapy, and if so in what setting and when?",
+              "question_id": "Q1",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_interstitial_lung_disease",
+              "question": "Does the patient have active interstitial lung disease?",
+              "question_id": "Q2",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_autoimmune_disease",
+              "question": "Does the patient have active autoimmune disease?",
+              "question_id": "Q3",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "uncontrolled_cardiac_disease",
+              "question": "Does the patient have uncontrolled cardiac disease?",
+              "question_id": "Q4",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "active_uncontrolled_infection",
+              "question": "Does the patient have active uncontrolled infection?",
+              "question_id": "Q5",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "organ_transplant",
+              "question": "Does the patient have prior organ transplant?",
+              "question_id": "Q6",
+              "relevant_trial_ids": [
+                "NCT03237780"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_recommendations": [
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria are satisfied, but trial status is ACTIVE_NOT_RECRUITING.",
+              "trial_id": "NCT06414044"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-ecog,NCT03237780-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT07091617-I-condition.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-ecog,NCT04724018-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT06830031-I-condition,NCT06830031-I-ecog.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "explanation": "All supplied criteria are satisfied, but trial status is ACTIVE_NOT_RECRUITING.",
+              "label": "eligible",
+              "trial_id": "NCT06414044"
+            },
+            {
+              "explanation": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-ecog,NCT03237780-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "Violated criteria: NCT07091617-I-condition.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "explanation": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-ecog,NCT04724018-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "Violated criteria: NCT06830031-I-condition,NCT06830031-I-ecog.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00053",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06414044-I-condition",
+                "reason": "Diagnosis migraine matches migraine.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06414044-I-age",
+                "reason": "Age 39 satisfies >=18 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06414044",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06414044",
+            "trial_title": "Italian Real-life obServational Study on the effecTiveness, sAfety and Tolerability of Atogepant in Migraine Patients"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis migraine does not match urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 39 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is in the allowed stage list IV.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 3 exceeds maximum 2.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The referral does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis migraine does not match AYA cancer patient/survivor population.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 39 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is in the allowed stage list IV.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis migraine does not match metastatic urothelial cancer or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 39 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is in the allowed stage list IV.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 3 exceeds maximum 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis migraine does not match B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 39 satisfies 18-75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 3 exceeds maximum 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06414044",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06414044",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00053 is a 39-year-old male with migraine. Stage is recorded as IV. ECOG performance status is 3. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00053"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04715685-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches pediatric migraine/headache"
+                },
+                {
+                  "criterion_id": "NCT04715685-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 10-17 years"
+                }
+              ],
+              "trial_id": "NCT04715685"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches urothelial cancer"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 2"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "criterion_type": "exclusion",
+                  "requirement": "no prior organ transplant"
+                }
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches metastatic urothelial cancer or bladder cancer"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches B-cell lymphoma"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 18-75 years"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                }
+              ],
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT05944237-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches advanced solid tumor including kidney neoplasm"
+                },
+                {
+                  "criterion_id": "NCT05944237-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT05944237-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT05944237-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT05944237-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT05944237-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                }
+              ],
+              "trial_id": "NCT05944237"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_output": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04715685-I-condition",
+                  "reason": "Diagnosis advanced renal cell carcinoma does not match pediatric migraine/headache.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04715685-I-age",
+                  "reason": "Age 10 satisfies 10-17 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04715685"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis advanced renal cell carcinoma does not match urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 10 violates >=18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 2 satisfies maximum 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address prior organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis advanced renal cell carcinoma does not match metastatic urothelial cancer or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 10 violates >=18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 2 exceeds maximum 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis advanced renal cell carcinoma does not match B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 10 violates 18-75 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 2 exceeds maximum 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT05944237-I-condition",
+                  "reason": "Diagnosis advanced renal cell carcinoma matches advanced solid tumor including kidney neoplasm.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05944237-I-age",
+                  "reason": "Age 10 violates >=18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT05944237-I-stage",
+                  "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT05944237-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT05944237-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT05944237-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT05944237"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "post_interaction_patient_updates": {
+            "ecog": 2,
+            "exclusion_flags": {
+              "active_autoimmune_disease": false,
+              "active_interstitial_lung_disease": false,
+              "active_uncontrolled_infection": false,
+              "organ_transplant": false,
+              "uncontrolled_cardiac_disease": false
+            },
+            "prior_platinum_chemotherapy": false,
+            "stage": null
+          },
+          "simulated_patient_answers": [
+            {
+              "answer": "No formal cancer stage is available after follow-up, and stage IV disease is not confirmed in the synthetic record.",
+              "fact_key": "stage",
+              "normalized_value": null,
+              "question_id": "Q1"
+            },
+            {
+              "answer": "The simulated follow-up reports that the patient has not received platinum-containing chemotherapy and has not received prior systemic therapy.",
+              "fact_key": "prior_platinum_chemotherapy",
+              "normalized_value": false,
+              "question_id": "Q2"
+            },
+            {
+              "answer": "The simulated follow-up reports no active interstitial lung disease.",
+              "fact_key": "active_interstitial_lung_disease",
+              "normalized_value": false,
+              "question_id": "Q3"
+            },
+            {
+              "answer": "The simulated follow-up reports no active autoimmune disease.",
+              "fact_key": "active_autoimmune_disease",
+              "normalized_value": false,
+              "question_id": "Q4"
+            },
+            {
+              "answer": "The simulated follow-up reports no uncontrolled cardiac disease.",
+              "fact_key": "uncontrolled_cardiac_disease",
+              "normalized_value": false,
+              "question_id": "Q5"
+            },
+            {
+              "answer": "The simulated follow-up reports no active uncontrolled infection.",
+              "fact_key": "active_uncontrolled_infection",
+              "normalized_value": false,
+              "question_id": "Q6"
+            },
+            {
+              "answer": "The simulated follow-up reports no prior organ transplant.",
+              "fact_key": "organ_transplant",
+              "normalized_value": false,
+              "question_id": "Q7"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 10,
+            "diagnosis": "advanced renal cell carcinoma",
+            "ecog": 2,
+            "location": {
+              "country": "US",
+              "state": "WA"
+            },
+            "prior_systemic_therapy": "not listed",
+            "reported_exclusion_flags": {},
+            "sex": "female",
+            "stage": null
+          },
+          "missing_facts": [
+            "prior platinum-containing chemotherapy history",
+            "active autoimmune disease",
+            "active interstitial lung disease",
+            "active uncontrolled infection",
+            "prior organ transplant",
+            "uncontrolled cardiac disease",
+            "formal cancer stage"
+          ]
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "fact_key": "stage",
+              "question": "Is there a formally documented cancer stage, specifically stage IV disease if applicable?",
+              "question_id": "Q1",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT05944237"
+              ]
+            },
+            {
+              "fact_key": "prior_platinum_chemotherapy",
+              "question": "Has the patient ever received platinum-containing chemotherapy, and if so in what setting and when?",
+              "question_id": "Q2",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_interstitial_lung_disease",
+              "question": "Does the patient have active interstitial lung disease?",
+              "question_id": "Q3",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT05944237"
+              ]
+            },
+            {
+              "fact_key": "active_autoimmune_disease",
+              "question": "Does the patient have active autoimmune disease?",
+              "question_id": "Q4",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT06830031",
+                "NCT05944237"
+              ]
+            },
+            {
+              "fact_key": "uncontrolled_cardiac_disease",
+              "question": "Does the patient have uncontrolled cardiac disease?",
+              "question_id": "Q5",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT06830031"
+              ]
+            },
+            {
+              "fact_key": "active_uncontrolled_infection",
+              "question": "Does the patient have active uncontrolled infection?",
+              "question_id": "Q6",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT06830031",
+                "NCT05944237"
+              ]
+            },
+            {
+              "fact_key": "organ_transplant",
+              "question": "Does the patient have prior organ transplant?",
+              "question_id": "Q7",
+              "relevant_trial_ids": [
+                "NCT03237780"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_recommendations": [
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT04715685-I-condition.",
+              "trial_id": "NCT04715685"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-age,NCT03237780-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-age,NCT04724018-I-ecog,NCT04724018-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT06830031-I-condition,NCT06830031-I-age,NCT06830031-I-ecog.",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT05944237-I-age.",
+              "trial_id": "NCT05944237"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "explanation": "Violated criteria: NCT04715685-I-condition.",
+              "label": "ineligible",
+              "trial_id": "NCT04715685"
+            },
+            {
+              "explanation": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-age,NCT03237780-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-age,NCT04724018-I-ecog,NCT04724018-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "Violated criteria: NCT06830031-I-condition,NCT06830031-I-age,NCT06830031-I-ecog.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "explanation": "Violated criteria: NCT05944237-I-age.",
+              "label": "ineligible",
+              "trial_id": "NCT05944237"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00054",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04715685-I-condition",
+                "reason": "Diagnosis advanced renal cell carcinoma does not match pediatric migraine/headache.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04715685-I-age",
+                "reason": "Age 10 satisfies 10-17 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04715685",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04715685",
+            "trial_title": "Mind Body Balance for Pediatric Migraine"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis advanced renal cell carcinoma does not match urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 10 violates >=18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 2 satisfies maximum 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The referral does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis advanced renal cell carcinoma does not match metastatic urothelial cancer or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 10 violates >=18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 2 exceeds maximum 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis advanced renal cell carcinoma does not match B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 10 violates 18-75 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 2 exceeds maximum 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT05944237-I-condition",
+                "reason": "Diagnosis advanced renal cell carcinoma matches advanced solid tumor including kidney neoplasm.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05944237-I-age",
+                "reason": "Age 10 violates >=18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT05944237-I-stage",
+                "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT05944237-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT05944237-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT05944237-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT05944237",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT05944237",
+            "trial_title": "HTL0039732 in Participants With Advanced Solid Tumours"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT04715685",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT05944237"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT04715685",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT05944237"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00054 is a 10-year-old female with advanced renal cell carcinoma. No formal stage is documented. ECOG performance status is 2. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00054"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07022496-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches migraine"
+                },
+                {
+                  "criterion_id": "NCT07022496-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age 18-60 years"
+                }
+              ],
+              "trial_id": "NCT07022496"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches urothelial cancer"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 2"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active uncontrolled infection"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "criterion_type": "exclusion",
+                  "requirement": "no prior organ transplant"
+                }
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches AYA cancer patient/survivor population"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                }
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches metastatic urothelial cancer or bladder cancer"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "criterion_type": "inclusion",
+                  "requirement": "stage in IV"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "criterion_type": "inclusion",
+                  "requirement": "ECOG <= 1"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "criterion_type": "inclusion",
+                  "requirement": "prior platinum chemotherapy"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active interstitial lung disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no active autoimmune disease"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07642414-I-condition",
+                  "criterion_type": "inclusion",
+                  "requirement": "diagnosis matches migraine"
+                },
+                {
+                  "criterion_id": "NCT07642414-I-age",
+                  "criterion_type": "inclusion",
+                  "requirement": "age >=18 years"
+                },
+                {
+                  "criterion_id": "NCT07642414-E-uncontrolled-cardiac-disease",
+                  "criterion_type": "exclusion",
+                  "requirement": "no uncontrolled cardiac disease"
+                }
+              ],
+              "trial_id": "NCT07642414"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_output": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07022496-I-condition",
+                  "reason": "Diagnosis migraine matches migraine.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07022496-I-age",
+                  "reason": "Age 49 satisfies 18-60 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "trial_id": "NCT07022496"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis migraine does not match urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 49 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG is not documented, so maximum 2 cannot be verified.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address prior organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis migraine does not match AYA cancer patient/survivor population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 49 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis migraine does not match metastatic urothelial cancer or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 49 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG is not documented, so maximum 1 cannot be verified.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07642414-I-condition",
+                  "reason": "Diagnosis migraine matches migraine.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07642414-I-age",
+                  "reason": "Age 49 satisfies >=18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07642414-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT07642414"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "post_interaction_patient_updates": {
+            "ecog": 1,
+            "exclusion_flags": {
+              "active_autoimmune_disease": false,
+              "active_interstitial_lung_disease": false,
+              "active_uncontrolled_infection": false,
+              "organ_transplant": false,
+              "uncontrolled_cardiac_disease": false
+            },
+            "prior_platinum_chemotherapy": false,
+            "stage": null
+          },
+          "simulated_patient_answers": [
+            {
+              "answer": "No formal cancer stage is available after follow-up, and stage IV disease is not confirmed in the synthetic record.",
+              "fact_key": "stage",
+              "normalized_value": null,
+              "question_id": "Q1"
+            },
+            {
+              "answer": "ECOG performance status is reported as 1 at simulated follow-up.",
+              "fact_key": "ecog",
+              "normalized_value": 1,
+              "question_id": "Q2"
+            },
+            {
+              "answer": "The simulated follow-up reports that the patient has not received platinum-containing chemotherapy and has not received prior systemic therapy.",
+              "fact_key": "prior_platinum_chemotherapy",
+              "normalized_value": false,
+              "question_id": "Q3"
+            },
+            {
+              "answer": "The simulated follow-up reports no active interstitial lung disease.",
+              "fact_key": "active_interstitial_lung_disease",
+              "normalized_value": false,
+              "question_id": "Q4"
+            },
+            {
+              "answer": "The simulated follow-up reports no active autoimmune disease.",
+              "fact_key": "active_autoimmune_disease",
+              "normalized_value": false,
+              "question_id": "Q5"
+            },
+            {
+              "answer": "The simulated follow-up reports no uncontrolled cardiac disease.",
+              "fact_key": "uncontrolled_cardiac_disease",
+              "normalized_value": false,
+              "question_id": "Q6"
+            },
+            {
+              "answer": "The simulated follow-up reports no active uncontrolled infection.",
+              "fact_key": "active_uncontrolled_infection",
+              "normalized_value": false,
+              "question_id": "Q7"
+            },
+            {
+              "answer": "The simulated follow-up reports no prior organ transplant.",
+              "fact_key": "organ_transplant",
+              "normalized_value": false,
+              "question_id": "Q8"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 49,
+            "diagnosis": "migraine",
+            "ecog": null,
+            "location": {
+              "country": "US",
+              "state": "MA"
+            },
+            "prior_systemic_therapy": "not listed",
+            "reported_exclusion_flags": {},
+            "sex": "male",
+            "stage": null
+          },
+          "missing_facts": [
+            "prior platinum-containing chemotherapy history",
+            "active autoimmune disease",
+            "active interstitial lung disease",
+            "active uncontrolled infection",
+            "prior organ transplant",
+            "uncontrolled cardiac disease",
+            "formal cancer stage",
+            "ECOG performance status"
+          ]
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "fact_key": "stage",
+              "question": "Is there a formally documented cancer stage, specifically stage IV disease if applicable?",
+              "question_id": "Q1",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT07091617",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "ecog",
+              "question": "What is the patient's current ECOG performance status?",
+              "question_id": "Q2",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "prior_platinum_chemotherapy",
+              "question": "Has the patient ever received platinum-containing chemotherapy, and if so in what setting and when?",
+              "question_id": "Q3",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_interstitial_lung_disease",
+              "question": "Does the patient have active interstitial lung disease?",
+              "question_id": "Q4",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "active_autoimmune_disease",
+              "question": "Does the patient have active autoimmune disease?",
+              "question_id": "Q5",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "fact_key": "uncontrolled_cardiac_disease",
+              "question": "Does the patient have uncontrolled cardiac disease?",
+              "question_id": "Q6",
+              "relevant_trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT07642414"
+              ]
+            },
+            {
+              "fact_key": "active_uncontrolled_infection",
+              "question": "Does the patient have active uncontrolled infection?",
+              "question_id": "Q7",
+              "relevant_trial_ids": [
+                "NCT03237780"
+              ]
+            },
+            {
+              "fact_key": "organ_transplant",
+              "question": "Does the patient have prior organ transplant?",
+              "question_id": "Q8",
+              "relevant_trial_ids": [
+                "NCT03237780"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_recommendations": [
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria are satisfied.",
+              "trial_id": "NCT07022496"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT07091617-I-condition.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-prior-platinum-chemotherapy.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria are satisfied.",
+              "trial_id": "NCT07642414"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "explanation": "All supplied criteria are satisfied.",
+              "label": "eligible",
+              "trial_id": "NCT07022496"
+            },
+            {
+              "explanation": "Violated criteria: NCT03237780-I-condition,NCT03237780-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "Violated criteria: NCT07091617-I-condition.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "explanation": "Violated criteria: NCT04724018-I-condition,NCT04724018-I-prior-platinum-chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "All supplied criteria are satisfied.",
+              "label": "eligible",
+              "trial_id": "NCT07642414"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00055",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07022496-I-condition",
+                "reason": "Diagnosis migraine matches migraine.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07022496-I-age",
+                "reason": "Age 49 satisfies 18-60 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07022496",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07022496",
+            "trial_title": "Assessment of Oral Caffeine Intake in Changing the Severity of Acute Migraine Attack Using VAS Score Among Patients Attending Headache and Neurology Outpatients Clinic of Ainshams University Hospitals"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis migraine does not match urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 49 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG is not documented, so maximum 2 cannot be verified.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The referral does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The referral does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis migraine does not match AYA cancer patient/survivor population.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 49 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis migraine does not match metastatic urothelial cancer or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 49 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Formal stage is not documented or stage IV is not confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG is not documented, so maximum 1 cannot be verified.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum chemotherapy is not documented in the referral.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The referral does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The referral does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07642414-I-condition",
+                "reason": "Diagnosis migraine matches migraine.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07642414-I-age",
+                "reason": "Age 49 satisfies >=18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07642414-E-uncontrolled-cardiac-disease",
+                "reason": "The referral does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07642414",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07642414",
+            "trial_title": "A Comprehensive Digital Care Program for Migraine Management"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07022496",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT07642414"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07022496",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT07642414"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00055 is a 49-year-old male with migraine. No formal stage is documented. ECOG performance status is not documented. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00055"
+    }
+  ],
+  "source": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_11.raw.json"
+}

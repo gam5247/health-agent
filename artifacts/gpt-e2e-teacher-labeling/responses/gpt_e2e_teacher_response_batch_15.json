@@ -1,0 +1,3773 @@
+{
+  "patient_count": 5,
+  "patients": [
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07312760"
+            },
+            {
+              "criterion_count": 10,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection",
+                "organ-transplant"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT04916990"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07312760-I-condition",
+                  "reason": "Diagnosis matches advanced cancer, various, NOS.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07312760-I-age",
+                  "reason": "Age 39 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07312760-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw psychotherapy criteria such as existential distress, outpatient suitability, suicidality, psychiatric exclusions, current psychotherapy, and German-language ability are not documented in the referral.",
+              "trial_id": "NCT07312760"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 39 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is not urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is not urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 39 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is not urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Advanced nonspecific cancer fits the broad cancer-patient category.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 39 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw patient-facing genetic testing criteria such as language ability, cognitive capacity, psychiatric or developmental impairment, and genetic testing assessment status are not documented.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04916990-I-condition",
+                  "reason": "Diagnosis is not one of the listed solid tumor sites.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-age",
+                  "reason": "Age 39 is within 18-99 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is not one of the listed solid tumor sites.",
+              "trial_id": "NCT04916990"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_patient_answers": [
+            {
+              "answer": "The simulated patient answer reports ECOG performance status 1.",
+              "question_id": "SYN-GEN-00071-Q1"
+            },
+            {
+              "answer": "The simulated patient answer reports no prior platinum chemotherapy, no active interstitial lung disease, no active autoimmune disease, no uncontrolled cardiac disease, no active uncontrolled infection, and no prior organ transplant.",
+              "question_id": "SYN-GEN-00071-Q2"
+            },
+            {
+              "answer": "The simulated patient answer reports existential distress with functional impairment, sufficient physical condition for outpatient psychotherapy, no acute suicidality with a plan, no excluded substance or psychotic disorder, no conflicting current psychotherapy, and sufficient German for consent and questionnaires.",
+              "question_id": "SYN-GEN-00071-Q3"
+            },
+            {
+              "answer": "The simulated patient answer reports ability to speak and read English or Spanish, no cognitive impairment, no psychiatric or developmental impairment that prevents participation, and that the genetic testing assessment is met.",
+              "question_id": "SYN-GEN-00071-Q4"
+            },
+            {
+              "answer": "The simulated patient answer reports that the cancer is not one of the rural-care trial's listed tumor sites and that the patient is not treated at one of the listed participating centers.",
+              "question_id": "SYN-GEN-00071-Q5"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "ECOG_performance_status": null,
+          "age": 39,
+          "diagnosis": "metastatic advanced cancer, various, nos",
+          "flags": {},
+          "location": {
+            "country": "US",
+            "state": "CA"
+          },
+          "missing_facts": [
+            "ECOG performance status is not documented.",
+            "Molecular testing or biomarker status is not available in the note.",
+            "Prior systemic therapy history is not documented as present in the referral.",
+            "Specific exclusion comorbidities are not addressed."
+          ],
+          "prior_treatments": [],
+          "sex": "male",
+          "stage": "IV"
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "What is the patient's ECOG performance status?",
+              "question_id": "SYN-GEN-00071-Q1"
+            },
+            {
+              "question": "Has the patient received platinum chemotherapy, and does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or a prior organ transplant?",
+              "question_id": "SYN-GEN-00071-Q2"
+            },
+            {
+              "question": "For the psychotherapy trial, does the patient have existential distress with functional impairment, sufficient physical condition for outpatient psychotherapy, no acute suicidality with a plan, no excluded substance or psychotic disorder, no conflicting current psychotherapy, and sufficient German for consent and questionnaires?",
+              "question_id": "SYN-GEN-00071-Q3"
+            },
+            {
+              "question": "For the inherited cancer genetic testing trial, can the patient speak and read English or Spanish, does the patient lack cognitive or psychiatric impairment that prevents participation, and does the patient meet the study genetic-testing assessment?",
+              "question_id": "SYN-GEN-00071-Q4"
+            },
+            {
+              "question": "Is the cancer one of lung, head and neck, thyroid, cervical, breast, bladder, colon, or rectal cancer, and is the patient treated at one of the listed rural-care participating centers?",
+              "question_id": "SYN-GEN-00071-Q5"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07312760-I-condition",
+                  "reason": "Simulation keeps the matching advanced cancer diagnosis.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07312760-I-age",
+                  "reason": "Age 39 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07312760-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07312760"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Simulation confirms no urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 39 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Simulation reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Simulation confirms no urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 39 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Simulation confirms active cancer within the broad trial population.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 39 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04916990-I-condition",
+                  "reason": "Simulation confirms the primary site is not listed.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-age",
+                  "reason": "Age 39 is within 18-99 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms the primary site is not listed.",
+              "trial_id": "NCT04916990"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "trial_explanations": [
+            {
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07312760"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms the primary site is not listed.",
+              "trial_id": "NCT04916990"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00071",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07312760-I-condition",
+                "reason": "Simulation keeps the matching advanced cancer diagnosis.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07312760-I-age",
+                "reason": "Age 39 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07312760-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07312760",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07312760",
+            "trial_title": "Existential Distress in Advanced Cancer: Comparing a Short-term Psychodynamic Psychotherapy (ORPHYS) to Treatment as Usual (TAU)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Simulation confirms no urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 39 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG performance status 1 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Simulation reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Simulation confirms no urothelial or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 39 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG performance status 1 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Simulation confirms active cancer within the broad trial population.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 39 is within 18-39 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04916990-I-condition",
+                "reason": "Simulation confirms the primary site is not listed.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04916990-I-age",
+                "reason": "Age 39 is within 18-99 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04916990-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04916990",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04916990",
+            "trial_title": "Improving Care for Rural Patients With Solid Tumors"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07312760",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT04916990"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07312760",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT04916990"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00071 is a 39-year-old male with metastatic advanced cancer, various, nos. Stage is recorded as IV. ECOG performance status is not documented. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00071"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "ecog"
+              ],
+              "trial_id": "NCT05544019"
+            },
+            {
+              "criterion_count": 10,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection",
+                "organ-transplant"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 6,
+              "fields": [
+                "condition",
+                "age",
+                "ecog",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection"
+              ],
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT05544019-I-condition",
+                  "reason": "Diagnosis matches mature B-cell neoplasm.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05544019-I-age",
+                  "reason": "Age 65 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05544019-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 0.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw criteria requiring measurable or detectable disease, treatment initiation criteria, life expectancy, and selected safety exclusions are not documented.",
+              "trial_id": "NCT05544019"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 65 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage III is not in the allowed stage list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is not urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is not urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 65 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage III is not in the allowed stage list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is not urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "The note does not specify CD19-positive large B-cell lymphoma.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 65 is within 18-75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Required facts are missing for NCT06830031-I-condition, NCT06830031-E-active-autoimmune-disease, NCT06830031-E-uncontrolled-cardiac-disease, NCT06830031-E-active-uncontrolled-infection.",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "The patient has a cancer diagnosis within the broad cancer-patient category.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 65 exceeds the maximum age of 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage III is not in the allowed stage list ['IV'].",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Age 65 exceeds the maximum age of 39 years.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_patient_answers": [
+            {
+              "answer": "The simulated patient answer reports measurable or detectable mature B-cell malignancy requiring treatment, life expectancy of at least 12 weeks, no immediate cytoreductive therapy need, no recent invasive malignancy, no SGR-1505 allergy, and no active CNS involvement.",
+              "question_id": "SYN-GEN-00072-Q1"
+            },
+            {
+              "answer": "The simulated patient answer reports no prior platinum chemotherapy and no active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant.",
+              "question_id": "SYN-GEN-00072-Q2"
+            },
+            {
+              "answer": "The simulated patient answer reports that the disease is not CD19-positive large B-cell lymphoma, and that the patient has not received anthracycline-based therapy plus rituximab or another CD20-targeted drug for relapsed or refractory large B-cell lymphoma.",
+              "question_id": "SYN-GEN-00072-Q3"
+            },
+            {
+              "answer": "The simulated patient answer confirms the patient is 65 years old and therefore not within the raw 18 through 39 year patient age range.",
+              "question_id": "SYN-GEN-00072-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "ECOG_performance_status": 0,
+          "age": 65,
+          "diagnosis": "metastatic mature b-cell neoplasm",
+          "flags": {},
+          "location": {
+            "country": "US",
+            "state": "NY"
+          },
+          "missing_facts": [
+            "Molecular testing or biomarker status is not available in the note.",
+            "Prior systemic therapy history is not documented as present in the referral.",
+            "Specific exclusion comorbidities are not addressed."
+          ],
+          "prior_treatments": [],
+          "sex": "male",
+          "stage": "III"
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "For the SGR-1505 trial, does the patient have measurable or detectable mature B-cell malignancy requiring treatment, life expectancy of at least 12 weeks, no immediate cytoreductive therapy need, no recent invasive malignancy, no SGR-1505 allergy, and no active CNS involvement?",
+              "question_id": "SYN-GEN-00072-Q1"
+            },
+            {
+              "question": "Has the patient received prior platinum chemotherapy, and are urothelial cancer exclusion comorbidities absent?",
+              "question_id": "SYN-GEN-00072-Q2"
+            },
+            {
+              "question": "Is the disease CD19-positive large B-cell lymphoma, and has the patient received prior anthracycline-based therapy plus rituximab or another CD20-targeted drug with relapsed or refractory disease after later therapy?",
+              "question_id": "SYN-GEN-00072-Q3"
+            },
+            {
+              "question": "Is the patient within the 18 through 39 year patient age range for the inherited cancer genetic testing study?",
+              "question_id": "SYN-GEN-00072-Q4"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT05544019-I-condition",
+                  "reason": "Simulation confirms mature B-cell neoplasm.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05544019-I-age",
+                  "reason": "Age 65 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05544019-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 0.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT05544019"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Simulation confirms no urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 65 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage III is not in the allowed stage list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Simulation reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Simulation confirms no urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 65 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage III is not in the allowed stage list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Simulation says the disease is not a listed CD19-positive large B-cell lymphoma subtype.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 65 is within 18-75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation says the disease is not a listed CD19-positive large B-cell lymphoma subtype.",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Simulation confirms a cancer diagnosis.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 65 exceeds the maximum age of 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage III is not in the allowed stage list ['IV'].",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Age 65 exceeds the maximum age of 39 years.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "trial_explanations": [
+            {
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT05544019"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation says the disease is not a listed CD19-positive large B-cell lymphoma subtype.",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Age 65 exceeds the maximum age of 39 years.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00072",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT05544019-I-condition",
+                "reason": "Simulation confirms mature B-cell neoplasm.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05544019-I-age",
+                "reason": "Age 65 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05544019-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 0.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT05544019",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT05544019",
+            "trial_title": "Study of SGR-1505 in Mature B-Cell Neoplasms"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Simulation confirms no urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 65 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage III is not in the allowed stage list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Simulation reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Simulation confirms no urothelial or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 65 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage III is not in the allowed stage list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Simulation says the disease is not a listed CD19-positive large B-cell lymphoma subtype.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 65 is within 18-75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Simulation confirms a cancer diagnosis.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 65 exceeds the maximum age of 39 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage III is not in the allowed stage list ['IV'].",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT05544019",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT05544019",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT07091617"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00072 is a 65-year-old male with metastatic mature b-cell neoplasm. Stage is recorded as III. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00072"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "ecog"
+              ],
+              "trial_id": "NCT05108298"
+            },
+            {
+              "criterion_count": 10,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection",
+                "organ-transplant"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT04916990"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT05108298-I-condition",
+                  "reason": "Diagnosis matches Breast Cancer, NOS.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05108298-I-age",
+                  "reason": "Age 33 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05108298-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 3.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw questionnaire-study criteria such as new primary diagnosis timing, cancer treatment plan, life expectancy, English questionnaire ability, device access, and absence of recurrence or second primary cancer are not fully documented.",
+              "trial_id": "NCT05108298"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is breast cancer, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 33 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is breast cancer, not urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is breast cancer, not urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 33 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is breast cancer, not urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04916990-I-condition",
+                  "reason": "Diagnosis is breast cancer, a listed tumor type.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-age",
+                  "reason": "Age 33 is within 18-99 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "The raw criteria require treatment at specified participating centers and residence in served rural counties; the referral says the patient receives care in Texas, which is not one of the named care settings in the supplied excerpt.",
+              "trial_id": "NCT04916990"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Breast cancer fits the broad AYA cancer-patient category.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 33 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw genetic-testing criteria such as language ability, cognitive capacity, psychiatric or developmental impairment, and genetic testing assessment status are not documented.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_patient_answers": [
+            {
+              "answer": "The simulated patient answer reports histologically confirmed primary breast cancer diagnosed within 12 weeks, planned cancer treatment, life expectancy greater than 24 months, ability to complete English questionnaires, internet, email, and mobile text access, intact self-report capacity, and no recurrence or second primary cancer.",
+              "question_id": "SYN-GEN-00073-Q1"
+            },
+            {
+              "answer": "The simulated patient answer reports no prior platinum chemotherapy, no active interstitial lung disease, no active autoimmune disease, no uncontrolled cardiac disease, no active uncontrolled infection, and no prior organ transplant.",
+              "question_id": "SYN-GEN-00073-Q2"
+            },
+            {
+              "answer": "The simulated patient answer reports that she is not receiving care at one of the named rural-care participating centers and does not reside in a served rural county.",
+              "question_id": "SYN-GEN-00073-Q3"
+            },
+            {
+              "answer": "The simulated patient answer reports ability to speak and read English or Spanish, no cognitive impairment, no psychiatric or developmental impairment that prevents participation, and that the genetic testing assessment is met.",
+              "question_id": "SYN-GEN-00073-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "ECOG_performance_status": 0,
+          "age": 33,
+          "diagnosis": "metastatic breast cancer, nos",
+          "flags": {},
+          "location": {
+            "country": "US",
+            "state": "TX"
+          },
+          "missing_facts": [
+            "Molecular testing or biomarker status is not available in the note.",
+            "Prior systemic therapy history is not documented as present in the referral.",
+            "Specific exclusion comorbidities are not addressed."
+          ],
+          "prior_treatments": [],
+          "sex": "female",
+          "stage": "IV"
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "For the AYA self-reported data trial, is this a histologically confirmed primary cancer diagnosed within 12 weeks, is treatment received or planned, is life expectancy greater than 24 months, can the patient complete English questionnaires, does she have internet, email, and mobile text access, can she self-report accurately, and is there no recurrence or second primary cancer?",
+              "question_id": "SYN-GEN-00073-Q1"
+            },
+            {
+              "question": "Has the patient received prior platinum chemotherapy, and are urothelial cancer exclusion comorbidities absent?",
+              "question_id": "SYN-GEN-00073-Q2"
+            },
+            {
+              "question": "Is the patient receiving care at one of the named rural-care participating centers and residing in a served rural county?",
+              "question_id": "SYN-GEN-00073-Q3"
+            },
+            {
+              "question": "For the inherited cancer genetic testing study, can the patient speak and read English or Spanish, does she lack cognitive or psychiatric impairment that prevents participation, and does she meet the study genetic-testing assessment?",
+              "question_id": "SYN-GEN-00073-Q4"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT05108298-I-condition",
+                  "reason": "Simulation confirms breast cancer.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05108298-I-age",
+                  "reason": "Age 33 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT05108298-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 3.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT05108298"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Simulation confirms no urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 33 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Simulation reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Simulation confirms no urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 33 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04916990-I-condition",
+                  "reason": "Simulation confirms breast cancer.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-age",
+                  "reason": "Age 33 is within 18-99 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04916990-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulated answers confirm the patient is not treated at one of the listed participating centers and does not reside in a served rural county.",
+              "trial_id": "NCT04916990"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Simulation confirms adult young-adult cancer status.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 33 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "trial_explanations": [
+            {
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT05108298"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulated answers confirm the patient is not treated at one of the listed participating centers and does not reside in a served rural county.",
+              "trial_id": "NCT04916990"
+            },
+            {
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00073",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT05108298-I-condition",
+                "reason": "Simulation confirms breast cancer.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05108298-I-age",
+                "reason": "Age 33 is within 18-39 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05108298-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 3.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT05108298",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT05108298",
+            "trial_title": "Improving Adolescent and Young Adult Self-Reported Data in ECOG-ACRIN Trials"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Simulation confirms no urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 33 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Simulation reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Simulation confirms no urothelial or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 33 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04916990-I-condition",
+                "reason": "Simulation confirms breast cancer.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04916990-I-age",
+                "reason": "Age 33 is within 18-99 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04916990-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04916990",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04916990",
+            "trial_title": "Improving Care for Rural Patients With Solid Tumors"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Simulation confirms adult young-adult cancer status.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 33 is within 18-39 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT05108298",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT04916990",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT05108298",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT04916990",
+          "NCT07091617"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00073 is a 33-year-old female with metastatic breast cancer, nos. Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00073"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criterion_count": 5,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection"
+              ],
+              "trial_id": "NCT06942039"
+            },
+            {
+              "criterion_count": 10,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection",
+                "organ-transplant"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "stage",
+                "prior-induction-chemotherapy"
+              ],
+              "trial_id": "NCT06861244"
+            },
+            {
+              "criterion_count": 6,
+              "fields": [
+                "condition",
+                "age",
+                "ecog",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection"
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06942039-I-condition",
+                  "reason": "Diagnosis matches CNS embryonal tumor.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-age",
+                  "reason": "Age 18 exceeds the maximum age of 6 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                  "reason": "The referral reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Age 18 exceeds the maximum age of 6 years.",
+              "trial_id": "NCT06942039"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is CNS embryonal tumor, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 18 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is CNS embryonal tumor, not urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is CNS embryonal tumor, not urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 18 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is CNS embryonal tumor, not urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06861244-I-condition",
+                  "reason": "The note does not confirm embryonal tumor with multilayered rosettes.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                  "reason": "Prior induction chemotherapy is not documented.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Required facts are missing for NCT06861244-I-condition, NCT06861244-I-prior-induction-chemotherapy.",
+              "trial_id": "NCT06861244"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis is not a listed large B-cell lymphoma subtype.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 18 is within 18-75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The referral reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is not a listed large B-cell lymphoma subtype.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_patient_answers": [
+            {
+              "answer": "The simulated patient answer reports that the tumor is not molecularly or histologically confirmed as embryonal tumor with multilayered rosettes and that the patient has not received induction chemotherapy.",
+              "question_id": "SYN-GEN-00074-Q1"
+            },
+            {
+              "answer": "The simulated patient answer reports no prior platinum chemotherapy, no active interstitial lung disease, no active autoimmune disease, and no prior organ transplant.",
+              "question_id": "SYN-GEN-00074-Q2"
+            },
+            {
+              "answer": "The simulated patient answer reports no excluded neuropathology and no uncontrolled medical disease beyond the already documented absence of uncontrolled cardiac disease and active uncontrolled infection.",
+              "question_id": "SYN-GEN-00074-Q3"
+            },
+            {
+              "answer": "The simulated patient answer reports no active autoimmune disease.",
+              "question_id": "SYN-GEN-00074-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "ECOG_performance_status": 0,
+          "age": 18,
+          "diagnosis": "metastatic cns embryonal tumor",
+          "flags": {
+            "active_uncontrolled_infection": false,
+            "uncontrolled_cardiac_disease": false
+          },
+          "location": {
+            "country": "US",
+            "state": "WA"
+          },
+          "missing_facts": [
+            "Molecular testing or biomarker status is not available in the note.",
+            "Prior systemic therapy history is not documented as present in the referral."
+          ],
+          "prior_treatments": [],
+          "sex": "female",
+          "stage": "IV"
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "Is the tumor molecularly or histologically confirmed as embryonal tumor with multilayered rosettes, and has the patient received induction chemotherapy?",
+              "question_id": "SYN-GEN-00074-Q1"
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, prior organ transplant, or prior platinum chemotherapy?",
+              "question_id": "SYN-GEN-00074-Q2"
+            },
+            {
+              "question": "For the pediatric CNS embryonal tumor trial, is there any excluded neuropathology or uncontrolled medical disease not already documented?",
+              "question_id": "SYN-GEN-00074-Q3"
+            },
+            {
+              "question": "Does the patient have active autoimmune disease?",
+              "question_id": "SYN-GEN-00074-Q4"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06942039-I-condition",
+                  "reason": "Simulation confirms CNS embryonal tumor.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-age",
+                  "reason": "Age 18 exceeds the maximum age of 6 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Age 18 exceeds the maximum age of 6 years.",
+              "trial_id": "NCT06942039"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Simulation confirms no urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 18 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Simulation reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Simulation confirms no urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 18 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06861244-I-condition",
+                  "reason": "Simulation says the tumor is not confirmed as embryonal tumor with multilayered rosettes.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                  "reason": "Simulation reports no induction chemotherapy.",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation says the tumor is not confirmed as embryonal tumor with multilayered rosettes.",
+              "trial_id": "NCT06861244"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Simulation confirms no large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 18 is within 18-75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG performance status 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "trial_explanations": [
+            {
+              "label": "ineligible",
+              "reason": "Age 18 exceeds the maximum age of 6 years.",
+              "trial_id": "NCT06942039"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation says the tumor is not confirmed as embryonal tumor with multilayered rosettes.",
+              "trial_id": "NCT06861244"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00074",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06942039-I-condition",
+                "reason": "Simulation confirms CNS embryonal tumor.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-I-age",
+                "reason": "Age 18 exceeds the maximum age of 6 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06942039-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06942039",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06942039",
+            "trial_title": "Pilot Study of IT Topotecan and Maintenance Chemotherapy for HR-EBTs in Children < 6 Years, Post Consolidation"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Simulation confirms no urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 18 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Simulation reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Simulation confirms no urothelial or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 18 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06861244-I-condition",
+                "reason": "Simulation says the tumor is not confirmed as embryonal tumor with multilayered rosettes.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06861244-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                "reason": "Simulation reports no induction chemotherapy.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06861244",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06861244",
+            "trial_title": "Embryonal Tumor With Multilayered Rosettes"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Simulation confirms no large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 18 is within 18-75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG performance status 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06942039",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06861244",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06942039",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06861244",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00074 is a 18-year-old female with metastatic cns embryonal tumor. Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No uncontrolled cardiac disease is reported. No active uncontrolled infection is reported. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00074"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "trials": [
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "stage",
+                "prior-induction-chemotherapy"
+              ],
+              "trial_id": "NCT06861244"
+            },
+            {
+              "criterion_count": 10,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection",
+                "organ-transplant"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior-platinum-chemotherapy",
+                "active-interstitial-lung-disease",
+                "active-autoimmune-disease",
+                "uncontrolled-cardiac-disease"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 5,
+              "fields": [
+                "condition",
+                "age",
+                "stage",
+                "uncontrolled-cardiac-disease",
+                "active-uncontrolled-infection"
+              ],
+              "trial_id": "NCT06942039"
+            },
+            {
+              "criterion_count": 3,
+              "fields": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06861244-I-condition",
+                  "reason": "Diagnosis matches embryonal tumor with multilayered rosettes.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                  "reason": "Prior induction chemotherapy is documented.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw exclusion criteria such as pregnancy or breastfeeding, uncontrolled intercurrent illness, other investigational agents, and prior radiation are not documented.",
+              "trial_id": "NCT06861244"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is embryonal tumor with multilayered rosettes, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 37 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The referral does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is embryonal tumor with multilayered rosettes, not urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is embryonal tumor with multilayered rosettes, not urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 37 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum chemotherapy is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The referral does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The referral does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Diagnosis is embryonal tumor with multilayered rosettes, not urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06942039-I-condition",
+                  "reason": "ETMR is included in the CNS embryonal tumor condition list.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-age",
+                  "reason": "Age 37 exceeds the maximum age of 6 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                  "reason": "The referral does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                  "reason": "The referral does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Age 37 exceeds the maximum age of 6 years.",
+              "trial_id": "NCT06942039"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "ETMR is a cancer diagnosis in the AYA cancer-patient category.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 37 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "reason": "Raw genetic-testing criteria such as language ability, cognitive capacity, psychiatric or developmental impairment, and genetic testing assessment status are not documented.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_patient_answers": [
+            {
+              "answer": "The simulated patient answer reports adequate tumor tissue, no prior tumor radiation, no other tumor-directed investigational agent, no uncontrolled intercurrent illness, and that the patient is pregnant or breastfeeding.",
+              "question_id": "SYN-GEN-00075-Q1"
+            },
+            {
+              "answer": "The simulated patient answer reports no prior platinum chemotherapy, no active interstitial lung disease, no active autoimmune disease, no uncontrolled cardiac disease, no active uncontrolled infection, and no prior organ transplant.",
+              "question_id": "SYN-GEN-00075-Q2"
+            },
+            {
+              "answer": "The simulated patient answer reports no uncontrolled cardiac disease and no active uncontrolled infection.",
+              "question_id": "SYN-GEN-00075-Q3"
+            },
+            {
+              "answer": "The simulated patient answer reports ability to speak and read English or Spanish, no cognitive impairment, no psychiatric or developmental impairment that prevents participation, and that the genetic testing assessment is met.",
+              "question_id": "SYN-GEN-00075-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "ECOG_performance_status": 1,
+          "age": 37,
+          "diagnosis": "metastatic embryonal tumor with multilayered rosettes",
+          "flags": {},
+          "location": {
+            "country": "US",
+            "state": "MA"
+          },
+          "missing_facts": [
+            "Molecular testing or biomarker status is not available in the note.",
+            "Specific exclusion comorbidities are not addressed."
+          ],
+          "prior_treatments": [
+            "induction chemotherapy"
+          ],
+          "sex": "female",
+          "stage": "IV"
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "For the ETMR trial, is adequate tumor tissue available, has the patient had prior tumor radiation or another tumor-directed investigational agent, is there uncontrolled intercurrent illness, and is the patient pregnant or breastfeeding?",
+              "question_id": "SYN-GEN-00075-Q1"
+            },
+            {
+              "question": "Has the patient received prior platinum chemotherapy, and are urothelial cancer exclusion comorbidities absent?",
+              "question_id": "SYN-GEN-00075-Q2"
+            },
+            {
+              "question": "Does the patient have uncontrolled cardiac disease or active uncontrolled infection for the pediatric CNS embryonal tumor study?",
+              "question_id": "SYN-GEN-00075-Q3"
+            },
+            {
+              "question": "For the inherited cancer genetic testing study, can the patient speak and read English or Spanish, does she lack cognitive or psychiatric impairment that prevents participation, and does she meet the study genetic-testing assessment?",
+              "question_id": "SYN-GEN-00075-Q4"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06861244-I-condition",
+                  "reason": "Simulation confirms embryonal tumor with multilayered rosettes.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                  "reason": "Simulation reports induction chemotherapy.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulated answers state the patient is pregnant or breastfeeding, which conflicts with the raw exclusion criterion for women of childbearing potential.",
+              "trial_id": "NCT06861244"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Simulation confirms no urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 37 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Simulation reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Simulation confirms no urothelial or bladder cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 37 is at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Simulation reports no prior platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Simulation reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Simulation reports no active autoimmune disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06942039-I-condition",
+                  "reason": "Simulation confirms ETMR, which is included.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-age",
+                  "reason": "Age 37 exceeds the maximum age of 6 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                  "reason": "Simulation reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                  "reason": "Simulation reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Age 37 exceeds the maximum age of 6 years.",
+              "trial_id": "NCT06942039"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Simulation confirms adult young-adult cancer status.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 37 is within 18-39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "trial_explanations": [
+            {
+              "label": "ineligible",
+              "reason": "Simulated answers state the patient is pregnant or breastfeeding, which conflicts with the raw exclusion criterion for women of childbearing potential.",
+              "trial_id": "NCT06861244"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial carcinoma.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Simulation confirms no urothelial or bladder cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Age 37 exceeds the maximum age of 6 years.",
+              "trial_id": "NCT06942039"
+            },
+            {
+              "label": "eligible",
+              "reason": "Supplied criteria are satisfied and simulated answers resolve raw screening items without a blocker.",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00075",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06861244-I-condition",
+                "reason": "Simulation confirms embryonal tumor with multilayered rosettes.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06861244-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                "reason": "Simulation reports induction chemotherapy.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06861244",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06861244",
+            "trial_title": "Embryonal Tumor With Multilayered Rosettes"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Simulation confirms no urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 37 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG performance status 1 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Simulation reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Simulation confirms no urothelial or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 37 is at least 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG performance status 1 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Simulation reports no prior platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Simulation reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Simulation reports no active autoimmune disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06942039-I-condition",
+                "reason": "Simulation confirms ETMR, which is included.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-I-age",
+                "reason": "Age 37 exceeds the maximum age of 6 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06942039-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                "reason": "Simulation reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                "reason": "Simulation reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06942039",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06942039",
+            "trial_title": "Pilot Study of IT Topotecan and Maintenance Chemotherapy for HR-EBTs in Children < 6 Years, Post Consolidation"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Simulation confirms adult young-adult cancer status.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 37 is within 18-39 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06861244",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06942039",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06861244",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06942039",
+          "NCT07091617"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00075 is a 37-year-old female with metastatic embryonal tumor with multilayered rosettes. Stage is recorded as IV. ECOG performance status is 1. Molecular testing results are not available in the note. Prior therapy includes induction chemotherapy. No explicit exclusion comorbidities are addressed. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00075"
+    }
+  ],
+  "source": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_15.raw.json"
+}

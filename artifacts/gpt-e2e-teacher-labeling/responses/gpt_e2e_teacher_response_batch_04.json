@@ -1,0 +1,3822 @@
+{
+  "patient_count": 5,
+  "patients": [
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "note": "Supplied structured criteria are evaluated exactly once per trial in the initial and final assessment sections; raw excerpts are summarized as additional protocol factors when they affect follow-up or final labels.",
+          "trial_count": 5,
+          "trials": [
+            {
+              "supplied_criterion_count": 2,
+              "title": "Thyroidectomy for Graves' Disease or Amiodarone-induced Thyrotoxicosis",
+              "trial_id": "NCT06963203"
+            },
+            {
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "supplied_criterion_count": 6,
+              "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_graves_surgery_hyperthyroidism_or_medication",
+                  "reason": "Initial note lacks surgical and hyperthyroidism details.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_consent_pregnancy_and_concurrent_surgery_checks",
+                  "reason": "Initial note lacks consent, pregnancy, and concurrent-surgery details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06963203-I-condition",
+                  "reason": "Diagnosis is graves disease, matching Graves disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06963203-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT06963203"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is graves disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Initial note does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Initial note does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is graves disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis is graves disease, not large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Initial note does not address active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_cancer_patient_or_survivor_status",
+                  "reason": "No supplied cancer diagnosis or survivorship history is documented.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_age_18_to_39",
+                  "reason": "Raw patient age range is 18 to 39; patient is 48.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis is graves disease; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_answers": [
+            {
+              "answer": "Yes. She is scheduled for thyroidectomy for Graves disease, has biochemically confirmed hyperthyroidism, and is receiving antithyroid medication.",
+              "question_id": "SYN-GEN-00016-Q1"
+            },
+            {
+              "answer": "She can provide signed informed consent, is not pregnant, has no planned concurrent parathyroidectomy, lymph node clearance, or redo surgery, and the surgical indication is Graves disease.",
+              "question_id": "SYN-GEN-00016-Q2"
+            },
+            {
+              "answer": "No. The clinician confirms she has never received platinum chemotherapy and has had no prior systemic cancer therapy.",
+              "question_id": "SYN-GEN-00016-Q3"
+            },
+            {
+              "answer": "No active interstitial lung disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant is present. Her Graves disease is active and should be treated as active autoimmune disease for exclusion screening in non-Graves trials.",
+              "question_id": "SYN-GEN-00016-Q4"
+            },
+            {
+              "answer": "No. There is no history of cancer diagnosis or cancer survivorship at age 39 or younger.",
+              "question_id": "SYN-GEN-00016-Q5"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 48,
+            "diagnosis": "graves disease",
+            "documented_flags": {},
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "IL"
+            },
+            "sex": "female",
+            "stage": "III"
+          },
+          "missing": [
+            "molecular results",
+            "prior systemic therapy confirmation",
+            "exclusion comorbidities"
+          ]
+        },
+        "question_generation_agent": {
+          "questions": [
+            {
+              "question": "Is the patient undergoing thyroidectomy or other surgical treatment for Graves disease, and is hyperthyroidism biochemically confirmed or being treated with protocol-relevant medication?",
+              "question_id": "SYN-GEN-00016-Q1",
+              "trial_ids": [
+                "NCT06963203"
+              ]
+            },
+            {
+              "question": "Can the patient provide signed informed consent, is she pregnant, and is any concurrent parathyroidectomy, lymph node clearance, redo surgery, or surgery for a non-Graves reason planned?",
+              "question_id": "SYN-GEN-00016-Q2",
+              "trial_ids": [
+                "NCT06963203"
+              ]
+            },
+            {
+              "question": "Has the patient ever received platinum chemotherapy?",
+              "question_id": "SYN-GEN-00016-Q3",
+              "trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or prior organ transplant?",
+              "question_id": "SYN-GEN-00016-Q4",
+              "trial_ids": [
+                "NCT03237780",
+                "NCT04724018",
+                "NCT06830031"
+              ]
+            },
+            {
+              "question": "Does the patient have a cancer diagnosis or cancer survivorship history diagnosed at age 39 or younger?",
+              "question_id": "SYN-GEN-00016-Q5",
+              "trial_ids": [
+                "NCT07091617"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_graves_surgery_hyperthyroidism_or_medication",
+                  "reason": "Follow-up confirms thyroidectomy for Graves disease with biochemical hyperthyroidism and medication.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_consent_pregnancy_and_concurrent_surgery_checks",
+                  "reason": "Follow-up confirms consent ability, not pregnant, and no disallowed concurrent surgery.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06963203-I-condition",
+                  "reason": "Diagnosis is graves disease, matching Graves disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06963203-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT06963203"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is graves disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT03237780-I-condition, NCT03237780-I-stage, NCT03237780-I-prior-platinum-chemotherapy, NCT03237780-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is graves disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT04724018-I-condition, NCT04724018-I-stage, NCT04724018-I-prior-platinum-chemotherapy, NCT04724018-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis is graves disease, not large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT06830031-I-condition, NCT06830031-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_cancer_patient_or_survivor_status",
+                  "reason": "No supplied cancer diagnosis or survivorship history is documented.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_age_18_to_39",
+                  "reason": "Raw patient age range is 18 to 39; patient is 48.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis is graves disease; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 48 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT07091617-I-condition, NCT07091617-I-stage, raw_cancer_patient_or_survivor_status, raw_age_18_to_39.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT07091617"
+            }
+          ],
+          "ranked_trial_ids": [
+            "NCT06963203",
+            "NCT03237780",
+            "NCT04724018",
+            "NCT06830031",
+            "NCT07091617"
+          ]
+        },
+        "result_explanation_agent": {
+          "summary": "Eligible: ['NCT06963203']. Uncertain: []. Ineligible: ['NCT03237780', 'NCT04724018', 'NCT06830031', 'NCT07091617']."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00016",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06963203-I-condition",
+                "reason": "Diagnosis is graves disease, matching Graves disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06963203-I-age",
+                "reason": "Age 48 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06963203",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06963203",
+            "trial_title": "Thyroidectomy for Graves' Disease or Amiodarone-induced Thyrotoxicosis"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis is graves disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 48 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 0 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis is graves disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 48 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis is graves disease, not large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 48 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis is graves disease; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 48 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage III is not in the supplied allowed list ['IV'].",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06963203",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06963203",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT07091617"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00016 is a 48-year-old female with graves disease. Stage is recorded as III. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in IL. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00016"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "note": "Supplied structured criteria are evaluated exactly once per trial in the initial and final assessment sections; raw excerpts are summarized as additional protocol factors when they affect follow-up or final labels.",
+          "trial_count": 5,
+          "trials": [
+            {
+              "supplied_criterion_count": 2,
+              "title": "An Efficacy, Safety, and Tolerability Study of VRDN-003 in Participants With Active Thyroid Eye Disease (TED)",
+              "trial_id": "NCT06625411"
+            },
+            {
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "supplied_criterion_count": 2,
+              "title": "A Study of IBI3031 in Participants With Thyroid Eye Disease",
+              "trial_id": "NCT07622368"
+            },
+            {
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_active_thyroid_eye_disease_score_and_onset",
+                  "reason": "Initial note lacks activity score and onset timing.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_treatment_and_safety_exclusions",
+                  "reason": "Initial note lacks prior-treatment and safety exclusion details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06625411-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06625411-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT06625411"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Initial note does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Initial note does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_activity_eye_thyroid_weight_and_antibody_details",
+                  "reason": "Initial note lacks activity, eye findings, thyroid function, weight, and thyrotrophin receptor antibody status.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_ted_safety_exclusions",
+                  "reason": "Initial note lacks optic neuropathy, corneal, ophthalmic, diabetes, and hypertension exclusion details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07622368-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07622368-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT07622368"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_cancer_patient_or_survivor_status",
+                  "reason": "No supplied cancer diagnosis or survivorship history is documented.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_age_18_to_39",
+                  "reason": "Raw patient age range is 18 to 39; patient is 45.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_answers": [
+            {
+              "answer": "Yes. He has moderate to severe active thyroid eye disease, Clinical Activity Score 4 in the study eye, and ocular symptoms that began 8 months before screening.",
+              "question_id": "SYN-GEN-00017-Q1"
+            },
+            {
+              "answer": "No relevant exclusion is present. He has not received anti-IGF-1R therapy, recent corticosteroids, selenium, immunosuppression, investigational therapy, or radioactive iodine; he has had no orbital irradiation or decompression, no abnormal hearing issue, no inflammatory bowel disease, and no interfering ophthalmic condition.",
+              "question_id": "SYN-GEN-00017-Q2"
+            },
+            {
+              "answer": "For the IBI3031 criteria, weight is 82 kg, Clinical Activity Score is 4, symptom duration is within 12 months, ophthalmic findings are qualifying, thyroid function is acceptable, and TRAb is positive. There is no dysthyroid optic neuropathy, corneal ulcer, non-TED ophthalmic disease affecting interpretation, severe thyroid dysfunction, poorly controlled diabetes, or poorly controlled hypertension.",
+              "question_id": "SYN-GEN-00017-Q3"
+            },
+            {
+              "answer": "No. He has not received platinum chemotherapy.",
+              "question_id": "SYN-GEN-00017-Q4"
+            },
+            {
+              "answer": "No active interstitial lung disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant is present. His thyroid eye disease is active and should be treated as active autoimmune disease for off-target immunotherapy exclusion screening.",
+              "question_id": "SYN-GEN-00017-Q5"
+            },
+            {
+              "answer": "No. There is no cancer diagnosis or cancer survivorship history.",
+              "question_id": "SYN-GEN-00017-Q6"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 45,
+            "diagnosis": "thyroid eye disease",
+            "documented_flags": {},
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "FL"
+            },
+            "sex": "male",
+            "stage": "IV"
+          },
+          "missing": [
+            "molecular results",
+            "prior systemic therapy confirmation",
+            "exclusion comorbidities"
+          ]
+        },
+        "question_generation_agent": {
+          "questions": [
+            {
+              "question": "Does the patient have moderate to severe active thyroid eye disease, Clinical Activity Score at least 3 in the study eye, and ocular symptoms or signs beginning within 15 months before screening?",
+              "question_id": "SYN-GEN-00017-Q1",
+              "trial_ids": [
+                "NCT06625411"
+              ]
+            },
+            {
+              "question": "Has the patient had prior anti-IGF-1R therapy, recent corticosteroids, selenium, immunosuppressive treatment, investigational therapy, radioactive iodine, orbital irradiation or decompression, abnormal hearing, inflammatory bowel disease, or an interfering eye condition?",
+              "question_id": "SYN-GEN-00017-Q2",
+              "trial_ids": [
+                "NCT06625411"
+              ]
+            },
+            {
+              "question": "For the IBI3031 trial, what are the patient's weight, Clinical Activity Score, thyroid function status, thyrotrophin receptor antibody status, eye findings, and key TED safety exclusions such as optic neuropathy, corneal ulcer, and poorly controlled diabetes or hypertension?",
+              "question_id": "SYN-GEN-00017-Q3",
+              "trial_ids": [
+                "NCT07622368"
+              ]
+            },
+            {
+              "question": "Has the patient ever received platinum chemotherapy?",
+              "question_id": "SYN-GEN-00017-Q4",
+              "trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or prior organ transplant?",
+              "question_id": "SYN-GEN-00017-Q5",
+              "trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "question": "Does the patient have any history of cancer diagnosed at age 39 or younger?",
+              "question_id": "SYN-GEN-00017-Q6",
+              "trial_ids": [
+                "NCT07091617"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_active_thyroid_eye_disease_score_and_onset",
+                  "reason": "Follow-up confirms active moderate-to-severe thyroid eye disease, Clinical Activity Score at least 3, and qualifying onset.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_treatment_and_safety_exclusions",
+                  "reason": "Follow-up reports no listed prior-treatment or safety exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06625411-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06625411-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT06625411"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT03237780-I-condition, NCT03237780-I-prior-platinum-chemotherapy, NCT03237780-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT04724018-I-condition, NCT04724018-I-prior-platinum-chemotherapy, NCT04724018-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_activity_eye_thyroid_weight_and_antibody_details",
+                  "reason": "Follow-up confirms activity, eye findings, thyroid function, weight, and positive thyrotrophin receptor antibody.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_ted_safety_exclusions",
+                  "reason": "Follow-up reports no listed safety exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07622368-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease, matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07622368-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT07622368"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_cancer_patient_or_survivor_status",
+                  "reason": "No supplied cancer diagnosis or survivorship history is documented.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_age_18_to_39",
+                  "reason": "Raw patient age range is 18 to 39; patient is 45.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 45 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT07091617-I-condition, raw_cancer_patient_or_survivor_status, raw_age_18_to_39.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT07091617"
+            }
+          ],
+          "ranked_trial_ids": [
+            "NCT06625411",
+            "NCT07622368",
+            "NCT03237780",
+            "NCT04724018",
+            "NCT07091617"
+          ]
+        },
+        "result_explanation_agent": {
+          "summary": "Eligible: ['NCT06625411', 'NCT07622368']. Uncertain: []. Ineligible: ['NCT03237780', 'NCT04724018', 'NCT07091617']."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00017",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06625411-I-condition",
+                "reason": "Diagnosis is thyroid eye disease, matching thyroid eye disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06625411-I-age",
+                "reason": "Age 45 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06625411",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06625411",
+            "trial_title": "An Efficacy, Safety, and Tolerability Study of VRDN-003 in Participants With Active Thyroid Eye Disease (TED)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis is thyroid eye disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 45 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 0 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis is thyroid eye disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 45 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07622368-I-condition",
+                "reason": "Diagnosis is thyroid eye disease, matching thyroid eye disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07622368-I-age",
+                "reason": "Age 45 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07622368",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07622368",
+            "trial_title": "A Study of IBI3031 in Participants With Thyroid Eye Disease"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis is thyroid eye disease; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 45 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06625411",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07622368",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06625411",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07622368",
+          "NCT07091617"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00017 is a 45-year-old male with thyroid eye disease. Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in FL. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00017"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "note": "Supplied structured criteria are evaluated exactly once per trial in the initial and final assessment sections; raw excerpts are summarized as additional protocol factors when they affect follow-up or final labels.",
+          "trial_count": 5,
+          "trials": [
+            {
+              "supplied_criterion_count": 2,
+              "title": "A Study of VV-14305 for the Treatment of Thyroid Eye Disease",
+              "trial_id": "NCT07404111"
+            },
+            {
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "supplied_criterion_count": 2,
+              "title": "A Study of IBI3031 in Participants With Thyroid Eye Disease",
+              "trial_id": "NCT07622368"
+            },
+            {
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "supplied_criterion_count": 2,
+              "title": "An Efficacy, Safety, and Tolerability Study of VRDN-003 in Participants With Active Thyroid Eye Disease (TED)",
+              "trial_id": "NCT06625411"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_graves_progressive_eye_disease_and_eye_metrics",
+                  "reason": "Initial note lacks Graves confirmation, progression, BMI, thyroid function, visual acuity, and eye metrics.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_vv14305_safety_exclusions",
+                  "reason": "Initial note lacks VV-14305 safety exclusion details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07404111-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07404111-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT07404111"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Initial note does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Initial note does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_activity_eye_thyroid_weight_and_antibody_details",
+                  "reason": "Initial note lacks activity, eye findings, thyroid function, weight, and thyrotrophin receptor antibody status.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_ted_safety_exclusions",
+                  "reason": "Initial note lacks optic neuropathy, corneal, ophthalmic, diabetes, and hypertension exclusion details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07622368-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07622368-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT07622368"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_active_thyroid_eye_disease_score_and_onset",
+                  "reason": "Initial note lacks activity score and onset timing.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_treatment_and_safety_exclusions",
+                  "reason": "Initial note lacks prior-treatment and safety exclusion details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06625411-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06625411-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT06625411"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_answers": [
+            {
+              "answer": "Yes. He has Graves disease with progressive moderate to severe thyroid eye disease, BMI 25 kg/m2, acceptable thyroid function, best corrected visual acuity 20/25, and qualifying proptosis and Clinical Activity Score. He has no diabetes, serious non-TED ocular disease, unsafe medical or psychiatric condition, recent malignancy therapy, relevant allergy, vaccination timing conflict, immediate orbital intervention need, prior TED surgery, or recent investigational trial participation.",
+              "question_id": "SYN-GEN-00018-Q1"
+            },
+            {
+              "answer": "Yes. He has active TED with Clinical Activity Score 4, symptom duration within 12 months, qualifying ophthalmic findings, weight 78 kg, acceptable thyroid function, and positive TRAb. He has no dysthyroid optic neuropathy, corneal ulcer, non-TED ophthalmic disease affecting interpretation, severe thyroid dysfunction, poorly controlled diabetes, or poorly controlled hypertension.",
+              "question_id": "SYN-GEN-00018-Q2"
+            },
+            {
+              "answer": "Yes. He meets active TED severity, Clinical Activity Score, and onset timing for the VRDN-003 trial and has no prior anti-IGF-1R therapy, recent steroids, selenium, immunosuppressive treatment, investigational therapy, radioactive iodine, orbital irradiation or decompression, hearing issue, inflammatory bowel disease, or interfering ophthalmic condition.",
+              "question_id": "SYN-GEN-00018-Q3"
+            },
+            {
+              "answer": "He has not received platinum chemotherapy. He has no active interstitial lung disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant. His thyroid eye disease is active and should be treated as active autoimmune disease for off-target immunotherapy exclusion screening.",
+              "question_id": "SYN-GEN-00018-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 40,
+            "diagnosis": "thyroid eye disease (ted)",
+            "documented_flags": {},
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "PA"
+            },
+            "sex": "male",
+            "stage": "IV"
+          },
+          "missing": [
+            "molecular results",
+            "prior systemic therapy confirmation",
+            "exclusion comorbidities"
+          ]
+        },
+        "question_generation_agent": {
+          "questions": [
+            {
+              "question": "Does the patient have Graves disease with progressive moderate to severe thyroid eye disease, qualifying BMI, thyroid function, visual acuity, proptosis, Clinical Activity Score, and no VV-14305 safety exclusions such as diabetes, serious non-TED ocular disease, recent TED surgery, or recent investigational trial participation?",
+              "question_id": "SYN-GEN-00018-Q1",
+              "trial_ids": [
+                "NCT07404111"
+              ]
+            },
+            {
+              "question": "Does the patient meet IBI3031 active TED details including Clinical Activity Score, symptom duration, ophthalmic findings, weight, thyroid function, and positive thyrotrophin receptor antibody, and are key safety exclusions absent?",
+              "question_id": "SYN-GEN-00018-Q2",
+              "trial_ids": [
+                "NCT07622368"
+              ]
+            },
+            {
+              "question": "Does the patient meet active TED severity, Clinical Activity Score, onset timing, and safety exclusions for the VRDN-003 TED trial?",
+              "question_id": "SYN-GEN-00018-Q3",
+              "trial_ids": [
+                "NCT06625411"
+              ]
+            },
+            {
+              "question": "Has the patient had platinum chemotherapy, and does he have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant?",
+              "question_id": "SYN-GEN-00018-Q4",
+              "trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_graves_progressive_eye_disease_and_eye_metrics",
+                  "reason": "Follow-up confirms Graves disease, progressive moderate-to-severe thyroid eye disease, BMI, thyroid function, visual acuity, and eye metrics.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_vv14305_safety_exclusions",
+                  "reason": "Follow-up reports no VV-14305 safety exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07404111-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07404111-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT07404111"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT03237780-I-condition, NCT03237780-I-prior-platinum-chemotherapy, NCT03237780-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_activity_eye_thyroid_weight_and_antibody_details",
+                  "reason": "Follow-up confirms activity, eye findings, thyroid function, weight, and positive thyrotrophin receptor antibody.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_ted_safety_exclusions",
+                  "reason": "Follow-up reports no listed safety exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07622368-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07622368-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT07622368"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT04724018-I-condition, NCT04724018-I-prior-platinum-chemotherapy, NCT04724018-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_active_thyroid_eye_disease_score_and_onset",
+                  "reason": "Follow-up confirms active moderate-to-severe thyroid eye disease, Clinical Activity Score at least 3, and qualifying onset.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_treatment_and_safety_exclusions",
+                  "reason": "Follow-up reports no listed prior-treatment or safety exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06625411-I-condition",
+                  "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06625411-I-age",
+                  "reason": "Age 40 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT06625411"
+            }
+          ],
+          "ranked_trial_ids": [
+            "NCT07404111",
+            "NCT07622368",
+            "NCT06625411",
+            "NCT03237780",
+            "NCT04724018"
+          ]
+        },
+        "result_explanation_agent": {
+          "summary": "Eligible: ['NCT07404111', 'NCT07622368', 'NCT06625411']. Uncertain: []. Ineligible: ['NCT03237780', 'NCT04724018']."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00018",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07404111-I-condition",
+                "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07404111-I-age",
+                "reason": "Age 40 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07404111",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07404111",
+            "trial_title": "A Study of VV-14305 for the Treatment of Thyroid Eye Disease"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis is thyroid eye disease (ted), not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 40 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 1 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07622368-I-condition",
+                "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07622368-I-age",
+                "reason": "Age 40 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07622368",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07622368",
+            "trial_title": "A Study of IBI3031 in Participants With Thyroid Eye Disease"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis is thyroid eye disease (ted), not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 40 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 1 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06625411-I-condition",
+                "reason": "Diagnosis is thyroid eye disease (ted), matching thyroid eye disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06625411-I-age",
+                "reason": "Age 40 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06625411",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06625411",
+            "trial_title": "An Efficacy, Safety, and Tolerability Study of VRDN-003 in Participants With Active Thyroid Eye Disease (TED)"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07404111",
+          "NCT03237780",
+          "NCT07622368",
+          "NCT04724018",
+          "NCT06625411"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07404111",
+          "NCT03237780",
+          "NCT07622368",
+          "NCT04724018",
+          "NCT06625411"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00018 is a 40-year-old male with thyroid eye disease (ted). Stage is recorded as IV. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in PA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00018"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "note": "Supplied structured criteria are evaluated exactly once per trial in the initial and final assessment sections; raw excerpts are summarized as additional protocol factors when they affect follow-up or final labels.",
+          "trial_count": 5,
+          "trials": [
+            {
+              "supplied_criterion_count": 2,
+              "title": "Orbital Radiotherapy in Grave's Ophthalmopathy 1 Week vs 2 Weeks (OraGO-1 Trial)",
+              "trial_id": "NCT06392906"
+            },
+            {
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "supplied_criterion_count": 2,
+              "title": "A Study of IBI3031 in Participants With Thyroid Eye Disease",
+              "trial_id": "NCT07622368"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_minimum_age_35",
+                  "reason": "Raw excerpt requires age at least 35, but patient is 26.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_intravenous_methylprednisolone_response",
+                  "reason": "Initial note lacks required intravenous methylprednisolone response details.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_severe_hypertension_or_diabetic_retinopathy",
+                  "reason": "Initial note lacks severe hypertension and diabetic retinopathy details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06392906-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, matching thyroid-associated ophthalmopathy.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06392906-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06392906"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Initial note does not address active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Initial note does not address organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note does not address uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_cancer_patient_or_survivor_status",
+                  "reason": "No supplied cancer diagnosis or survivorship history is documented.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_age_18_to_39",
+                  "reason": "Raw patient age range is 18 to 39; patient is 26.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_activity_eye_thyroid_weight_and_antibody_details",
+                  "reason": "Initial note lacks activity, eye findings, thyroid function, weight, and thyrotrophin receptor antibody status.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_ted_safety_exclusions",
+                  "reason": "Initial note lacks optic neuropathy, corneal, ophthalmic, diabetes, and hypertension exclusion details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07622368-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07622368-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT07622368"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_answers": [
+            {
+              "answer": "She has active thyroid-associated ophthalmopathy with Clinical Activity Score 5 and maintained euthyroidism, and she is not pregnant. She has not received three doses of intravenous methylprednisolone, so poor response after that treatment cannot be met. She also has severe hypertension and no diabetic retinopathy.",
+              "question_id": "SYN-GEN-00019-Q1"
+            },
+            {
+              "answer": "For the IBI3031 criteria, she has active TED-equivalent disease with Clinical Activity Score 5, qualifying symptom duration and ophthalmic findings, weight 61 kg, acceptable thyroid function, and positive TRAb. However, severe hypertension is present.",
+              "question_id": "SYN-GEN-00019-Q2"
+            },
+            {
+              "answer": "She has not received platinum chemotherapy. She has no active interstitial lung disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant. Her thyroid-associated ophthalmopathy is active and should be treated as active autoimmune disease for off-target immunotherapy exclusion screening.",
+              "question_id": "SYN-GEN-00019-Q3"
+            },
+            {
+              "answer": "No. There is no cancer diagnosis or cancer survivorship history.",
+              "question_id": "SYN-GEN-00019-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 26,
+            "diagnosis": "thyroid associated ophthalmopathy",
+            "documented_flags": {},
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "CO"
+            },
+            "sex": "female",
+            "stage": "IV"
+          },
+          "missing": [
+            "molecular results",
+            "prior systemic therapy confirmation",
+            "exclusion comorbidities"
+          ]
+        },
+        "question_generation_agent": {
+          "questions": [
+            {
+              "question": "For the orbital radiotherapy trial, what is the patient's Clinical Activity Score, has she had three doses of intravenous methylprednisolone with poor response or diplopia afterward, has euthyroidism been maintained, is she pregnant, and does she have severe hypertension or diabetic retinopathy?",
+              "question_id": "SYN-GEN-00019-Q1",
+              "trial_ids": [
+                "NCT06392906"
+              ]
+            },
+            {
+              "question": "For the IBI3031 thyroid eye disease trial, what are the patient's activity score, symptom duration, ophthalmic findings, weight, thyroid function, thyrotrophin receptor antibody status, and does she have poorly controlled hypertension or diabetes?",
+              "question_id": "SYN-GEN-00019-Q2",
+              "trial_ids": [
+                "NCT07622368"
+              ]
+            },
+            {
+              "question": "Has the patient had platinum chemotherapy, and does she have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant?",
+              "question_id": "SYN-GEN-00019-Q3",
+              "trial_ids": [
+                "NCT03237780",
+                "NCT04724018"
+              ]
+            },
+            {
+              "question": "Does the patient have a cancer diagnosis or cancer survivorship history diagnosed by age 39?",
+              "question_id": "SYN-GEN-00019-Q4",
+              "trial_ids": [
+                "NCT07091617"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_minimum_age_35",
+                  "reason": "Raw excerpt requires age at least 35, but patient is 26.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_intravenous_methylprednisolone_response",
+                  "reason": "Follow-up confirms she has not received three intravenous methylprednisolone doses.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_severe_hypertension_or_diabetic_retinopathy",
+                  "reason": "Follow-up confirms severe hypertension.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06392906-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, matching thyroid-associated ophthalmopathy.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06392906-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): raw_minimum_age_35, raw_intravenous_methylprednisolone_response, raw_severe_hypertension_or_diabetic_retinopathy.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT06392906"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT03237780-I-condition, NCT03237780-I-prior-platinum-chemotherapy, NCT03237780-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT04724018-I-condition, NCT04724018-I-prior-platinum-chemotherapy, NCT04724018-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_cancer_patient_or_survivor_status",
+                  "reason": "No supplied cancer diagnosis or survivorship history is documented.",
+                  "status": "violated"
+                },
+                {
+                  "factor": "raw_age_18_to_39",
+                  "reason": "Raw patient age range is 18 to 39; patient is 26.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage IV is allowed.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT07091617-I-condition, raw_cancer_patient_or_survivor_status.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_activity_eye_thyroid_weight_and_antibody_details",
+                  "reason": "Follow-up confirms activity, eye findings, thyroid function, weight, and positive thyrotrophin receptor antibody.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_ted_safety_exclusions",
+                  "reason": "Follow-up confirms severe hypertension, conflicting with the hypertension exclusion.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07622368-I-condition",
+                  "reason": "Diagnosis is thyroid associated ophthalmopathy, matching thyroid eye disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07622368-I-age",
+                  "reason": "Age 26 is within the supplied bounds.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): raw_ted_safety_exclusions.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT07622368"
+            }
+          ],
+          "ranked_trial_ids": [
+            "NCT06392906",
+            "NCT03237780",
+            "NCT04724018",
+            "NCT07091617",
+            "NCT07622368"
+          ]
+        },
+        "result_explanation_agent": {
+          "summary": "Eligible: []. Uncertain: []. Ineligible: ['NCT06392906', 'NCT03237780', 'NCT04724018', 'NCT07091617', 'NCT07622368']."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00019",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06392906-I-condition",
+                "reason": "Diagnosis is thyroid associated ophthalmopathy, matching thyroid-associated ophthalmopathy.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06392906-I-age",
+                "reason": "Age 26 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06392906",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06392906",
+            "trial_title": "Orbital Radiotherapy in Grave's Ophthalmopathy 1 Week vs 2 Weeks (OraGO-1 Trial)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis is thyroid associated ophthalmopathy, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 26 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 0 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis is thyroid associated ophthalmopathy, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 26 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 0 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis is thyroid associated ophthalmopathy; no cancer diagnosis is supplied for this cancer-genetics patient study.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 26 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage IV is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07622368-I-condition",
+                "reason": "Diagnosis is thyroid associated ophthalmopathy, matching thyroid eye disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07622368-I-age",
+                "reason": "Age 26 is within the supplied bounds.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07622368",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07622368",
+            "trial_title": "A Study of IBI3031 in Participants With Thyroid Eye Disease"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06392906",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT07622368"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06392906",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT07622368"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00019 is a 26-year-old female with thyroid associated ophthalmopathy. Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in CO. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00019"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "note": "Supplied structured criteria are evaluated exactly once per trial in the initial and final assessment sections; raw excerpts are summarized as additional protocol factors when they affect follow-up or final labels.",
+          "trial_count": 5,
+          "trials": [
+            {
+              "supplied_criterion_count": 5,
+              "title": "In Vivo CAR-T for Refractory Graves' Disease",
+              "trial_id": "NCT07333677"
+            },
+            {
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "supplied_criterion_count": 6,
+              "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "supplied_criterion_count": 5,
+              "title": "Pilot Study of IT Topotecan and Maintenance Chemotherapy for HR-EBTs in Children < 6 Years, Post Consolidation",
+              "trial_id": "NCT06942039"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_refractory_graves_and_thyrotrophin_receptor_antibody",
+                  "reason": "Initial note lacks refractory-disease and antibody details.",
+                  "status": "unknown"
+                },
+                {
+                  "factor": "raw_consent_contraception_and_other_safety_exclusions",
+                  "reason": "Initial note lacks several raw consent, contraception, and safety details.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07333677-I-condition",
+                  "reason": "Diagnosis is graves' disease, matching Graves disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-E-active-uncontrolled-infection",
+                  "reason": "Initial note reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-E-organ-transplant",
+                  "reason": "Initial note reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "trial_id": "NCT07333677"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is graves' disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is graves' disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Initial note lists no prior systemic therapy, so prior platinum chemotherapy is unconfirmed.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Initial note does not address active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Initial note reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Initial note reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis is graves' disease, not large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Initial note does not address active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Initial note reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06942039-I-condition",
+                  "reason": "Diagnosis is graves' disease, not a pediatric embryonal central nervous system tumor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-age",
+                  "reason": "Age 74 is above the supplied maximum 6.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-stage",
+                  "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                  "reason": "Initial note reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                  "reason": "Initial note reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "trial_id": "NCT06942039"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthetic_answers": [
+            {
+              "answer": "Yes. She has refractory Graves disease after more than 3 years of antithyroid drug therapy with repeated relapse after withdrawal, and serum TRAb is positive.",
+              "question_id": "SYN-GEN-00020-Q1"
+            },
+            {
+              "answer": "She can consent and comply, agrees to contraception if required, and has no severe drug allergy, recent lipid nanoparticle therapy, recent live vaccine, malignancy history, positive exclusionary infectious serologies, severe psychiatric or cognitive impairment, or hematologic dysfunction.",
+              "question_id": "SYN-GEN-00020-Q2"
+            },
+            {
+              "answer": "No. She has never received platinum chemotherapy.",
+              "question_id": "SYN-GEN-00020-Q3"
+            },
+            {
+              "answer": "She has no active interstitial lung disease. Her refractory Graves disease is active and should be treated as active autoimmune disease for off-target trial exclusion screening. The initial note already reports no uncontrolled cardiac disease, no active uncontrolled infection, and no organ transplant.",
+              "question_id": "SYN-GEN-00020-Q4"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 74,
+            "diagnosis": "graves' disease",
+            "documented_flags": {
+              "active_uncontrolled_infection": false,
+              "organ_transplant": false,
+              "uncontrolled_cardiac_disease": false
+            },
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "AZ"
+            },
+            "sex": "female",
+            "stage": "I"
+          },
+          "missing": [
+            "molecular results",
+            "prior systemic therapy confirmation",
+            ""
+          ]
+        },
+        "question_generation_agent": {
+          "questions": [
+            {
+              "question": "Does the patient have refractory Graves disease as defined by prolonged antithyroid drug therapy or repeated relapse after withdrawal, and is serum thyrotrophin receptor antibody positive?",
+              "question_id": "SYN-GEN-00020-Q1",
+              "trial_ids": [
+                "NCT07333677"
+              ]
+            },
+            {
+              "question": "Can the patient consent and comply, will she use contraception if required, and are other raw exclusions absent, including severe drug allergy, recent lipid nanoparticle therapy, recent live vaccine, malignancy history, positive exclusionary infectious serologies, severe psychiatric or cognitive impairment, and hematologic dysfunction?",
+              "question_id": "SYN-GEN-00020-Q2",
+              "trial_ids": [
+                "NCT07333677"
+              ]
+            },
+            {
+              "question": "Has the patient ever received platinum chemotherapy?",
+              "question_id": "SYN-GEN-00020-Q3",
+              "trial_ids": [
+                "NCT04724018",
+                "NCT03237780"
+              ]
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease or active autoimmune disease, beyond the already documented absence of uncontrolled cardiac disease, active uncontrolled infection, and organ transplant?",
+              "question_id": "SYN-GEN-00020-Q4",
+              "trial_ids": [
+                "NCT04724018",
+                "NCT03237780",
+                "NCT06830031"
+              ]
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_trial_assessments": [
+            {
+              "additional_protocol_factors": [
+                {
+                  "factor": "raw_refractory_graves_and_thyrotrophin_receptor_antibody",
+                  "reason": "Follow-up confirms refractory Graves disease and positive serum thyrotrophin receptor antibody.",
+                  "status": "satisfied"
+                },
+                {
+                  "factor": "raw_consent_contraception_and_other_safety_exclusions",
+                  "reason": "Follow-up confirms consent, contraception commitment, and no listed additional safety exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07333677-I-condition",
+                  "reason": "Diagnosis is graves' disease, matching Graves disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07333677-E-organ-transplant",
+                  "reason": "Follow-up reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "reason": "All supplied criteria and resolved raw protocol factors are satisfied.",
+              "recommendation": "recommend",
+              "trial_id": "NCT07333677"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis is graves' disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT04724018-I-condition, NCT04724018-I-stage, NCT04724018-I-prior-platinum-chemotherapy, NCT04724018-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis is graves' disease, not urothelial carcinoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Follow-up confirms no platinum chemotherapy.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up reports no active interstitial lung disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up reports no organ transplant.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT03237780-I-condition, NCT03237780-I-stage, NCT03237780-I-prior-platinum-chemotherapy, NCT03237780-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis is graves' disease, not large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 74 is within the supplied bounds.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 is at or below 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT06830031-I-condition, NCT06830031-E-active-autoimmune-disease.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "additional_protocol_factors": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06942039-I-condition",
+                  "reason": "Diagnosis is graves' disease, not a pediatric embryonal central nervous system tumor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-age",
+                  "reason": "Age 74 is above the supplied maximum 6.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-I-stage",
+                  "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                  "reason": "Follow-up reports no active uncontrolled infection.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "reason": "Violated required item(s): NCT06942039-I-condition, NCT06942039-I-age, NCT06942039-I-stage.",
+              "recommendation": "do_not_recommend",
+              "trial_id": "NCT06942039"
+            }
+          ],
+          "ranked_trial_ids": [
+            "NCT07333677",
+            "NCT04724018",
+            "NCT03237780",
+            "NCT06830031",
+            "NCT06942039"
+          ]
+        },
+        "result_explanation_agent": {
+          "summary": "Eligible: ['NCT07333677']. Uncertain: []. Ineligible: ['NCT04724018', 'NCT03237780', 'NCT06830031', 'NCT06942039']."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00020",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07333677-I-condition",
+                "reason": "Diagnosis is graves' disease, matching Graves disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07333677-I-age",
+                "reason": "Age 74 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07333677-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07333677-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07333677-E-organ-transplant",
+                "reason": "Follow-up reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07333677",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07333677",
+            "trial_title": "In Vivo CAR-T for Refractory Graves' Disease"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis is graves' disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 74 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 1 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis is graves' disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 74 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 1 is at or below 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Follow-up confirms no platinum chemotherapy.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up reports no active interstitial lung disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up reports no organ transplant.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis is graves' disease, not large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 74 is within the supplied bounds.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 1 is at or below 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up treats the active thyroid autoimmune disease as an active autoimmune disease exclusion.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06942039-I-condition",
+                "reason": "Diagnosis is graves' disease, not a pediatric embryonal central nervous system tumor.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06942039-I-age",
+                "reason": "Age 74 is above the supplied maximum 6.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06942039-I-stage",
+                "reason": "Stage I is not in the supplied allowed list ['IV'].",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06942039-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up reports no uncontrolled cardiac disease.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06942039-E-active-uncontrolled-infection",
+                "reason": "Follow-up reports no active uncontrolled infection.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06942039",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06942039",
+            "trial_title": "Pilot Study of IT Topotecan and Maintenance Chemotherapy for HR-EBTs in Children < 6 Years, Post Consolidation"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07333677",
+          "NCT04724018",
+          "NCT03237780",
+          "NCT06830031",
+          "NCT06942039"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07333677",
+          "NCT04724018",
+          "NCT03237780",
+          "NCT06830031",
+          "NCT06942039"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00020 is a 74-year-old female with graves' disease. Stage is recorded as I. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No uncontrolled cardiac disease is reported. No active uncontrolled infection is reported. No organ transplant is reported. The patient receives care in AZ. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00020"
+    }
+  ],
+  "source": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_04.raw.json"
+}

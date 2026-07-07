@@ -1,0 +1,3321 @@
+# GPT End-to-End Health-Agent Teacher Label Request
+
+Return JSONL only, one JSON object per patient. Do not wrap in markdown.
+
+## System Instructions
+
+You are a GPT teacher labeler creating end-to-end answer keys for a clinical-trial matching multi-agent workflow.
+
+Use only the synthetic patient information and candidate trial information provided in the input file. Do not use outside medical knowledge to add unstated patient facts.
+This is for software evaluation only, not medical advice.
+
+For every patient, produce exactly one JSON object.
+Return JSONL only. No markdown, no commentary.
+
+Required workflow represented in each output object:
+1. criteria_parser_agent: convert trial inclusion/exclusion criteria into structured rules.
+2. patient_information_understanding_agent: extract the patient profile from the patient information string.
+3. inference_matching_agent: judge criterion-level satisfaction for each candidate trial using currently known patient information.
+4. question_generation_agent: generate follow-up questions for missing required facts.
+5. interaction_simulation_agent: provide synthetic patient answers to the generated questions.
+6. recommendation_agent: rank the candidate trials for the patient after applying the synthetic answers.
+7. result_explanation_agent: explain final judgment and recommendations.
+
+Allowed trial-level eligibility labels: eligible, ineligible, uncertain.
+Allowed criterion status labels: satisfied, violated, unknown, not_applicable.
+
+For exclusion criteria: satisfied means the exclusion is absent; violated means the exclusion is present.
+If a required fact is missing, mark that criterion unknown, generate a question, then create a plausible synthetic answer. The final recommendation should reflect the answer.
+Every candidate trial must appear exactly once in final_output.recommendations.
+Every supplied criterion_id for a candidate trial must appear exactly once in initial and final criterion_results.
+
+
+## Required Output Schema
+
+```json
+{
+  "patient_id": "same patient_id",
+  "input": {
+    "patient_information_string": "same supplied patient string",
+    "candidate_trial_ids": [
+      "trial ids in supplied order"
+    ]
+  },
+  "agent_trace": {
+    "criteria_parser_agent": {
+      "parsed_trials": [
+        {
+          "trial_id": "trial id",
+          "structured_rules": [
+            {
+              "criterion_id": "same supplied criterion_id",
+              "criterion_type": "inclusion|exclusion",
+              "criterion": "short parsed criterion",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    "patient_information_understanding_agent": {
+      "extracted_profile": {
+        "age": "number or null",
+        "sex": "string or null",
+        "diagnosis": "string or null",
+        "stage": "string or null",
+        "ecog": "number or null",
+        "biomarkers": {},
+        "prior_treatments": [],
+        "flags": {}
+      },
+      "missing_or_unstated_fields": [
+        "field names"
+      ]
+    },
+    "inference_matching_agent": {
+      "initial_trial_judgments": [
+        {
+          "trial_id": "trial id",
+          "eligibility": "eligible|ineligible|uncertain",
+          "criterion_results": [
+            {
+              "criterion_id": "same supplied criterion_id",
+              "status": "satisfied|violated|unknown|not_applicable",
+              "reason": "grounded reason"
+            }
+          ],
+          "rationale": "short reason"
+        }
+      ]
+    },
+    "question_generation_agent": {
+      "questions": [
+        {
+          "question_id": "patient_id__trial_id__Q01",
+          "patient_id": "patient id",
+          "trial_id": "trial id",
+          "criterion_id": "criterion id",
+          "question": "follow-up question",
+          "reason": "why this information is needed"
+        }
+      ]
+    },
+    "interaction_simulation_agent": {
+      "simulated_patient_answers": [
+        {
+          "question_id": "same question id",
+          "answer": "synthetic patient answer",
+          "profile_updates": {}
+        }
+      ]
+    },
+    "recommendation_agent": {
+      "recommended_trial_order": [
+        "trial ids ordered best to worst"
+      ],
+      "ranked_recommendations": [
+        {
+          "rank": 1,
+          "trial_id": "trial id",
+          "eligibility": "eligible|ineligible|uncertain",
+          "recommendation_score": 0.0
+        }
+      ]
+    },
+    "result_explanation_agent": {
+      "summary": "plain-language explanation",
+      "medical_disclaimer": "software evaluation only, not medical advice"
+    }
+  },
+  "final_output": {
+    "patient_id": "same patient_id",
+    "recommendations": [
+      {
+        "rank": 1,
+        "trial_id": "trial id",
+        "trial_title": "trial title",
+        "eligibility": "eligible|ineligible|uncertain",
+        "criterion_results": [
+          {
+            "criterion_id": "same supplied criterion_id",
+            "status": "satisfied|violated|unknown|not_applicable",
+            "reason": "grounded reason after simulated answers"
+          }
+        ],
+        "follow_up_questions": [],
+        "simulated_patient_answers": [],
+        "explanation": "why this final judgment and rank were assigned"
+      }
+    ],
+    "recommended_trial_order": [
+      "trial ids ordered best to worst"
+    ],
+    "medical_disclaimer": "software evaluation only, not medical advice"
+  }
+}
+```
+
+## Input Batch
+
+{
+  "batch_id": "gpt_e2e_teacher_batch_17",
+  "patients": [
+    {
+      "patient_id": "SYN-GEN-00081",
+      "patient_information_string": "Oncology referral note: SYN-GEN-00081 is a 32-year-old male with metastatic ebv-positive diffuse large b-cell lymphoma, nos. Stage is recorded as III. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No active autoimmune disease is reported. No organ transplant is reported. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart.",
+      "synthetic_source_profile": {
+        "patient_id": "SYN-GEN-00081",
+        "age": 32,
+        "sex": "male",
+        "diagnosis": "metastatic ebv-positive diffuse large b-cell lymphoma, nos",
+        "stage": "III",
+        "ecog": 0,
+        "flags": {
+          "active_autoimmune_disease": false,
+          "organ_transplant": false
+        },
+        "location": {
+          "country": "US",
+          "state": "CA"
+        },
+        "scenario": "clear_candidate",
+        "target_trial_id": "NCT06925555"
+      },
+      "candidate_trials": [
+        {
+          "trial_id": "NCT06925555",
+          "title": "Brentuximab Vedotin Combined With R-CHP in Newly Diagnosed EBV+ DLBCL-NOS",
+          "source_url": "https://clinicaltrials.gov/study/NCT06925555",
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "conditions": [
+            "EBV-Positive Diffuse Large B-Cell Lymphoma, Nos",
+            "Brentuximab Vedotin"
+          ],
+          "phase": "PHASE2",
+          "status": "NOT_YET_RECRUITING",
+          "interventions": [
+            "BV+R-CHP"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": 70,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_autoimmune_disease",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT06925555-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "EBV-Positive Diffuse Large B-Cell Lymphoma, Nos",
+                "Brentuximab Vedotin"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06925555-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": 70
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06925555-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06925555-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06925555-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. BV+DLBCL, NOS diagnosed by pathological diagnosis according to WHO 2016 classification criteria;",
+              "2. Sign the informed consent form;",
+              "3. Systemic PET/CT performed within 28 days prior to enrollment demonstrating at least one measurable lesion in two perpendicular dimensions (nodal lesion: longest diameter \\>15 mm, short axis \\>5 mm; extranodal lesion: longest diameter \\>10 mm) per Lugano 2014 criteria;",
+              "4. ECOG Performance Status (PS) of 0-2;",
+              "5. Adequate organ and bone marrow function defined as:",
+              "Hematology: Absolute neutrophil count (ANC) >=1.010/L, platelet count (PLT) >=5010/L, hemoglobin (HGB) >=8.0 g/dL; without granulocyte colony-stimulating factor, platelet transfusion, or red blood cell transfusion within 7 days prior to testing.",
+              "Liver function: Total bilirubin (TBIL) <=1.5ULN; alanine aminotransferase (ALT) and aspartate aminotransferase (AST) <=2.5ULN.",
+              "Renal function: Serum creatinine (Cr) <=1.5ULN or creatinine clearance rate (CCR) >=50 mL/min.",
+              "Cardiac function: NYHA class \\<III; left ventricular ejection fraction (LVEF) >=50% by echocardiography.",
+              "Coagulation: International normalized ratio (INR) <=1.5ULN, activated partial thromboplastin time (APTT) <=ULN +10 s, prothrombin time (PT) <=ULN +3 s."
+            ],
+            "exclusion": [
+              "Patients who meet any of the following criteria will be excluded from the study",
+              "1. Central nervous system (CNS) involvement.",
+              "2. Second primary malignancy (except cured non-melanoma skin cancer, superficial bladder cancer, cervical carcinoma in situ, gastrointestinal intramucosal carcinoma, or breast cancer with no recurrence within 5 years).",
+              "3. History of severe allergic diseases, hypersensitivity to macromolecular protein preparations, or any component of Brentuximab Vedotin.",
+              "4. Prior allogeneic organ transplant or hematopoietic stem cell transplantation.",
+              "5. Concurrent systemic anti-tumor therapy during the study.",
+              "6. Anti-cancer vaccines or immunostimulatory anti-tumor therapy within 3 months prior to enrollment.",
+              "7. Active severe acute/chronic infection requiring systemic therapy.",
+              "8. Active or history of autoimmune disease within 2 years (exceptions: vitiligo, psoriasis, alopecia, Graves' disease without systemic treatment in the past 2 years; hypothyroidism requiring thyroid hormone replacement only; type I diabetes controlled with insulin).",
+              "9. Systemic immunosuppressive therapy within 4 weeks prior to enrollment (excluding topical/nasal/inhaled corticosteroids or physiologic doses <=10 mg/day prednisone equivalent)."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: \\- Patients must meet all of the following inclusion criteria to be eligible for enrollment: 1. BV+DLBCL, NOS diagnosed by pathological diagnosis according to WHO 2016 classification criteria; 2. Sign the informed consent form; 3. Systemic PET/CT performed within 28 days prior to enrollment demonstrating at least one measurable lesion in two perpendicular dimensions (nodal lesion: longest diameter \\>15 mm, short axis \\>5 mm; extranodal lesion: longest diameter \\>10 mm) per Lugano 2014 criteria; 4. ECOG Performance Status (PS) of 0-2; 5. Adequate organ and bone marrow function defined as: * Hematology: Absolute neutrophil count (ANC) >=1.010/L, platelet count (PLT) >=5010/L, hemoglobin (HGB) >=8.0 g/dL; without granulocyte colony-stimulating factor, platelet transfusion, or red blood cell transfusion within 7 days prior to testing. * Liver function: Total bilirubin (TBIL) <=1.5ULN; alanine aminotransferase (ALT) and aspartate aminotransferase (AST) <=2.5ULN. * Renal function: Serum creatinine (Cr) <=1.5ULN or creatinine clearance rate (CCR) >=50 mL/min. * Cardiac function: NYHA class \\<III; left ventricular ejection fraction (LVEF) >=50% by echocardiography. * Coagulation: International normalized ratio (INR) <=1.5ULN, activated partial thromboplastin time (APTT) <=ULN +10 s, prothrombin time (PT) <=ULN +3 s. * Thyroid function: Baseline thyroid-stimulating hormone (TSH) within normal range or abnormal TSH with normal T3/T4 levels and no clinical symptoms. 6. Expected survival >= 3 months. 7. Age 18-70 years. 8. For subjects of childbearing potential or with partners of childbearing potential: Agreement to use highly effective contraception during treatment and for 90 days after the last dose. Exclusion Criteria: * Patients who meet any of the followi"
+          }
+        },
+        {
+          "trial_id": "NCT06830031",
+          "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+          "source_url": "https://clinicaltrials.gov/study/NCT06830031",
+          "retrieval_rank": 2,
+          "retrieval_score": 584.805,
+          "conditions": [
+            "Diffuse Large B-cell-lymphoma",
+            "DLBCL, Nos Genetic Subtypes",
+            "Follicular Lymphoma Grade 3B",
+            "PMBL",
+            "HGBL With MYC and BCL2 and/or BCL6 Rearrangements",
+            "HGBL, Nos"
+          ],
+          "phase": "PHASE1",
+          "status": "RECRUITING",
+          "interventions": [
+            "C402-CD19-CAR"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": 75,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease",
+              "active_uncontrolled_infection"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT06830031-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Diffuse Large B-cell-lymphoma",
+                "DLBCL, Nos Genetic Subtypes",
+                "Follicular Lymphoma Grade 3B",
+                "PMBL",
+                "HGBL With MYC and BCL2 and/or BCL6 Rearrangements",
+                "HGBL, Nos"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06830031-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": 75
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06830031-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active uncontrolled infection.",
+              "structured_value": "active_uncontrolled_infection",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. Male or female 18-75 years (inclusive);",
+              "2. Patients can understand this study and capable of providing informed consent;",
+              "3. Patients with willingness to be in the study and comply with the study visit procedures and other protocol requirements;",
+              "4. Diagnosed with CD19-positive large B-cell lymphoma (LBCL) based on cytology or histology according to the WHO 2016 standards, including diffuse large B-cell lymphoma not otherwise specified (DLBCL-NOS), grade 3b follicular lymphoma (FL), transformed diffuse large B-cell lymphoma, primary mediastinal B-cell lymphoma (PMBL), high-grade B-cell lymphoma (HGBL) with MYC, BCL-2, and/or BCL-6 rearrangements, and high-grade B-cell lymphoma not otherwise specified (HGBL-NOS). For CD19 expression status, subjects with a clear past record of tumor histological diagnosis as CD19-positive (within 6 months prior to screening with no CD19-related treatment in the last 6 months) and tumors showing CD19-positive lymphoma levels >= 50% by IHC or CD19-positive lymphoma levels >= 70% by flow cytometry. If there is no previous CD19 tumor testing or the result is over 6 months prior to screening, a new tumor pathology sample must be provided or re-collected for CD19-positive diagnosis by the institution, with IHC showing CD19-positive lymphoma levels >= 50% or flow cytometry showing CD19-positive lymphoma levels >= 70%.",
+              "5. For refractory or relapsed large B-cell lymphoma subjects, must have received at least anthracycline-based therapy and rituximab (or other CD20-targeted drugs, excluding CD20-negative cases). If previously treated with R-CHOP or other CD20-targeted therapy, the best treatment outcome prior to relapse must have been complete remission (CR). Subjects should meet the criteria for relapse, progression, or failure after second-line therapy; or relapse after autologous hematopoietic stem cell transplantation (auto-HSCT). If the subject has undergone previous auto-HSCT, the best treatment outcome prior to relapse must have been CR, and the relapse should occur more than 12 months after the previous treatment. (Refractory is defined as the best response to the most recent treatment being disease progression or stable disease after at least 2 cycles of the last-line therapy).",
+              "6. According to the 2014 Lugano Treatment Response Assessment Criteria, at least one measurable tumor lesion should be present (lesions can be measured with PET results; lymph node lesions \\[long axis LDi \\> 15mm\\] or extra nodal lesions \\[long axis LDi \\> 10mm\\]);",
+              "7. Expected survival time greater than 12 weeks;",
+              "8. ECOG score of 0-1;",
+              "9. Able to establish an intravenous route for PBMC collection, meeting the following hematologic parameters before screening: Hemoglobin >= 80 g/L, absolute neutrophil count >= 1.0 10\\^9/L, platelet count >= 75 10\\^9/L, lymphocyte count >= 0.5 10\\^9/L (if using bone marrow stimulants or blood transfusion, a washout period of 7 days is required; for granulocyte colony-stimulating factor \\[G-CSF\\] or granulocyte-macrophage colony-stimulating factor \\[GM-CSF\\], a washout period of 4 weeks or 5 half-lives is required);",
+              "10. Liver and kidney function, as well as heart and lung function, should meet the following requirements:"
+            ],
+            "exclusion": [
+              "1. History of receiving allogeneic hematopoietic stem cell transplantation, adoptive cell therapy (such as CAR-T therapy), or other gene-modified cell therapies;",
+              "2. Any active central nervous system (CNS) involvement (including symptomatic and asymptomatic), or a history of CNS disease (such as epilepsy, cerebral ischemia/hemorrhage, dementia, cerebellar disorders, or any autoimmune diseases involving the CNS);",
+              "3. Positive for hepatitis B surface antigen (HBsAg) or hepatitis B core antibody (HBcAb) with peripheral blood HBV DNA positivity, or subjects with HBV titers above the upper limit of the normal range for the study center; positive for hepatitis C virus (HCV) antibody and peripheral blood HCV RNA positivity; positive for cytomegalovirus (CMV) DNA; positive for human immunodeficiency virus (HIV) antibody; positive for syphilis test;",
+              "4. Any unstable systemic disease, including but not limited to unstable angina, cerebrovascular accident or transient ischemic attack (within 6 months prior to screening), myocardial infarction (within 6 months prior to screening), congestive heart failure (New York Heart Association \\[NYHA\\] classification >= III), active bleeding, severe arrhythmias requiring drug treatment, liver, kidney, or metabolic disorders;",
+              "5. Presence of malignant tumors other than large B-cell lymphoma, except for cured non-melanoma skin cancer, carcinoma in situ of the cervix, localized prostate cancer, superficial bladder cancer, ductal carcinoma in situ, and other cancers with a disease-free survival of more than 5 years;",
+              "6. Presence of gastric lymphoma, bulky disease, a history of CD19+ leukemia, or active autoimmune diseases (e.g., systemic lupus erythematosus, Sjgren's syndrome, rheumatoid arthritis, psoriasis, multiple sclerosis, inflammatory bowel disease, Hashimoto's thyroiditis, etc.);",
+              "7. Presence of uncontrolled active infections requiring treatment (e.g., sepsis, bacteremia, fungemia, viremia) (mild urinary tract infections or upper respiratory tract infections are exceptions), with the exception of prophylactic anti-infection treatment (for bacterial, fungal, viral infections, etc.);",
+              "8. Subjects who have received systemic steroid treatment within 2 weeks before PBMC collection and are determined by the investigator to require long-term systemic steroid treatment during the treatment period (except for inhaled, local application, or physiological replacement doses \\[hydrocortisone <=7 mgd-1 or equivalent prednisone <=5 mgd-1 or dexamethasone <=0.5 mgd-1\\]);",
+              "9. Subjects who have received anti-tumor treatment within 8 weeks or 5 half-lives (specific medications need to be assessed in detail) before PBMC collection, including chemotherapy, CD20-targeted therapy, etc.; local radiotherapy within 12 weeks;",
+              "10. Subjects who have used granulocyte colony-stimulating factor (G-CSF) or granulocyte-macrophage colony-stimulating factor (GM-CSF) within 4 weeks before PBMC collection or within at least 5 half-lives (whichever is shorter);"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: Must meet all the following inclusion criteria: 1. Male or female 18-75 years (inclusive); 2. Patients can understand this study and capable of providing informed consent; 3. Patients with willingness to be in the study and comply with the study visit procedures and other protocol requirements; 4. Diagnosed with CD19-positive large B-cell lymphoma (LBCL) based on cytology or histology according to the WHO 2016 standards, including diffuse large B-cell lymphoma not otherwise specified (DLBCL-NOS), grade 3b follicular lymphoma (FL), transformed diffuse large B-cell lymphoma, primary mediastinal B-cell lymphoma (PMBL), high-grade B-cell lymphoma (HGBL) with MYC, BCL-2, and/or BCL-6 rearrangements, and high-grade B-cell lymphoma not otherwise specified (HGBL-NOS). For CD19 expression status, subjects with a clear past record of tumor histological diagnosis as CD19-positive (within 6 months prior to screening with no CD19-related treatment in the last 6 months) and tumors showing CD19-positive lymphoma levels >= 50% by IHC or CD19-positive lymphoma levels >= 70% by flow cytometry. If there is no previous CD19 tumor testing or the result is over 6 months prior to screening, a new tumor pathology sample must be provided or re-collected for CD19-positive diagnosis by the institution, with IHC showing CD19-positive lymphoma levels >= 50% or flow cytometry showing CD19-positive lymphoma levels >= 70%. 5. For refractory or relapsed large B-cell lymphoma subjects, must have received at least anthracycline-based therapy and rituximab (or other CD20-targeted drugs, excluding CD20-negative cases). If previously treated with R-CHOP or other CD20-targeted therapy, the best treatment outcome prior to relapse must have been complete remission (CR). Subjects should meet"
+          }
+        },
+        {
+          "trial_id": "NCT03237780",
+          "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+          "source_url": "https://clinicaltrials.gov/study/NCT03237780",
+          "retrieval_rank": 3,
+          "retrieval_score": 410.828,
+          "conditions": [
+            "Locally Advanced Bladder Urothelial Carcinoma",
+            "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+            "Locally Advanced Ureter Urothelial Carcinoma",
+            "Locally Advanced Urethral Urothelial Carcinoma",
+            "Metastatic Bladder Urothelial Carcinoma",
+            "Metastatic Renal Pelvis Urothelial Carcinoma",
+            "Metastatic Ureter Urothelial Carcinoma",
+            "Metastatic Urethral Urothelial Carcinoma",
+            "Recurrent Bladder Urothelial Carcinoma",
+            "Recurrent Renal Pelvis Urothelial Carcinoma",
+            "Recurrent Ureter Urothelial Carcinoma",
+            "Recurrent Urethral Urothelial Carcinoma",
+            "Stage III Bladder Cancer AJCC v8",
+            "Stage III Renal Pelvis Cancer AJCC v8",
+            "Stage III Ureter Cancer AJCC v8",
+            "Stage III Urethral Cancer AJCC v8",
+            "Stage IV Bladder Cancer AJCC v8",
+            "Stage IV Renal Pelvis Cancer AJCC v8",
+            "Stage IV Ureter Cancer AJCC v8",
+            "Stage IV Urethral Cancer AJCC v8",
+            "Unresectable Bladder Urothelial Carcinoma",
+            "Unresectable Renal Pelvis Urothelial Carcinoma",
+            "Unresectable Ureter Urothelial Carcinoma",
+            "Unresectable Urethral Urothelial Carcinoma"
+          ],
+          "phase": "PHASE2",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Atezolizumab",
+            "Biopsy Procedure",
+            "Biospecimen Collection",
+            "Computed Tomography with Contrast",
+            "Eribulin Mesylate"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease",
+              "active_uncontrolled_infection",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT03237780-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Locally Advanced Bladder Urothelial Carcinoma",
+                "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+                "Locally Advanced Ureter Urothelial Carcinoma",
+                "Locally Advanced Urethral Urothelial Carcinoma",
+                "Metastatic Bladder Urothelial Carcinoma",
+                "Metastatic Renal Pelvis Urothelial Carcinoma",
+                "Metastatic Ureter Urothelial Carcinoma",
+                "Metastatic Urethral Urothelial Carcinoma",
+                "Recurrent Bladder Urothelial Carcinoma",
+                "Recurrent Renal Pelvis Urothelial Carcinoma",
+                "Recurrent Ureter Urothelial Carcinoma",
+                "Recurrent Urethral Urothelial Carcinoma",
+                "Stage III Bladder Cancer AJCC v8",
+                "Stage III Renal Pelvis Cancer AJCC v8",
+                "Stage III Ureter Cancer AJCC v8",
+                "Stage III Urethral Cancer AJCC v8",
+                "Stage IV Bladder Cancer AJCC v8",
+                "Stage IV Renal Pelvis Cancer AJCC v8",
+                "Stage IV Ureter Cancer AJCC v8",
+                "Stage IV Urethral Cancer AJCC v8",
+                "Unresectable Bladder Urothelial Carcinoma",
+                "Unresectable Renal Pelvis Urothelial Carcinoma",
+                "Unresectable Ureter Urothelial Carcinoma",
+                "Unresectable Urethral Urothelial Carcinoma"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active uncontrolled infection.",
+              "structured_value": "active_uncontrolled_infection",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study",
+              "Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra",
+              "Presence of measurable disease meeting the following criteria:",
+              "At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm",
+              "Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion",
+              "Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence",
+              "PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to allow for stratification; COMMERCIAL ASSESSMENT OF PD-L1 STATUS OBTAINED LOCALLY AT THE SITE WILL NOT SATISFY ELIGIBILITY CRITERIA",
+              "New, progressive or recurrent disease occurring",
+              "During or within 12 months of treatment with a platinum containing regimen (cisplatin or carboplatin or novel platinum) in either in the metastatic or perioperative setting",
+              "In first-line patients defined as cisplatin-ineligible based on renal impairment (creatinine clearance calculated by Cockcroft-Gault method \\< 60 ml/min), at least grade 2 hearing loss and/or Eastern Cooperative Oncology Group (ECOG) status of 2; these patients will be chemotherapy naive or have received platinum based therapy in the adjuvant or neoadjuvant setting more than 12 months prior to study entry"
+            ],
+            "exclusion": [
+              "Patients with prior allogeneic bone marrow transplantation or prior solid organ transplantation",
+              "Patients who have had chemotherapy within 3 weeks or radiotherapy or targeted therapy 2 weeks (6 weeks for nitrosoureas or mitomycin C) prior to entering the study or those who have not recovered from adverse events (other than alopecia) due to agents administered more than 4 weeks earlier; however, the following therapies are allowed:",
+              "Hormone-replacement therapy or oral contraceptives",
+              "Herbal therapy \\> 1 week prior to cycle 1, day 1 (herbal therapy intended as anticancer therapy must be discontinued at least 1 week prior to cycle 1, day 1)",
+              "Palliative radiotherapy for bone metastases \\> 2 weeks prior to cycle 1, day 1",
+              "Prior treatment with anti-PD-1, or anti-PD-L1 therapeutic antibody or pathway-targeting agents or eribulin",
+              "Patients who have received prior treatment with anti-CTLA-4 may be enrolled, provided the following requirements are met:",
+              "Minimum of 12 weeks from the first dose of anti-CTLA-4 and \\> 6 weeks from the last dose",
+              "No history of severe immune-related adverse effects from anti-CTLA-4 (National Cancer Institute \\[NCI\\] Common Terminology Criteria for Adverse Events \\[CTCAE\\] version 5.0)",
+              "Treatment with any other investigational agent within 4 weeks prior to cycle 1, day 1"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study * Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra * Presence of measurable disease meeting the following criteria: * At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm * Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion * Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence * PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to"
+          }
+        },
+        {
+          "trial_id": "NCT04724018",
+          "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+          "source_url": "https://clinicaltrials.gov/study/NCT04724018",
+          "retrieval_rank": 4,
+          "retrieval_score": 358.574,
+          "conditions": [
+            "Urothelial Cancer",
+            "Metastatic Urothelial Carcinoma",
+            "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+            "Bladder Cancer"
+          ],
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "Sacituzumab Govitecan (SG)",
+            "Enfortumab vedotin-ejfv (EV)",
+            "Pembrolizumab"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04724018-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Urothelial Cancer",
+                "Metastatic Urothelial Carcinoma",
+                "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+                "Bladder Cancer"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination)",
+              "Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible.",
+              "Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor.",
+              "Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease",
+              "Patient must be progressing on or since most recent therapy",
+              "Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials.",
+              "ECOG performance status 0-1.",
+              "Participants must have adequate organ and marrow function as defined below:",
+              "Leukocytes >=3,000/mcL",
+              "Absolute neutrophil count >=1,500/mcL"
+            ],
+            "exclusion": [
+              "Women who are pregnant or lactating. Pregnant women are excluded from this study because SG and EV have potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with EV or SG, breastfeeding should be discontinued if the mother is treated on protocol.",
+              "Have had a prior anti-cancer biologic agent (including immune checkpoint inhibitors) within 4 weeks prior to Cycle 1 Day 1 (C1D1) or have had prior chemotherapy, targeted small molecule therapy, or radiation therapy within 2 weeks prior to C1D1. Subjects participating in observational studies are eligible.",
+              "Presence of any toxicities attributed to prior anti-cancer therapy that are not resolved to Grade 1 or baseline that could impose serious risk for complications before administration of study drug agent",
+              "Note: If subjects received major surgery, they must have recovered adequately from the toxicity and/or complications from the intervention prior to starting therapy.",
+              "Have previously received topoisomerase 1 inhibitors, SG or EV",
+              "Have an active second malignancy. Subjects with a history of malignancy that have been completely treated, with no evidence of active cancer for 3 years prior to start of therapy on trial (Cycle 1 Day 1 \\[C1D1\\]), or subjects with surgically-cured tumors with low risk of recurrence are allowed to enroll.",
+              "Have known active central nervous system (CNS) metastases and/or carcinomatous meningitis. Subjects with previously treated brain metastases may participate provided they have stable CNS disease for at least 4 weeks prior to the first dose of study drug and all neurologic symptoms have returned to baseline, have no evidence of new or enlarging brain metastases, and are taking <=20 mg/day of prednisone or its equivalent. All subjects with carcinomatous meningitis are excluded regardless of clinical stability.",
+              "Have active cardiac disease, defined as:",
+              "Myocardial infarction or unstable angina pectoris within 6 months prior to C1D1",
+              "History of serious ventricular arrhythmia (i.e., ventricular tachycardia or ventricular fibrillation), high-grade atrioventricular block, or other cardiac arrhythmias requiring anti-arrhythmic medications (except for atrial fibrillation that is well controlled with antiarrhythmic medication); history of QT interval prolongation"
+            ],
+            "eligibility_criteria_excerpt": "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination) Inclusion Criteria: * Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible. * Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor. * Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease * Patient must be progressing on or since most recent therapy * Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials. * ECOG performance status 0-1. * Participants must have adequate organ and marrow function as defined below: * Leukocytes >=3,000/mcL * Absolute neutrophil count >=1,50"
+          }
+        },
+        {
+          "trial_id": "NCT06544265",
+          "title": "SynKIR-310 for Relapsed/Refractory B-NHL",
+          "source_url": "https://clinicaltrials.gov/study/NCT06544265",
+          "retrieval_rank": 5,
+          "retrieval_score": 301.563,
+          "conditions": [
+            "B Cell Lymphoma",
+            "NHL, Adult",
+            "Mantle Cell Lymphoma",
+            "Relapsed Non-Hodgkin Lymphoma",
+            "Refractory Non-Hodgkin Lymphoma",
+            "Aggressive B-Cell Non-Hodgkin Lymphoma",
+            "Indolent B-Cell Non-Hodgkin Lymphoma",
+            "Follicular Lymphoma",
+            "Marginal Zone Lymphoma",
+            "DLBCL - Diffuse Large B Cell Lymphoma",
+            "HGBL With MYC and BCL2 and/or BCL6 Rearrangements",
+            "High-grade B-cell Lymphoma",
+            "Diffuse Large B Cell Lymphoma",
+            "Large B-cell Lymphoma",
+            "T-Cell/Histiocyte Rich Lymphoma",
+            "Non-hodgkin Lymphoma,B Cell",
+            "Primary Mediastinal Large B-cell Lymphoma (PMBCL)",
+            "Epstein-Barr Virus Positive DLBCL, Nos",
+            "Follicular Lymphoma Grade 3B",
+            "DLBCL (Diffuse Large B-Cell Lymphoma) Associated With Chronic Inflammation",
+            "High Grade B-Cell Lymphoma, Not Otherwise Specified",
+            "Follicular Lymphoma Grade 3",
+            "Marginal Zone Splenic Lymphoma",
+            "DLBCL",
+            "Waldenstrom Macroglobulinemia",
+            "Waldenstrom Macroglobulinaemia"
+          ],
+          "phase": "PHASE1",
+          "status": "RECRUITING",
+          "interventions": [
+            "SynKIR-310"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT06544265-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "B Cell Lymphoma",
+                "NHL, Adult",
+                "Mantle Cell Lymphoma",
+                "Relapsed Non-Hodgkin Lymphoma",
+                "Refractory Non-Hodgkin Lymphoma",
+                "Aggressive B-Cell Non-Hodgkin Lymphoma",
+                "Indolent B-Cell Non-Hodgkin Lymphoma",
+                "Follicular Lymphoma",
+                "Marginal Zone Lymphoma",
+                "DLBCL - Diffuse Large B Cell Lymphoma",
+                "HGBL With MYC and BCL2 and/or BCL6 Rearrangements",
+                "High-grade B-cell Lymphoma",
+                "Diffuse Large B Cell Lymphoma",
+                "Large B-cell Lymphoma",
+                "T-Cell/Histiocyte Rich Lymphoma",
+                "Non-hodgkin Lymphoma,B Cell",
+                "Primary Mediastinal Large B-cell Lymphoma (PMBCL)",
+                "Epstein-Barr Virus Positive DLBCL, Nos",
+                "Follicular Lymphoma Grade 3B",
+                "DLBCL (Diffuse Large B-Cell Lymphoma) Associated With Chronic Inflammation",
+                "High Grade B-Cell Lymphoma, Not Otherwise Specified",
+                "Follicular Lymphoma Grade 3",
+                "Marginal Zone Splenic Lymphoma",
+                "DLBCL",
+                "Waldenstrom Macroglobulinemia",
+                "Waldenstrom Macroglobulinaemia"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06544265-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06544265-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06544265-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT06544265-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Adult 18 years of age and older.",
+              "Histologically confirmed diagnosis of B-NHL before enrollment.",
+              "Must have received prior CAR T or were unwilling/unable to receive prior CAR T.",
+              "Must have refractory or relapsed disease after receiving 2 prior lines of therapies.",
+              "If relapsed/refractory post-auto-SCT, then must have undergone auto-SCT at least 6 months prior to enrollment.",
+              "If relapsed/refractory disease after allogeneic stem cell transplant (allo SCT) then must have undergone allo-SCT at least 6 months prior to enrollment and without evidence of graft versus host disease, and expectation to remain off immunosuppressive therapy through duration of trial",
+              "Measurable disease at time of enrollment: At least one measurable lesion per Lugano Response Criteria (Cheson et al., 2014) or measurable disease per IWWM-11 response criteria (Treon 2023) for Waldenstrm macroglobulinemia patients.",
+              "Eastern Cooperative Oncology Group (ECOG) performance status of 0 to 1"
+            ],
+            "exclusion": [
+              "Previously treated with any investigational agent within 30 days prior to screening.",
+              "Any previous or concurrent malignancy, with the following exceptions:",
+              "Adequately treated non-melanoma skin cancer such as basal cell or squamous cell carcinoma; carcinoma-in-situ (e.g., cervix, bladder, breast) treated curatively and without evidence of recurrence for at least 3 years prior to enrollment or adequately treated melanoma skin cancer in-situ; any other malignancy which has been completely treated and remains in complete remission for >= 5 years prior to enrollment. Completely treated prostate cancer with prostate-specific antigen (PSA) level \\< 1.0 may also be permitted.",
+              "Use of systemic immunosuppressive drugs within 4 weeks prior to study entry, or anticipated use of systemic immunosuppressive agents through end of study, with the exception of non-T cell targeting agents prior to leukapheresis",
+              "Known immunodeficiency disease , with the exception of hypoglobulinemia",
+              "History or presence of active or clinically relevant primary central nervous system (CNS) disorder, such as seizure, encephalopathy, cerebrovascular ischemia/hemorrhage, cerebellar disease, or any autoimmune disease with CNS involvement. For primary CNS disorders that have recovered or are in remission, participants without recurrence within 2 years of planned study enrollment may be included.",
+              "Uncontrolled hypertension, history of myocarditis or congestive heart failure, unstable angina, serious uncontrolled cardiac arrhythmia, or myocardial infarction within 6 months prior to study entry.",
+              "Any active uncontrolled systemic fungal, bacterial or viral infection."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Adult 18 years of age and older. * Histologically confirmed diagnosis of B-NHL before enrollment. * Must have received prior CAR T or were unwilling/unable to receive prior CAR T. * Must have refractory or relapsed disease after receiving 2 prior lines of therapies. * If relapsed/refractory post-auto-SCT, then must have undergone auto-SCT at least 6 months prior to enrollment. * If relapsed/refractory disease after allogeneic stem cell transplant (allo SCT) then must have undergone allo-SCT at least 6 months prior to enrollment and without evidence of graft versus host disease, and expectation to remain off immunosuppressive therapy through duration of trial * Measurable disease at time of enrollment: At least one measurable lesion per Lugano Response Criteria (Cheson et al., 2014) or measurable disease per IWWM-11 response criteria (Treon 2023) for Waldenstrm macroglobulinemia patients. * Eastern Cooperative Oncology Group (ECOG) performance status of 0 to 1 Exclusion Criteria: * Previously treated with any investigational agent within 30 days prior to screening. * Any previous or concurrent malignancy, with the following exceptions: Adequately treated non-melanoma skin cancer such as basal cell or squamous cell carcinoma; carcinoma-in-situ (e.g., cervix, bladder, breast) treated curatively and without evidence of recurrence for at least 3 years prior to enrollment or adequately treated melanoma skin cancer in-situ; any other malignancy which has been completely treated and remains in complete remission for >= 5 years prior to enrollment. Completely treated prostate cancer with prostate-specific antigen (PSA) level \\< 1.0 may also be permitted. * Use of systemic immunosuppressive drugs within 4 weeks prior to study entry, or anticipated use of sys"
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "SYN-GEN-00082",
+      "patient_information_string": "Tumor board intake: SYN-GEN-00082 is a 71-year-old male with metastatic bladder cancer. No formal stage is documented. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart.",
+      "synthetic_source_profile": {
+        "patient_id": "SYN-GEN-00082",
+        "age": 71,
+        "sex": "male",
+        "diagnosis": "metastatic bladder cancer",
+        "ecog": 0,
+        "location": {
+          "country": "US",
+          "state": "NY"
+        },
+        "scenario": "missing_biomarker",
+        "target_trial_id": "NCT07664397"
+      },
+      "candidate_trials": [
+        {
+          "trial_id": "NCT07664397",
+          "title": "Imaging Study of [89Zr]DFO-YS5 for Cancer Detection",
+          "source_url": "https://clinicaltrials.gov/study/NCT07664397",
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "conditions": [
+            "Bladder Cancer",
+            "Nerve Sheath Tumor",
+            "Nerve Sheath Tumors",
+            "Solid Tumor Malignancies",
+            "Solid Tumor Cancer",
+            "Solid Tumor Neoplasms",
+            "Advanced Solid Tumor",
+            "Bladder Neoplasm",
+            "Nerve Sheath Neoplasms",
+            "Nerve Sheath Tumor, Nos",
+            "Solid Tumor, Adult",
+            "Solid Carcinoma"
+          ],
+          "phase": "PHASE1",
+          "status": "NOT_YET_RECRUITING",
+          "interventions": [
+            "[89Zr]DFO-YS5",
+            "Positron Emission Tomography (PET)-Magnetic resonance imaging (MRI)",
+            "Positron Emission Tomography (PET)-Computerized tomography (CT)"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": []
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07664397-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Bladder Cancer",
+                "Nerve Sheath Tumor",
+                "Nerve Sheath Tumors",
+                "Solid Tumor Malignancies",
+                "Solid Tumor Cancer",
+                "Solid Tumor Neoplasms",
+                "Advanced Solid Tumor",
+                "Bladder Neoplasm",
+                "Nerve Sheath Neoplasms",
+                "Nerve Sheath Tumor, Nos",
+                "Solid Tumor, Adult",
+                "Solid Carcinoma"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07664397-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07664397-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. Histological or cytological confirmation of malignant peripheral nerve sheath tumor, bladder cancer, or solid tumor neoplasm.",
+              "2. At least one soft tissue lesion measurable at 1 cm or greater in short axis measurement on cross sectional imaging such as Computerized tomography (CT), magnetic resonance imaging (MRI), or Positron Emission Tomography (PET)/CT (scan imaging as documented in the medical record). Exception: For participants with localized bladder cancer (pre-cystectomy), lesions smaller than 1 centimeter (cm) are permitted, provided there is cystoscopic confirmation of a bladder mass.",
+              "3. Clinically able to undergo PET-CT imaging or PET-MRI.",
+              "4. Age >= 18 years.",
+              "5. Eastern Cooperative Oncology Group (ECOG) performance status of <= 2 or Karnofsky >= 50% (see Appendix 1).",
+              "6. Adequate organ function as defined below:",
+              "Total bilirubin: <= 1.5 x institutional upper limit of normal (ULN) (unless elevated due to Gilbert's syndrome and direct bilirubin is within normal limits).",
+              "Aspartate aminotransferase (AST) (serum glutamic-oxaloacetic transaminase (SGOT)): <= 3 x ULN.",
+              "Alanine aminotransferase (ALT) (serum glutamic-pyruvic transaminase (SGPT)): <= 3 x ULN.",
+              "Estimated creatinine clearance: >= 60 mL/min, calculated using the Cockcroft-Gault equation."
+            ],
+            "exclusion": [
+              "1. Individuals with a contraindication to PET-CT imaging (e.g., severe claustrophobia) or PET-MRI (e.g., implanted devices, metallic objects, or other implants). Participants must be able to undergo either PET-CT or PET-MRI.",
+              "2. Individuals who are pregnant or breastfeeding/chest-feeding. Pregnant and breastfeeding/chest-feeding individuals are excluded because there is an unknown but potential risk for adverse effects in the unborn/nursing child secondary to treatment of the study participant with \\[89Zr\\]DFO-YS5. Females of childbearing potential must have a negative pregnancy test before administration of \\[89Zr\\]DFO-YS5, as outlined in inclusion criterion #7. Breastfeeding/chest-feeding should be discontinued before administration of \\[89Zr\\]DFO-YS5.",
+              "3. Individuals who do not agree to follow the below contraception requirements:",
+              "Females of reproductive potential (defined below) must agree to use two forms of contraception, consisting of a barrier method (such as condoms) in combination with a secondary complementary method (such as hormonal, Intrauterine device (IUD), etc.), or strict abstinence, for the duration of study participation and for 1 month after administration of \\[89Zr\\]DFO-YS5. A female is considered to NOT be of reproductive potential (regardless of sexual orientation, having undergone a tubal ligation, or remaining celibate by choice), if they meet either of the following two criteria: (1) has reached a postmenopausal state (>= 12 continuous months of amenorrhea with no identified cause other than menopause); or (2) has undergone surgical sterilization (i.e., hysterectomy and/or bilateral oophorectomy for removal of uterus and/or ovaries).",
+              "4. Hypersensitivity to \\[89Zr\\]DFO-YS5 or any of its excipients.",
+              "5. Individuals with any condition or social circumstance that, in the opinion of the investigator, would impair the participant's ability to comply with study procedures."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: 1. Histological or cytological confirmation of malignant peripheral nerve sheath tumor, bladder cancer, or solid tumor neoplasm. 2. At least one soft tissue lesion measurable at 1 cm or greater in short axis measurement on cross sectional imaging such as Computerized tomography (CT), magnetic resonance imaging (MRI), or Positron Emission Tomography (PET)/CT (scan imaging as documented in the medical record). Exception: For participants with localized bladder cancer (pre-cystectomy), lesions smaller than 1 centimeter (cm) are permitted, provided there is cystoscopic confirmation of a bladder mass. 3. Clinically able to undergo PET-CT imaging or PET-MRI. 4. Age >= 18 years. 5. Eastern Cooperative Oncology Group (ECOG) performance status of <= 2 or Karnofsky >= 50% (see Appendix 1). 6. Adequate organ function as defined below: * Total bilirubin: <= 1.5 x institutional upper limit of normal (ULN) (unless elevated due to Gilbert's syndrome and direct bilirubin is within normal limits). * Aspartate aminotransferase (AST) (serum glutamic-oxaloacetic transaminase (SGOT)): <= 3 x ULN. * Alanine aminotransferase (ALT) (serum glutamic-pyruvic transaminase (SGPT)): <= 3 x ULN. * Estimated creatinine clearance: >= 60 mL/min, calculated using the Cockcroft-Gault equation. 7. Females of reproductive potential (defined below) must be willing to undergo a urine or serum pregnancy test (i.e., human chorionic gonadotropin test) within 72 hours before administration of \\[89Zr\\]DFO-YS5. A female is considered to NOT be of reproductive potential (regardless of sexual orientation, having undergone a tubal ligation, or remaining celibate by choice), if they meet either of the following two criteria: (1) has reached a postmenopausal state (>= 12 continuous months of amenorrh"
+          }
+        },
+        {
+          "trial_id": "NCT03237780",
+          "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+          "source_url": "https://clinicaltrials.gov/study/NCT03237780",
+          "retrieval_rank": 2,
+          "retrieval_score": 367.496,
+          "conditions": [
+            "Locally Advanced Bladder Urothelial Carcinoma",
+            "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+            "Locally Advanced Ureter Urothelial Carcinoma",
+            "Locally Advanced Urethral Urothelial Carcinoma",
+            "Metastatic Bladder Urothelial Carcinoma",
+            "Metastatic Renal Pelvis Urothelial Carcinoma",
+            "Metastatic Ureter Urothelial Carcinoma",
+            "Metastatic Urethral Urothelial Carcinoma",
+            "Recurrent Bladder Urothelial Carcinoma",
+            "Recurrent Renal Pelvis Urothelial Carcinoma",
+            "Recurrent Ureter Urothelial Carcinoma",
+            "Recurrent Urethral Urothelial Carcinoma",
+            "Stage III Bladder Cancer AJCC v8",
+            "Stage III Renal Pelvis Cancer AJCC v8",
+            "Stage III Ureter Cancer AJCC v8",
+            "Stage III Urethral Cancer AJCC v8",
+            "Stage IV Bladder Cancer AJCC v8",
+            "Stage IV Renal Pelvis Cancer AJCC v8",
+            "Stage IV Ureter Cancer AJCC v8",
+            "Stage IV Urethral Cancer AJCC v8",
+            "Unresectable Bladder Urothelial Carcinoma",
+            "Unresectable Renal Pelvis Urothelial Carcinoma",
+            "Unresectable Ureter Urothelial Carcinoma",
+            "Unresectable Urethral Urothelial Carcinoma"
+          ],
+          "phase": "PHASE2",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Atezolizumab",
+            "Biopsy Procedure",
+            "Biospecimen Collection",
+            "Computed Tomography with Contrast",
+            "Eribulin Mesylate"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease",
+              "active_uncontrolled_infection",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT03237780-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Locally Advanced Bladder Urothelial Carcinoma",
+                "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+                "Locally Advanced Ureter Urothelial Carcinoma",
+                "Locally Advanced Urethral Urothelial Carcinoma",
+                "Metastatic Bladder Urothelial Carcinoma",
+                "Metastatic Renal Pelvis Urothelial Carcinoma",
+                "Metastatic Ureter Urothelial Carcinoma",
+                "Metastatic Urethral Urothelial Carcinoma",
+                "Recurrent Bladder Urothelial Carcinoma",
+                "Recurrent Renal Pelvis Urothelial Carcinoma",
+                "Recurrent Ureter Urothelial Carcinoma",
+                "Recurrent Urethral Urothelial Carcinoma",
+                "Stage III Bladder Cancer AJCC v8",
+                "Stage III Renal Pelvis Cancer AJCC v8",
+                "Stage III Ureter Cancer AJCC v8",
+                "Stage III Urethral Cancer AJCC v8",
+                "Stage IV Bladder Cancer AJCC v8",
+                "Stage IV Renal Pelvis Cancer AJCC v8",
+                "Stage IV Ureter Cancer AJCC v8",
+                "Stage IV Urethral Cancer AJCC v8",
+                "Unresectable Bladder Urothelial Carcinoma",
+                "Unresectable Renal Pelvis Urothelial Carcinoma",
+                "Unresectable Ureter Urothelial Carcinoma",
+                "Unresectable Urethral Urothelial Carcinoma"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active uncontrolled infection.",
+              "structured_value": "active_uncontrolled_infection",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study",
+              "Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra",
+              "Presence of measurable disease meeting the following criteria:",
+              "At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm",
+              "Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion",
+              "Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence",
+              "PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to allow for stratification; COMMERCIAL ASSESSMENT OF PD-L1 STATUS OBTAINED LOCALLY AT THE SITE WILL NOT SATISFY ELIGIBILITY CRITERIA",
+              "New, progressive or recurrent disease occurring",
+              "During or within 12 months of treatment with a platinum containing regimen (cisplatin or carboplatin or novel platinum) in either in the metastatic or perioperative setting",
+              "In first-line patients defined as cisplatin-ineligible based on renal impairment (creatinine clearance calculated by Cockcroft-Gault method \\< 60 ml/min), at least grade 2 hearing loss and/or Eastern Cooperative Oncology Group (ECOG) status of 2; these patients will be chemotherapy naive or have received platinum based therapy in the adjuvant or neoadjuvant setting more than 12 months prior to study entry"
+            ],
+            "exclusion": [
+              "Patients with prior allogeneic bone marrow transplantation or prior solid organ transplantation",
+              "Patients who have had chemotherapy within 3 weeks or radiotherapy or targeted therapy 2 weeks (6 weeks for nitrosoureas or mitomycin C) prior to entering the study or those who have not recovered from adverse events (other than alopecia) due to agents administered more than 4 weeks earlier; however, the following therapies are allowed:",
+              "Hormone-replacement therapy or oral contraceptives",
+              "Herbal therapy \\> 1 week prior to cycle 1, day 1 (herbal therapy intended as anticancer therapy must be discontinued at least 1 week prior to cycle 1, day 1)",
+              "Palliative radiotherapy for bone metastases \\> 2 weeks prior to cycle 1, day 1",
+              "Prior treatment with anti-PD-1, or anti-PD-L1 therapeutic antibody or pathway-targeting agents or eribulin",
+              "Patients who have received prior treatment with anti-CTLA-4 may be enrolled, provided the following requirements are met:",
+              "Minimum of 12 weeks from the first dose of anti-CTLA-4 and \\> 6 weeks from the last dose",
+              "No history of severe immune-related adverse effects from anti-CTLA-4 (National Cancer Institute \\[NCI\\] Common Terminology Criteria for Adverse Events \\[CTCAE\\] version 5.0)",
+              "Treatment with any other investigational agent within 4 weeks prior to cycle 1, day 1"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study * Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra * Presence of measurable disease meeting the following criteria: * At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm * Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion * Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence * PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to"
+          }
+        },
+        {
+          "trial_id": "NCT04724018",
+          "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+          "source_url": "https://clinicaltrials.gov/study/NCT04724018",
+          "retrieval_rank": 3,
+          "retrieval_score": 280.517,
+          "conditions": [
+            "Urothelial Cancer",
+            "Metastatic Urothelial Carcinoma",
+            "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+            "Bladder Cancer"
+          ],
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "Sacituzumab Govitecan (SG)",
+            "Enfortumab vedotin-ejfv (EV)",
+            "Pembrolizumab"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04724018-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Urothelial Cancer",
+                "Metastatic Urothelial Carcinoma",
+                "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+                "Bladder Cancer"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination)",
+              "Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible.",
+              "Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor.",
+              "Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease",
+              "Patient must be progressing on or since most recent therapy",
+              "Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials.",
+              "ECOG performance status 0-1.",
+              "Participants must have adequate organ and marrow function as defined below:",
+              "Leukocytes >=3,000/mcL",
+              "Absolute neutrophil count >=1,500/mcL"
+            ],
+            "exclusion": [
+              "Women who are pregnant or lactating. Pregnant women are excluded from this study because SG and EV have potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with EV or SG, breastfeeding should be discontinued if the mother is treated on protocol.",
+              "Have had a prior anti-cancer biologic agent (including immune checkpoint inhibitors) within 4 weeks prior to Cycle 1 Day 1 (C1D1) or have had prior chemotherapy, targeted small molecule therapy, or radiation therapy within 2 weeks prior to C1D1. Subjects participating in observational studies are eligible.",
+              "Presence of any toxicities attributed to prior anti-cancer therapy that are not resolved to Grade 1 or baseline that could impose serious risk for complications before administration of study drug agent",
+              "Note: If subjects received major surgery, they must have recovered adequately from the toxicity and/or complications from the intervention prior to starting therapy.",
+              "Have previously received topoisomerase 1 inhibitors, SG or EV",
+              "Have an active second malignancy. Subjects with a history of malignancy that have been completely treated, with no evidence of active cancer for 3 years prior to start of therapy on trial (Cycle 1 Day 1 \\[C1D1\\]), or subjects with surgically-cured tumors with low risk of recurrence are allowed to enroll.",
+              "Have known active central nervous system (CNS) metastases and/or carcinomatous meningitis. Subjects with previously treated brain metastases may participate provided they have stable CNS disease for at least 4 weeks prior to the first dose of study drug and all neurologic symptoms have returned to baseline, have no evidence of new or enlarging brain metastases, and are taking <=20 mg/day of prednisone or its equivalent. All subjects with carcinomatous meningitis are excluded regardless of clinical stability.",
+              "Have active cardiac disease, defined as:",
+              "Myocardial infarction or unstable angina pectoris within 6 months prior to C1D1",
+              "History of serious ventricular arrhythmia (i.e., ventricular tachycardia or ventricular fibrillation), high-grade atrioventricular block, or other cardiac arrhythmias requiring anti-arrhythmic medications (except for atrial fibrillation that is well controlled with antiarrhythmic medication); history of QT interval prolongation"
+            ],
+            "eligibility_criteria_excerpt": "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination) Inclusion Criteria: * Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible. * Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor. * Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease * Patient must be progressing on or since most recent therapy * Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials. * ECOG performance status 0-1. * Participants must have adequate organ and marrow function as defined below: * Leukocytes >=3,000/mcL * Absolute neutrophil count >=1,50"
+          }
+        },
+        {
+          "trial_id": "NCT07091617",
+          "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+          "source_url": "https://clinicaltrials.gov/study/NCT07091617",
+          "retrieval_rank": 4,
+          "retrieval_score": 235.023,
+          "conditions": [
+            "Miscellaneous Neoplasm, Nos",
+            "Non-Neoplastic Condition, Nos"
+          ],
+          "phase": "NA",
+          "status": "RECRUITING",
+          "interventions": [
+            "Telemedicine",
+            "Genetic Testing",
+            "Telemedicine",
+            "Internet-Based Intervention",
+            "Educational Intervention",
+            "Patient Navigation",
+            "Interview",
+            "Survey Administration"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": []
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07091617-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Miscellaneous Neoplasm, Nos",
+                "Non-Neoplastic Condition, Nos"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07091617-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07091617-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "PATIENTS: Age >= 18 years and <= 39 years at the time of enrollment",
+              "PATIENTS: AYA cancer patients and survivors. This includes patients at any stage of diagnosis (e.g., newly diagnosed, in treatment, in survivorship) and a cancer diagnosis (including pediatric cancers) at any age <= 39 years old. Given targeted therapies for BRCA+ and microsatellite instability (MSI)-high/Lynch Syndrome patients and benefit to relatives, patients with metastatic cancer are included. Any history of cancer, regardless of being in treatment or not",
+              "PATIENTS: Language: In order to complete the mandatory patient-completed measures and receive genetic education and counseling, participants must be able to speak and read English or Spanish",
+              "PATIENTS: No known diagnosis of dementia or cognitive impairment. Persons with impaired decision-making capacity are ineligible as they need to be able to understand genetic test results, its implications for the patient and family, and explain genetic test results to their family members",
+              "PATIENTS: No persons with a known psychiatric or documented developmental disorder that affects cognitive or emotional functions to the extent that the capacity for judgment and reason is significantly diminished, such that they cannot participate based on the judgment of the treating physician",
+              "PATIENTS: Participants must meet National Comprehensive Cancer Network (NCCN) guidelines for genetic testing assessment provided by Penn Telegenetics by the Eligibility Verification Assessment (EVA) chatbot, or paper forms and genetic counselor's review",
+              "NON-PATIENT PARTICIPANT: Non-patient participants eligible for this study include: oncology providers, members of the care team and clinic staff, genetic counselors, and insurers (i.e., people who work in financial services and/or for insurance companies) who participate in oncology care among AYA in community for this study",
+              "NON-PATIENT PARTICIPANT: Age >= 18 years",
+              "NON-PATIENT PARTICIPANT: Non-patient participants must be able to speak and read English or Spanish in order to participate in the key informant interviews"
+            ],
+            "exclusion": [],
+            "eligibility_criteria_excerpt": "* PATIENTS: Age >= 18 years and <= 39 years at the time of enrollment * PATIENTS: AYA cancer patients and survivors. This includes patients at any stage of diagnosis (e.g., newly diagnosed, in treatment, in survivorship) and a cancer diagnosis (including pediatric cancers) at any age <= 39 years old. Given targeted therapies for BRCA+ and microsatellite instability (MSI)-high/Lynch Syndrome patients and benefit to relatives, patients with metastatic cancer are included. Any history of cancer, regardless of being in treatment or not * PATIENTS: Language: In order to complete the mandatory patient-completed measures and receive genetic education and counseling, participants must be able to speak and read English or Spanish * PATIENTS: No known diagnosis of dementia or cognitive impairment. Persons with impaired decision-making capacity are ineligible as they need to be able to understand genetic test results, its implications for the patient and family, and explain genetic test results to their family members * PATIENTS: No persons with a known psychiatric or documented developmental disorder that affects cognitive or emotional functions to the extent that the capacity for judgment and reason is significantly diminished, such that they cannot participate based on the judgment of the treating physician * PATIENTS: Participants must meet National Comprehensive Cancer Network (NCCN) guidelines for genetic testing assessment provided by Penn Telegenetics by the Eligibility Verification Assessment (EVA) chatbot, or paper forms and genetic counselor's review * NON-PATIENT PARTICIPANT: Non-patient participants eligible for this study include: oncology providers, members of the care team and clinic staff, genetic counselors, and insurers (i.e., people who work in financial servic"
+          }
+        },
+        {
+          "trial_id": "NCT04916990",
+          "title": "Improving Care for Rural Patients With Solid Tumors",
+          "source_url": "https://clinicaltrials.gov/study/NCT04916990",
+          "retrieval_rank": 5,
+          "retrieval_score": 213.693,
+          "conditions": [
+            "Lung Cancer",
+            "Head and Neck Cancer",
+            "Thyroid Cancer",
+            "Cervical Cancer",
+            "Breast Cancer",
+            "Bladder Cancer",
+            "Colon Cancer",
+            "Rectum Cancer"
+          ],
+          "phase": "NA",
+          "status": "RECRUITING",
+          "interventions": [
+            "CARES Intervention"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": 99,
+            "sex": "all",
+            "allowed_stages": [
+              "I",
+              "II",
+              "III",
+              "IV"
+            ],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": []
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04916990-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Lung Cancer",
+                "Head and Neck Cancer",
+                "Thyroid Cancer",
+                "Cervical Cancer",
+                "Breast Cancer",
+                "Bladder Cancer",
+                "Colon Cancer",
+                "Rectum Cancer"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04916990-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": 99
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04916990-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "I",
+                "II",
+                "III",
+                "IV"
+              ],
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. Provision to sign and date the consent form.",
+              "2. Stated willingness to comply with all study procedures and be available for the duration of the study.",
+              "3. Male and female adults over 18 years old",
+              "4. English or Spanish speaking",
+              "5. Receives cancer treatment at UCH- Aurora, UCH-Highlands Ranch, UCHealth North, UCHealth South- UCHealth Memorial Hospital, UCHealth Parkview Hospital, San Juan Cancer Center, RMCC-Pueblo, SCL-St. Mary's, or Parkview Medical Center.",
+              "6. Resides in any of the rural counties served by the UCH-Aurora, UCH-Highlands Ranch, UCHealth North, UCHealth South- UCHealth Memorial Hospital, UCHealth Parkview Hospital, San Juan Cancer Center, RMCC-Pueblo, SCL-St. Mary's, VA, Huntsman Cancer Institute, or Parkview Medical Center with Rural-Urban Continuum Codes (RUCC) codes 4-9.",
+              "7. Diagnosed with lung cancer (LC): small cell lung cancer (SCLC), non-small cell lung cancer (NSCLC), using incident LC diagnosis according to the International Classification of Diseases for Oncology \\[ICD-O\\] codes: C34.0, C34.1, C34.2, C34.3, C34.8, C34.9, and C33.9, and other lung cancer variants",
+              "8. Stage of diagnosis for SCLC (limited vs. extensive), NSCLC (Stages 0, I, II, IIA, IIIB, IV), according to the American Joint Committee on Cancer Staging \\[AJCC\\] Tumor Node Metastasis \\[TNM\\] stages: I-IV)",
+              "9. Will receive the following types of breast, bladder, cervix, colon, rectum, lung, head-and-neck cancer treatments (surgery, radiation therapy, chemotherapy, or a combination of those modalities, including neoadjuvant and adjuvant therapy)",
+              "10. Diagnosed with head and neck cancer (HNC) using head and neck squamous cell carcinoma (HNSCC) ICD-O codes for the oral cavity (including lip; codes C00.0-C00.6, C00.8, C00.9, C02.0-C02.3, C02.8, C0.2.9, C03.0, C03.1, C03.9-C04.1, C04.8-C05.0, C06.0-C06.2, C06.8, and C06.9), the oropharynx (codes C01.9, C02.4, C05.1, C05.2, C5.8, C5.9, C09.0, C09.1, C09.8-C10.4, C10.8, C10.9, C14.0, C14.2, and C14.8), the hypopharynx (codes C12.9-C13.2, C13.8, and C13.9), and the larynx (codes C32.0- C32.3 and C32.8-C32.9) and histology codes for squamous cell carcinoma (SCC) or its variants (codes 8032, 8050, 8052, 8070-8075, and 8083-8084), and salivary gland cancer (code C07 and variants), and other head and neck cancer variants"
+            ],
+            "exclusion": [
+              "1. Children under 18 years old",
+              "2. Individuals who do not speak English or Spanish",
+              "3. Individuals not receiving cancer treatment at UCH (Aurora, Highlands Ranch, UCHealth North, UCHealth Memorial Hospital), San Juan Cancer Center, RMCC-Pueblo, St. Mary's or Parkview Medical Center.",
+              "7. Individuals from vulnerable populations (e.g., inmates or on probation, homeless\\*, and pregnant\\*)",
+              "8. Decisionally-challenged with cognitive or personality impairment, suicidal ideation or intoxication (alcohol or drugs) at the time of consent or endorsed in baseline survey that interfere with ability to participate in the study.",
+              "9. Unable to hear (not including individuals who can hear with an auditory aid).\\",
+              "10. Likely inability to track the individual over time (e.g. no permanent address at the time of consent) \\*Individuals who become homeless, pregnant, or lose their hearing or permanent address after they have consented and/or assigned to study condition may remain in the study until completion"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria Assessed During Screening: 1. Provision to sign and date the consent form. 2. Stated willingness to comply with all study procedures and be available for the duration of the study. 3. Male and female adults over 18 years old 4. English or Spanish speaking 5. Receives cancer treatment at UCH- Aurora, UCH-Highlands Ranch, UCHealth North, UCHealth South- UCHealth Memorial Hospital, UCHealth Parkview Hospital, San Juan Cancer Center, RMCC-Pueblo, SCL-St. Mary's, or Parkview Medical Center. 6. Resides in any of the rural counties served by the UCH-Aurora, UCH-Highlands Ranch, UCHealth North, UCHealth South- UCHealth Memorial Hospital, UCHealth Parkview Hospital, San Juan Cancer Center, RMCC-Pueblo, SCL-St. Mary's, VA, Huntsman Cancer Institute, or Parkview Medical Center with Rural-Urban Continuum Codes (RUCC) codes 4-9. 7. Diagnosed with lung cancer (LC): small cell lung cancer (SCLC), non-small cell lung cancer (NSCLC), using incident LC diagnosis according to the International Classification of Diseases for Oncology \\[ICD-O\\] codes: C34.0, C34.1, C34.2, C34.3, C34.8, C34.9, and C33.9, and other lung cancer variants 8. Stage of diagnosis for SCLC (limited vs. extensive), NSCLC (Stages 0, I, II, IIA, IIIB, IV), according to the American Joint Committee on Cancer Staging \\[AJCC\\] Tumor Node Metastasis \\[TNM\\] stages: I-IV) 9. Will receive the following types of breast, bladder, cervix, colon, rectum, lung, head-and-neck cancer treatments (surgery, radiation therapy, chemotherapy, or a combination of those modalities, including neoadjuvant and adjuvant therapy) 10. Diagnosed with head and neck cancer (HNC) using head and neck squamous cell carcinoma (HNSCC) ICD-O codes for the oral cavity (including lip; codes C00.0-C00.6, C00.8, C00.9, C02.0-C02.3, C02.8, "
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "SYN-GEN-00083",
+      "patient_information_string": "Oncology referral note: SYN-GEN-00083 is a 47-year-old male with interstitial lung diseases. Stage is recorded as III. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. The note reports uncontrolled cardiac disease. No organ transplant is reported. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart.",
+      "synthetic_source_profile": {
+        "patient_id": "SYN-GEN-00083",
+        "age": 47,
+        "sex": "male",
+        "diagnosis": "interstitial lung diseases",
+        "stage": "III",
+        "ecog": 1,
+        "flags": {
+          "organ_transplant": false,
+          "uncontrolled_cardiac_disease": true
+        },
+        "location": {
+          "country": "US",
+          "state": "TX"
+        },
+        "scenario": "exclusion_conflict",
+        "target_trial_id": "NCT05828953"
+      },
+      "candidate_trials": [
+        {
+          "trial_id": "NCT05828953",
+          "title": "Anlotinib Capsules in the Treatment for IPF/PF-ILDs",
+          "source_url": "https://clinicaltrials.gov/study/NCT05828953",
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "conditions": [
+            "Interstitial Lung Diseases"
+          ],
+          "phase": "PHASE2",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Anlotinib",
+            "Placebo"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": 85,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "uncontrolled_cardiac_disease",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT05828953-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Interstitial Lung Diseases"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT05828953-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": 85
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT05828953-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT05828953-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. The participants voluntarily joined the study and signed an informed consent form. They showed good compliance throughout the study.",
+              "2. The study includes individuals aged 40-85 years old, of any gender, with an expected lifespan of over 1 year.",
+              "3. Subjects who meet either of the following two criteria: a. HRCT results confirming IPF diagnosis within the past 5 years and HRCT results within the past 12 months showing a range of parenchymal fibrotic changes between >=10% and \\<50%, with less than 25% honeycombing change in the lung, and no other facilitating factors (e.g. asbestos exposure, allergic pneumonia, systemic sclerosis, rheumatoid arthritis) as detailed in Annex 1A. b. PF-ILDs: Patients with characteristics of fibrotic lung disease (see Annex 1B), and at least one of the following diagnostic criteria is met: i. Relative decline in FVC% predicted by >=10% within 6 months; ii. Relative decline in FVC% predicted by >=5-10% with worsening respiratory symptoms, or an increase in the degree of fibrosis on chest HRCT; ii. Worsening respiratory symptoms combined with an increase in the degree of fibrosis on chest HRCT;",
+              "4. Carbon monoxide diffusion capacity (DLco) (corrected for hemoglobin) between 30% and 80% of predicted value;",
+              "5. Forced vital capacity (FVC) >= 45% predicted;",
+              "6. The 6MWT distance is >= 150 meters",
+              "7. Arterial partial pressure of oxygen (PaO2) >= 60 mmHg (measured at sea level atmospheric pressure, at rest, and breathing room air)",
+              "8. \"Major organ functions are good, and meet the following criteria: a. Standard blood routine examination (not corrected by blood transfusion or hematopoietic growth factor drugs in the past 7 days): hemoglobin (HGB) >= 90 g/L; absolute neutrophil count (NEUT) >= 1.5 10\\^9/L; platelet count (PLT) >= 90 10\\^9/L; b. Biochemical examination should meet the following criteria: total bilirubin (TBL) <= 1.5 times the upper limit of normal (ULN); alanine aminotransferase (ALT) and aspartate aminotransferase (AST) <= 2.5 ULN; serum creatinine (Cr) <= 1.5 ULN or creatinine clearance rate (Ccr) >= 60 ml/min; c. Coagulation function or thyroid function examination should meet the following criteria: prothrombin time (PT), activated partial thromboplastin time (APTT), international normalized ratio (INR) <= 1.5 ULN (not receiving anticoagulation therapy) or stable use of anticoagulants in the 2 weeks before enrollment; d. Thyroid-stimulating hormone (TSH) <= ULN after standard treatment; if abnormal, T3 and T4 levels should be investigated and can be enrolled if T3 and T4 levels are normal.",
+              "e. Echocardiography evaluation: Left ventricular ejection fraction (LVEF) >=50%",
+              "9. Female participants of childbearing potential must agree to use contraception (such as intrauterine device, contraceptive pill, or condom) during the study and for 6 months after the end of the study; must have a negative serum pregnancy test within 7 days before study entry and must not be lactating. Male participants must agree to use contraception during the study and for 6 months after the end of the study."
+            ],
+            "exclusion": [
+              "1. Patients with acute exacerbation of IPF/PF-ILDs.;",
+              "2. Multiple factors that affect oral medication (such as dysphagia, chronic diarrhea, and intestinal obstruction)",
+              "3. Received major surgical treatment, incisional biopsy, or significant traumatic injury within 28 days prior to the start of the study treatment.",
+              "4. Long-standing non-healing wound or fracture.",
+              "5. Patients who have experienced thrombotic events, such as cerebrovascular accidents (including transient ischemic attacks, cerebral hemorrhage, and cerebral infarction), deep vein thrombosis, and pulmonary embolism, within the past 6 months, or those with other bleeding tendencies.",
+              "6. Subjects with any severe or uncontrolled comorbidities or undergoing immunotherapy, such as:",
+              "1. Blood pressure remains uncontrolled even after antihypertensive therapy (systolic blood pressure >=150mmHg or diastolic blood pressure >=100mmHg); 2nd-degree myocardial ischemia or myocardial infarction, arrhythmia (including QTc >=450ms (men), QTc >=470ms (women)) or 2nd-degree congestive heart failure (New York Heart Association (NYHA) classification); pulmonary or systemic infections within 4 weeks before enrollment;",
+              "2. Severe pulmonary arterial hypertension (systolic pulmonary artery pressure (SPAP) >=70mmHg);",
+              "3. Renal failure requiring hemodialysis or peritoneal dialysis;",
+              "4. History of immune deficiency diseases, including HIV-positive or other acquired or congenital immune deficiency diseases, or history of organ transplantation;"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: 1. The participants voluntarily joined the study and signed an informed consent form. They showed good compliance throughout the study. 2. The study includes individuals aged 40-85 years old, of any gender, with an expected lifespan of over 1 year. 3. Subjects who meet either of the following two criteria: a. HRCT results confirming IPF diagnosis within the past 5 years and HRCT results within the past 12 months showing a range of parenchymal fibrotic changes between >=10% and \\<50%, with less than 25% honeycombing change in the lung, and no other facilitating factors (e.g. asbestos exposure, allergic pneumonia, systemic sclerosis, rheumatoid arthritis) as detailed in Annex 1A. b. PF-ILDs: Patients with characteristics of fibrotic lung disease (see Annex 1B), and at least one of the following diagnostic criteria is met: i. Relative decline in FVC% predicted by >=10% within 6 months; ii. Relative decline in FVC% predicted by >=5-10% with worsening respiratory symptoms, or an increase in the degree of fibrosis on chest HRCT; ii. Worsening respiratory symptoms combined with an increase in the degree of fibrosis on chest HRCT; 4. Carbon monoxide diffusion capacity (DLco) (corrected for hemoglobin) between 30% and 80% of predicted value; 5. Forced vital capacity (FVC) >= 45% predicted; 6. The 6MWT distance is >= 150 meters 7. Arterial partial pressure of oxygen (PaO2) >= 60 mmHg (measured at sea level atmospheric pressure, at rest, and breathing room air) 8. \"Major organ functions are good, and meet the following criteria: a. Standard blood routine examination (not corrected by blood transfusion or hematopoietic growth factor drugs in the past 7 days): hemoglobin (HGB) >= 90 g/L; absolute neutrophil count (NEUT) >= 1.5 10\\^9/L; platelet count (PLT) >= 90 "
+          }
+        },
+        {
+          "trial_id": "NCT03237780",
+          "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+          "source_url": "https://clinicaltrials.gov/study/NCT03237780",
+          "retrieval_rank": 2,
+          "retrieval_score": 306.9,
+          "conditions": [
+            "Locally Advanced Bladder Urothelial Carcinoma",
+            "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+            "Locally Advanced Ureter Urothelial Carcinoma",
+            "Locally Advanced Urethral Urothelial Carcinoma",
+            "Metastatic Bladder Urothelial Carcinoma",
+            "Metastatic Renal Pelvis Urothelial Carcinoma",
+            "Metastatic Ureter Urothelial Carcinoma",
+            "Metastatic Urethral Urothelial Carcinoma",
+            "Recurrent Bladder Urothelial Carcinoma",
+            "Recurrent Renal Pelvis Urothelial Carcinoma",
+            "Recurrent Ureter Urothelial Carcinoma",
+            "Recurrent Urethral Urothelial Carcinoma",
+            "Stage III Bladder Cancer AJCC v8",
+            "Stage III Renal Pelvis Cancer AJCC v8",
+            "Stage III Ureter Cancer AJCC v8",
+            "Stage III Urethral Cancer AJCC v8",
+            "Stage IV Bladder Cancer AJCC v8",
+            "Stage IV Renal Pelvis Cancer AJCC v8",
+            "Stage IV Ureter Cancer AJCC v8",
+            "Stage IV Urethral Cancer AJCC v8",
+            "Unresectable Bladder Urothelial Carcinoma",
+            "Unresectable Renal Pelvis Urothelial Carcinoma",
+            "Unresectable Ureter Urothelial Carcinoma",
+            "Unresectable Urethral Urothelial Carcinoma"
+          ],
+          "phase": "PHASE2",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Atezolizumab",
+            "Biopsy Procedure",
+            "Biospecimen Collection",
+            "Computed Tomography with Contrast",
+            "Eribulin Mesylate"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease",
+              "active_uncontrolled_infection",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT03237780-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Locally Advanced Bladder Urothelial Carcinoma",
+                "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+                "Locally Advanced Ureter Urothelial Carcinoma",
+                "Locally Advanced Urethral Urothelial Carcinoma",
+                "Metastatic Bladder Urothelial Carcinoma",
+                "Metastatic Renal Pelvis Urothelial Carcinoma",
+                "Metastatic Ureter Urothelial Carcinoma",
+                "Metastatic Urethral Urothelial Carcinoma",
+                "Recurrent Bladder Urothelial Carcinoma",
+                "Recurrent Renal Pelvis Urothelial Carcinoma",
+                "Recurrent Ureter Urothelial Carcinoma",
+                "Recurrent Urethral Urothelial Carcinoma",
+                "Stage III Bladder Cancer AJCC v8",
+                "Stage III Renal Pelvis Cancer AJCC v8",
+                "Stage III Ureter Cancer AJCC v8",
+                "Stage III Urethral Cancer AJCC v8",
+                "Stage IV Bladder Cancer AJCC v8",
+                "Stage IV Renal Pelvis Cancer AJCC v8",
+                "Stage IV Ureter Cancer AJCC v8",
+                "Stage IV Urethral Cancer AJCC v8",
+                "Unresectable Bladder Urothelial Carcinoma",
+                "Unresectable Renal Pelvis Urothelial Carcinoma",
+                "Unresectable Ureter Urothelial Carcinoma",
+                "Unresectable Urethral Urothelial Carcinoma"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active uncontrolled infection.",
+              "structured_value": "active_uncontrolled_infection",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study",
+              "Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra",
+              "Presence of measurable disease meeting the following criteria:",
+              "At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm",
+              "Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion",
+              "Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence",
+              "PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to allow for stratification; COMMERCIAL ASSESSMENT OF PD-L1 STATUS OBTAINED LOCALLY AT THE SITE WILL NOT SATISFY ELIGIBILITY CRITERIA",
+              "New, progressive or recurrent disease occurring",
+              "During or within 12 months of treatment with a platinum containing regimen (cisplatin or carboplatin or novel platinum) in either in the metastatic or perioperative setting",
+              "In first-line patients defined as cisplatin-ineligible based on renal impairment (creatinine clearance calculated by Cockcroft-Gault method \\< 60 ml/min), at least grade 2 hearing loss and/or Eastern Cooperative Oncology Group (ECOG) status of 2; these patients will be chemotherapy naive or have received platinum based therapy in the adjuvant or neoadjuvant setting more than 12 months prior to study entry"
+            ],
+            "exclusion": [
+              "Patients with prior allogeneic bone marrow transplantation or prior solid organ transplantation",
+              "Patients who have had chemotherapy within 3 weeks or radiotherapy or targeted therapy 2 weeks (6 weeks for nitrosoureas or mitomycin C) prior to entering the study or those who have not recovered from adverse events (other than alopecia) due to agents administered more than 4 weeks earlier; however, the following therapies are allowed:",
+              "Hormone-replacement therapy or oral contraceptives",
+              "Herbal therapy \\> 1 week prior to cycle 1, day 1 (herbal therapy intended as anticancer therapy must be discontinued at least 1 week prior to cycle 1, day 1)",
+              "Palliative radiotherapy for bone metastases \\> 2 weeks prior to cycle 1, day 1",
+              "Prior treatment with anti-PD-1, or anti-PD-L1 therapeutic antibody or pathway-targeting agents or eribulin",
+              "Patients who have received prior treatment with anti-CTLA-4 may be enrolled, provided the following requirements are met:",
+              "Minimum of 12 weeks from the first dose of anti-CTLA-4 and \\> 6 weeks from the last dose",
+              "No history of severe immune-related adverse effects from anti-CTLA-4 (National Cancer Institute \\[NCI\\] Common Terminology Criteria for Adverse Events \\[CTCAE\\] version 5.0)",
+              "Treatment with any other investigational agent within 4 weeks prior to cycle 1, day 1"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study * Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra * Presence of measurable disease meeting the following criteria: * At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm * Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion * Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence * PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to"
+          }
+        },
+        {
+          "trial_id": "NCT04724018",
+          "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+          "source_url": "https://clinicaltrials.gov/study/NCT04724018",
+          "retrieval_rank": 3,
+          "retrieval_score": 281.316,
+          "conditions": [
+            "Urothelial Cancer",
+            "Metastatic Urothelial Carcinoma",
+            "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+            "Bladder Cancer"
+          ],
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "Sacituzumab Govitecan (SG)",
+            "Enfortumab vedotin-ejfv (EV)",
+            "Pembrolizumab"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04724018-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Urothelial Cancer",
+                "Metastatic Urothelial Carcinoma",
+                "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+                "Bladder Cancer"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination)",
+              "Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible.",
+              "Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor.",
+              "Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease",
+              "Patient must be progressing on or since most recent therapy",
+              "Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials.",
+              "ECOG performance status 0-1.",
+              "Participants must have adequate organ and marrow function as defined below:",
+              "Leukocytes >=3,000/mcL",
+              "Absolute neutrophil count >=1,500/mcL"
+            ],
+            "exclusion": [
+              "Women who are pregnant or lactating. Pregnant women are excluded from this study because SG and EV have potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with EV or SG, breastfeeding should be discontinued if the mother is treated on protocol.",
+              "Have had a prior anti-cancer biologic agent (including immune checkpoint inhibitors) within 4 weeks prior to Cycle 1 Day 1 (C1D1) or have had prior chemotherapy, targeted small molecule therapy, or radiation therapy within 2 weeks prior to C1D1. Subjects participating in observational studies are eligible.",
+              "Presence of any toxicities attributed to prior anti-cancer therapy that are not resolved to Grade 1 or baseline that could impose serious risk for complications before administration of study drug agent",
+              "Note: If subjects received major surgery, they must have recovered adequately from the toxicity and/or complications from the intervention prior to starting therapy.",
+              "Have previously received topoisomerase 1 inhibitors, SG or EV",
+              "Have an active second malignancy. Subjects with a history of malignancy that have been completely treated, with no evidence of active cancer for 3 years prior to start of therapy on trial (Cycle 1 Day 1 \\[C1D1\\]), or subjects with surgically-cured tumors with low risk of recurrence are allowed to enroll.",
+              "Have known active central nervous system (CNS) metastases and/or carcinomatous meningitis. Subjects with previously treated brain metastases may participate provided they have stable CNS disease for at least 4 weeks prior to the first dose of study drug and all neurologic symptoms have returned to baseline, have no evidence of new or enlarging brain metastases, and are taking <=20 mg/day of prednisone or its equivalent. All subjects with carcinomatous meningitis are excluded regardless of clinical stability.",
+              "Have active cardiac disease, defined as:",
+              "Myocardial infarction or unstable angina pectoris within 6 months prior to C1D1",
+              "History of serious ventricular arrhythmia (i.e., ventricular tachycardia or ventricular fibrillation), high-grade atrioventricular block, or other cardiac arrhythmias requiring anti-arrhythmic medications (except for atrial fibrillation that is well controlled with antiarrhythmic medication); history of QT interval prolongation"
+            ],
+            "eligibility_criteria_excerpt": "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination) Inclusion Criteria: * Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible. * Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor. * Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease * Patient must be progressing on or since most recent therapy * Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials. * ECOG performance status 0-1. * Participants must have adequate organ and marrow function as defined below: * Leukocytes >=3,000/mcL * Absolute neutrophil count >=1,50"
+          }
+        },
+        {
+          "trial_id": "NCT04262167",
+          "title": "Human Autologous Lung Stem Cell Transplant for Idiopathic Pulmonary Fibrosis",
+          "source_url": "https://clinicaltrials.gov/study/NCT04262167",
+          "retrieval_rank": 4,
+          "retrieval_score": 222.636,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis and Progressive Fibrotic Interstitial Lung Disease"
+          ],
+          "phase": "PHASE1",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Lung Spheroid Stem Cells 100 million",
+            "Lung Spheroid Stem Cells 200 million"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": 80,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04262167-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis and Progressive Fibrotic Interstitial Lung Disease"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04262167-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": 80
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04262167-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04262167-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Male or female between the ages of 40 to 80.",
+              "Diagnosis of a Progressive Fibrotic Interstitial Lung Disease",
+              "Diagnosis of IPF based on the following criteria in accordance with American Thoracic Society (ATS) guidelines for diagnosing IPF:",
+              "1. Definite usual interstitial pneumonia (UIP) confirmed on surgical lung biopsy (SLB) with all other etiologies for UIP excluded OR High resolution CT scan (HRCT) showing definite UIP with all other etiologies for UIP excluded.",
+              "2. Probable UIP on both imaging and surgical lung biopsy with all other etiologies for UIP excluded.",
+              "Forced vital capacity (FVC) greater than 50% of predicted with a ratio of forced expiratory volume in 1 second to FVC (FEV1/FVC) greater than 0.75 (Pulmonary function tests must be completed no more than 90 days before screening).",
+              "Diffusing capacity for carbon monoxide (DLCO) greater than 25% of predicted capacity.",
+              "Ability to perform a 6-Minute Walk Test (6MWT) at screening.",
+              "Competency to understand the information given in the Human Research and Ethics Committee (HREC) approved Informed Consent Form and must sign the form prior to the initiation of any study procedures"
+            ],
+            "exclusion": [
+              "Diagnosis of an interstitial lung disease (ILD) or restrictive lung disease other than IPF or Progressive Fibrotic Interstitial Lung Disease.",
+              "Obstructive lung disease as determined by evidence of airflow obstruction on HRCT or physiologic criteria including: FEV1/FVC ratio less than 0.75, Residual volume (RV) greater than 120% by plethysmography or significant (verified by radiologist) emphysema on HRCT or evidence of reactive airway disease by change in FEV1 of greater than 12% following bronchodilator challenge.",
+              "Evidence of sustained improvement lung function defined as improvement from pre-therapy pulmonary function tests (PFTs) observed with two or more successive post-therapy PFTs over the year prior to randomization.",
+              "Active or recent (less than 60 days prior to enrollment) significant respiratory tract infections, or a history of frequent (greater than 2 per year for the last 2 years) infective exacerbations of IPF.",
+              "Hospitalization within 60 days of screening for an acute exacerbation of IPF (AE-IPF).",
+              "Chronic heart failure (NYHA class III/IV) or known left ventricular ejection fraction less than 45%.",
+              "Acute or chronic impairment (other than dyspnea) which limits the ability to comply with study requirements and procedures including the 6MWT.",
+              "Subject requires hemodialysis, peritoneal dialysis or hemofiltration.",
+              "Infection with HIV",
+              "Viral Hepatitis"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Male or female between the ages of 40 to 80. * Diagnosis of a Progressive Fibrotic Interstitial Lung Disease * Diagnosis of IPF based on the following criteria in accordance with American Thoracic Society (ATS) guidelines for diagnosing IPF: 1. Definite usual interstitial pneumonia (UIP) confirmed on surgical lung biopsy (SLB) with all other etiologies for UIP excluded OR High resolution CT scan (HRCT) showing definite UIP with all other etiologies for UIP excluded. 2. Probable UIP on both imaging and surgical lung biopsy with all other etiologies for UIP excluded. * Forced vital capacity (FVC) greater than 50% of predicted with a ratio of forced expiratory volume in 1 second to FVC (FEV1/FVC) greater than 0.75 (Pulmonary function tests must be completed no more than 90 days before screening). * Diffusing capacity for carbon monoxide (DLCO) greater than 25% of predicted capacity. * Ability to perform a 6-Minute Walk Test (6MWT) at screening. * Competency to understand the information given in the Human Research and Ethics Committee (HREC) approved Informed Consent Form and must sign the form prior to the initiation of any study procedures Exclusion Criteria: * Diagnosis of an interstitial lung disease (ILD) or restrictive lung disease other than IPF or Progressive Fibrotic Interstitial Lung Disease. * Obstructive lung disease as determined by evidence of airflow obstruction on HRCT or physiologic criteria including: FEV1/FVC ratio less than 0.75, Residual volume (RV) greater than 120% by plethysmography or significant (verified by radiologist) emphysema on HRCT or evidence of reactive airway disease by change in FEV1 of greater than 12% following bronchodilator challenge. * Evidence of sustained improvement lung function defined as improvement from"
+          }
+        },
+        {
+          "trial_id": "NCT07447102",
+          "title": "Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis",
+          "source_url": "https://clinicaltrials.gov/study/NCT07447102",
+          "retrieval_rank": 5,
+          "retrieval_score": 222.55,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis (IPF)"
+          ],
+          "phase": "PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "BC006",
+            "Placebo"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07447102-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis (IPF)"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Must provide written informed consent form (ICF) indicating understanding of the study and voluntary participation.",
+              "Aged >=40 years at the time of signing the ICF, with no gender restriction.",
+              "Diagnosis of idiopathic pulmonary fibrosis (IPF) according to the 2022 American Thoracic Society/European Respiratory Society/Japanese Respiratory Society/Latin American Thoracic Society (ATS/ERS/JRS/ALAT) clinical practice guideline.",
+              "HRCT pattern consistent with usual interstitial pneumonia (UIP) or probable UIP for IPF confirmed by independent central imaging review (acceptable-quality HRCT obtained within 12 months prior to screening or during the screening period). If HRCT shows indeterminate UIP, the diagnosis of IPF must be confirmed by histopathology from a prior lung biopsy (surgical/video-assisted thoracoscopic lung biopsy or bronchoscopic cryobiopsy) recognized by the investigator, if available.",
+              "Forced vital capacity percent predicted (FVC% predicted) >=45% during the screening period.",
+              "Diffusing capacity of the lung for carbon monoxide percent predicted (DLCO% predicted), corrected for hemoglobin (Hb), >=30% and <=90% during the screening period.",
+              "Meets either of the following:",
+              "The patient has been on a stable dose of nintedanib or pirfenidone for at least 8 weeks prior to screening and during screening (nintedanib >=100 mg BID, pirfenidone >=400 mg TID, no dose changes), tolerates the treatment, and plans to continue this background therapy during the study.",
+              "The patient has not received nintedanib or pirfenidone for at least 4 weeks prior to screening and during screening (previous treatment discontinued or treatment-nave), and does not plan to initiate or re-initiate nintedanib or pirfenidone during the study. No patient should discontinue approved therapy to participate in this study. Treatment-nave patients must decline after full discussion with the investigator regarding the risks/benefits of such therapy.",
+              "Patients of reproductive potential (male and female) must agree to use highly effective contraceptive methods (hormonal, barrier, or abstinence) from signing the ICF until at least 6 months after the last dose of study drug."
+            ],
+            "exclusion": [
+              "Interstitial lung disease of known etiology (e.g., domestic and occupational environmental exposures, connective tissue disease, drug toxicity, etc.).",
+              "Other pulmonary diseases considered clinically significant by the investigator (e.g., asthma, chronic obstructive pulmonary disease, cavitary or pleural disease, etc.).",
+              "Emphysema >= 50%, or emphysema greater than fibrosis, as determined by independent central imaging review of HRCT.",
+              "Acute exacerbation of IPF within 3 months prior to screening or during the screening period, as judged by the investigator.",
+              "Sustained improvement in IPF severity within 12 months prior to screening or during the screening period, as judged by the investigator based on changes in FVC, DLCO, and/or chest HRCT scan.",
+              "Pre-bronchodilator forced expiratory volume in 1 second (FEV1)/FVC \\< 0.70 during the screening period.",
+              "Known increase in FEV1 and/or FVC >= 12% and >= 200 mL post-bronchodilator.",
+              "History of smoking within 3 months prior to screening or during the screening period, or inability to refrain from smoking (including cigarettes, cigars, pipes, and e-cigarettes) for the duration of the study.",
+              "Completed a cardiopulmonary rehabilitation program focusing on exercise training within 8 weeks prior to screening, or planning to initiate such a program during the study.",
+              "Presence of pulmonary hypertension or cor pulmonale that, in the investigator's opinion, would significantly limit compliance with study requirements or may affect assessment of study safety or efficacy."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Must provide written informed consent form (ICF) indicating understanding of the study and voluntary participation. * Aged >=40 years at the time of signing the ICF, with no gender restriction. * Diagnosis of idiopathic pulmonary fibrosis (IPF) according to the 2022 American Thoracic Society/European Respiratory Society/Japanese Respiratory Society/Latin American Thoracic Society (ATS/ERS/JRS/ALAT) clinical practice guideline. * HRCT pattern consistent with usual interstitial pneumonia (UIP) or probable UIP for IPF confirmed by independent central imaging review (acceptable-quality HRCT obtained within 12 months prior to screening or during the screening period). If HRCT shows indeterminate UIP, the diagnosis of IPF must be confirmed by histopathology from a prior lung biopsy (surgical/video-assisted thoracoscopic lung biopsy or bronchoscopic cryobiopsy) recognized by the investigator, if available. * Forced vital capacity percent predicted (FVC% predicted) >=45% during the screening period. * Diffusing capacity of the lung for carbon monoxide percent predicted (DLCO% predicted), corrected for hemoglobin (Hb), >=30% and <=90% during the screening period. * Meets either of the following: * The patient has been on a stable dose of nintedanib or pirfenidone for at least 8 weeks prior to screening and during screening (nintedanib >=100 mg BID, pirfenidone >=400 mg TID, no dose changes), tolerates the treatment, and plans to continue this background therapy during the study. * The patient has not received nintedanib or pirfenidone for at least 4 weeks prior to screening and during screening (previous treatment discontinued or treatment-nave), and does not plan to initiate or re-initiate nintedanib or pirfenidone during the study. No patient should disco"
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "SYN-GEN-00084",
+      "patient_information_string": "Tumor board intake: SYN-GEN-00084 is a 29-year-old female with acute exacerbation of idiopathic pulmonary fibrosis. Stage is recorded as I. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart.",
+      "synthetic_source_profile": {
+        "patient_id": "SYN-GEN-00084",
+        "age": 29,
+        "sex": "female",
+        "diagnosis": "acute exacerbation of idiopathic pulmonary fibrosis",
+        "stage": "I",
+        "ecog": 0,
+        "location": {
+          "country": "US",
+          "state": "WA"
+        },
+        "scenario": "stage_conflict",
+        "target_trial_id": "NCT05674994"
+      },
+      "candidate_trials": [
+        {
+          "trial_id": "NCT05674994",
+          "title": "Glucocorticoids Versus Placebo for the Treatment of Acute Exacerbation of Idiopathic Pulmonary Fibrosis",
+          "source_url": "https://clinicaltrials.gov/study/NCT05674994",
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "conditions": [
+            "Acute Exacerbation of Idiopathic Pulmonary Fibrosis"
+          ],
+          "phase": "PHASE3",
+          "status": "RECRUITING",
+          "interventions": [
+            "Methylprednisone/Prednisone",
+            "Placebo"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": []
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT05674994-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Acute Exacerbation of Idiopathic Pulmonary Fibrosis"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT05674994-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. Patient is >= 18 years of age",
+              "2. IPF or IPF (likely) diagnosis defined on 2018 international recommendations",
+              "3. Definite or suspected Acute Exacerbation defined by the international working group criteria after exclusion of alternative diagnoses of acute worsening",
+              "\\*The criteria of IPF-AE are as follows:",
+              "Previous or concurrent diagnosis of IPF (a)",
+              "Acute worsening or development of dyspnea typically \\< 1-month duration",
+              "Computed tomography with new bilateral ground-glass opacity and/or consolidation superimposed on a background pattern consistent with usual interstitial pneumonia pattern (b)",
+              "Deterioration not fully explained by cardiac failure or fluid overload Patients who fail to meet all 4 criteria due to missing computed tomography should be considered as having \"suspected Acute Exacerbation\".",
+              "1. If the diagnosis of IPF is not previously established, this criterion can be met by the presence of radiologic and/or histopathologic changes consistent with usual interstitial pneumonia pattern on the current evaluation.",
+              "2. If no previous computed tomography is available, the qualifier \"new\" can be dropped from the third criterion."
+            ],
+            "exclusion": [
+              "1. Identified etiology for acute worsening (i.e.: infectious disease)",
+              "2. Known hypersensitivity to glucocorticoids or to any component of the study treatment",
+              "3. Patient requiring mechanical ventilation or already on mechanical ventilation",
+              "4. Active bacterial, viral, fungal or parasitic infection. On swab collected, only positive for SARS-CoV-2, Influenzae A, Influenzae B and Respiratory Syncytial Virus (RSV) result, are considered active viral infection. The others viruses (i.e. Rhinovirus, Adenovirus) are not considered to be responsible of pneumonia.",
+              "5. Active cancer",
+              "6. Patient on a lung transplantation waiting list",
+              "7. Treatment with glucocorticoids \\> 1 mg/kg/d from more than 7 days in the last 15 days",
+              "8. Patient participating to another interventional clinical trial",
+              "9. Documented pregnancy or lactation",
+              "10. Patient under tutorship or curatorship"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: 1. Patient is >= 18 years of age 2. IPF or IPF (likely) diagnosis defined on 2018 international recommendations 3. Definite or suspected Acute Exacerbation defined by the international working group criteria after exclusion of alternative diagnoses of acute worsening \\*The criteria of IPF-AE are as follows: * Previous or concurrent diagnosis of IPF (a) * Acute worsening or development of dyspnea typically \\< 1-month duration * Computed tomography with new bilateral ground-glass opacity and/or consolidation superimposed on a background pattern consistent with usual interstitial pneumonia pattern (b) * Deterioration not fully explained by cardiac failure or fluid overload Patients who fail to meet all 4 criteria due to missing computed tomography should be considered as having \"suspected Acute Exacerbation\". 1. If the diagnosis of IPF is not previously established, this criterion can be met by the presence of radiologic and/or histopathologic changes consistent with usual interstitial pneumonia pattern on the current evaluation. 2. If no previous computed tomography is available, the qualifier \"new\" can be dropped from the third criterion. 4. For women of childbearing age: efficient contraception for the duration of the study\\* \\*Effective contraception is defined as any contraceptive method that is used consistently and appropriately and has a low failure rate (i.e., less than 1% per year) 5. Affiliation to the social security 6. Patient able to understand and sign a written informed consent form or in case of incapacity of the patient to a relative whom understand and sign a written informed consent form Exclusion Criteria: 1. Identified etiology for acute worsening (i.e.: infectious disease) 2. Known hypersensitivity to glucocorticoids or to any com"
+          }
+        },
+        {
+          "trial_id": "NCT03237780",
+          "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+          "source_url": "https://clinicaltrials.gov/study/NCT03237780",
+          "retrieval_rank": 2,
+          "retrieval_score": 256.957,
+          "conditions": [
+            "Locally Advanced Bladder Urothelial Carcinoma",
+            "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+            "Locally Advanced Ureter Urothelial Carcinoma",
+            "Locally Advanced Urethral Urothelial Carcinoma",
+            "Metastatic Bladder Urothelial Carcinoma",
+            "Metastatic Renal Pelvis Urothelial Carcinoma",
+            "Metastatic Ureter Urothelial Carcinoma",
+            "Metastatic Urethral Urothelial Carcinoma",
+            "Recurrent Bladder Urothelial Carcinoma",
+            "Recurrent Renal Pelvis Urothelial Carcinoma",
+            "Recurrent Ureter Urothelial Carcinoma",
+            "Recurrent Urethral Urothelial Carcinoma",
+            "Stage III Bladder Cancer AJCC v8",
+            "Stage III Renal Pelvis Cancer AJCC v8",
+            "Stage III Ureter Cancer AJCC v8",
+            "Stage III Urethral Cancer AJCC v8",
+            "Stage IV Bladder Cancer AJCC v8",
+            "Stage IV Renal Pelvis Cancer AJCC v8",
+            "Stage IV Ureter Cancer AJCC v8",
+            "Stage IV Urethral Cancer AJCC v8",
+            "Unresectable Bladder Urothelial Carcinoma",
+            "Unresectable Renal Pelvis Urothelial Carcinoma",
+            "Unresectable Ureter Urothelial Carcinoma",
+            "Unresectable Urethral Urothelial Carcinoma"
+          ],
+          "phase": "PHASE2",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Atezolizumab",
+            "Biopsy Procedure",
+            "Biospecimen Collection",
+            "Computed Tomography with Contrast",
+            "Eribulin Mesylate"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease",
+              "active_uncontrolled_infection",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT03237780-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Locally Advanced Bladder Urothelial Carcinoma",
+                "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+                "Locally Advanced Ureter Urothelial Carcinoma",
+                "Locally Advanced Urethral Urothelial Carcinoma",
+                "Metastatic Bladder Urothelial Carcinoma",
+                "Metastatic Renal Pelvis Urothelial Carcinoma",
+                "Metastatic Ureter Urothelial Carcinoma",
+                "Metastatic Urethral Urothelial Carcinoma",
+                "Recurrent Bladder Urothelial Carcinoma",
+                "Recurrent Renal Pelvis Urothelial Carcinoma",
+                "Recurrent Ureter Urothelial Carcinoma",
+                "Recurrent Urethral Urothelial Carcinoma",
+                "Stage III Bladder Cancer AJCC v8",
+                "Stage III Renal Pelvis Cancer AJCC v8",
+                "Stage III Ureter Cancer AJCC v8",
+                "Stage III Urethral Cancer AJCC v8",
+                "Stage IV Bladder Cancer AJCC v8",
+                "Stage IV Renal Pelvis Cancer AJCC v8",
+                "Stage IV Ureter Cancer AJCC v8",
+                "Stage IV Urethral Cancer AJCC v8",
+                "Unresectable Bladder Urothelial Carcinoma",
+                "Unresectable Renal Pelvis Urothelial Carcinoma",
+                "Unresectable Ureter Urothelial Carcinoma",
+                "Unresectable Urethral Urothelial Carcinoma"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active uncontrolled infection.",
+              "structured_value": "active_uncontrolled_infection",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study",
+              "Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra",
+              "Presence of measurable disease meeting the following criteria:",
+              "At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm",
+              "Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion",
+              "Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence",
+              "PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to allow for stratification; COMMERCIAL ASSESSMENT OF PD-L1 STATUS OBTAINED LOCALLY AT THE SITE WILL NOT SATISFY ELIGIBILITY CRITERIA",
+              "New, progressive or recurrent disease occurring",
+              "During or within 12 months of treatment with a platinum containing regimen (cisplatin or carboplatin or novel platinum) in either in the metastatic or perioperative setting",
+              "In first-line patients defined as cisplatin-ineligible based on renal impairment (creatinine clearance calculated by Cockcroft-Gault method \\< 60 ml/min), at least grade 2 hearing loss and/or Eastern Cooperative Oncology Group (ECOG) status of 2; these patients will be chemotherapy naive or have received platinum based therapy in the adjuvant or neoadjuvant setting more than 12 months prior to study entry"
+            ],
+            "exclusion": [
+              "Patients with prior allogeneic bone marrow transplantation or prior solid organ transplantation",
+              "Patients who have had chemotherapy within 3 weeks or radiotherapy or targeted therapy 2 weeks (6 weeks for nitrosoureas or mitomycin C) prior to entering the study or those who have not recovered from adverse events (other than alopecia) due to agents administered more than 4 weeks earlier; however, the following therapies are allowed:",
+              "Hormone-replacement therapy or oral contraceptives",
+              "Herbal therapy \\> 1 week prior to cycle 1, day 1 (herbal therapy intended as anticancer therapy must be discontinued at least 1 week prior to cycle 1, day 1)",
+              "Palliative radiotherapy for bone metastases \\> 2 weeks prior to cycle 1, day 1",
+              "Prior treatment with anti-PD-1, or anti-PD-L1 therapeutic antibody or pathway-targeting agents or eribulin",
+              "Patients who have received prior treatment with anti-CTLA-4 may be enrolled, provided the following requirements are met:",
+              "Minimum of 12 weeks from the first dose of anti-CTLA-4 and \\> 6 weeks from the last dose",
+              "No history of severe immune-related adverse effects from anti-CTLA-4 (National Cancer Institute \\[NCI\\] Common Terminology Criteria for Adverse Events \\[CTCAE\\] version 5.0)",
+              "Treatment with any other investigational agent within 4 weeks prior to cycle 1, day 1"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study * Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra * Presence of measurable disease meeting the following criteria: * At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm * Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion * Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence * PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to"
+          }
+        },
+        {
+          "trial_id": "NCT07447102",
+          "title": "Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis",
+          "source_url": "https://clinicaltrials.gov/study/NCT07447102",
+          "retrieval_rank": 3,
+          "retrieval_score": 225.172,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis (IPF)"
+          ],
+          "phase": "PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "BC006",
+            "Placebo"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07447102-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis (IPF)"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Must provide written informed consent form (ICF) indicating understanding of the study and voluntary participation.",
+              "Aged >=40 years at the time of signing the ICF, with no gender restriction.",
+              "Diagnosis of idiopathic pulmonary fibrosis (IPF) according to the 2022 American Thoracic Society/European Respiratory Society/Japanese Respiratory Society/Latin American Thoracic Society (ATS/ERS/JRS/ALAT) clinical practice guideline.",
+              "HRCT pattern consistent with usual interstitial pneumonia (UIP) or probable UIP for IPF confirmed by independent central imaging review (acceptable-quality HRCT obtained within 12 months prior to screening or during the screening period). If HRCT shows indeterminate UIP, the diagnosis of IPF must be confirmed by histopathology from a prior lung biopsy (surgical/video-assisted thoracoscopic lung biopsy or bronchoscopic cryobiopsy) recognized by the investigator, if available.",
+              "Forced vital capacity percent predicted (FVC% predicted) >=45% during the screening period.",
+              "Diffusing capacity of the lung for carbon monoxide percent predicted (DLCO% predicted), corrected for hemoglobin (Hb), >=30% and <=90% during the screening period.",
+              "Meets either of the following:",
+              "The patient has been on a stable dose of nintedanib or pirfenidone for at least 8 weeks prior to screening and during screening (nintedanib >=100 mg BID, pirfenidone >=400 mg TID, no dose changes), tolerates the treatment, and plans to continue this background therapy during the study.",
+              "The patient has not received nintedanib or pirfenidone for at least 4 weeks prior to screening and during screening (previous treatment discontinued or treatment-nave), and does not plan to initiate or re-initiate nintedanib or pirfenidone during the study. No patient should discontinue approved therapy to participate in this study. Treatment-nave patients must decline after full discussion with the investigator regarding the risks/benefits of such therapy.",
+              "Patients of reproductive potential (male and female) must agree to use highly effective contraceptive methods (hormonal, barrier, or abstinence) from signing the ICF until at least 6 months after the last dose of study drug."
+            ],
+            "exclusion": [
+              "Interstitial lung disease of known etiology (e.g., domestic and occupational environmental exposures, connective tissue disease, drug toxicity, etc.).",
+              "Other pulmonary diseases considered clinically significant by the investigator (e.g., asthma, chronic obstructive pulmonary disease, cavitary or pleural disease, etc.).",
+              "Emphysema >= 50%, or emphysema greater than fibrosis, as determined by independent central imaging review of HRCT.",
+              "Acute exacerbation of IPF within 3 months prior to screening or during the screening period, as judged by the investigator.",
+              "Sustained improvement in IPF severity within 12 months prior to screening or during the screening period, as judged by the investigator based on changes in FVC, DLCO, and/or chest HRCT scan.",
+              "Pre-bronchodilator forced expiratory volume in 1 second (FEV1)/FVC \\< 0.70 during the screening period.",
+              "Known increase in FEV1 and/or FVC >= 12% and >= 200 mL post-bronchodilator.",
+              "History of smoking within 3 months prior to screening or during the screening period, or inability to refrain from smoking (including cigarettes, cigars, pipes, and e-cigarettes) for the duration of the study.",
+              "Completed a cardiopulmonary rehabilitation program focusing on exercise training within 8 weeks prior to screening, or planning to initiate such a program during the study.",
+              "Presence of pulmonary hypertension or cor pulmonale that, in the investigator's opinion, would significantly limit compliance with study requirements or may affect assessment of study safety or efficacy."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Must provide written informed consent form (ICF) indicating understanding of the study and voluntary participation. * Aged >=40 years at the time of signing the ICF, with no gender restriction. * Diagnosis of idiopathic pulmonary fibrosis (IPF) according to the 2022 American Thoracic Society/European Respiratory Society/Japanese Respiratory Society/Latin American Thoracic Society (ATS/ERS/JRS/ALAT) clinical practice guideline. * HRCT pattern consistent with usual interstitial pneumonia (UIP) or probable UIP for IPF confirmed by independent central imaging review (acceptable-quality HRCT obtained within 12 months prior to screening or during the screening period). If HRCT shows indeterminate UIP, the diagnosis of IPF must be confirmed by histopathology from a prior lung biopsy (surgical/video-assisted thoracoscopic lung biopsy or bronchoscopic cryobiopsy) recognized by the investigator, if available. * Forced vital capacity percent predicted (FVC% predicted) >=45% during the screening period. * Diffusing capacity of the lung for carbon monoxide percent predicted (DLCO% predicted), corrected for hemoglobin (Hb), >=30% and <=90% during the screening period. * Meets either of the following: * The patient has been on a stable dose of nintedanib or pirfenidone for at least 8 weeks prior to screening and during screening (nintedanib >=100 mg BID, pirfenidone >=400 mg TID, no dose changes), tolerates the treatment, and plans to continue this background therapy during the study. * The patient has not received nintedanib or pirfenidone for at least 4 weeks prior to screening and during screening (previous treatment discontinued or treatment-nave), and does not plan to initiate or re-initiate nintedanib or pirfenidone during the study. No patient should disco"
+          }
+        },
+        {
+          "trial_id": "NCT04724018",
+          "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+          "source_url": "https://clinicaltrials.gov/study/NCT04724018",
+          "retrieval_rank": 4,
+          "retrieval_score": 208.491,
+          "conditions": [
+            "Urothelial Cancer",
+            "Metastatic Urothelial Carcinoma",
+            "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+            "Bladder Cancer"
+          ],
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "Sacituzumab Govitecan (SG)",
+            "Enfortumab vedotin-ejfv (EV)",
+            "Pembrolizumab"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04724018-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Urothelial Cancer",
+                "Metastatic Urothelial Carcinoma",
+                "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+                "Bladder Cancer"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination)",
+              "Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible.",
+              "Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor.",
+              "Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease",
+              "Patient must be progressing on or since most recent therapy",
+              "Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials.",
+              "ECOG performance status 0-1.",
+              "Participants must have adequate organ and marrow function as defined below:",
+              "Leukocytes >=3,000/mcL",
+              "Absolute neutrophil count >=1,500/mcL"
+            ],
+            "exclusion": [
+              "Women who are pregnant or lactating. Pregnant women are excluded from this study because SG and EV have potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with EV or SG, breastfeeding should be discontinued if the mother is treated on protocol.",
+              "Have had a prior anti-cancer biologic agent (including immune checkpoint inhibitors) within 4 weeks prior to Cycle 1 Day 1 (C1D1) or have had prior chemotherapy, targeted small molecule therapy, or radiation therapy within 2 weeks prior to C1D1. Subjects participating in observational studies are eligible.",
+              "Presence of any toxicities attributed to prior anti-cancer therapy that are not resolved to Grade 1 or baseline that could impose serious risk for complications before administration of study drug agent",
+              "Note: If subjects received major surgery, they must have recovered adequately from the toxicity and/or complications from the intervention prior to starting therapy.",
+              "Have previously received topoisomerase 1 inhibitors, SG or EV",
+              "Have an active second malignancy. Subjects with a history of malignancy that have been completely treated, with no evidence of active cancer for 3 years prior to start of therapy on trial (Cycle 1 Day 1 \\[C1D1\\]), or subjects with surgically-cured tumors with low risk of recurrence are allowed to enroll.",
+              "Have known active central nervous system (CNS) metastases and/or carcinomatous meningitis. Subjects with previously treated brain metastases may participate provided they have stable CNS disease for at least 4 weeks prior to the first dose of study drug and all neurologic symptoms have returned to baseline, have no evidence of new or enlarging brain metastases, and are taking <=20 mg/day of prednisone or its equivalent. All subjects with carcinomatous meningitis are excluded regardless of clinical stability.",
+              "Have active cardiac disease, defined as:",
+              "Myocardial infarction or unstable angina pectoris within 6 months prior to C1D1",
+              "History of serious ventricular arrhythmia (i.e., ventricular tachycardia or ventricular fibrillation), high-grade atrioventricular block, or other cardiac arrhythmias requiring anti-arrhythmic medications (except for atrial fibrillation that is well controlled with antiarrhythmic medication); history of QT interval prolongation"
+            ],
+            "eligibility_criteria_excerpt": "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination) Inclusion Criteria: * Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible. * Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor. * Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease * Patient must be progressing on or since most recent therapy * Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials. * ECOG performance status 0-1. * Participants must have adequate organ and marrow function as defined below: * Leukocytes >=3,000/mcL * Absolute neutrophil count >=1,50"
+          }
+        },
+        {
+          "trial_id": "NCT07359963",
+          "title": "Treatment of Idiopathic Pulmonary Fibrosis (IPF) by REGEND007 Cell Therapy",
+          "source_url": "https://clinicaltrials.gov/study/NCT07359963",
+          "retrieval_rank": 5,
+          "retrieval_score": 183.812,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis (IPF)"
+          ],
+          "phase": "EARLY_PHASE1",
+          "status": "NOT_YET_RECRUITING",
+          "interventions": [
+            "REGEND007 Cell Therapy"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": 80,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07359963-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis (IPF)"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07359963-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": 80
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07359963-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Gender is not restricted. When signing the informed consent form, the age should be between 40 and 80 years old (inclusive of the boundary value).",
+              "Diagnosed with idiopathic pulmonary fibrosis (IPF).",
+              "During the screening process, the six-minute walk test should be >= 150 meters and \\< 600 meters; or the lung function FVC should be \\> 30% of the predicted value.",
+              "Voluntarily sign the informed consent form, be able to cooperate with the completion of research-related procedures and examinations, and be able to comprehensively describe or record the changes in the condition."
+            ],
+            "exclusion": [
+              "Female subjects who are pregnant, breastfeeding, or planning to become pregnant within one year after using this product; or male subjects whose partner is planning to become pregnant.",
+              "Subjects selected during the screening whose estimated survival period is less than one year.",
+              "Subjects selected during the screening who have a current or past history of malignant tumors (excluding malignant tumors with a disease-free survival of more than five years and judged by the researcher to have a relatively mild invasiveness, such as non-melanoma skin cancer, invasive cervical cancer, bladder cancer, thyroid cancer, and breast cancer, etc.).",
+              "Subjects selected within 4 weeks before diagnosis of pneumonia (including bacterial, fungal or viral pneumonia).",
+              "Subjects selected within 4 weeks before an acute exacerbation of IPF.",
+              "Subjects selected within 4 weeks before having one or more results reported by pathogenological or serological tests (nucleic acid, antigen, virus culture, specific IgG antibody levels) indicating novel coronavirus infection, or suspected novel coronavirus infection (manifesting symptoms such as fever, headache, fatigue, joint pain, runny nose, sore throat, and persistent cough, and the disease course is consistent with the prevalent strain).",
+              "Subjects selected within 4 weeks before having a history of invasive or non-invasive mechanical ventilation.",
+              "Subjects selected during the screening who have active pulmonary tuberculosis, poorly controlled bronchial asthma, acute pulmonary embolism, severe pulmonary hypertension \\[cardiac ultrasound examination \\> 70 mmHg\\], etc.",
+              "Subjects selected within 6 months before having a serious non-pulmonary systemic disease and judged by the researcher as not suitable to participate in this study, such as diabetes with ketoacidosis or hyperosmolar coma, acute myocardial infarction, unstable angina pectoris, NYHA heart failure grade III/IV, stroke, liver cirrhosis with severe liver dysfunction, severe renal insufficiency, etc.",
+              "Subjects selected during the screening who have severe anemia, or controlled poorly granulocytopenia or thrombocytopenia."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Gender is not restricted. When signing the informed consent form, the age should be between 40 and 80 years old (inclusive of the boundary value). * Diagnosed with idiopathic pulmonary fibrosis (IPF). * During the screening process, the six-minute walk test should be >= 150 meters and \\< 600 meters; or the lung function FVC should be \\> 30% of the predicted value. * Voluntarily sign the informed consent form, be able to cooperate with the completion of research-related procedures and examinations, and be able to comprehensively describe or record the changes in the condition. Exclusion Criteria: * Female subjects who are pregnant, breastfeeding, or planning to become pregnant within one year after using this product; or male subjects whose partner is planning to become pregnant. * Subjects selected during the screening whose estimated survival period is less than one year. * Subjects selected during the screening who have a current or past history of malignant tumors (excluding malignant tumors with a disease-free survival of more than five years and judged by the researcher to have a relatively mild invasiveness, such as non-melanoma skin cancer, invasive cervical cancer, bladder cancer, thyroid cancer, and breast cancer, etc.). * Subjects selected within 4 weeks before diagnosis of pneumonia (including bacterial, fungal or viral pneumonia). * Subjects selected within 4 weeks before an acute exacerbation of IPF. * Subjects selected within 4 weeks before having one or more results reported by pathogenological or serological tests (nucleic acid, antigen, virus culture, specific IgG antibody levels) indicating novel coronavirus infection, or suspected novel coronavirus infection (manifesting symptoms such as fever, headache, fatigue, joint pain, runn"
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "SYN-GEN-00085",
+      "patient_information_string": "Oncology referral note: SYN-GEN-00085 is a 47-year-old male with idiopathic pulmonary fibrosis. No formal stage is documented. ECOG performance status is 3. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No uncontrolled cardiac disease is reported. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart.",
+      "synthetic_source_profile": {
+        "patient_id": "SYN-GEN-00085",
+        "age": 47,
+        "sex": "male",
+        "diagnosis": "idiopathic pulmonary fibrosis",
+        "ecog": 3,
+        "flags": {
+          "uncontrolled_cardiac_disease": false
+        },
+        "location": {
+          "country": "US",
+          "state": "MA"
+        },
+        "scenario": "ecog_conflict",
+        "target_trial_id": "NCT07299695"
+      },
+      "candidate_trials": [
+        {
+          "trial_id": "NCT07299695",
+          "title": "Intravenous Immunoglobulin for the Treatment of Acute Exacerbations of Idiopathic Pulmonary Fibrosis",
+          "source_url": "https://clinicaltrials.gov/study/NCT07299695",
+          "retrieval_rank": 1,
+          "retrieval_score": 1.0,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis",
+            "Acute Exacerbation of Idiopathic Pulmonary Fibrosis"
+          ],
+          "phase": "PHASE3",
+          "status": "RECRUITING",
+          "interventions": [
+            "Intravenous immunoglobulin (IVIG)",
+            "Usual treatment"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07299695-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis",
+                "Acute Exacerbation of Idiopathic Pulmonary Fibrosis"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07299695-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07299695-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "1. Patients >= 18 years of age",
+              "2. Patients with IPF diagnosis that fulfils ATS/ERS Consensus Criteria.",
+              "3. Patients hospitalised with a definite or suspected AE-IPF diagnosis, as defined by the international working group criteria and as ascertained by the responsible Primary Investigator.",
+              "The criteria of IPF-AE are as follows:",
+              "Previous or concurrent diagnosis of IPF",
+              "Acute worsening or development of dyspnoea typically \\< 1 month duration",
+              "Computed tomography with new bilateral ground-glass opacity and/or consolidation superimposed on a background pattern consistent with usual interstitial pneumonia pattern",
+              "Deterioration not fully explained by cardiac failure or fluid overload Patients who fail to meet all 4 criteria due to missing computed tomography should be considered as having \"suspected Acute Exacerbation\".",
+              "A) If the diagnosis of IPF is not previously established, this criterion can be met by the presence of radiologic and/or histopathologic changes consistent with usual interstitial pneumonia pattern on the current evaluation.",
+              "B) If no previous computed tomography is available, the qualifier \"new\" can be dropped from the third AE-IPF criterion."
+            ],
+            "exclusion": [
+              "1. Patients with acute worsening due to uncontrolled heart failure or pulmonary embolism.",
+              "2. Patients with known hypersensitivity to corticosteroids, IVIG or any component of the study treatment.",
+              "3. Patients with known IgA deficiency (IgA level \\<7 mg/dL)- to preclude IVIG reactions.",
+              "4. Patients without a definite diagnosis of IPF or AE-IPF based on clinical, radiological, laboratory evaluation, and multidisciplinary discussion.",
+              "5. Patients with active malignancy or currently receiving cancer treatment, except for basal cell or squamous cell skin cancer or low-risk prostate cancer (T1 or T2a stage with PSA \\<10 ng/dL). These criteria are aligned with current guidelines.",
+              "6. Patients that have received treatment for \\>14 days within the preceding month with \\>20mg daily prednisone (or equivalent) or any treatment during the last month with immunosuppressants (e.g., cyclophosphamide, mycophenolate etc.) according to already published therapeutic protocols or \\> 1 mg/kg/d from more than 7 days in the last 15 days.",
+              "7. Patients participating to another interventional clinical trial.",
+              "8. Patients with documented pregnancy or lactation.",
+              "9. Patients under tutorship or curatorship.",
+              "10. Patients deprived of liberty or under court protection."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: 1. Patients >= 18 years of age 2. Patients with IPF diagnosis that fulfils ATS/ERS Consensus Criteria. 3. Patients hospitalised with a definite or suspected AE-IPF diagnosis, as defined by the international working group criteria and as ascertained by the responsible Primary Investigator. The criteria of IPF-AE are as follows: * Previous or concurrent diagnosis of IPF * Acute worsening or development of dyspnoea typically \\< 1 month duration * Computed tomography with new bilateral ground-glass opacity and/or consolidation superimposed on a background pattern consistent with usual interstitial pneumonia pattern * Deterioration not fully explained by cardiac failure or fluid overload Patients who fail to meet all 4 criteria due to missing computed tomography should be considered as having \"suspected Acute Exacerbation\". A) If the diagnosis of IPF is not previously established, this criterion can be met by the presence of radiologic and/or histopathologic changes consistent with usual interstitial pneumonia pattern on the current evaluation. B) If no previous computed tomography is available, the qualifier \"new\" can be dropped from the third AE-IPF criterion. 4. Patient able to understand and sign a written informed consent form. In case of incapacity of the patient, the written informed consent form will be signed by the patients' legally authorized representative. Exclusion Criteria: 1. Patients with acute worsening due to uncontrolled heart failure or pulmonary embolism. 2. Patients with known hypersensitivity to corticosteroids, IVIG or any component of the study treatment. 3. Patients with known IgA deficiency (IgA level \\<7 mg/dL)- to preclude IVIG reactions. 4. Patients without a definite diagnosis of IPF or AE-IPF based on clinical, radiologica"
+          }
+        },
+        {
+          "trial_id": "NCT04724018",
+          "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+          "source_url": "https://clinicaltrials.gov/study/NCT04724018",
+          "retrieval_rank": 2,
+          "retrieval_score": 286.47,
+          "conditions": [
+            "Urothelial Cancer",
+            "Metastatic Urothelial Carcinoma",
+            "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+            "Bladder Cancer"
+          ],
+          "phase": "PHASE1, PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "Sacituzumab Govitecan (SG)",
+            "Enfortumab vedotin-ejfv (EV)",
+            "Pembrolizumab"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 1,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT04724018-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Urothelial Cancer",
+                "Metastatic Urothelial Carcinoma",
+                "Metastatic Urothelial Carcinoma of the Renal Pelvis and Ureter",
+                "Bladder Cancer"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 1,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination)",
+              "Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible.",
+              "Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor.",
+              "Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease",
+              "Patient must be progressing on or since most recent therapy",
+              "Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials.",
+              "ECOG performance status 0-1.",
+              "Participants must have adequate organ and marrow function as defined below:",
+              "Leukocytes >=3,000/mcL",
+              "Absolute neutrophil count >=1,500/mcL"
+            ],
+            "exclusion": [
+              "Women who are pregnant or lactating. Pregnant women are excluded from this study because SG and EV have potential for teratogenic or abortifacient effects. Because there is an unknown but potential risk for adverse events in nursing infants secondary to treatment of the mother with EV or SG, breastfeeding should be discontinued if the mother is treated on protocol.",
+              "Have had a prior anti-cancer biologic agent (including immune checkpoint inhibitors) within 4 weeks prior to Cycle 1 Day 1 (C1D1) or have had prior chemotherapy, targeted small molecule therapy, or radiation therapy within 2 weeks prior to C1D1. Subjects participating in observational studies are eligible.",
+              "Presence of any toxicities attributed to prior anti-cancer therapy that are not resolved to Grade 1 or baseline that could impose serious risk for complications before administration of study drug agent",
+              "Note: If subjects received major surgery, they must have recovered adequately from the toxicity and/or complications from the intervention prior to starting therapy.",
+              "Have previously received topoisomerase 1 inhibitors, SG or EV",
+              "Have an active second malignancy. Subjects with a history of malignancy that have been completely treated, with no evidence of active cancer for 3 years prior to start of therapy on trial (Cycle 1 Day 1 \\[C1D1\\]), or subjects with surgically-cured tumors with low risk of recurrence are allowed to enroll.",
+              "Have known active central nervous system (CNS) metastases and/or carcinomatous meningitis. Subjects with previously treated brain metastases may participate provided they have stable CNS disease for at least 4 weeks prior to the first dose of study drug and all neurologic symptoms have returned to baseline, have no evidence of new or enlarging brain metastases, and are taking <=20 mg/day of prednisone or its equivalent. All subjects with carcinomatous meningitis are excluded regardless of clinical stability.",
+              "Have active cardiac disease, defined as:",
+              "Myocardial infarction or unstable angina pectoris within 6 months prior to C1D1",
+              "History of serious ventricular arrhythmia (i.e., ventricular tachycardia or ventricular fibrillation), high-grade atrioventricular block, or other cardiac arrhythmias requiring anti-arrhythmic medications (except for atrial fibrillation that is well controlled with antiarrhythmic medication); history of QT interval prolongation"
+            ],
+            "eligibility_criteria_excerpt": "Phase II Study Cohort A (dose expansion study to assess efficacy of Sacituzumab Govitecan (SG) and Enfortumab vedotin-ejfv (EV) combination) Inclusion Criteria: * Participants must have histologically documented confirmed predominant urothelial carcinoma (i.e. of the bladder, renal pelvis, ureter or urethra). Patients with squamous differentiation or mixed cell types are eligible if the urothelial component is more than 50%; small-cell carcinoma is not allowed. Patients with locally advanced unresectable disease are eligible. * Patient who are cisplatin eligible must have received prior treatment with platinum containing therapy defined as within the adjuvant/neoadjuvant setting with >= ypT2 disease at surgery or recurrent or progressive disease within 12 months or receiving treatment with platinum in locally advanced or metastatic setting. In addition, they must have received a checkpoint inhibitor (CPI) in locally advanced or metastatic urothelial cancer setting. Patients who received CPI therapy in the neoadjuvant/adjuvant setting and had recurrent or progressive disease either during or within 12 months of therapy completion are eligible. A CPI is defined as a PD-1 or PD-L1 inhibitor. * Patients who are cisplatin-ineligible need only have progressed on or since one line of therapy defined as therapy given in the adjuvant/neoadjuvant setting within 12 months of progression or receiving therapy for locally advanced or metastatic disease * Patient must be progressing on or since most recent therapy * Age >=18 years. Children are excluded from this study, but will be eligible for future pediatric trials. * ECOG performance status 0-1. * Participants must have adequate organ and marrow function as defined below: * Leukocytes >=3,000/mcL * Absolute neutrophil count >=1,50"
+          }
+        },
+        {
+          "trial_id": "NCT03237780",
+          "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+          "source_url": "https://clinicaltrials.gov/study/NCT03237780",
+          "retrieval_rank": 3,
+          "retrieval_score": 283.979,
+          "conditions": [
+            "Locally Advanced Bladder Urothelial Carcinoma",
+            "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+            "Locally Advanced Ureter Urothelial Carcinoma",
+            "Locally Advanced Urethral Urothelial Carcinoma",
+            "Metastatic Bladder Urothelial Carcinoma",
+            "Metastatic Renal Pelvis Urothelial Carcinoma",
+            "Metastatic Ureter Urothelial Carcinoma",
+            "Metastatic Urethral Urothelial Carcinoma",
+            "Recurrent Bladder Urothelial Carcinoma",
+            "Recurrent Renal Pelvis Urothelial Carcinoma",
+            "Recurrent Ureter Urothelial Carcinoma",
+            "Recurrent Urethral Urothelial Carcinoma",
+            "Stage III Bladder Cancer AJCC v8",
+            "Stage III Renal Pelvis Cancer AJCC v8",
+            "Stage III Ureter Cancer AJCC v8",
+            "Stage III Urethral Cancer AJCC v8",
+            "Stage IV Bladder Cancer AJCC v8",
+            "Stage IV Renal Pelvis Cancer AJCC v8",
+            "Stage IV Ureter Cancer AJCC v8",
+            "Stage IV Urethral Cancer AJCC v8",
+            "Unresectable Bladder Urothelial Carcinoma",
+            "Unresectable Renal Pelvis Urothelial Carcinoma",
+            "Unresectable Ureter Urothelial Carcinoma",
+            "Unresectable Urethral Urothelial Carcinoma"
+          ],
+          "phase": "PHASE2",
+          "status": "ACTIVE_NOT_RECRUITING",
+          "interventions": [
+            "Atezolizumab",
+            "Biopsy Procedure",
+            "Biospecimen Collection",
+            "Computed Tomography with Contrast",
+            "Eribulin Mesylate"
+          ],
+          "known_structured_fields": {
+            "min_age": 18,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [
+              "IV"
+            ],
+            "max_ecog": 2,
+            "required_biomarkers": {},
+            "required_prior_treatments": [
+              "platinum chemotherapy"
+            ],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease",
+              "active_uncontrolled_infection",
+              "organ_transplant"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT03237780-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Locally Advanced Bladder Urothelial Carcinoma",
+                "Locally Advanced Renal Pelvis Urothelial Carcinoma",
+                "Locally Advanced Ureter Urothelial Carcinoma",
+                "Locally Advanced Urethral Urothelial Carcinoma",
+                "Metastatic Bladder Urothelial Carcinoma",
+                "Metastatic Renal Pelvis Urothelial Carcinoma",
+                "Metastatic Ureter Urothelial Carcinoma",
+                "Metastatic Urethral Urothelial Carcinoma",
+                "Recurrent Bladder Urothelial Carcinoma",
+                "Recurrent Renal Pelvis Urothelial Carcinoma",
+                "Recurrent Ureter Urothelial Carcinoma",
+                "Recurrent Urethral Urothelial Carcinoma",
+                "Stage III Bladder Cancer AJCC v8",
+                "Stage III Renal Pelvis Cancer AJCC v8",
+                "Stage III Ureter Cancer AJCC v8",
+                "Stage III Urethral Cancer AJCC v8",
+                "Stage IV Bladder Cancer AJCC v8",
+                "Stage IV Renal Pelvis Cancer AJCC v8",
+                "Stage IV Ureter Cancer AJCC v8",
+                "Stage IV Urethral Cancer AJCC v8",
+                "Unresectable Bladder Urothelial Carcinoma",
+                "Unresectable Renal Pelvis Urothelial Carcinoma",
+                "Unresectable Ureter Urothelial Carcinoma",
+                "Unresectable Urethral Urothelial Carcinoma"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 18,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-stage",
+              "criterion_type": "inclusion",
+              "criterion": "Patient disease stage should be allowed.",
+              "structured_value": [
+                "IV"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-ecog",
+              "criterion_type": "inclusion",
+              "criterion": "Patient ECOG performance status should be at or below the maximum.",
+              "structured_value": 2,
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+              "criterion_type": "inclusion",
+              "criterion": "Patient should have prior treatment: platinum chemotherapy.",
+              "structured_value": "platinum chemotherapy",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active uncontrolled infection.",
+              "structured_value": "active_uncontrolled_infection",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT03237780-E-organ-transplant",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has organ transplant.",
+              "structured_value": "organ_transplant",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study",
+              "Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra",
+              "Presence of measurable disease meeting the following criteria:",
+              "At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm",
+              "Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion",
+              "Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence",
+              "PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to allow for stratification; COMMERCIAL ASSESSMENT OF PD-L1 STATUS OBTAINED LOCALLY AT THE SITE WILL NOT SATISFY ELIGIBILITY CRITERIA",
+              "New, progressive or recurrent disease occurring",
+              "During or within 12 months of treatment with a platinum containing regimen (cisplatin or carboplatin or novel platinum) in either in the metastatic or perioperative setting",
+              "In first-line patients defined as cisplatin-ineligible based on renal impairment (creatinine clearance calculated by Cockcroft-Gault method \\< 60 ml/min), at least grade 2 hearing loss and/or Eastern Cooperative Oncology Group (ECOG) status of 2; these patients will be chemotherapy naive or have received platinum based therapy in the adjuvant or neoadjuvant setting more than 12 months prior to study entry"
+            ],
+            "exclusion": [
+              "Patients with prior allogeneic bone marrow transplantation or prior solid organ transplantation",
+              "Patients who have had chemotherapy within 3 weeks or radiotherapy or targeted therapy 2 weeks (6 weeks for nitrosoureas or mitomycin C) prior to entering the study or those who have not recovered from adverse events (other than alopecia) due to agents administered more than 4 weeks earlier; however, the following therapies are allowed:",
+              "Hormone-replacement therapy or oral contraceptives",
+              "Herbal therapy \\> 1 week prior to cycle 1, day 1 (herbal therapy intended as anticancer therapy must be discontinued at least 1 week prior to cycle 1, day 1)",
+              "Palliative radiotherapy for bone metastases \\> 2 weeks prior to cycle 1, day 1",
+              "Prior treatment with anti-PD-1, or anti-PD-L1 therapeutic antibody or pathway-targeting agents or eribulin",
+              "Patients who have received prior treatment with anti-CTLA-4 may be enrolled, provided the following requirements are met:",
+              "Minimum of 12 weeks from the first dose of anti-CTLA-4 and \\> 6 weeks from the last dose",
+              "No history of severe immune-related adverse effects from anti-CTLA-4 (National Cancer Institute \\[NCI\\] Common Terminology Criteria for Adverse Events \\[CTCAE\\] version 5.0)",
+              "Treatment with any other investigational agent within 4 weeks prior to cycle 1, day 1"
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Males or females age \\> or = 18 years at the time of informed consent. Because no dosing or adverse event data are currently available on the use of atezolizumab in combination with eribulin in patients \\< 18 years of age, children are excluded from this study * Histologically- or cytologically-confirmed diagnosis of locally advanced/unresectable (inoperable or not amenable to surgical treatment) and/or metastatic transitional cell urothelial cancer of the renal pelvis, ureter, urinary bladder, or urethra * Presence of measurable disease meeting the following criteria: * At least one lesion of \\>= 1.0 cm in long axis diameter for non-lymph nodes or \\>= 1.5 cm in short axis diameter for lymph nodes that is serially measurable according to RECIST 1.1 using either computerized tomography or magnetic resonance imaging or panoramic and close-up color photography with caliper measurement; if there is only one target lesion and it is a not a lymph node, it should have a long-axis diameter of at least 1.5 cm * Lesions that have had radiotherapy must show radiographic evidence of disease progression based on RECIST 1.1 may be deemed a target lesion * Archival paraffin-embedded invasive tumor tissue or newly obtained biopsy must be available prior to the first dose of study drug for biomarker analysis; patients must be offered sequential biopsies at baseline and 6 weeks unless in the opinion of the trial principal investigator (PI) this would be hazardous; recent data suggest discordance between primary tumor and tumor from recurrence or metastasis with high percentages of PD-L1 SP142 positive immune cells after recurrence * PD-L1 status determined centrally by HistogeneX, which is funded by the study, must be available before randomization of the patient to"
+          }
+        },
+        {
+          "trial_id": "NCT07447102",
+          "title": "Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis",
+          "source_url": "https://clinicaltrials.gov/study/NCT07447102",
+          "retrieval_rank": 4,
+          "retrieval_score": 236.311,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis (IPF)"
+          ],
+          "phase": "PHASE2",
+          "status": "RECRUITING",
+          "interventions": [
+            "BC006",
+            "Placebo"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": null,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "active_interstitial_lung_disease",
+              "active_autoimmune_disease",
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07447102-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis (IPF)"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": null
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-active-interstitial-lung-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active interstitial lung disease.",
+              "structured_value": "active_interstitial_lung_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-active-autoimmune-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has active autoimmune disease.",
+              "structured_value": "active_autoimmune_disease",
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07447102-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Must provide written informed consent form (ICF) indicating understanding of the study and voluntary participation.",
+              "Aged >=40 years at the time of signing the ICF, with no gender restriction.",
+              "Diagnosis of idiopathic pulmonary fibrosis (IPF) according to the 2022 American Thoracic Society/European Respiratory Society/Japanese Respiratory Society/Latin American Thoracic Society (ATS/ERS/JRS/ALAT) clinical practice guideline.",
+              "HRCT pattern consistent with usual interstitial pneumonia (UIP) or probable UIP for IPF confirmed by independent central imaging review (acceptable-quality HRCT obtained within 12 months prior to screening or during the screening period). If HRCT shows indeterminate UIP, the diagnosis of IPF must be confirmed by histopathology from a prior lung biopsy (surgical/video-assisted thoracoscopic lung biopsy or bronchoscopic cryobiopsy) recognized by the investigator, if available.",
+              "Forced vital capacity percent predicted (FVC% predicted) >=45% during the screening period.",
+              "Diffusing capacity of the lung for carbon monoxide percent predicted (DLCO% predicted), corrected for hemoglobin (Hb), >=30% and <=90% during the screening period.",
+              "Meets either of the following:",
+              "The patient has been on a stable dose of nintedanib or pirfenidone for at least 8 weeks prior to screening and during screening (nintedanib >=100 mg BID, pirfenidone >=400 mg TID, no dose changes), tolerates the treatment, and plans to continue this background therapy during the study.",
+              "The patient has not received nintedanib or pirfenidone for at least 4 weeks prior to screening and during screening (previous treatment discontinued or treatment-nave), and does not plan to initiate or re-initiate nintedanib or pirfenidone during the study. No patient should discontinue approved therapy to participate in this study. Treatment-nave patients must decline after full discussion with the investigator regarding the risks/benefits of such therapy.",
+              "Patients of reproductive potential (male and female) must agree to use highly effective contraceptive methods (hormonal, barrier, or abstinence) from signing the ICF until at least 6 months after the last dose of study drug."
+            ],
+            "exclusion": [
+              "Interstitial lung disease of known etiology (e.g., domestic and occupational environmental exposures, connective tissue disease, drug toxicity, etc.).",
+              "Other pulmonary diseases considered clinically significant by the investigator (e.g., asthma, chronic obstructive pulmonary disease, cavitary or pleural disease, etc.).",
+              "Emphysema >= 50%, or emphysema greater than fibrosis, as determined by independent central imaging review of HRCT.",
+              "Acute exacerbation of IPF within 3 months prior to screening or during the screening period, as judged by the investigator.",
+              "Sustained improvement in IPF severity within 12 months prior to screening or during the screening period, as judged by the investigator based on changes in FVC, DLCO, and/or chest HRCT scan.",
+              "Pre-bronchodilator forced expiratory volume in 1 second (FEV1)/FVC \\< 0.70 during the screening period.",
+              "Known increase in FEV1 and/or FVC >= 12% and >= 200 mL post-bronchodilator.",
+              "History of smoking within 3 months prior to screening or during the screening period, or inability to refrain from smoking (including cigarettes, cigars, pipes, and e-cigarettes) for the duration of the study.",
+              "Completed a cardiopulmonary rehabilitation program focusing on exercise training within 8 weeks prior to screening, or planning to initiate such a program during the study.",
+              "Presence of pulmonary hypertension or cor pulmonale that, in the investigator's opinion, would significantly limit compliance with study requirements or may affect assessment of study safety or efficacy."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Must provide written informed consent form (ICF) indicating understanding of the study and voluntary participation. * Aged >=40 years at the time of signing the ICF, with no gender restriction. * Diagnosis of idiopathic pulmonary fibrosis (IPF) according to the 2022 American Thoracic Society/European Respiratory Society/Japanese Respiratory Society/Latin American Thoracic Society (ATS/ERS/JRS/ALAT) clinical practice guideline. * HRCT pattern consistent with usual interstitial pneumonia (UIP) or probable UIP for IPF confirmed by independent central imaging review (acceptable-quality HRCT obtained within 12 months prior to screening or during the screening period). If HRCT shows indeterminate UIP, the diagnosis of IPF must be confirmed by histopathology from a prior lung biopsy (surgical/video-assisted thoracoscopic lung biopsy or bronchoscopic cryobiopsy) recognized by the investigator, if available. * Forced vital capacity percent predicted (FVC% predicted) >=45% during the screening period. * Diffusing capacity of the lung for carbon monoxide percent predicted (DLCO% predicted), corrected for hemoglobin (Hb), >=30% and <=90% during the screening period. * Meets either of the following: * The patient has been on a stable dose of nintedanib or pirfenidone for at least 8 weeks prior to screening and during screening (nintedanib >=100 mg BID, pirfenidone >=400 mg TID, no dose changes), tolerates the treatment, and plans to continue this background therapy during the study. * The patient has not received nintedanib or pirfenidone for at least 4 weeks prior to screening and during screening (previous treatment discontinued or treatment-nave), and does not plan to initiate or re-initiate nintedanib or pirfenidone during the study. No patient should disco"
+          }
+        },
+        {
+          "trial_id": "NCT07359963",
+          "title": "Treatment of Idiopathic Pulmonary Fibrosis (IPF) by REGEND007 Cell Therapy",
+          "source_url": "https://clinicaltrials.gov/study/NCT07359963",
+          "retrieval_rank": 5,
+          "retrieval_score": 189.719,
+          "conditions": [
+            "Idiopathic Pulmonary Fibrosis (IPF)"
+          ],
+          "phase": "EARLY_PHASE1",
+          "status": "NOT_YET_RECRUITING",
+          "interventions": [
+            "REGEND007 Cell Therapy"
+          ],
+          "known_structured_fields": {
+            "min_age": 40,
+            "max_age": 80,
+            "sex": "all",
+            "allowed_stages": [],
+            "max_ecog": null,
+            "required_biomarkers": {},
+            "required_prior_treatments": [],
+            "excluded_flags": [
+              "uncontrolled_cardiac_disease"
+            ]
+          },
+          "criteria_to_assess": [
+            {
+              "criterion_id": "NCT07359963-I-condition",
+              "criterion_type": "inclusion",
+              "criterion": "Patient diagnosis should match the trial condition.",
+              "structured_value": [
+                "Idiopathic Pulmonary Fibrosis (IPF)"
+              ],
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07359963-I-age",
+              "criterion_type": "inclusion",
+              "criterion": "Patient age should be within trial bounds.",
+              "structured_value": {
+                "min_age": 40,
+                "max_age": 80
+              },
+              "required": true
+            },
+            {
+              "criterion_id": "NCT07359963-E-uncontrolled-cardiac-disease",
+              "criterion_type": "exclusion",
+              "criterion": "Exclude if patient has uncontrolled cardiac disease.",
+              "structured_value": "uncontrolled_cardiac_disease",
+              "required": true
+            }
+          ],
+          "raw_criteria_excerpt": {
+            "inclusion": [
+              "Gender is not restricted. When signing the informed consent form, the age should be between 40 and 80 years old (inclusive of the boundary value).",
+              "Diagnosed with idiopathic pulmonary fibrosis (IPF).",
+              "During the screening process, the six-minute walk test should be >= 150 meters and \\< 600 meters; or the lung function FVC should be \\> 30% of the predicted value.",
+              "Voluntarily sign the informed consent form, be able to cooperate with the completion of research-related procedures and examinations, and be able to comprehensively describe or record the changes in the condition."
+            ],
+            "exclusion": [
+              "Female subjects who are pregnant, breastfeeding, or planning to become pregnant within one year after using this product; or male subjects whose partner is planning to become pregnant.",
+              "Subjects selected during the screening whose estimated survival period is less than one year.",
+              "Subjects selected during the screening who have a current or past history of malignant tumors (excluding malignant tumors with a disease-free survival of more than five years and judged by the researcher to have a relatively mild invasiveness, such as non-melanoma skin cancer, invasive cervical cancer, bladder cancer, thyroid cancer, and breast cancer, etc.).",
+              "Subjects selected within 4 weeks before diagnosis of pneumonia (including bacterial, fungal or viral pneumonia).",
+              "Subjects selected within 4 weeks before an acute exacerbation of IPF.",
+              "Subjects selected within 4 weeks before having one or more results reported by pathogenological or serological tests (nucleic acid, antigen, virus culture, specific IgG antibody levels) indicating novel coronavirus infection, or suspected novel coronavirus infection (manifesting symptoms such as fever, headache, fatigue, joint pain, runny nose, sore throat, and persistent cough, and the disease course is consistent with the prevalent strain).",
+              "Subjects selected within 4 weeks before having a history of invasive or non-invasive mechanical ventilation.",
+              "Subjects selected during the screening who have active pulmonary tuberculosis, poorly controlled bronchial asthma, acute pulmonary embolism, severe pulmonary hypertension \\[cardiac ultrasound examination \\> 70 mmHg\\], etc.",
+              "Subjects selected within 6 months before having a serious non-pulmonary systemic disease and judged by the researcher as not suitable to participate in this study, such as diabetes with ketoacidosis or hyperosmolar coma, acute myocardial infarction, unstable angina pectoris, NYHA heart failure grade III/IV, stroke, liver cirrhosis with severe liver dysfunction, severe renal insufficiency, etc.",
+              "Subjects selected during the screening who have severe anemia, or controlled poorly granulocytopenia or thrombocytopenia."
+            ],
+            "eligibility_criteria_excerpt": "Inclusion Criteria: * Gender is not restricted. When signing the informed consent form, the age should be between 40 and 80 years old (inclusive of the boundary value). * Diagnosed with idiopathic pulmonary fibrosis (IPF). * During the screening process, the six-minute walk test should be >= 150 meters and \\< 600 meters; or the lung function FVC should be \\> 30% of the predicted value. * Voluntarily sign the informed consent form, be able to cooperate with the completion of research-related procedures and examinations, and be able to comprehensively describe or record the changes in the condition. Exclusion Criteria: * Female subjects who are pregnant, breastfeeding, or planning to become pregnant within one year after using this product; or male subjects whose partner is planning to become pregnant. * Subjects selected during the screening whose estimated survival period is less than one year. * Subjects selected during the screening who have a current or past history of malignant tumors (excluding malignant tumors with a disease-free survival of more than five years and judged by the researcher to have a relatively mild invasiveness, such as non-melanoma skin cancer, invasive cervical cancer, bladder cancer, thyroid cancer, and breast cancer, etc.). * Subjects selected within 4 weeks before diagnosis of pneumonia (including bacterial, fungal or viral pneumonia). * Subjects selected within 4 weeks before an acute exacerbation of IPF. * Subjects selected within 4 weeks before having one or more results reported by pathogenological or serological tests (nucleic acid, antigen, virus culture, specific IgG antibody levels) indicating novel coronavirus infection, or suspected novel coronavirus infection (manifesting symptoms such as fever, headache, fatigue, joint pain, runn"
+          }
+        }
+      ]
+    }
+  ]
+}

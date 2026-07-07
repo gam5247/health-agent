@@ -1,0 +1,3182 @@
+{
+  "patient_count": 5,
+  "patients": [
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "batch_id": "gpt_e2e_teacher_batch_06",
+          "criteria_source": "Only the supplied synthetic patient fields, candidate trial structured fields, supplied criteria, and raw criteria excerpts were used.",
+          "parsed_trials": [
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw exclusions mention kidney disease already explained by another syndrome and already known genetic cause."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match"
+              ],
+              "supplied_criterion_count": 1,
+              "title": "Genetic Causes of FSGS, Nephrotic Syndrome, or Kidney Failure",
+              "trial_id": "NCT02194582"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw patient criteria describe young adult cancer patients age 18 to 39 years and include language and cognitive-capacity requirements."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage"
+              ],
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "ECOG performance status",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 6,
+              "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The intake states that molecular testing results are not available and does not address whether another syndrome explains the kidney disease.",
+                  "requirement": "Kidney disease must not already have a known genetic cause or be explained by another syndrome.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT02194582-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, which matches one of the trial's listed conditions.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "uncertain",
+              "trial_id": "NCT02194582"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "The patient is 56 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "No disease stage is documented in the intake note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The intake note does not address whether the patient has organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "The patient is 56 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "No disease stage is documented in the intake note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The patient is 56 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+                  "requirement": "Patient component of this trial is for young adult cancer patients age 18 to 39 years.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "The patient is 56 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "No disease stage is documented in the intake note.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "The patient is 56 years old, which is within the supplied age bound of at least 18 and at most 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthesized_patient_answers": [
+            {
+              "answer": "The patient reports that no genetic cause and no separate explanatory syndrome has been identified.",
+              "question_id": "SYN-GEN-00026-Q1"
+            },
+            {
+              "answer": "The patient has no documented cancer diagnosis, no applicable cancer stage, and no prior platinum chemotherapy.",
+              "question_id": "SYN-GEN-00026-Q2"
+            },
+            {
+              "answer": "The patient reports none of those exclusion comorbidities and no prior organ transplant.",
+              "question_id": "SYN-GEN-00026-Q3"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "known_facts": [
+            "Age is 56 years.",
+            "Sex is male.",
+            "Diagnosis is focal segmental glomerulosclerosis.",
+            "No formal stage is documented.",
+            "ECOG performance status is 2.",
+            "Care location is IL, US."
+          ],
+          "missing_or_unconfirmed_facts": [
+            "Molecular or genetic testing results are not available in the intake note.",
+            "Prior systemic therapy is not confirmed beyond the statement that no prior systemic therapy is listed.",
+            "Exclusion comorbidities are not explicitly addressed in the intake note.",
+            "Cancer stage is not documented and must be clarified for cancer trials that require a stage."
+          ],
+          "structured_patient": {
+            "age": 56,
+            "diagnosis": "focal segmental glomerulosclerosis",
+            "ecog": 2,
+            "location": {
+              "country": "US",
+              "state": "IL"
+            },
+            "scenario": "missing_biomarker",
+            "sex": "male",
+            "stage": null,
+            "target_trial_id": "NCT02194582"
+          }
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "Has a genetic cause or another named syndrome already been identified as the explanation for the focal segmental glomerulosclerosis?",
+              "question_id": "SYN-GEN-00026-Q1"
+            },
+            {
+              "question": "Is there any documented urothelial cancer, other staged cancer diagnosis, or prior platinum chemotherapy exposure?",
+              "question_id": "SYN-GEN-00026-Q2"
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or a prior organ transplant?",
+              "question_id": "SYN-GEN-00026-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "post_interaction_recommendations": [
+            {
+              "label": "eligible",
+              "rationale": "All supplied required criteria are satisfied, and the synthesized follow-up answers do not identify a decisive protocol conflict.",
+              "recommendation": "recommend for site-level screening",
+              "trial_id": "NCT02194582"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The synthesized follow-up answer states that the patient has not received prior platinum chemotherapy.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The patient is 56 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "patient_level_summary": "After simulated clarification, at least one candidate remains clinically supportable for site-level screening.",
+          "trial_explanations": [
+            {
+              "explanation": "All supplied required criteria are satisfied, and the synthesized follow-up answers do not identify a decisive protocol conflict.",
+              "label": "eligible",
+              "trial_id": "NCT02194582"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The synthesized follow-up answer states that the patient has not received prior platinum chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The patient is 56 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00026",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT02194582-I-condition",
+                "reason": "The patient diagnosis is focal segmental glomerulosclerosis, which directly matches the trial condition.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "uncertain",
+            "explanation": "The supplied condition criterion is satisfied. Overall eligibility is uncertain because the raw trial excerpt lists exclusions for kidney disease already explained by another syndrome or by an already known genetic cause, and the synthetic note does not resolve those exclusions.",
+            "follow_up_questions": [
+              "Is the kidney disease already explained by another syndrome such as Branchio Oto Renal Syndrome or Alport syndrome?",
+              "Does the patient already know the genetic cause of the kidney disease?"
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              "Not available in the supplied synthetic note.",
+              "Molecular testing results are not available in the supplied note, so a known genetic cause is not documented."
+            ],
+            "trial_id": "NCT02194582",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT02194582",
+            "trial_title": "Genetic Causes of FSGS, Nephrotic Syndrome, or Kidney Failure"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while this trial requires locally advanced, metastatic, recurrent, unresectable, or stage IV urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "The patient is 56 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "No formal disease stage is documented, so the required stage cannot be confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which is at the allowed maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The note does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial carcinoma population. Other missing treatment or exclusion details do not overcome the required condition mismatch.",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while this trial requires urothelial cancer or metastatic urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "The patient is 56 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "No formal disease stage is documented, so the required stage cannot be confirmed.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial cancer population; additional supplied criteria are also violated or undocumented as listed.",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while the trial excerpt describes young adult cancer patients and survivors for inherited cancer genetic testing.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "The trial excerpt states patient participants must be 18 to 39 years old at enrollment; the patient is 56 years old.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "No formal disease stage is documented, so the supplied stage requirement cannot be confirmed.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because one or more required patient criteria are violated, including the young-adult cancer population requirements or the supplied stage requirement as applicable.",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while this trial requires relapsed or refractory CD19-positive large B-cell lymphoma subtypes.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "The patient is 56 years old, which is within the 18 to 75 year age range.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required relapsed or refractory large B-cell lymphoma population; additional age or ECOG criteria are also violated where listed.",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT02194582",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "age": 56,
+        "candidate_trial_ids": [
+          "NCT02194582",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ],
+        "diagnosis": "focal segmental glomerulosclerosis",
+        "ecog": 2,
+        "location": {
+          "country": "US",
+          "state": "IL"
+        },
+        "sex": "male"
+      },
+      "patient_id": "SYN-GEN-00026"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "batch_id": "gpt_e2e_teacher_batch_06",
+          "criteria_source": "Only the supplied synthetic patient fields, candidate trial structured fields, supplied criteria, and raw criteria excerpts were used.",
+          "parsed_trials": [
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw criteria mention resistant nephrotic syndrome features, proteinuria, estimated glomerular filtration rate, biopsy or genetic documentation, and exclusion of secondary disease."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound"
+              ],
+              "supplied_criterion_count": 2,
+              "title": "ARREST-NEPHROSIS - Austrian Resistant Nephrotic Syndrome Treatment Response Registry and Biobank",
+              "trial_id": "NCT06162546"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw patient criteria describe young adult cancer patients age 18 to 39 years and include language and cognitive-capacity requirements."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage"
+              ],
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "ECOG performance status",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 6,
+              "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The referral note gives focal segmental glomerulosclerosis and age but does not document treatment resistance, urinary protein-to-creatinine ratio, estimated glomerular filtration rate, or biopsy/genetic confirmation.",
+                  "requirement": "Registry entry requires resistant nephrotic syndrome features including persistent proteinuria, adequate kidney function, and biopsy or disease-causing genetic documentation.",
+                  "status": "unknown"
+                },
+                {
+                  "reason": "The referral note does not state whether the focal segmental glomerulosclerosis is primary or secondary.",
+                  "requirement": "Secondary disease is excluded.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06162546-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, which matches one of the trial's listed conditions.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06162546-I-age",
+                  "reason": "The patient is 69 years old, which is within the supplied age bound of at most 75 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "uncertain",
+              "trial_id": "NCT06162546"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "The patient is 69 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The intake note does not address whether the patient has organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The patient is 69 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+                  "requirement": "Patient component of this trial is for young adult cancer patients age 18 to 39 years.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "The patient is 69 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "The patient is 69 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "The patient is 69 years old, which is within the supplied age bound of at least 18 and at most 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthesized_patient_answers": [
+            {
+              "answer": "The synthesized chart update reports biopsy-confirmed focal segmental glomerulosclerosis with persistent proteinuria, estimated glomerular filtration rate above 30 mL/min per 1.73 m2, and resistance to standard immunosuppression; it also states the disease is secondary focal segmental glomerulosclerosis.",
+              "question_id": "SYN-GEN-00027-Q1"
+            },
+            {
+              "answer": "The patient has no urothelial cancer, no stage IV cancer diagnosis, and no prior platinum chemotherapy.",
+              "question_id": "SYN-GEN-00027-Q2"
+            },
+            {
+              "answer": "The patient reports none of those exclusion comorbidities and no organ transplant history.",
+              "question_id": "SYN-GEN-00027-Q3"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "known_facts": [
+            "Age is 69 years.",
+            "Sex is female.",
+            "Diagnosis is focal segmental glomerulosclerosis.",
+            "Stage is recorded as III.",
+            "ECOG performance status is 2.",
+            "Care location is FL, US."
+          ],
+          "missing_or_unconfirmed_facts": [
+            "Molecular or genetic testing results are not available in the intake note.",
+            "Prior systemic therapy is not confirmed beyond the statement that no prior systemic therapy is listed.",
+            "Exclusion comorbidities are not explicitly addressed in the intake note."
+          ],
+          "structured_patient": {
+            "age": 69,
+            "diagnosis": "focal segmental glomerulosclerosis",
+            "ecog": 2,
+            "location": {
+              "country": "US",
+              "state": "FL"
+            },
+            "scenario": "exclusion_conflict",
+            "sex": "female",
+            "stage": "III",
+            "target_trial_id": "NCT06162546"
+          }
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "For the nephrotic syndrome registry, is the focal segmental glomerulosclerosis primary or secondary, and are proteinuria, kidney function, biopsy confirmation, and immunosuppression resistance documented?",
+              "question_id": "SYN-GEN-00027-Q1"
+            },
+            {
+              "question": "Does the patient have urothelial cancer, stage IV disease, or prior platinum chemotherapy?",
+              "question_id": "SYN-GEN-00027-Q2"
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history?",
+              "question_id": "SYN-GEN-00027-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "post_interaction_recommendations": [
+            {
+              "label": "ineligible",
+              "rationale": "The synthesized follow-up answer states that the focal segmental glomerulosclerosis is secondary disease, which conflicts with the trial exclusion language.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06162546"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "patient_level_summary": "After simulated clarification, no candidate is recommended because every candidate has a decisive mismatch or protocol conflict.",
+          "trial_explanations": [
+            {
+              "explanation": "The synthesized follow-up answer states that the focal segmental glomerulosclerosis is secondary disease, which conflicts with the trial exclusion language.",
+              "label": "ineligible",
+              "trial_id": "NCT06162546"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "The documented diagnosis is focal segmental glomerulosclerosis, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00027",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06162546-I-condition",
+                "reason": "The patient diagnosis is focal segmental glomerulosclerosis, which directly matches the trial condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06162546-I-age",
+                "reason": "The patient is 69 years old, which is at or below the maximum age of 75 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "uncertain",
+            "explanation": "The supplied diagnosis and age criteria are satisfied. Overall eligibility is uncertain because the raw registry criteria require treatment resistance, proteinuria, kidney function, biopsy or genetic evidence, and exclusion review that are not documented in the referral.",
+            "follow_up_questions": [
+              "Has the patient been resistant to standard immunosuppressive agents when clinically indicated?",
+              "Does the patient have persistent urinary protein-to-creatinine ratio greater than 1.0 g/g?",
+              "Is the patient eGFR greater than 30 ml/min per 1.73 m2?",
+              "Is there a renal biopsy result or disease-causing genetic mutation associated with nephrotic syndrome?",
+              "Is the disease secondary, steroid-dependent, or frequently relapsing with complete remission?"
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              "Not available in the supplied synthetic note.",
+              "Not available in the supplied synthetic note.",
+              "Not available in the supplied synthetic note.",
+              "Molecular testing results are not available, and biopsy status is not available in the supplied note.",
+              "Not available in the supplied synthetic note."
+            ],
+            "trial_id": "NCT06162546",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06162546",
+            "trial_title": "ARREST-NEPHROSIS - Austrian Resistant Nephrotic Syndrome Treatment Response Registry and Biobank"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while this trial requires urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "The patient is 69 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "The patient is recorded as stage III, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which is at the allowed maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The note does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial carcinoma population. Other missing treatment or exclusion details do not overcome the required condition mismatch.",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while the trial excerpt describes young adult cancer patients and survivors for inherited cancer genetic testing.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "The trial excerpt states patient participants must be 18 to 39 years old at enrollment; the patient is 69 years old.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "The patient is recorded as stage III, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because one or more required patient criteria are violated, including the young-adult cancer population requirements or the supplied stage requirement as applicable.",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while this trial requires urothelial cancer or metastatic urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "The patient is 69 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "The patient is recorded as stage III, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial cancer population; additional supplied criteria are also violated or undocumented as listed.",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "The patient has focal segmental glomerulosclerosis, while this trial requires relapsed or refractory CD19-positive large B-cell lymphoma subtypes.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "The patient is 69 years old, which is within the 18 to 75 year age range.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required relapsed or refractory large B-cell lymphoma population; additional age or ECOG criteria are also violated where listed.",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06162546",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "age": 69,
+        "candidate_trial_ids": [
+          "NCT06162546",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT06830031"
+        ],
+        "diagnosis": "focal segmental glomerulosclerosis",
+        "ecog": 2,
+        "location": {
+          "country": "US",
+          "state": "FL"
+        },
+        "sex": "female",
+        "stage": "III"
+      },
+      "patient_id": "SYN-GEN-00027"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "batch_id": "gpt_e2e_teacher_batch_06",
+          "criteria_source": "Only the supplied synthetic patient fields, candidate trial structured fields, supplied criteria, and raw criteria excerpts were used.",
+          "parsed_trials": [
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw criteria mention primary biopsy-confirmed minimal change disease, nephrotic-range proteinuria, low serum albumin, adequate kidney function, no prior corticosteroid or immunosuppressant therapy, and other safety exclusions."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound"
+              ],
+              "supplied_criterion_count": 2,
+              "title": "Efficacy and Safety of Tacrolimus in Combination With Ripertamab in the Initial Treatment of Patients With MCD",
+              "trial_id": "NCT06405100"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "ECOG performance status",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 6,
+              "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "disease stage",
+                "prior treatment"
+              ],
+              "supplied_criterion_count": 3,
+              "title": "Embryonal Tumor With Multilayered Rosettes",
+              "trial_id": "NCT06861244"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The intake documents minimal change disease but does not include biopsy confirmation, urine protein, or serum albumin values.",
+                  "requirement": "Primary minimal change disease should be renal-biopsy confirmed with nephrotic-range proteinuria and low serum albumin.",
+                  "status": "unknown"
+                },
+                {
+                  "reason": "The referral says no prior systemic therapy is listed, but it does not explicitly confirm absence of corticosteroid or immunosuppressant exposure or other protocol exclusions.",
+                  "requirement": "Initial-treatment protocol should not have prior corticosteroid or immunosuppressant exposure and should have no major protocol exclusions.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06405100-I-condition",
+                  "reason": "The documented diagnosis is minimal change disease, which matches one of the trial's listed conditions.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06405100-I-age",
+                  "reason": "The patient is 72 years old, which is within the supplied age bound of at least 18 and at most 80 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "uncertain",
+              "trial_id": "NCT06405100"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "The patient is 72 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "The documented ECOG performance status is 1, which is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The intake note does not address whether the patient has organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "The patient is 72 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "The documented ECOG performance status is 1, which is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "The patient is 72 years old, which is within the supplied age bound of at least 18 and at most 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "The documented ECOG performance status is 1, which is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06861244-I-condition",
+                  "reason": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-stage",
+                  "reason": "The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior induction chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT06861244"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthesized_patient_answers": [
+            {
+              "answer": "The synthesized chart update reports primary renal-biopsy confirmed minimal change disease, nephrotic-range proteinuria, serum albumin below 30 g/L, estimated glomerular filtration rate at least 60 mL/min per 1.73 m2, no prior corticosteroid or immunosuppressant therapy, and no major exclusion condition for the minimal change disease protocol.",
+              "question_id": "SYN-GEN-00028-Q1"
+            },
+            {
+              "answer": "The patient has no urothelial cancer, no large B-cell lymphoma, no embryonal tumor with multilayered rosettes, no prior platinum chemotherapy, and no prior induction chemotherapy.",
+              "question_id": "SYN-GEN-00028-Q2"
+            },
+            {
+              "answer": "The patient reports none of those exclusion comorbidities and no organ transplant history.",
+              "question_id": "SYN-GEN-00028-Q3"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "known_facts": [
+            "Age is 72 years.",
+            "Sex is female.",
+            "Diagnosis is minimal change disease.",
+            "Stage is recorded as I.",
+            "ECOG performance status is 1.",
+            "Care location is PA, US."
+          ],
+          "missing_or_unconfirmed_facts": [
+            "Molecular or genetic testing results are not available in the intake note.",
+            "Prior systemic therapy is not confirmed beyond the statement that no prior systemic therapy is listed.",
+            "Exclusion comorbidities are not explicitly addressed in the intake note."
+          ],
+          "structured_patient": {
+            "age": 72,
+            "diagnosis": "minimal change disease",
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "PA"
+            },
+            "scenario": "stage_conflict",
+            "sex": "female",
+            "stage": "I",
+            "target_trial_id": "NCT06405100"
+          }
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "Is the minimal change disease primary and renal-biopsy confirmed, and are nephrotic-range proteinuria, low serum albumin, kidney function, prior corticosteroid exposure, and major exclusions documented?",
+              "question_id": "SYN-GEN-00028-Q1"
+            },
+            {
+              "question": "Does the patient have metastatic urothelial cancer, large B-cell lymphoma, embryonal tumor with multilayered rosettes, or prior platinum or induction chemotherapy?",
+              "question_id": "SYN-GEN-00028-Q2"
+            },
+            {
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history?",
+              "question_id": "SYN-GEN-00028-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "post_interaction_recommendations": [
+            {
+              "label": "eligible",
+              "rationale": "All supplied required criteria are satisfied, and the synthesized follow-up answers do not identify a decisive protocol conflict.",
+              "recommendation": "recommend for site-level screening",
+              "trial_id": "NCT06405100"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population. The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population. The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population. The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06861244"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "patient_level_summary": "After simulated clarification, at least one candidate remains clinically supportable for site-level screening.",
+          "trial_explanations": [
+            {
+              "explanation": "All supplied required criteria are satisfied, and the synthesized follow-up answers do not identify a decisive protocol conflict.",
+              "label": "eligible",
+              "trial_id": "NCT06405100"
+            },
+            {
+              "explanation": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population. The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population. The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "explanation": "The documented diagnosis is minimal change disease, while the trial conditions require a different disease population. The recorded stage is I, while the trial requires one of the allowed stages: IV.",
+              "label": "ineligible",
+              "trial_id": "NCT06861244"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00028",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06405100-I-condition",
+                "reason": "The patient diagnosis is minimal change disease, which directly matches the trial condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06405100-I-age",
+                "reason": "The patient is 72 years old, which is within the 18 to 80 year age range.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "uncertain",
+            "explanation": "The supplied diagnosis and age criteria are satisfied. Overall eligibility is uncertain because the raw trial excerpt requires biopsy-confirmed primary minimal change disease, nephrotic-range proteinuria with low serum albumin, kidney-function confirmation, and exclusion review that are not fully documented.",
+            "follow_up_questions": [
+              "Is the minimal change disease primary and confirmed by renal biopsy?",
+              "Is this initial therapy for minimal change disease?",
+              "Does the patient have 24-hour urine total protein greater than 3.5 g/day or protein-creatinine ratio greater than 3500 mg/g, and serum albumin below 30 g/L?",
+              "Is the patient eGFR at least 60 mL/min/1.73 m2?",
+              "Has the patient previously received corticosteroids or other immunosuppressants?"
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              "Not available in the supplied synthetic note.",
+              "No prior systemic therapy is listed in the referral, but initial-therapy status is not explicitly confirmed.",
+              "Not available in the supplied synthetic note.",
+              "Not available in the supplied synthetic note.",
+              "No prior systemic therapy is listed in the referral, but prior corticosteroid or immunosuppressant exposure is not explicitly confirmed."
+            ],
+            "trial_id": "NCT06405100",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06405100",
+            "trial_title": "Efficacy and Safety of Tacrolimus in Combination With Ripertamab in the Initial Treatment of Patients With MCD"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "The patient has minimal change disease, while this trial requires urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "The patient is 72 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "The patient is recorded as stage I, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "The patient has ECOG performance status 1, which is below the allowed maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The note does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial carcinoma population. Other missing treatment or exclusion details do not overcome the required condition mismatch.",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "The patient has minimal change disease, while this trial requires urothelial cancer or metastatic urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "The patient is 72 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "The patient is recorded as stage I, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "The patient has ECOG performance status 1, which is at the allowed maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial cancer population; additional supplied criteria are also violated or undocumented as listed.",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "The patient has minimal change disease, while this trial requires relapsed or refractory CD19-positive large B-cell lymphoma subtypes.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "The patient is 72 years old, which is within the 18 to 75 year age range.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "The patient has ECOG performance status 1, which is at the allowed maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required relapsed or refractory large B-cell lymphoma population; additional age or ECOG criteria are also violated where listed.",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06861244-I-condition",
+                "reason": "The patient has minimal change disease, while this trial requires embryonal tumor with multilayered rosettes.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06861244-I-stage",
+                "reason": "The patient is recorded as stage I, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06861244-I-prior-induction-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior induction chemotherapy is not documented.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis and recorded stage do not match the required embryonal tumor and supplied stage IV criteria.",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06861244",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06861244",
+            "trial_title": "Embryonal Tumor With Multilayered Rosettes"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06405100",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT06861244"
+        ]
+      },
+      "input": {
+        "age": 72,
+        "candidate_trial_ids": [
+          "NCT06405100",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT06861244"
+        ],
+        "diagnosis": "minimal change disease",
+        "ecog": 1,
+        "location": {
+          "country": "US",
+          "state": "PA"
+        },
+        "sex": "female",
+        "stage": "I"
+      },
+      "patient_id": "SYN-GEN-00028"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "batch_id": "gpt_e2e_teacher_batch_06",
+          "criteria_source": "Only the supplied synthetic patient fields, candidate trial structured fields, supplied criteria, and raw criteria excerpts were used.",
+          "parsed_trials": [
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw criteria mention pediatric age, calcineurin-inhibitor resistant or intolerant steroid-resistant nephrotic syndrome, renal biopsy confirming minimal change disease or focal segmental glomerulosclerosis, and cardiac and infection exclusions."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 3,
+              "title": "Blinatumomab for CNI-Resistant/Intolerant SRNS in Children",
+              "trial_id": "NCT06607991"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw criteria mention idiopathic nephrotic syndrome relapse in Ontario and exclude steroid-resistant nephrotic syndrome classification."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound"
+              ],
+              "supplied_criterion_count": 2,
+              "title": "REduced-dose Steroid PrOtocol for Childhood Nephrotic SyndromE (RESPONSE)",
+              "trial_id": "NCT06635720"
+            },
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw patient criteria describe young adult cancer patients age 18 to 39 years and include language and cognitive-capacity requirements."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage"
+              ],
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The note gives calcineurin-inhibitor resistant steroid-resistant nephrotic syndrome but does not document the renal biopsy result or genetic nephropathy status.",
+                  "requirement": "Renal biopsy should confirm minimal change disease or focal segmental glomerulosclerosis, and genetic nephropathy should not be present.",
+                  "status": "unknown"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06607991-I-condition",
+                  "reason": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, which matches one of the trial's listed conditions.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06607991-I-age",
+                  "reason": "The patient is 16 years old, which is within the supplied age bound of at least 2 and at most 17 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06607991-E-uncontrolled-cardiac-disease",
+                  "reason": "The initial note explicitly reports no uncontrolled cardiac disease, so this exclusion criterion is not met.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "uncertain",
+              "trial_id": "NCT06607991"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "The documented ECOG performance status is 3, which is above the maximum of 2.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The initial note explicitly reports no uncontrolled cardiac disease, so this exclusion criterion is not met.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The intake note does not address whether the patient has organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "The documented ECOG performance status is 3, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The initial note explicitly reports no uncontrolled cardiac disease, so this exclusion criterion is not met.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The patient diagnosis explicitly includes steroid-resistant nephrotic syndrome, which conflicts with this trial exclusion.",
+                  "requirement": "Steroid-resistant nephrotic syndrome classification is excluded by the protocol.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06635720-I-condition",
+                  "reason": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, which matches one of the trial's listed conditions.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06635720-I-age",
+                  "reason": "The patient is 16 years old, which is within the supplied age bound of at least 1 and at most 18 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT06635720"
+            },
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The patient is 16 years old and also does not have a documented cancer diagnosis.",
+                  "requirement": "Patient component of this trial is for young adult cancer patients age 18 to 39 years.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "The recorded stage is III, while the trial requires one of the allowed stages: IV.",
+                  "status": "violated"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthesized_patient_answers": [
+            {
+              "answer": "The synthesized chart update reports renal biopsy confirmation of focal segmental glomerulosclerosis and no known genetic nephropathy.",
+              "question_id": "SYN-GEN-00029-Q1"
+            },
+            {
+              "answer": "The patient has no urothelial cancer, no stage IV cancer diagnosis, no prior platinum chemotherapy, no active interstitial lung disease, no active autoimmune disease, no active uncontrolled infection, no organ transplant history, and no uncontrolled cardiac disease.",
+              "question_id": "SYN-GEN-00029-Q2"
+            },
+            {
+              "answer": "The nephrotic syndrome is confirmed to be steroid-resistant.",
+              "question_id": "SYN-GEN-00029-Q3"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "known_facts": [
+            "Age is 16 years.",
+            "Sex is male.",
+            "Diagnosis is cni-resistant steriod resistant nephrotic syndrome.",
+            "Stage is recorded as III.",
+            "ECOG performance status is 3.",
+            "Care location is CO, US."
+          ],
+          "missing_or_unconfirmed_facts": [
+            "Molecular or genetic testing results are not available in the intake note.",
+            "Prior systemic therapy is not confirmed beyond the statement that no prior systemic therapy is listed.",
+            "Only uncontrolled cardiac disease is explicitly reported absent; other exclusion comorbidities remain unconfirmed in the intake note."
+          ],
+          "structured_patient": {
+            "age": 16,
+            "diagnosis": "cni-resistant steriod resistant nephrotic syndrome",
+            "ecog": 3,
+            "location": {
+              "country": "US",
+              "state": "CO"
+            },
+            "scenario": "ecog_conflict",
+            "sex": "male",
+            "stage": "III",
+            "target_trial_id": "NCT06607991"
+          }
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "For the blinatumomab nephrotic syndrome study, does renal biopsy confirm minimal change disease or focal segmental glomerulosclerosis, and is genetic nephropathy absent?",
+              "question_id": "SYN-GEN-00029-Q1"
+            },
+            {
+              "question": "Does the patient have urothelial cancer, stage IV disease, prior platinum chemotherapy, active interstitial lung disease, active autoimmune disease, active uncontrolled infection, organ transplant history, or uncontrolled cardiac disease?",
+              "question_id": "SYN-GEN-00029-Q2"
+            },
+            {
+              "question": "Is the nephrotic syndrome classified as steroid-resistant for the reduced-dose prednisone childhood nephrotic syndrome trial?",
+              "question_id": "SYN-GEN-00029-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "post_interaction_recommendations": [
+            {
+              "label": "eligible",
+              "rationale": "All supplied required criteria are satisfied, and the synthesized follow-up answers do not identify a decisive protocol conflict.",
+              "recommendation": "recommend for site-level screening",
+              "trial_id": "NCT06607991"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population. The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population. The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The patient diagnosis explicitly includes steroid-resistant nephrotic syndrome, which conflicts with this trial exclusion.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06635720"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population. The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "patient_level_summary": "After simulated clarification, at least one candidate remains clinically supportable for site-level screening.",
+          "trial_explanations": [
+            {
+              "explanation": "All supplied required criteria are satisfied, and the synthesized follow-up answers do not identify a decisive protocol conflict.",
+              "label": "eligible",
+              "trial_id": "NCT06607991"
+            },
+            {
+              "explanation": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population. The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population. The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "The patient diagnosis explicitly includes steroid-resistant nephrotic syndrome, which conflicts with this trial exclusion.",
+              "label": "ineligible",
+              "trial_id": "NCT06635720"
+            },
+            {
+              "explanation": "The documented diagnosis is cni-resistant steriod resistant nephrotic syndrome, while the trial conditions require a different disease population. The patient is 16 years old, which is outside the supplied age bound of at least 18 years.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00029",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06607991-I-condition",
+                "reason": "The patient diagnosis is calcineurin-inhibitor-resistant steroid-resistant nephrotic syndrome, matching the trial condition for calcineurin-inhibitor-resistant or steroid-resistant nephrotic syndrome.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06607991-I-age",
+                "reason": "The patient is 16 years old, which is within the 2 to 17 year age range.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06607991-E-uncontrolled-cardiac-disease",
+                "reason": "The synthetic profile states that uncontrolled cardiac disease is not reported.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "uncertain",
+            "explanation": "The supplied condition, age, and uncontrolled-cardiac-disease criteria are satisfied. Overall eligibility is uncertain because the raw trial excerpt requires biopsy confirmation, kidney-function thresholds, genetic-nephropathy exclusion, and laboratory and infection screening that are not documented.",
+            "follow_up_questions": [
+              "Does the patient meet the 2021 KDIGO definition of steroid-resistant nephrotic syndrome and the trial requirement for calcineurin-inhibitor resistance, calcineurin-inhibitor intolerance, or multidrug resistance?",
+              "Does renal biopsy confirm minimal change disease or focal segmental glomerulosclerosis before screening?",
+              "Is the patient eGFR at least 60 mL/min/1.73 m2?",
+              "Has genetic nephropathy been excluded by genetic testing?",
+              "Are infection screening and laboratory values acceptable under the protocol?"
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              "The supplied diagnosis states calcineurin-inhibitor-resistant steroid-resistant nephrotic syndrome, but detailed treatment history is not available.",
+              "Not available in the supplied synthetic note.",
+              "Not available in the supplied synthetic note.",
+              "Molecular testing results are not available in the supplied note.",
+              "Not available in the supplied synthetic note."
+            ],
+            "trial_id": "NCT06607991",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06607991",
+            "trial_title": "Blinatumomab for CNI-Resistant/Intolerant SRNS in Children"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "The patient has calcineurin-inhibitor-resistant steroid-resistant nephrotic syndrome, while this trial requires urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "The patient is 16 years old, which is below the minimum age of 18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "The patient is recorded as stage III, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "The patient has ECOG performance status 3, which exceeds the allowed maximum of 2.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The synthetic profile states that uncontrolled cardiac disease is not reported.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The note does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial carcinoma population. Other missing treatment or exclusion details do not overcome the required condition mismatch.",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "The patient has calcineurin-inhibitor-resistant steroid-resistant nephrotic syndrome, while this trial requires urothelial cancer or metastatic urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "The patient is 16 years old, which is below the minimum age of 18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "The patient is recorded as stage III, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "The patient has ECOG performance status 3, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The synthetic profile states that uncontrolled cardiac disease is not reported.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial cancer population; additional supplied criteria are also violated or undocumented as listed.",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06635720-I-condition",
+                "reason": "The patient has nephrotic syndrome as a child, which matches the supplied condition list for childhood nephrotic syndrome.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06635720-I-age",
+                "reason": "The patient is 16 years old, which is within the 1 to 18 year age range.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The supplied condition and age criteria are satisfied, but the raw exclusion criteria exclude steroid-resistant nephrotic syndrome classification. The patient diagnosis is steroid-resistant nephrotic syndrome, so the trial is ineligible.",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06635720",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06635720",
+            "trial_title": "REduced-dose Steroid PrOtocol for Childhood Nephrotic SyndromE (RESPONSE)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "The patient has calcineurin-inhibitor-resistant steroid-resistant nephrotic syndrome, while the trial excerpt describes young adult cancer patients and survivors for inherited cancer genetic testing.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "The patient is 16 years old, which is below the minimum patient participant age of 18 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "The patient is recorded as stage III, while the supplied structured stage requirement allows stage IV.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because one or more required patient criteria are violated, including the young-adult cancer population requirements or the supplied stage requirement as applicable.",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06607991",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06635720",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "age": 16,
+        "candidate_trial_ids": [
+          "NCT06607991",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06635720",
+          "NCT07091617"
+        ],
+        "diagnosis": "cni-resistant steriod resistant nephrotic syndrome",
+        "ecog": 3,
+        "flags": {
+          "uncontrolled_cardiac_disease": false
+        },
+        "location": {
+          "country": "US",
+          "state": "CO"
+        },
+        "sex": "male",
+        "stage": "III"
+      },
+      "patient_id": "SYN-GEN-00029"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "batch_id": "gpt_e2e_teacher_batch_06",
+          "criteria_source": "Only the supplied synthetic patient fields, candidate trial structured fields, supplied criteria, and raw criteria excerpts were used.",
+          "parsed_trials": [
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw criteria describe eligible NEPTUNE observational participants with regular nephrology care at a NEPTUNE site."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound"
+              ],
+              "supplied_criterion_count": 2,
+              "title": "NEPTUNE Match Study",
+              "trial_id": "NCT04571658"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 10,
+              "title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage",
+                "ECOG performance status",
+                "prior treatment",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 8,
+              "title": "Sacituzumab Govitecan Plus EV in Metastatic UC",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "parsed_additional_protocol_notes": [],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "ECOG performance status",
+                "exclusion comorbidity or history"
+              ],
+              "supplied_criterion_count": 6,
+              "title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "parsed_additional_protocol_notes": [
+                "Raw patient criteria describe young adult cancer patients age 18 to 39 years and include language and cognitive-capacity requirements."
+              ],
+              "parsed_supplied_domains": [
+                "diagnosis or condition match",
+                "age bound",
+                "disease stage"
+              ],
+              "supplied_criterion_count": 3,
+              "title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_trial_assessments": [
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The synthesized follow-up answer states that the patient has melanoma only and is not a NEPTUNE observational nephrology participant.",
+                  "requirement": "Participant should be a NEPTUNE observational study participant with a matching nephrotic kidney disease context.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04571658-I-condition",
+                  "reason": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04571658-I-age",
+                  "reason": "The patient is 80 years old, which is within the supplied age bound of at least 1 and at most 80 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT04571658"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "The patient is 80 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "The recorded stage is IV, which is included in the allowed stage list.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The intake note does not address whether the patient has organ transplant.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "The patient is 80 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "The recorded stage is IV, which is included in the allowed stage list.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "The referral states that no prior systemic therapy is listed, so prior platinum chemotherapy exposure is not confirmed from the initial note.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The intake note does not address whether the patient has active interstitial lung disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "additional_protocol_findings": [],
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "The patient is 80 years old, which is outside the supplied age bound of at least 18 and at most 75 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "The documented ECOG performance status is 2, which is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The intake note does not address whether the patient has active autoimmune disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The intake note does not address whether the patient has uncontrolled cardiac disease.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The intake note does not address whether the patient has active uncontrolled infection.",
+                  "status": "unknown"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "additional_protocol_findings": [
+                {
+                  "reason": "The patient is 80 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+                  "requirement": "Patient component of this trial is for young adult cancer patients age 18 to 39 years.",
+                  "status": "violated"
+                }
+              ],
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "The documented diagnosis is unresectable melanoma, which is a cancer diagnosis and therefore matches the trial's broad neoplasm patient population.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "The patient is 80 years old, which is within the supplied age bound of at least 18 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "The recorded stage is IV, which is included in the allowed stage list.",
+                  "status": "satisfied"
+                }
+              ],
+              "initial_label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "synthesized_patient_answers": [
+            {
+              "answer": "The patient has unresectable melanoma only, no listed nephrotic kidney disease, and no NEPTUNE observational nephrology study participation.",
+              "question_id": "SYN-GEN-00030-Q1"
+            },
+            {
+              "answer": "The patient has not received prior platinum chemotherapy or induction chemotherapy and reports no active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history.",
+              "question_id": "SYN-GEN-00030-Q2"
+            },
+            {
+              "answer": "The cancer diagnosis was not made at age 39 years or younger; the patient is 80 years old at referral.",
+              "question_id": "SYN-GEN-00030-Q3"
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "known_facts": [
+            "Age is 80 years.",
+            "Sex is female.",
+            "Diagnosis is unresectable melanoma.",
+            "Stage is recorded as IV.",
+            "ECOG performance status is 2.",
+            "Care location is AZ, US."
+          ],
+          "missing_or_unconfirmed_facts": [
+            "Molecular or genetic testing results are not available in the intake note.",
+            "Prior systemic therapy is not confirmed beyond the statement that no prior systemic therapy is listed.",
+            "Exclusion comorbidities are not explicitly addressed in the intake note."
+          ],
+          "structured_patient": {
+            "age": 80,
+            "diagnosis": "unresectable melanoma",
+            "ecog": 2,
+            "location": {
+              "country": "US",
+              "state": "AZ"
+            },
+            "scenario": "wrong_condition",
+            "sex": "female",
+            "stage": "IV",
+            "target_trial_id": "NCT04571658"
+          }
+        },
+        "question_generation_agent": {
+          "follow_up_questions": [
+            {
+              "question": "Does the patient have nephrotic syndrome, focal segmental glomerulosclerosis, minimal change disease, Alport syndrome, or NEPTUNE observational study participation?",
+              "question_id": "SYN-GEN-00030-Q1"
+            },
+            {
+              "question": "Has the patient received prior platinum chemotherapy or induction chemotherapy, and are active exclusion comorbidities or organ transplant history present?",
+              "question_id": "SYN-GEN-00030-Q2"
+            },
+            {
+              "question": "For the inherited cancer genetic testing study, was the cancer diagnosis made at age 39 years or younger?",
+              "question_id": "SYN-GEN-00030-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "post_interaction_recommendations": [
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The synthesized follow-up answer states that the patient has melanoma only and is not a NEPTUNE observational nephrology participant.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT04571658"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The synthesized follow-up answer states that the patient has not received prior platinum chemotherapy.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The patient is 80 years old, which is outside the supplied age bound of at least 18 and at most 75 years.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "label": "ineligible",
+              "rationale": "The patient is 80 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+              "recommendation": "do not recommend",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        },
+        "result_explanation_agent": {
+          "patient_level_summary": "After simulated clarification, no candidate is recommended because every candidate has a decisive mismatch or protocol conflict.",
+          "trial_explanations": [
+            {
+              "explanation": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The synthesized follow-up answer states that the patient has melanoma only and is not a NEPTUNE observational nephrology participant.",
+              "label": "ineligible",
+              "trial_id": "NCT04571658"
+            },
+            {
+              "explanation": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The synthesized follow-up answer states that the patient has not received prior platinum chemotherapy.",
+              "label": "ineligible",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "explanation": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The documented ECOG performance status is 2, which is above the maximum of 1.",
+              "label": "ineligible",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "explanation": "The documented diagnosis is unresectable melanoma, while the trial conditions require a different disease population. The patient is 80 years old, which is outside the supplied age bound of at least 18 and at most 75 years.",
+              "label": "ineligible",
+              "trial_id": "NCT06830031"
+            },
+            {
+              "explanation": "The patient is 80 years old, while the raw patient eligibility excerpt describes enrollment for patients age 18 to 39 years.",
+              "label": "ineligible",
+              "trial_id": "NCT07091617"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00030",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04571658-I-condition",
+                "reason": "The patient has unresectable melanoma, while this trial is for nephrotic syndrome, focal segmental glomerulosclerosis, minimal change disease, membranous nephropathy, and related kidney conditions.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04571658-I-age",
+                "reason": "The patient is 80 years old, which is within the 1 to 80 year age range.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The age criterion is satisfied, but the diagnosis is unresectable melanoma and does not match the kidney disease conditions required by the trial. The condition mismatch makes the trial ineligible.",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04571658",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04571658",
+            "trial_title": "NEPTUNE Match Study"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "The patient has unresectable melanoma, while this trial requires urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "The patient is 80 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "The patient is recorded as stage IV, which matches the supplied structured stage requirement.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which is at the allowed maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "The note does not address prior organ transplant.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial carcinoma population. Other missing treatment or exclusion details do not overcome the required condition mismatch.",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "The patient has unresectable melanoma, while this trial requires urothelial cancer or metastatic urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "The patient is 80 years old, which satisfies the minimum age of 18 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "The patient is recorded as stage IV, which matches the supplied structured stage requirement.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "The referral lists no prior systemic therapy, so prior platinum chemotherapy is not documented.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "The note does not address active interstitial lung disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required urothelial cancer population; additional supplied criteria are also violated or undocumented as listed.",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "The patient has unresectable melanoma, while this trial requires relapsed or refractory CD19-positive large B-cell lymphoma subtypes.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "The patient is 80 years old, which exceeds the maximum age of 75 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "The patient has ECOG performance status 2, which exceeds the allowed maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "The note does not address active autoimmune disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "The note does not address uncontrolled cardiac disease.",
+                "status": "unknown"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "The note does not address active uncontrolled infection.",
+                "status": "unknown"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because the patient diagnosis does not match the required relapsed or refractory large B-cell lymphoma population; additional age or ECOG criteria are also violated where listed.",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "The patient has unresectable melanoma, which is a cancer diagnosis matching the broad cancer patient population described in the trial excerpt.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "The trial excerpt states patient participants must be 18 to 39 years old at enrollment; the patient is 80 years old.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "The patient is recorded as stage IV, which matches the supplied structured stage requirement.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is ineligible because one or more required patient criteria are violated, including the young-adult cancer population requirements or the supplied stage requirement as applicable.",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT04571658",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "age": 80,
+        "candidate_trial_ids": [
+          "NCT04571658",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06830031",
+          "NCT07091617"
+        ],
+        "diagnosis": "unresectable melanoma",
+        "ecog": 2,
+        "location": {
+          "country": "US",
+          "state": "AZ"
+        },
+        "sex": "female",
+        "stage": "IV"
+      },
+      "patient_id": "SYN-GEN-00030"
+    }
+  ],
+  "source": [
+    "batch_06.raw.json",
+    "batch_06.retry.raw.json"
+  ]
+}

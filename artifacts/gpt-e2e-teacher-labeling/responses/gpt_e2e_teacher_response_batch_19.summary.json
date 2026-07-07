@@ -1,0 +1,23 @@
+{
+  "expected_patient_ids": [
+    "SYN-GEN-00091",
+    "SYN-GEN-00092",
+    "SYN-GEN-00093",
+    "SYN-GEN-00094",
+    "SYN-GEN-00095"
+  ],
+  "missing_patient_ids": [],
+  "output_json": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_19.json",
+  "output_jsonl": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_19.jsonl",
+  "parsed_json_objects": 5,
+  "saved_patient_ids": [
+    "SYN-GEN-00091",
+    "SYN-GEN-00092",
+    "SYN-GEN-00093",
+    "SYN-GEN-00094",
+    "SYN-GEN-00095"
+  ],
+  "source": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_19.raw.json",
+  "validation_error_count": 0,
+  "validation_errors": []
+}

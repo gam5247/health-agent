@@ -10,6 +10,8 @@ dist/
 *.egg-info/
 outputs/
 data/raw/clinicaltrials/
+artifacts/teacher-student-eval/
+artifacts/gpt-e2e-teacher-labeling/responses/*.raw.json
 .env
 .env.*
 !.env.example

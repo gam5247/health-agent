@@ -1,0 +1,3926 @@
+{
+  "patient_count": 5,
+  "patients": [
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "criteria_by_trial": [
+            {
+              "criterion_count": 1,
+              "domains": [
+                "condition"
+              ],
+              "trial_id": "NCT01016613"
+            },
+            {
+              "criterion_count": 10,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion",
+                "organ_transplant_exclusion"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 3,
+              "domains": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criterion_count": 6,
+              "domains": [
+                "condition",
+                "age",
+                "ecog",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion"
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "parsed_trial_count": 5,
+          "raw_criteria_policy": "Raw excerpts were used only as supplied trial data to generate supplemental questions and final supplemental findings when a clinically material fact was not represented by a supplied criterion_id."
+        },
+        "inference_matching_agent": {
+          "initial_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT01016613-I-condition",
+                  "reason": "Diagnosis matches the trial condition: chronic kidney disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "supplemental_findings": [
+                {
+                  "name": "core exclusion screen",
+                  "reason": "Dialysis, transplant, consent, pregnancy or nursing, polycystic kidney disease, institutionalization, and blinded-trial participation are not documented.",
+                  "status": "unknown"
+                }
+              ],
+              "trial_id": "NCT01016613"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 34 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG performance status is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 34 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG performance status is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 34 is within the required range of 18 through 39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 34 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG performance status is not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "agent_label": "interaction_simulation_agent",
+          "synthetic_answers": [
+            {
+              "derived_facts": {
+                "ecog": 1
+              },
+              "question_id": "SYN-GEN-00031-Q1",
+              "synthetic_patient_answer": "ECOG performance status is 1."
+            },
+            {
+              "derived_facts": {
+                "active_autoimmune_disease": false,
+                "active_interstitial_lung_disease": false,
+                "active_uncontrolled_infection": false,
+                "organ_transplant": false,
+                "uncontrolled_cardiac_disease": false
+              },
+              "question_id": "SYN-GEN-00031-Q2",
+              "synthetic_patient_answer": "No active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history is present."
+            },
+            {
+              "derived_facts": {
+                "blinded_interventional_trial": false,
+                "can_consent": true,
+                "dialysis": false,
+                "institutionalized": false,
+                "kidney_transplant": false,
+                "polycystic_kidney_disease": false,
+                "pregnant_or_nursing": false
+              },
+              "question_id": "SYN-GEN-00031-Q3",
+              "synthetic_patient_answer": "The patient is not on dialysis, has not had a kidney transplant, is not pregnant or nursing, has no polycystic kidney disease, is not institutionalized, is not in a blinded interventional trial, and can provide consent."
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 34,
+            "diagnosis": "chronic kidney disease",
+            "ecog": null,
+            "location": {
+              "country": "US",
+              "state": "CA"
+            },
+            "sex": "female",
+            "stage": null
+          },
+          "gaps": [
+            "stage_not_documented",
+            "ecog_not_documented",
+            "molecular_testing_not_available",
+            "prior_systemic_therapy_not_listed",
+            "exclusion_comorbidities_not_addressed"
+          ]
+        },
+        "question_generation_agent": {
+          "agent_label": "question_generation_agent",
+          "follow_up_questions": [
+            {
+              "purpose": "Resolve ECOG limits for candidate trials with performance-status criteria.",
+              "question": "What is the patient's ECOG performance status?",
+              "question_id": "SYN-GEN-00031-Q1"
+            },
+            {
+              "purpose": "Resolve common exclusion flags in oncology and cell-therapy candidates.",
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or any prior organ transplant?",
+              "question_id": "SYN-GEN-00031-Q2"
+            },
+            {
+              "purpose": "Resolve raw exclusion criteria for the most plausible CKD trial.",
+              "question": "For the CKD biobank trial, is the patient on hemodialysis or peritoneal dialysis, has she had a kidney transplant, is she pregnant or nursing, does she have polycystic kidney disease, is she institutionalized, is she in a blinded interventional trial, and can she provide consent?",
+              "question_id": "SYN-GEN-00031-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT01016613-I-condition",
+                  "reason": "Diagnosis matches the trial condition: chronic kidney disease.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "recommendation": "recommend",
+              "supplemental_findings": [
+                {
+                  "name": "core exclusion screen",
+                  "reason": "Follow-up denies the CKD biobank exclusions and confirms consent capacity.",
+                  "status": "satisfied"
+                }
+              ],
+              "trial_id": "NCT01016613"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 34 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 34 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 34 is within the required range of 18 through 39 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has chronic kidney disease, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 34 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "recommended_trial_ids": [
+            "NCT01016613"
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria and material supplemental findings are satisfied after follow-up.",
+              "trial_id": "NCT01016613"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has chronic kidney disease, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has chronic kidney disease, not urothelial cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has chronic kidney disease, not AYA cancer patient or survivor.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has chronic kidney disease, not CD19-positive large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00031",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT01016613-I-condition",
+                "reason": "Diagnosis matches the trial condition: chronic kidney disease.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT01016613",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT01016613",
+            "trial_title": "Clinical Phenotyping Resource and Biobank Core of the Michigan O'Brien Renal Center"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis mismatch: patient has chronic kidney disease, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 34 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 1 is at or below the maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis mismatch: patient has chronic kidney disease, not urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 34 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 1 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis mismatch: patient has chronic kidney disease, not AYA cancer patient or survivor.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 34 is within the required range of 18 through 39 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis mismatch: patient has chronic kidney disease, not CD19-positive large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 34 is within the required range of 18 through 75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 1 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT01016613",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT01016613",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00031 is a 34-year-old female with chronic kidney disease. No formal stage is documented. ECOG performance status is not documented. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00031"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "criteria_by_trial": [
+            {
+              "criterion_count": 2,
+              "domains": [
+                "condition",
+                "age"
+              ],
+              "trial_id": "NCT06635720"
+            },
+            {
+              "criterion_count": 10,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion",
+                "organ_transplant_exclusion"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 3,
+              "domains": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criterion_count": 6,
+              "domains": [
+                "condition",
+                "age",
+                "ecog",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion"
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "parsed_trial_count": 5,
+          "raw_criteria_policy": "Raw excerpts were used only as supplied trial data to generate supplemental questions and final supplemental findings when a clinically material fact was not represented by a supplied criterion_id."
+        },
+        "inference_matching_agent": {
+          "initial_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06635720-I-condition",
+                  "reason": "Diagnosis matches the trial condition: nephrotic syndrome in children.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06635720-I-age",
+                  "reason": "Age 3 is within the required range of 1 through 18 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [
+                {
+                  "name": "active relapse and prednisone exposure",
+                  "reason": "Active relapse details, prednisone exposure, oral medication ability, monitoring ability, and prior RESPONSE participation are not documented.",
+                  "status": "unknown"
+                },
+                {
+                  "name": "Ontario enrollment location",
+                  "reason": "The patient receives care in NY, while the raw trial criterion requires Ontario at enrollment.",
+                  "status": "violated"
+                }
+              ],
+              "trial_id": "NCT06635720"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 3 is outside the required range of 18 years or older.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 3 is outside the required range of 18 years or older.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 3 is outside the required range of 18 through 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 3 is outside the required range of 18 through 75 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "agent_label": "interaction_simulation_agent",
+          "synthetic_answers": [
+            {
+              "derived_facts": {
+                "active_idiopathic_nephrotic_syndrome_relapse": true,
+                "prednisone_more_than_2_days_for_active_relapse": false
+              },
+              "question_id": "SYN-GEN-00032-Q1",
+              "synthetic_patient_answer": "The child has an active idiopathic nephrotic syndrome relapse, and prednisone has not been used for more than 2 days for this relapse episode."
+            },
+            {
+              "derived_facts": {
+                "can_complete_home_monitoring": true,
+                "can_take_oral_medication": true,
+                "located_in_ontario_at_enrollment": false,
+                "prior_response_trial_participation": false
+              },
+              "question_id": "SYN-GEN-00032-Q2",
+              "synthetic_patient_answer": "The child can take oral medication, the family can perform home urine and symptom monitoring, the child has not previously joined RESPONSE, but the child is located in NY and not Ontario, Canada at enrollment."
+            },
+            {
+              "derived_facts": {
+                "active_autoimmune_disease": false,
+                "active_interstitial_lung_disease": false,
+                "active_uncontrolled_infection": false,
+                "organ_transplant": false,
+                "uncontrolled_cardiac_disease": false
+              },
+              "question_id": "SYN-GEN-00032-Q3",
+              "synthetic_patient_answer": "No active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history is present."
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 3,
+            "diagnosis": "nephrotic syndrome in children",
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "NY"
+            },
+            "sex": "male",
+            "stage": "IV"
+          },
+          "gaps": [
+            "molecular_testing_not_available",
+            "prior_systemic_therapy_not_listed",
+            "exclusion_comorbidities_not_addressed",
+            "response_trial_relapse_prednisone_and_location_details_needed"
+          ]
+        },
+        "question_generation_agent": {
+          "agent_label": "question_generation_agent",
+          "follow_up_questions": [
+            {
+              "purpose": "Resolve RESPONSE trial activity and prior-treatment exclusion facts.",
+              "question": "Does the child have an active idiopathic nephrotic syndrome relapse at enrollment, and has prednisone been used for more than 2 days for this active relapse episode?",
+              "question_id": "SYN-GEN-00032-Q1"
+            },
+            {
+              "purpose": "Resolve RESPONSE trial feasibility and location requirements.",
+              "question": "Can the child take oral medication, can the family complete home urine and symptom monitoring, has the child previously joined RESPONSE, and is the child located in Ontario, Canada at enrollment?",
+              "question_id": "SYN-GEN-00032-Q2"
+            },
+            {
+              "purpose": "Resolve shared exclusion flags for non-target candidates.",
+              "question": "Are there any active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history findings?",
+              "question_id": "SYN-GEN-00032-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06635720-I-condition",
+                  "reason": "Diagnosis matches the trial condition: nephrotic syndrome in children.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06635720-I-age",
+                  "reason": "Age 3 is within the required range of 1 through 18 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [
+                {
+                  "name": "active relapse and prednisone exposure",
+                  "reason": "Follow-up confirms active relapse, no prednisone for more than 2 days, oral medication ability, monitoring ability, and no prior RESPONSE participation.",
+                  "status": "satisfied"
+                },
+                {
+                  "name": "Ontario enrollment location",
+                  "reason": "Follow-up confirms the child is in NY, not Ontario, at enrollment.",
+                  "status": "violated"
+                }
+              ],
+              "trial_id": "NCT06635720"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 3 is outside the required range of 18 years or older.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 3 is outside the required range of 18 years or older.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 3 is outside the required range of 18 through 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 3 is outside the required range of 18 through 75 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "recommended_trial_ids": []
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "label": "ineligible",
+              "reason": "Follow-up confirms the child is in NY, not Ontario, at enrollment.",
+              "trial_id": "NCT06635720"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not urothelial cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not AYA cancer patient or survivor.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not CD19-positive large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00032",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06635720-I-condition",
+                "reason": "Diagnosis matches the trial condition: nephrotic syndrome in children.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06635720-I-age",
+                "reason": "Age 3 is within the required range of 1 through 18 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06635720",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06635720",
+            "trial_title": "REduced-dose Steroid PrOtocol for Childhood Nephrotic SyndromE (RESPONSE)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 3 is outside the required range of 18 years or older.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 0 is at or below the maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 3 is outside the required range of 18 years or older.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 0 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not AYA cancer patient or survivor.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 3 is outside the required range of 18 through 39 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome in children, not CD19-positive large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 3 is outside the required range of 18 through 75 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 0 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06635720",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06635720",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00032 is a 3-year-old male with nephrotic syndrome in children. Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00032"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "criteria_by_trial": [
+            {
+              "criterion_count": 1,
+              "domains": [
+                "condition"
+              ],
+              "trial_id": "NCT04885179"
+            },
+            {
+              "criterion_count": 10,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion",
+                "organ_transplant_exclusion"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 3,
+              "domains": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criterion_count": 8,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 6,
+              "domains": [
+                "condition",
+                "age",
+                "ecog",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion"
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "parsed_trial_count": 5,
+          "raw_criteria_policy": "Raw excerpts were used only as supplied trial data to generate supplemental questions and final supplemental findings when a clinically material fact was not represented by a supplied criterion_id."
+        },
+        "inference_matching_agent": {
+          "initial_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04885179-I-condition",
+                  "reason": "Diagnosis matches the trial condition: sphingolipidoses.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "supplemental_findings": [
+                {
+                  "name": "SPLIS registry broad eligibility",
+                  "reason": "The registry includes sphingolipidoses, and no listed exclusion is indicated.",
+                  "status": "satisfied"
+                }
+              ],
+              "trial_id": "NCT04885179"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 51 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 2 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 51 is outside the required range of 18 through 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 51 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 2 is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 51 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 2 is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "agent_label": "interaction_simulation_agent",
+          "synthetic_answers": [
+            {
+              "derived_facts": {
+                "healthy_volunteer": false,
+                "prisoner": false,
+                "sphingolipidoses_confirmed": true
+              },
+              "question_id": "SYN-GEN-00033-Q1",
+              "synthetic_patient_answer": "The sphingolipidoses diagnosis is confirmed. The patient is not a prisoner and is not merely a healthy volunteer."
+            },
+            {
+              "derived_facts": {
+                "active_autoimmune_disease": false,
+                "active_interstitial_lung_disease": false,
+                "active_uncontrolled_infection": false,
+                "organ_transplant": false,
+                "uncontrolled_cardiac_disease": false
+              },
+              "question_id": "SYN-GEN-00033-Q2",
+              "synthetic_patient_answer": "No active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, active interstitial lung disease, or organ transplant history is present."
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 51,
+            "diagnosis": "sphingolipidoses",
+            "ecog": 2,
+            "location": {
+              "country": "US",
+              "state": "TX"
+            },
+            "sex": "male",
+            "stage": null
+          },
+          "gaps": [
+            "stage_not_documented",
+            "molecular_testing_not_available",
+            "prior_systemic_therapy_not_listed",
+            "exclusion_comorbidities_not_addressed"
+          ]
+        },
+        "question_generation_agent": {
+          "agent_label": "question_generation_agent",
+          "follow_up_questions": [
+            {
+              "purpose": "Confirm raw registry eligibility and exclusions for the SPLIS/sphingolipidoses registry.",
+              "question": "Is the sphingolipidoses diagnosis confirmed, and is the patient a prisoner or only a healthy volunteer?",
+              "question_id": "SYN-GEN-00033-Q1"
+            },
+            {
+              "purpose": "Resolve shared exclusion flags for other candidates.",
+              "question": "Does the patient have active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, active interstitial lung disease, or organ transplant history?",
+              "question_id": "SYN-GEN-00033-Q2"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04885179-I-condition",
+                  "reason": "Diagnosis matches the trial condition: sphingolipidoses.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "recommendation": "recommend",
+              "supplemental_findings": [
+                {
+                  "name": "SPLIS registry broad eligibility",
+                  "reason": "Follow-up confirms sphingolipidoses and denies relevant registry exclusions.",
+                  "status": "satisfied"
+                }
+              ],
+              "trial_id": "NCT04885179"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 51 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 2 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 51 is outside the required range of 18 through 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 51 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 2 is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has sphingolipidoses, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 51 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 2 is above the maximum of 1.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "recommended_trial_ids": [
+            "NCT04885179"
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria and material supplemental findings are satisfied after follow-up.",
+              "trial_id": "NCT04885179"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has sphingolipidoses, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has sphingolipidoses, not AYA cancer patient or survivor.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has sphingolipidoses, not urothelial cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has sphingolipidoses, not CD19-positive large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00033",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04885179-I-condition",
+                "reason": "Diagnosis matches the trial condition: sphingolipidoses.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04885179",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04885179",
+            "trial_title": "SPL Insufficiency Syndrome (SPLIS)/NPHS14: a SPLIS Observational Study and Patient Registry (International)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis mismatch: patient has sphingolipidoses, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 51 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 2 is at or below the maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis mismatch: patient has sphingolipidoses, not AYA cancer patient or survivor.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 51 is outside the required range of 18 through 39 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis mismatch: patient has sphingolipidoses, not urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 51 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 2 is above the maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis mismatch: patient has sphingolipidoses, not CD19-positive large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 51 is within the required range of 18 through 75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 2 is above the maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT04885179",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT04885179",
+          "NCT03237780",
+          "NCT07091617",
+          "NCT04724018",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00033 is a 51-year-old male with sphingolipidoses. No formal stage is documented. ECOG performance status is 2. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00033"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "criteria_by_trial": [
+            {
+              "criterion_count": 2,
+              "domains": [
+                "condition",
+                "age"
+              ],
+              "trial_id": "NCT04456816"
+            },
+            {
+              "criterion_count": 10,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion",
+                "organ_transplant_exclusion"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 2,
+              "domains": [
+                "condition",
+                "age"
+              ],
+              "trial_id": "NCT06635720"
+            },
+            {
+              "criterion_count": 8,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 6,
+              "domains": [
+                "condition",
+                "age",
+                "ecog",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion"
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "parsed_trial_count": 5,
+          "raw_criteria_policy": "Raw excerpts were used only as supplied trial data to generate supplemental questions and final supplemental findings when a clinically material fact was not represented by a supplied criterion_id."
+        },
+        "inference_matching_agent": {
+          "initial_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04456816-I-condition",
+                  "reason": "Diagnosis matches the trial condition: nephrotic syndrome due to idiopathic membranous nephropathy.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04456816-I-age",
+                  "reason": "Age 58 is within the required range of 18 through 85 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "supplemental_findings": [
+                {
+                  "name": "anti-PLA2 receptor and iMN activity requirements",
+                  "reason": "Anti-PLA2 status, diagnosis timing, proteinuria, albumin, eGFR, and ACE or ARB history are missing.",
+                  "status": "unknown"
+                },
+                {
+                  "name": "major raw exclusion screen",
+                  "reason": "Recent investigational drug, blood pressure control, immunosuppression, rituximab, malignancy, and uncontrolled disease are not documented.",
+                  "status": "unknown"
+                }
+              ],
+              "trial_id": "NCT04456816"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 58 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06635720-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not childhood idiopathic nephrotic syndrome.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06635720-I-age",
+                  "reason": "Age 58 is outside the required range of 1 through 18 years.",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT06635720"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 58 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 58 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "agent_label": "interaction_simulation_agent",
+          "synthetic_answers": [
+            {
+              "derived_facts": {
+                "anti_pla2_receptor_positive": true,
+                "egfr_ml_min_1_73m2": 52,
+                "imn_diagnosed_within_6_months": true,
+                "serum_albumin_g_per_l": 24,
+                "stable_ace_or_arb": true,
+                "upcr_g_per_g": 4.1
+              },
+              "question_id": "SYN-GEN-00034-Q1",
+              "synthetic_patient_answer": "Idiopathic membranous nephropathy was diagnosed within 6 months. Local anti-PLA2 receptor testing is positive. UPCR is 4.1 g/g, serum albumin is 24 g/L, eGFR is 52 mL/min/1.73m2, and ACE inhibitor therapy has been stable for more than 1 month."
+            },
+            {
+              "derived_facts": {
+                "active_malignant_disease": false,
+                "recent_investigational_drug": false,
+                "recent_systemic_corticosteroids_or_immunosuppression": false,
+                "rituximab_within_12_months": false,
+                "serious_uncontrolled_concomitant_disease": false,
+                "uncontrolled_blood_pressure": false
+              },
+              "question_id": "SYN-GEN-00034-Q2",
+              "synthetic_patient_answer": "There is no recent investigational drug exposure, uncontrolled blood pressure, recent systemic corticosteroid or other immunosuppressive treatment, rituximab within 12 months, active malignancy, or serious uncontrolled concomitant disease."
+            },
+            {
+              "derived_facts": {
+                "active_autoimmune_disease": false,
+                "active_interstitial_lung_disease": false,
+                "active_uncontrolled_infection": false,
+                "organ_transplant": false,
+                "uncontrolled_cardiac_disease": false
+              },
+              "question_id": "SYN-GEN-00034-Q3",
+              "synthetic_patient_answer": "No active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history is present."
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 58,
+            "diagnosis": "nephrotic syndrome due to idiopathic membranous nephropathy",
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "WA"
+            },
+            "sex": "male",
+            "stage": "III"
+          },
+          "gaps": [
+            "molecular_testing_not_available",
+            "prior_systemic_therapy_not_listed",
+            "exclusion_comorbidities_not_addressed",
+            "imn_anti_pla2_labs_and_exclusion_screen_needed"
+          ]
+        },
+        "question_generation_agent": {
+          "agent_label": "question_generation_agent",
+          "follow_up_questions": [
+            {
+              "purpose": "Resolve AP1189 iMN inclusion facts missing from the note.",
+              "question": "Was idiopathic membranous nephropathy diagnosed within 6 months, is anti-PLA2 receptor positive by a local laboratory, is there severe proteinuria with low albumin, is eGFR above 30, and has ACE inhibitor or angiotensin receptor blocker therapy been stable or not tolerated?",
+              "question_id": "SYN-GEN-00034-Q1"
+            },
+            {
+              "purpose": "Resolve AP1189 iMN raw exclusion facts.",
+              "question": "Has the patient had recent investigational drug exposure, uncontrolled blood pressure, recent systemic corticosteroids or other immunosuppression, rituximab within 12 months, active malignancy, or serious uncontrolled concomitant disease?",
+              "question_id": "SYN-GEN-00034-Q2"
+            },
+            {
+              "purpose": "Resolve shared exclusion flags for non-target oncology candidates.",
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history?",
+              "question_id": "SYN-GEN-00034-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04456816-I-condition",
+                  "reason": "Diagnosis matches the trial condition: nephrotic syndrome due to idiopathic membranous nephropathy.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04456816-I-age",
+                  "reason": "Age 58 is within the required range of 18 through 85 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "eligible",
+              "recommendation": "recommend",
+              "supplemental_findings": [
+                {
+                  "name": "anti-PLA2 receptor and iMN activity requirements",
+                  "reason": "Follow-up confirms recent iMN, anti-PLA2 positivity, severe proteinuria, low albumin, eGFR above 30, and stable ACE therapy.",
+                  "status": "satisfied"
+                },
+                {
+                  "name": "major raw exclusion screen",
+                  "reason": "Follow-up denies the major AP1189 raw exclusions.",
+                  "status": "satisfied"
+                }
+              ],
+              "trial_id": "NCT04456816"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 58 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06635720-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not childhood idiopathic nephrotic syndrome.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06635720-I-age",
+                  "reason": "Age 58 is outside the required range of 1 through 18 years.",
+                  "status": "violated"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT06635720"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 58 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 58 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 1 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "recommended_trial_ids": [
+            "NCT04456816"
+          ]
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "label": "eligible",
+              "reason": "All supplied criteria and material supplemental findings are satisfied after follow-up.",
+              "trial_id": "NCT04456816"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not childhood idiopathic nephrotic syndrome.",
+              "trial_id": "NCT06635720"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not urothelial cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not CD19-positive large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00034",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04456816-I-condition",
+                "reason": "Diagnosis matches the trial condition: nephrotic syndrome due to idiopathic membranous nephropathy.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04456816-I-age",
+                "reason": "Age 58 is within the required range of 18 through 85 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04456816",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04456816",
+            "trial_title": "A Study of the Safety, Tolerability, Pharmacokinetics and Efficacy of Treatment With AP1189 in Patients With iMN and Severe Proteinuria"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 58 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 1 is at or below the maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06635720-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not childhood idiopathic nephrotic syndrome.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06635720-I-age",
+                "reason": "Age 58 is outside the required range of 1 through 18 years.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06635720",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06635720",
+            "trial_title": "REduced-dose Steroid PrOtocol for Childhood Nephrotic SyndromE (RESPONSE)"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 58 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 1 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis mismatch: patient has nephrotic syndrome due to idiopathic membranous nephropathy, not CD19-positive large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 58 is within the required range of 18 through 75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 1 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT04456816",
+          "NCT03237780",
+          "NCT06635720",
+          "NCT04724018",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT04456816",
+          "NCT03237780",
+          "NCT06635720",
+          "NCT04724018",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00034 is a 58-year-old male with nephrotic syndrome due to idiopathic membranous nephropathy. Stage is recorded as III. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00034"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "criteria_by_trial": [
+            {
+              "criterion_count": 2,
+              "domains": [
+                "condition",
+                "age"
+              ],
+              "trial_id": "NCT07614477"
+            },
+            {
+              "criterion_count": 10,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion",
+                "organ_transplant_exclusion"
+              ],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criterion_count": 8,
+              "domains": [
+                "condition",
+                "age",
+                "stage",
+                "ecog",
+                "prior_platinum_chemotherapy",
+                "active_interstitial_lung_disease_exclusion",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion"
+              ],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criterion_count": 3,
+              "domains": [
+                "condition",
+                "age",
+                "stage"
+              ],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criterion_count": 6,
+              "domains": [
+                "condition",
+                "age",
+                "ecog",
+                "active_autoimmune_disease_exclusion",
+                "uncontrolled_cardiac_disease_exclusion",
+                "active_uncontrolled_infection_exclusion"
+              ],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "parsed_trial_count": 5,
+          "raw_criteria_policy": "Raw excerpts were used only as supplied trial data to generate supplemental questions and final supplemental findings when a clinically material fact was not represented by a supplied criterion_id."
+        },
+        "inference_matching_agent": {
+          "initial_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07614477-I-condition",
+                  "reason": "Diagnosis matches the trial condition: minimal change disease (mcd).",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07614477-I-age",
+                  "reason": "Age 64 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "uncertain",
+              "supplemental_findings": [
+                {
+                  "name": "MCD biopsy, proteinuria, albumin, eGFR, and immunosuppressant history",
+                  "reason": "Biopsy confirmation, eGFR, UPCR, albumin, and immunosuppressant history are missing.",
+                  "status": "unknown"
+                },
+                {
+                  "name": "raw exclusion screen for diabetes and infection risks",
+                  "reason": "Diabetes, infection, viral serologies, tuberculosis risk, and bleeding risk are not documented.",
+                  "status": "unknown"
+                }
+              ],
+              "trial_id": "NCT07614477"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 64 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 64 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 64 is outside the required range of 18 through 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 64 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "The note does not address this exclusion.",
+                  "status": "unknown"
+                }
+              ],
+              "label": "ineligible",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ]
+        },
+        "interaction_simulation_agent": {
+          "agent_label": "interaction_simulation_agent",
+          "synthetic_answers": [
+            {
+              "derived_facts": {
+                "egfr_ml_min_1_73m2": 60,
+                "immunosuppressant_resistant": false,
+                "primary_mcd_by_biopsy": true,
+                "serum_albumin_g_per_l": 26,
+                "upcr_g_per_g": 4.2
+              },
+              "question_id": "SYN-GEN-00035-Q1",
+              "synthetic_patient_answer": "Primary MCD is confirmed by renal biopsy. eGFR is 60 mL/min/1.73m2, 24-hour UPCR is 4.2 g/g, serum albumin is 26 g/L, and there is no prior immunosuppressant resistance."
+            },
+            {
+              "derived_facts": {
+                "acute_or_chronic_infection_requiring_treatment": false,
+                "bleeding_risk": false,
+                "diabetes_mellitus": true,
+                "hepatitis_b": false,
+                "hepatitis_c": false,
+                "hiv": false,
+                "syphilis": false,
+                "tuberculosis_risk": false
+              },
+              "question_id": "SYN-GEN-00035-Q2",
+              "synthetic_patient_answer": "The patient has a history of diabetes mellitus. There is no acute or chronic infection requiring treatment, HIV, hepatitis B, hepatitis C, syphilis, tuberculosis risk, or bleeding risk."
+            },
+            {
+              "derived_facts": {
+                "active_autoimmune_disease": false,
+                "active_interstitial_lung_disease": false,
+                "active_uncontrolled_infection": false,
+                "organ_transplant": false,
+                "uncontrolled_cardiac_disease": false
+              },
+              "question_id": "SYN-GEN-00035-Q3",
+              "synthetic_patient_answer": "No active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history is present."
+            }
+          ]
+        },
+        "patient_information_understanding_agent": {
+          "facts": {
+            "age": 64,
+            "diagnosis": "minimal change disease (mcd)",
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "MA"
+            },
+            "sex": "male",
+            "stage": "IV"
+          },
+          "gaps": [
+            "molecular_testing_not_available",
+            "prior_systemic_therapy_not_listed",
+            "exclusion_comorbidities_not_addressed",
+            "mcd_biopsy_labs_and_diabetes_exclusion_screen_needed"
+          ]
+        },
+        "question_generation_agent": {
+          "agent_label": "question_generation_agent",
+          "follow_up_questions": [
+            {
+              "purpose": "Resolve EVER001 MCD inclusion facts missing from the note.",
+              "question": "Is primary MCD confirmed by renal biopsy, what are eGFR, 24-hour UPCR, and serum albumin, and has the patient been untreated with immunosuppressants or sensitive to prior immunosuppressant treatment?",
+              "question_id": "SYN-GEN-00035-Q1"
+            },
+            {
+              "purpose": "Resolve EVER001 raw exclusion facts and the suspected exclusion conflict.",
+              "question": "Does the patient have diabetes mellitus, acute or chronic infection requiring treatment, HIV, hepatitis B or C, syphilis, tuberculosis risk, or bleeding risk?",
+              "question_id": "SYN-GEN-00035-Q2"
+            },
+            {
+              "purpose": "Resolve shared exclusion flags for non-target oncology candidates.",
+              "question": "Does the patient have active interstitial lung disease, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant history?",
+              "question_id": "SYN-GEN-00035-Q3"
+            }
+          ]
+        },
+        "recommendation_agent": {
+          "final_outputs": [
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07614477-I-condition",
+                  "reason": "Diagnosis matches the trial condition: minimal change disease (mcd).",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT07614477-I-age",
+                  "reason": "Age 64 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [
+                {
+                  "name": "MCD biopsy, proteinuria, albumin, eGFR, and immunosuppressant history",
+                  "reason": "Follow-up confirms primary MCD by biopsy, eGFR 60, UPCR 4.2, albumin 26, and no immunosuppressant resistance.",
+                  "status": "satisfied"
+                },
+                {
+                  "name": "raw exclusion screen for diabetes and infection risks",
+                  "reason": "Follow-up reports diabetes mellitus, which is a raw exclusion.",
+                  "status": "violated"
+                }
+              ],
+              "trial_id": "NCT07614477"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT03237780-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-age",
+                  "reason": "Age 64 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 2.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT03237780-E-organ-transplant",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT03237780"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT04724018-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not urothelial cancer.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-age",
+                  "reason": "Age 64 is within the required range of 18 years or older.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                  "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                  "status": "not_applicable"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT04724018"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT07091617-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not AYA cancer patient or survivor.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-age",
+                  "reason": "Age 64 is outside the required range of 18 through 39 years.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT07091617-I-stage",
+                  "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                  "status": "not_applicable"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT07091617"
+            },
+            {
+              "criteria": [
+                {
+                  "criterion_id": "NCT06830031-I-condition",
+                  "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not CD19-positive large B-cell lymphoma.",
+                  "status": "violated"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-age",
+                  "reason": "Age 64 is within the required range of 18 through 75 years.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-I-ecog",
+                  "reason": "ECOG 0 is at or below the maximum of 1.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                },
+                {
+                  "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                  "reason": "Follow-up denies this exclusion.",
+                  "status": "satisfied"
+                }
+              ],
+              "label": "ineligible",
+              "recommendation": "do_not_recommend",
+              "supplemental_findings": [],
+              "trial_id": "NCT06830031"
+            }
+          ],
+          "recommended_trial_ids": []
+        },
+        "result_explanation_agent": {
+          "explanations": [
+            {
+              "label": "ineligible",
+              "reason": "Follow-up reports diabetes mellitus, which is a raw exclusion.",
+              "trial_id": "NCT07614477"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+              "trial_id": "NCT03237780"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not urothelial cancer.",
+              "trial_id": "NCT04724018"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not AYA cancer patient or survivor.",
+              "trial_id": "NCT07091617"
+            },
+            {
+              "label": "ineligible",
+              "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not CD19-positive large B-cell lymphoma.",
+              "trial_id": "NCT06830031"
+            }
+          ]
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00035",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07614477-I-condition",
+                "reason": "Diagnosis matches the trial condition: minimal change disease (mcd).",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07614477-I-age",
+                "reason": "Age 64 is within the required range of 18 through 75 years.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07614477",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07614477",
+            "trial_title": "Evaluate the Efficacy, Safety, Pharmacokinetics, and Pharmacodynamics of EVER001 in Participants With Selected Proteinuric Glomerular Diseases"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not locally advanced, metastatic, recurrent, or unresectable urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Age 64 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG 0 is at or below the maximum of 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 2,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not urothelial cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Age 64 is within the required range of 18 years or older.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG 0 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "Prior platinum rule is not applicable because urothelial cancer is absent.",
+                "status": "not_applicable"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 3,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not AYA cancer patient or survivor.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "Age 64 is outside the required range of 18 through 39 years.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Stage rule is not applicable because the required trial cancer diagnosis is absent.",
+                "status": "not_applicable"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 4,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Diagnosis mismatch: patient has minimal change disease (mcd), not CD19-positive large B-cell lymphoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Age 64 is within the required range of 18 through 75 years.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG 0 is at or below the maximum of 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "Follow-up denies this exclusion.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "",
+            "follow_up_questions": [],
+            "rank": 5,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07614477",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07614477",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT06830031"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00035 is a 64-year-old male with minimal change disease (mcd). Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00035"
+    }
+  ],
+  "source": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_07.raw.json"
+}

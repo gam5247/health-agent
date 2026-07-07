@@ -1,0 +1,2241 @@
+{
+  "patient_count": 5,
+  "patients": [
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "candidate_trial_count": 5,
+          "criterion_count": 34,
+          "parsed_dimensions": [
+            "condition",
+            "age",
+            "stage",
+            "ECOG",
+            "prior treatment",
+            "exclusion flags",
+            "supplied raw-criteria constraints"
+          ],
+          "trial_ids": [
+            "NCT06925555",
+            "NCT06830031",
+            "NCT03237780",
+            "NCT04724018",
+            "NCT06544265"
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_rule": "Known note facts were applied directly; missing facts were left unresolved until the interaction simulation.",
+          "initial_summary": "Target trial matches newly diagnosed EBV-positive DLBCL-NOS; competing lymphoma trials require relapsed/refractory settings not supported by the note."
+        },
+        "interaction_simulation_agent": {
+          "answer_location": "Each recommendation contains the simulated patient answers and derived facts.",
+          "simulation_rule": "Synthetic answers are consistent with the referral note: explicitly reported positives remain positive; missing exclusions are denied unless the diagnosis itself supplies the fact; no prior systemic therapy remains no prior platinum."
+        },
+        "patient_information_understanding_agent": {
+          "extracted_facts": {
+            "age": 32,
+            "diagnosis": "metastatic ebv-positive diffuse large b-cell lymphoma, nos",
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "CA"
+            },
+            "prior_systemic_therapy": "none listed in referral",
+            "reported_flags": {
+              "active_autoimmune_disease": false,
+              "organ_transplant": false
+            },
+            "sex": "male",
+            "stage": "III"
+          },
+          "missing_or_unstated_facts_requiring_follow_up": [
+            "CD19 status and relapsed/refractory treatment setting for CAR-T style lymphoma trials",
+            "uncontrolled cardiac disease and active uncontrolled infection for non-target lymphoma trials",
+            "prior platinum chemotherapy and active interstitial lung disease for urothelial trials"
+          ]
+        },
+        "question_generation_agent": {
+          "question_location": "Each recommendation contains the exact follow-up questions used for that trial.",
+          "strategy": "Generate trial-specific questions only for facts needed to resolve indexed criteria or material supplied raw-criteria conflicts."
+        },
+        "recommendation_agent": {
+          "eligibility_by_rank": [
+            {
+              "final_eligibility": "eligible",
+              "recommendation_rank": 1,
+              "trial_id": "NCT06925555"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 2,
+              "trial_id": "NCT06544265"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 3,
+              "trial_id": "NCT06830031"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 4,
+              "trial_id": "NCT04724018"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 5,
+              "trial_id": "NCT03237780"
+            }
+          ],
+          "ordered_trial_ids": [
+            "NCT06925555",
+            "NCT06544265",
+            "NCT06830031",
+            "NCT04724018",
+            "NCT03237780"
+          ],
+          "ranking_basis": "Eligible trials rank first; otherwise closest disease match with fewer violated critical criteria ranks higher."
+        },
+        "result_explanation_agent": {
+          "summary": "Target trial matches newly diagnosed EBV-positive DLBCL-NOS; competing lymphoma trials require relapsed/refractory settings not supported by the note."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00081",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06925555-I-condition",
+                "reason": "Diagnosis is EBV-positive DLBCL-NOS, matching the trial condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06925555-I-age",
+                "reason": "Patient is 32; trial age bound is 18-70.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06925555-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06925555-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06925555-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "The patient satisfies the supplied condition, age, and ECOG criteria and denies active autoimmune disease and transplant. No supplied criterion is violated, so this is the top eligible match.",
+            "follow_up_questions": [],
+            "rank": 1,
+            "simulated_patient_answers": [],
+            "trial_id": "NCT06925555",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06925555",
+            "trial_title": "Brentuximab Vedotin Combined With R-CHP in Newly Diagnosed EBV+ DLBCL-NOS"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06830031-I-condition",
+                "reason": "Disease entity is DLBCL-NOS/large B-cell lymphoma, which is among the trial conditions.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-age",
+                "reason": "Patient is 32; trial age bound is 18-75.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06830031-E-active-uncontrolled-infection",
+                "reason": "No active uncontrolled infection is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The indexed criteria mostly pass, but the broader supplied criteria describe a relapsed/refractory CD19 CAR-T setting. A newly diagnosed untreated DLBCL patient does not meet that treatment-setting requirement.",
+            "follow_up_questions": [
+              {
+                "question": "Has the lymphoma relapsed or been refractory after prior anthracycline/CD20-directed therapy, and is CD19 positivity documented?",
+                "question_id": "SYN-GEN-00081-NCT06830031-Q1",
+                "targets": [
+                  "raw_relapsed_refractory_setting",
+                  "raw_cd19_status"
+                ]
+              },
+              {
+                "question": "Any uncontrolled cardiac disease or active uncontrolled infection?",
+                "question_id": "SYN-GEN-00081-NCT06830031-Q2",
+                "targets": [
+                  "NCT06830031-E-uncontrolled-cardiac-disease",
+                  "NCT06830031-E-active-uncontrolled-infection"
+                ]
+              }
+            ],
+            "rank": 3,
+            "simulated_patient_answers": [
+              {
+                "answer": "No. This is newly diagnosed disease with no prior systemic therapy listed; CD19 testing is not available.",
+                "derived_facts": {
+                  "cd19_positive_documented": false,
+                  "relapsed_refractory_after_prior_therapy": false
+                },
+                "question_id": "SYN-GEN-00081-NCT06830031-Q1"
+              },
+              {
+                "answer": "No uncontrolled cardiac disease and no active uncontrolled infection are reported.",
+                "derived_facts": {
+                  "active_uncontrolled_infection": false,
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00081-NCT06830031-Q2"
+              }
+            ],
+            "trial_id": "NCT06830031",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06830031",
+            "trial_title": "Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Patient has EBV-positive DLBCL-NOS, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Patient is 32; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Documented lymphoma stage is III; the structured stage criterion allows IV disease.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "No active interstitial lung disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "No active uncontrolled infection is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient has lymphoma rather than urothelial carcinoma, documented stage III rather than IV urothelial disease, and no platinum chemotherapy history. This is not an appropriate match.",
+            "follow_up_questions": [
+              {
+                "question": "Has the patient received platinum chemotherapy or had active ILD, uncontrolled cardiac disease, active infection, or organ transplant?",
+                "question_id": "SYN-GEN-00081-NCT03237780-Q1",
+                "targets": [
+                  "NCT03237780-I-prior-platinum-chemotherapy",
+                  "NCT03237780-E-active-interstitial-lung-disease",
+                  "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "NCT03237780-E-active-uncontrolled-infection",
+                  "NCT03237780-E-organ-transplant"
+                ]
+              }
+            ],
+            "rank": 5,
+            "simulated_patient_answers": [
+              {
+                "answer": "No prior platinum or other systemic therapy; no active ILD, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant.",
+                "derived_facts": {
+                  "active_interstitial_lung_disease": false,
+                  "active_uncontrolled_infection": false,
+                  "organ_transplant": false,
+                  "prior_platinum_chemotherapy": false,
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00081-NCT03237780-Q1"
+              }
+            ],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Patient has lymphoma, not urothelial cancer or bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Patient is 32; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Documented lymphoma stage is III; the structured stage criterion allows IV disease.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "No active interstitial lung disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is for metastatic urothelial carcinoma/bladder cancer after specified systemic therapy; this patient has untreated EBV-positive DLBCL-NOS.",
+            "follow_up_questions": [
+              {
+                "question": "Has the patient received platinum chemotherapy or had active ILD, autoimmune disease, or uncontrolled cardiac disease?",
+                "question_id": "SYN-GEN-00081-NCT04724018-Q1",
+                "targets": [
+                  "NCT04724018-I-prior-platinum-chemotherapy",
+                  "NCT04724018-E-active-interstitial-lung-disease",
+                  "NCT04724018-E-active-autoimmune-disease",
+                  "NCT04724018-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 4,
+            "simulated_patient_answers": [
+              {
+                "answer": "No prior platinum or systemic therapy; no active ILD, active autoimmune disease, or uncontrolled cardiac disease.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": false,
+                  "prior_platinum_chemotherapy": false,
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00081-NCT04724018-Q1"
+              }
+            ],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT06544265-I-condition",
+                "reason": "EBV-positive DLBCL-NOS is listed among the B-NHL/DLBCL trial conditions.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06544265-I-age",
+                "reason": "Patient is 32; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06544265-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06544265-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT06544265-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "Although the DLBCL condition, age, ECOG, and listed exclusions are favorable, the treatment setting in the supplied raw criteria is not met.",
+            "follow_up_questions": [
+              {
+                "question": "Is the lymphoma relapsed/refractory after at least two prior therapy lines, and has prior CAR-T been received or declined/unavailable?",
+                "question_id": "SYN-GEN-00081-NCT06544265-Q1",
+                "targets": [
+                  "raw_relapsed_refractory_setting",
+                  "raw_prior_car_t_requirement"
+                ]
+              },
+              {
+                "question": "Any uncontrolled cardiac disease?",
+                "question_id": "SYN-GEN-00081-NCT06544265-Q2",
+                "targets": [
+                  "NCT06544265-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 2,
+            "simulated_patient_answers": [
+              {
+                "answer": "No. The referral lists newly diagnosed disease with no prior systemic therapy and no CAR-T history.",
+                "derived_facts": {
+                  "prior_car_t_or_unable_unwilling": false,
+                  "relapsed_refractory_after_two_lines": false
+                },
+                "question_id": "SYN-GEN-00081-NCT06544265-Q1"
+              },
+              {
+                "answer": "No uncontrolled cardiac disease is reported.",
+                "derived_facts": {
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00081-NCT06544265-Q2"
+              }
+            ],
+            "trial_id": "NCT06544265",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT06544265",
+            "trial_title": "SynKIR-310 for Relapsed/Refractory B-NHL"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT06925555",
+          "NCT06544265",
+          "NCT06830031",
+          "NCT04724018",
+          "NCT03237780"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT06925555",
+          "NCT06830031",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT06544265"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00081 is a 32-year-old male with metastatic ebv-positive diffuse large b-cell lymphoma, nos. Stage is recorded as III. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No active autoimmune disease is reported. No organ transplant is reported. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00081"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "candidate_trial_count": 5,
+          "criterion_count": 27,
+          "parsed_dimensions": [
+            "condition",
+            "age",
+            "stage",
+            "ECOG",
+            "prior treatment",
+            "exclusion flags",
+            "supplied raw-criteria constraints"
+          ],
+          "trial_ids": [
+            "NCT07664397",
+            "NCT03237780",
+            "NCT04724018",
+            "NCT07091617",
+            "NCT04916990"
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_rule": "Known note facts were applied directly; missing facts were left unresolved until the interaction simulation.",
+          "initial_summary": "Bladder cancer imaging study matches after follow-up; systemic urothelial therapy trials fail because prior platinum therapy is absent."
+        },
+        "interaction_simulation_agent": {
+          "answer_location": "Each recommendation contains the simulated patient answers and derived facts.",
+          "simulation_rule": "Synthetic answers are consistent with the referral note: explicitly reported positives remain positive; missing exclusions are denied unless the diagnosis itself supplies the fact; no prior systemic therapy remains no prior platinum."
+        },
+        "patient_information_understanding_agent": {
+          "extracted_facts": {
+            "age": 71,
+            "diagnosis": "metastatic bladder cancer",
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "NY"
+            },
+            "prior_systemic_therapy": "none listed in referral",
+            "reported_flags": "no explicit exclusion comorbidities addressed",
+            "sex": "male",
+            "stage": "not documented"
+          },
+          "missing_or_unstated_facts_requiring_follow_up": [
+            "formal stage was not documented, so metastatic disease required stage-IV interpretation",
+            "urothelial histology, measurable lesion, PET imaging feasibility",
+            "prior platinum chemotherapy and exclusion comorbidities",
+            "participating rural-care site/residence for the rural-care intervention trial"
+          ]
+        },
+        "question_generation_agent": {
+          "question_location": "Each recommendation contains the exact follow-up questions used for that trial.",
+          "strategy": "Generate trial-specific questions only for facts needed to resolve indexed criteria or material supplied raw-criteria conflicts."
+        },
+        "recommendation_agent": {
+          "eligibility_by_rank": [
+            {
+              "final_eligibility": "eligible",
+              "recommendation_rank": 1,
+              "trial_id": "NCT07664397"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 2,
+              "trial_id": "NCT04724018"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 3,
+              "trial_id": "NCT03237780"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 4,
+              "trial_id": "NCT04916990"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 5,
+              "trial_id": "NCT07091617"
+            }
+          ],
+          "ordered_trial_ids": [
+            "NCT07664397",
+            "NCT04724018",
+            "NCT03237780",
+            "NCT04916990",
+            "NCT07091617"
+          ],
+          "ranking_basis": "Eligible trials rank first; otherwise closest disease match with fewer violated critical criteria ranks higher."
+        },
+        "result_explanation_agent": {
+          "summary": "Bladder cancer imaging study matches after follow-up; systemic urothelial therapy trials fail because prior platinum therapy is absent."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00082",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07664397-I-condition",
+                "reason": "Follow-up confirms histologic bladder cancer, matching the bladder cancer/solid tumor condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07664397-I-age",
+                "reason": "Patient is 71; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07664397-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 2.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "The patient satisfies all supplied indexed criteria after follow-up confirms bladder cancer pathology, measurable lesion, and PET-CT/PET-MRI feasibility.",
+            "follow_up_questions": [
+              {
+                "question": "Is bladder cancer histologically or cytologically confirmed, is there a measurable lesion, and can the patient undergo PET-CT or PET-MRI?",
+                "question_id": "SYN-GEN-00082-NCT07664397-Q1",
+                "targets": [
+                  "NCT07664397-I-condition",
+                  "raw_measurable_lesion",
+                  "raw_pet_feasibility"
+                ]
+              }
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              {
+                "answer": "Yes. Bladder cancer is pathologically confirmed, there is a measurable soft-tissue lesion on imaging, and PET-CT/PET-MRI is feasible.",
+                "derived_facts": {
+                  "bladder_cancer_confirmed": true,
+                  "measurable_lesion": true,
+                  "pet_imaging_feasible": true
+                },
+                "question_id": "SYN-GEN-00082-NCT07664397-Q1"
+              }
+            ],
+            "trial_id": "NCT07664397",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07664397",
+            "trial_title": "Imaging Study of [89Zr]DFO-YS5 for Cancer Detection"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Follow-up confirms metastatic bladder urothelial carcinoma, matching the urothelial cancer condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Patient is 71; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Follow-up interprets metastatic bladder cancer as stage IV-equivalent disease, which is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "No active interstitial lung disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "No active uncontrolled infection is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "Despite condition, age, stage, and ECOG matching, the prior platinum criterion is violated because the referral lists no prior systemic therapy and follow-up confirms none.",
+            "follow_up_questions": [
+              {
+                "question": "Is the bladder cancer urothelial carcinoma with metastatic/stage IV disease, and has any platinum chemotherapy been given?",
+                "question_id": "SYN-GEN-00082-NCT03237780-Q1",
+                "targets": [
+                  "NCT03237780-I-condition",
+                  "NCT03237780-I-stage",
+                  "NCT03237780-I-prior-platinum-chemotherapy"
+                ]
+              },
+              {
+                "question": "Any active ILD, autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant?",
+                "question_id": "SYN-GEN-00082-NCT03237780-Q2",
+                "targets": [
+                  "NCT03237780-E-active-interstitial-lung-disease",
+                  "NCT03237780-E-active-autoimmune-disease",
+                  "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "NCT03237780-E-active-uncontrolled-infection",
+                  "NCT03237780-E-organ-transplant"
+                ]
+              }
+            ],
+            "rank": 3,
+            "simulated_patient_answers": [
+              {
+                "answer": "Yes to metastatic urothelial bladder cancer; no prior systemic or platinum chemotherapy has been given.",
+                "derived_facts": {
+                  "prior_platinum_chemotherapy": false,
+                  "stage_iv_equivalent": true,
+                  "urothelial_histology": true
+                },
+                "question_id": "SYN-GEN-00082-NCT03237780-Q1"
+              },
+              {
+                "answer": "No active ILD, active autoimmune disease, uncontrolled cardiac disease, active uncontrolled infection, or organ transplant.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": false,
+                  "active_uncontrolled_infection": false,
+                  "organ_transplant": false,
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00082-NCT03237780-Q2"
+              }
+            ],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Metastatic bladder urothelial carcinoma matches metastatic urothelial carcinoma/bladder cancer.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Patient is 71; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Follow-up interprets metastatic bladder cancer as stage IV-equivalent disease, which is allowed.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "No active interstitial lung disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient meets condition, age, stage, and ECOG checks but lacks the required prior platinum chemotherapy, making the match ineligible.",
+            "follow_up_questions": [
+              {
+                "question": "Is disease metastatic urothelial carcinoma, and has prior platinum chemotherapy been received?",
+                "question_id": "SYN-GEN-00082-NCT04724018-Q1",
+                "targets": [
+                  "NCT04724018-I-condition",
+                  "NCT04724018-I-stage",
+                  "NCT04724018-I-prior-platinum-chemotherapy"
+                ]
+              },
+              {
+                "question": "Any active ILD, autoimmune disease, or uncontrolled cardiac disease?",
+                "question_id": "SYN-GEN-00082-NCT04724018-Q2",
+                "targets": [
+                  "NCT04724018-E-active-interstitial-lung-disease",
+                  "NCT04724018-E-active-autoimmune-disease",
+                  "NCT04724018-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 2,
+            "simulated_patient_answers": [
+              {
+                "answer": "Yes, metastatic urothelial bladder cancer is confirmed; no prior platinum chemotherapy or systemic therapy has been given.",
+                "derived_facts": {
+                  "metastatic_urothelial_cancer": true,
+                  "prior_platinum_chemotherapy": false,
+                  "stage_iv_equivalent": true
+                },
+                "question_id": "SYN-GEN-00082-NCT04724018-Q1"
+              },
+              {
+                "answer": "No active ILD, active autoimmune disease, or uncontrolled cardiac disease.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": false,
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00082-NCT04724018-Q2"
+              }
+            ],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07091617-I-condition",
+                "reason": "The trial accepts AYA cancer patients broadly; diagnosis is a cancer, but age fails.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07091617-I-age",
+                "reason": "The supplied raw patient criterion limits enrollment to age 18-39; patient is 71.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07091617-I-stage",
+                "reason": "Follow-up interprets metastatic cancer as stage IV-equivalent disease, which is allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The age requirement is violated. Even with metastatic cancer, this is not an AYA genetic-testing participant.",
+            "follow_up_questions": [
+              {
+                "question": "Is the patient within the AYA age range stated in the supplied raw criteria?",
+                "question_id": "SYN-GEN-00082-NCT07091617-Q1",
+                "targets": [
+                  "NCT07091617-I-age"
+                ]
+              }
+            ],
+            "rank": 5,
+            "simulated_patient_answers": [
+              {
+                "answer": "No. The patient is 71 years old, outside the 18-39 range in the supplied raw patient criteria.",
+                "derived_facts": {
+                  "age_within_aya_range": false
+                },
+                "question_id": "SYN-GEN-00082-NCT07091617-Q1"
+              }
+            ],
+            "trial_id": "NCT07091617",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07091617",
+            "trial_title": "Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04916990-I-condition",
+                "reason": "Bladder cancer is one of the listed solid tumor conditions.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04916990-I-age",
+                "reason": "Patient is 71; trial age bound is 18-99.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04916990-I-stage",
+                "reason": "Metastatic bladder cancer is stage IV-equivalent and stages I-IV are allowed.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The indexed criteria pass, but trial-site/rural-care requirements from the supplied raw criteria are not met.",
+            "follow_up_questions": [
+              {
+                "question": "Does the patient receive treatment at one of the listed participating rural-care sites and reside in an eligible rural county?",
+                "question_id": "SYN-GEN-00082-NCT04916990-Q1",
+                "targets": [
+                  "raw_treatment_site",
+                  "raw_rural_residence"
+                ]
+              }
+            ],
+            "rank": 4,
+            "simulated_patient_answers": [
+              {
+                "answer": "No. Care is in NY and not at the listed UCH/UCHealth/RMCC/St. Mary's/Parkview/Huntsman rural-care sites.",
+                "derived_facts": {
+                  "eligible_rural_residence": false,
+                  "participating_site": false
+                },
+                "question_id": "SYN-GEN-00082-NCT04916990-Q1"
+              }
+            ],
+            "trial_id": "NCT04916990",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04916990",
+            "trial_title": "Improving Care for Rural Patients With Solid Tumors"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07664397",
+          "NCT04724018",
+          "NCT03237780",
+          "NCT04916990",
+          "NCT07091617"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07664397",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT07091617",
+          "NCT04916990"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00082 is a 71-year-old male with metastatic bladder cancer. No formal stage is documented. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00082"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "candidate_trial_count": 5,
+          "criterion_count": 31,
+          "parsed_dimensions": [
+            "condition",
+            "age",
+            "stage",
+            "ECOG",
+            "prior treatment",
+            "exclusion flags",
+            "supplied raw-criteria constraints"
+          ],
+          "trial_ids": [
+            "NCT05828953",
+            "NCT03237780",
+            "NCT04724018",
+            "NCT04262167",
+            "NCT07447102"
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_rule": "Known note facts were applied directly; missing facts were left unresolved until the interaction simulation.",
+          "initial_summary": "The best disease match is blocked by the explicitly reported uncontrolled cardiac disease exclusion."
+        },
+        "interaction_simulation_agent": {
+          "answer_location": "Each recommendation contains the simulated patient answers and derived facts.",
+          "simulation_rule": "Synthetic answers are consistent with the referral note: explicitly reported positives remain positive; missing exclusions are denied unless the diagnosis itself supplies the fact; no prior systemic therapy remains no prior platinum."
+        },
+        "patient_information_understanding_agent": {
+          "extracted_facts": {
+            "age": 47,
+            "diagnosis": "interstitial lung diseases",
+            "ecog": 1,
+            "location": {
+              "country": "US",
+              "state": "TX"
+            },
+            "prior_systemic_therapy": "none listed in referral",
+            "reported_flags": {
+              "organ_transplant": false,
+              "uncontrolled_cardiac_disease": true
+            },
+            "sex": "male",
+            "stage": "III"
+          },
+          "missing_or_unstated_facts_requiring_follow_up": [
+            "ILD subtype needed to distinguish generic ILD, progressive fibrotic ILD, and IPF",
+            "active autoimmune disease, active infection, and prior platinum therapy were not explicitly stated",
+            "uncontrolled cardiac disease was explicitly present"
+          ]
+        },
+        "question_generation_agent": {
+          "question_location": "Each recommendation contains the exact follow-up questions used for that trial.",
+          "strategy": "Generate trial-specific questions only for facts needed to resolve indexed criteria or material supplied raw-criteria conflicts."
+        },
+        "recommendation_agent": {
+          "eligibility_by_rank": [
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 1,
+              "trial_id": "NCT05828953"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 2,
+              "trial_id": "NCT04262167"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 3,
+              "trial_id": "NCT07447102"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 4,
+              "trial_id": "NCT04724018"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 5,
+              "trial_id": "NCT03237780"
+            }
+          ],
+          "ordered_trial_ids": [
+            "NCT05828953",
+            "NCT04262167",
+            "NCT07447102",
+            "NCT04724018",
+            "NCT03237780"
+          ],
+          "ranking_basis": "Eligible trials rank first; otherwise closest disease match with fewer violated critical criteria ranks higher."
+        },
+        "result_explanation_agent": {
+          "summary": "The best disease match is blocked by the explicitly reported uncontrolled cardiac disease exclusion."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00083",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT05828953-I-condition",
+                "reason": "Diagnosis is interstitial lung disease, matching the trial condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05828953-I-age",
+                "reason": "Patient is 47; trial age bound is 40-85.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05828953-E-uncontrolled-cardiac-disease",
+                "reason": "Uncontrolled cardiac disease is reported.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT05828953-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The condition and age criteria are satisfied, and no organ transplant is reported, but the active uncontrolled cardiac disease exclusion makes the patient ineligible.",
+            "follow_up_questions": [
+              {
+                "question": "Is uncontrolled cardiac disease present, and is there any organ transplant history?",
+                "question_id": "SYN-GEN-00083-NCT05828953-Q1",
+                "targets": [
+                  "NCT05828953-E-uncontrolled-cardiac-disease",
+                  "NCT05828953-E-organ-transplant"
+                ]
+              }
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              {
+                "answer": "Uncontrolled cardiac disease is present; no organ transplant is reported.",
+                "derived_facts": {
+                  "organ_transplant": false,
+                  "uncontrolled_cardiac_disease": true
+                },
+                "question_id": "SYN-GEN-00083-NCT05828953-Q1"
+              }
+            ],
+            "trial_id": "NCT05828953",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT05828953",
+            "trial_title": "Anlotinib Capsules in the Treatment for IPF/PF-ILDs"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Patient has interstitial lung disease, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Patient is 47; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Documented stage is III; the structured stage criterion allows IV disease.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG is 1; trial maximum is 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "Uncontrolled cardiac disease is reported.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "No active uncontrolled infection is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient has interstitial lung disease rather than urothelial carcinoma and has uncontrolled cardiac disease, so this trial is ineligible.",
+            "follow_up_questions": [
+              {
+                "question": "Any prior platinum chemotherapy, active ILD, autoimmune disease, uncontrolled cardiac disease, active infection, or organ transplant?",
+                "question_id": "SYN-GEN-00083-NCT03237780-Q1",
+                "targets": [
+                  "NCT03237780-I-prior-platinum-chemotherapy",
+                  "NCT03237780-E-active-interstitial-lung-disease",
+                  "NCT03237780-E-active-autoimmune-disease",
+                  "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "NCT03237780-E-active-uncontrolled-infection",
+                  "NCT03237780-E-organ-transplant"
+                ]
+              }
+            ],
+            "rank": 5,
+            "simulated_patient_answers": [
+              {
+                "answer": "No prior platinum chemotherapy. Current ILD and uncontrolled cardiac disease are present; no active autoimmune disease, active uncontrolled infection, or organ transplant.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "active_uncontrolled_infection": false,
+                  "organ_transplant": false,
+                  "prior_platinum_chemotherapy": false,
+                  "uncontrolled_cardiac_disease": true
+                },
+                "question_id": "SYN-GEN-00083-NCT03237780-Q1"
+              }
+            ],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Patient has interstitial lung disease, not urothelial cancer/bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Patient is 47; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Documented stage is III; the structured stage criterion allows IV disease.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG is 1; trial maximum is 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "Uncontrolled cardiac disease is reported.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The condition and prior platinum requirements fail, and uncontrolled cardiac disease violates an exclusion criterion.",
+            "follow_up_questions": [
+              {
+                "question": "Any prior platinum chemotherapy, active ILD, autoimmune disease, or uncontrolled cardiac disease?",
+                "question_id": "SYN-GEN-00083-NCT04724018-Q1",
+                "targets": [
+                  "NCT04724018-I-prior-platinum-chemotherapy",
+                  "NCT04724018-E-active-interstitial-lung-disease",
+                  "NCT04724018-E-active-autoimmune-disease",
+                  "NCT04724018-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 4,
+            "simulated_patient_answers": [
+              {
+                "answer": "No prior platinum chemotherapy. Current ILD and uncontrolled cardiac disease are present; no active autoimmune disease.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "prior_platinum_chemotherapy": false,
+                  "uncontrolled_cardiac_disease": true
+                },
+                "question_id": "SYN-GEN-00083-NCT04724018-Q1"
+              }
+            ],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04262167-I-condition",
+                "reason": "Follow-up characterizes the disease as progressive fibrotic interstitial lung disease, matching the trial condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04262167-I-age",
+                "reason": "Patient is 47; trial age bound is 40-80.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04262167-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04262167-E-uncontrolled-cardiac-disease",
+                "reason": "Uncontrolled cardiac disease is reported.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "Even though progressive fibrotic ILD is a plausible condition match and age fits, the exclusion conflicts make enrollment inappropriate.",
+            "follow_up_questions": [
+              {
+                "question": "Is the ILD progressive fibrotic ILD or IPF, and is uncontrolled cardiac disease present?",
+                "question_id": "SYN-GEN-00083-NCT04262167-Q1",
+                "targets": [
+                  "NCT04262167-I-condition",
+                  "NCT04262167-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 2,
+            "simulated_patient_answers": [
+              {
+                "answer": "Progressive fibrotic ILD is present, but uncontrolled cardiac disease is also present.",
+                "derived_facts": {
+                  "active_interstitial_lung_disease": true,
+                  "progressive_fibrotic_ild": true,
+                  "uncontrolled_cardiac_disease": true
+                },
+                "question_id": "SYN-GEN-00083-NCT04262167-Q1"
+              }
+            ],
+            "trial_id": "NCT04262167",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04262167",
+            "trial_title": "Human Autologous Lung Stem Cell Transplant for Idiopathic Pulmonary Fibrosis"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07447102-I-condition",
+                "reason": "Follow-up does not confirm idiopathic pulmonary fibrosis; the note states interstitial lung diseases.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07447102-I-age",
+                "reason": "Patient is 47; trial age bound is >= 40.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07447102-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-E-uncontrolled-cardiac-disease",
+                "reason": "Uncontrolled cardiac disease is reported.",
+                "status": "violated"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient has interstitial lung disease but not confirmed idiopathic pulmonary fibrosis, and the uncontrolled cardiac disease exclusion is violated.",
+            "follow_up_questions": [
+              {
+                "question": "Is idiopathic pulmonary fibrosis confirmed, and are active ILD, autoimmune disease, or uncontrolled cardiac disease present?",
+                "question_id": "SYN-GEN-00083-NCT07447102-Q1",
+                "targets": [
+                  "NCT07447102-I-condition",
+                  "NCT07447102-E-active-interstitial-lung-disease",
+                  "NCT07447102-E-active-autoimmune-disease",
+                  "NCT07447102-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 3,
+            "simulated_patient_answers": [
+              {
+                "answer": "IPF is not confirmed; active ILD and uncontrolled cardiac disease are present; no active autoimmune disease is reported.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "ipf_confirmed": false,
+                  "uncontrolled_cardiac_disease": true
+                },
+                "question_id": "SYN-GEN-00083-NCT07447102-Q1"
+              }
+            ],
+            "trial_id": "NCT07447102",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07447102",
+            "trial_title": "Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT05828953",
+          "NCT04262167",
+          "NCT07447102",
+          "NCT04724018",
+          "NCT03237780"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT05828953",
+          "NCT03237780",
+          "NCT04724018",
+          "NCT04262167",
+          "NCT07447102"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00083 is a 47-year-old male with interstitial lung diseases. Stage is recorded as III. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. The note reports uncontrolled cardiac disease. No organ transplant is reported. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00083"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "candidate_trial_count": 5,
+          "criterion_count": 28,
+          "parsed_dimensions": [
+            "condition",
+            "age",
+            "stage",
+            "ECOG",
+            "prior treatment",
+            "exclusion flags",
+            "supplied raw-criteria constraints"
+          ],
+          "trial_ids": [
+            "NCT05674994",
+            "NCT03237780",
+            "NCT07447102",
+            "NCT04724018",
+            "NCT07359963"
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_rule": "Known note facts were applied directly; missing facts were left unresolved until the interaction simulation.",
+          "initial_summary": "AE-IPF target trial matches age and condition; other IPF trials fail age and/or acute-exacerbation restrictions."
+        },
+        "interaction_simulation_agent": {
+          "answer_location": "Each recommendation contains the simulated patient answers and derived facts.",
+          "simulation_rule": "Synthetic answers are consistent with the referral note: explicitly reported positives remain positive; missing exclusions are denied unless the diagnosis itself supplies the fact; no prior systemic therapy remains no prior platinum."
+        },
+        "patient_information_understanding_agent": {
+          "extracted_facts": {
+            "age": 29,
+            "diagnosis": "acute exacerbation of idiopathic pulmonary fibrosis",
+            "ecog": 0,
+            "location": {
+              "country": "US",
+              "state": "WA"
+            },
+            "prior_systemic_therapy": "none listed in referral",
+            "reported_flags": "no explicit exclusion comorbidities addressed",
+            "sex": "female",
+            "stage": "I"
+          },
+          "missing_or_unstated_facts_requiring_follow_up": [
+            "raw AE-IPF exclusions: infection, pregnancy/lactation, ventilation, recent high-dose steroid exposure",
+            "autoimmune/cardiac/infection/transplant exclusions for non-IPF oncology trials",
+            "age conflicts for IPF maintenance/cell-therapy trials"
+          ]
+        },
+        "question_generation_agent": {
+          "question_location": "Each recommendation contains the exact follow-up questions used for that trial.",
+          "strategy": "Generate trial-specific questions only for facts needed to resolve indexed criteria or material supplied raw-criteria conflicts."
+        },
+        "recommendation_agent": {
+          "eligibility_by_rank": [
+            {
+              "final_eligibility": "eligible",
+              "recommendation_rank": 1,
+              "trial_id": "NCT05674994"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 2,
+              "trial_id": "NCT07447102"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 3,
+              "trial_id": "NCT07359963"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 4,
+              "trial_id": "NCT04724018"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 5,
+              "trial_id": "NCT03237780"
+            }
+          ],
+          "ordered_trial_ids": [
+            "NCT05674994",
+            "NCT07447102",
+            "NCT07359963",
+            "NCT04724018",
+            "NCT03237780"
+          ],
+          "ranking_basis": "Eligible trials rank first; otherwise closest disease match with fewer violated critical criteria ranks higher."
+        },
+        "result_explanation_agent": {
+          "summary": "AE-IPF target trial matches age and condition; other IPF trials fail age and/or acute-exacerbation restrictions."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00084",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT05674994-I-condition",
+                "reason": "Diagnosis is acute exacerbation of idiopathic pulmonary fibrosis, matching the trial condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT05674994-I-age",
+                "reason": "Patient is 29; trial age bound is >= 18.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "The supplied indexed criteria are both satisfied, and follow-up does not identify any supplied raw exclusion that would override eligibility.",
+            "follow_up_questions": [
+              {
+                "question": "Is AE-IPF definite or suspected, and are infection, pregnancy/lactation, mechanical ventilation, or recent high-dose glucocorticoids present?",
+                "question_id": "SYN-GEN-00084-NCT05674994-Q1",
+                "targets": [
+                  "NCT05674994-I-condition",
+                  "raw_infection_exclusion",
+                  "raw_pregnancy_lactation",
+                  "raw_mechanical_ventilation",
+                  "raw_high_dose_glucocorticoids"
+                ]
+              }
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              {
+                "answer": "AE-IPF is confirmed. No active infection, pregnancy/lactation, mechanical ventilation, or recent high-dose glucocorticoid exposure is present.",
+                "derived_facts": {
+                  "active_infection": false,
+                  "ae_ipf_confirmed": true,
+                  "mechanical_ventilation": false,
+                  "pregnant_or_lactating": false,
+                  "recent_high_dose_glucocorticoids": false
+                },
+                "question_id": "SYN-GEN-00084-NCT05674994-Q1"
+              }
+            ],
+            "trial_id": "NCT05674994",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT05674994",
+            "trial_title": "Glucocorticoids Versus Placebo for the Treatment of Acute Exacerbation of Idiopathic Pulmonary Fibrosis"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Patient has acute exacerbation of IPF, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Patient is 29; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "Documented stage is I; the structured stage criterion allows IV disease.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 2.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "No active uncontrolled infection is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient has acute exacerbation of IPF rather than urothelial carcinoma; several indexed criteria are violated.",
+            "follow_up_questions": [
+              {
+                "question": "Any urothelial cancer, prior platinum therapy, active ILD, autoimmune disease, cardiac disease, infection, or transplant?",
+                "question_id": "SYN-GEN-00084-NCT03237780-Q1",
+                "targets": [
+                  "NCT03237780-I-condition",
+                  "NCT03237780-I-prior-platinum-chemotherapy",
+                  "NCT03237780-E-active-interstitial-lung-disease",
+                  "NCT03237780-E-active-autoimmune-disease",
+                  "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "NCT03237780-E-active-uncontrolled-infection",
+                  "NCT03237780-E-organ-transplant"
+                ]
+              }
+            ],
+            "rank": 5,
+            "simulated_patient_answers": [
+              {
+                "answer": "No urothelial cancer and no prior platinum therapy. Active IPF exacerbation is present; no autoimmune disease, uncontrolled cardiac disease, active infection, or transplant.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "active_uncontrolled_infection": false,
+                  "organ_transplant": false,
+                  "prior_platinum_chemotherapy": false,
+                  "uncontrolled_cardiac_disease": false,
+                  "urothelial_cancer": false
+                },
+                "question_id": "SYN-GEN-00084-NCT03237780-Q1"
+              }
+            ],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07447102-I-condition",
+                "reason": "Acute exacerbation of IPF includes an IPF diagnosis, matching the IPF condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-I-age",
+                "reason": "Patient is 29, outside the trial age bound of >= 40.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07447102-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07447102-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The diagnosis is related to IPF, but the patient is 29 and has active acute exacerbation, so the trial is ineligible.",
+            "follow_up_questions": [
+              {
+                "question": "Is the patient at least 40, and is there an acute/active IPF exacerbation?",
+                "question_id": "SYN-GEN-00084-NCT07447102-Q1",
+                "targets": [
+                  "NCT07447102-I-age",
+                  "NCT07447102-E-active-interstitial-lung-disease",
+                  "raw_acute_exacerbation_window"
+                ]
+              }
+            ],
+            "rank": 2,
+            "simulated_patient_answers": [
+              {
+                "answer": "No. The patient is 29 and has a current acute exacerbation of IPF.",
+                "derived_facts": {
+                  "active_interstitial_lung_disease": true,
+                  "acute_exacerbation_within_3_months": true,
+                  "age_at_least_40": false
+                },
+                "question_id": "SYN-GEN-00084-NCT07447102-Q1"
+              }
+            ],
+            "trial_id": "NCT07447102",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07447102",
+            "trial_title": "Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Patient has acute exacerbation of IPF, not urothelial cancer/bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Patient is 29; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "Documented stage is I; the structured stage criterion allows IV disease.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG is 0; trial maximum is 1.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "This urothelial cancer trial does not match an acute IPF exacerbation case.",
+            "follow_up_questions": [
+              {
+                "question": "Any urothelial cancer, prior platinum therapy, active ILD, autoimmune disease, or cardiac disease?",
+                "question_id": "SYN-GEN-00084-NCT04724018-Q1",
+                "targets": [
+                  "NCT04724018-I-condition",
+                  "NCT04724018-I-prior-platinum-chemotherapy",
+                  "NCT04724018-E-active-interstitial-lung-disease",
+                  "NCT04724018-E-active-autoimmune-disease",
+                  "NCT04724018-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 4,
+            "simulated_patient_answers": [
+              {
+                "answer": "No urothelial cancer and no prior platinum therapy. Active IPF exacerbation is present; no autoimmune or uncontrolled cardiac disease.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "prior_platinum_chemotherapy": false,
+                  "uncontrolled_cardiac_disease": false,
+                  "urothelial_cancer": false
+                },
+                "question_id": "SYN-GEN-00084-NCT04724018-Q1"
+              }
+            ],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07359963-I-condition",
+                "reason": "Acute exacerbation of IPF includes an IPF diagnosis, matching the IPF condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07359963-I-age",
+                "reason": "Patient is 29, outside the trial age bound of 40-80.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07359963-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient is too young for the 40-80 age range and has a current acute exacerbation of IPF.",
+            "follow_up_questions": [
+              {
+                "question": "Is the patient within age 40-80, and has there been an acute IPF exacerbation within 4 weeks?",
+                "question_id": "SYN-GEN-00084-NCT07359963-Q1",
+                "targets": [
+                  "NCT07359963-I-age",
+                  "raw_acute_exacerbation_window"
+                ]
+              }
+            ],
+            "rank": 3,
+            "simulated_patient_answers": [
+              {
+                "answer": "No for age: the patient is 29. Yes, the current diagnosis is acute exacerbation of IPF within the exclusion window.",
+                "derived_facts": {
+                  "acute_exacerbation_within_4_weeks": true,
+                  "age_40_to_80": false
+                },
+                "question_id": "SYN-GEN-00084-NCT07359963-Q1"
+              }
+            ],
+            "trial_id": "NCT07359963",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07359963",
+            "trial_title": "Treatment of Idiopathic Pulmonary Fibrosis (IPF) by REGEND007 Cell Therapy"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT05674994",
+          "NCT07447102",
+          "NCT07359963",
+          "NCT04724018",
+          "NCT03237780"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT05674994",
+          "NCT03237780",
+          "NCT07447102",
+          "NCT04724018",
+          "NCT07359963"
+        ],
+        "patient_information_string": "Tumor board intake: SYN-GEN-00084 is a 29-year-old female with acute exacerbation of idiopathic pulmonary fibrosis. Stage is recorded as I. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00084"
+    },
+    {
+      "agent_trace": {
+        "criteria_parser_agent": {
+          "candidate_trial_count": 5,
+          "criterion_count": 29,
+          "parsed_dimensions": [
+            "condition",
+            "age",
+            "stage",
+            "ECOG",
+            "prior treatment",
+            "exclusion flags",
+            "supplied raw-criteria constraints"
+          ],
+          "trial_ids": [
+            "NCT07299695",
+            "NCT04724018",
+            "NCT03237780",
+            "NCT07447102",
+            "NCT07359963"
+          ]
+        },
+        "inference_matching_agent": {
+          "initial_rule": "Known note facts were applied directly; missing facts were left unresolved until the interaction simulation.",
+          "initial_summary": "AE-IPF IVIG trial matches after follow-up; ECOG 3 blocks urothelial trials but is not a supplied target-trial criterion."
+        },
+        "interaction_simulation_agent": {
+          "answer_location": "Each recommendation contains the simulated patient answers and derived facts.",
+          "simulation_rule": "Synthetic answers are consistent with the referral note: explicitly reported positives remain positive; missing exclusions are denied unless the diagnosis itself supplies the fact; no prior systemic therapy remains no prior platinum."
+        },
+        "patient_information_understanding_agent": {
+          "extracted_facts": {
+            "age": 47,
+            "diagnosis": "idiopathic pulmonary fibrosis",
+            "ecog": 3,
+            "location": {
+              "country": "US",
+              "state": "MA"
+            },
+            "prior_systemic_therapy": "none listed in referral",
+            "reported_flags": {
+              "uncontrolled_cardiac_disease": false
+            },
+            "sex": "male",
+            "stage": "not documented"
+          },
+          "missing_or_unstated_facts_requiring_follow_up": [
+            "whether IPF is currently in definite or suspected acute exacerbation requiring hospitalization",
+            "stage/prior platinum questions for urothelial trials",
+            "active ILD/AE-IPF timing for non-acute IPF trials"
+          ]
+        },
+        "question_generation_agent": {
+          "question_location": "Each recommendation contains the exact follow-up questions used for that trial.",
+          "strategy": "Generate trial-specific questions only for facts needed to resolve indexed criteria or material supplied raw-criteria conflicts."
+        },
+        "recommendation_agent": {
+          "eligibility_by_rank": [
+            {
+              "final_eligibility": "eligible",
+              "recommendation_rank": 1,
+              "trial_id": "NCT07299695"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 2,
+              "trial_id": "NCT07359963"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 3,
+              "trial_id": "NCT07447102"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 4,
+              "trial_id": "NCT04724018"
+            },
+            {
+              "final_eligibility": "ineligible",
+              "recommendation_rank": 5,
+              "trial_id": "NCT03237780"
+            }
+          ],
+          "ordered_trial_ids": [
+            "NCT07299695",
+            "NCT07359963",
+            "NCT07447102",
+            "NCT04724018",
+            "NCT03237780"
+          ],
+          "ranking_basis": "Eligible trials rank first; otherwise closest disease match with fewer violated critical criteria ranks higher."
+        },
+        "result_explanation_agent": {
+          "summary": "AE-IPF IVIG trial matches after follow-up; ECOG 3 blocks urothelial trials but is not a supplied target-trial criterion."
+        }
+      },
+      "final_output": {
+        "medical_disclaimer": "software evaluation only, not medical advice",
+        "patient_id": "SYN-GEN-00085",
+        "recommendations": [
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07299695-I-condition",
+                "reason": "Diagnosis is idiopathic pulmonary fibrosis; simulated follow-up confirms current suspected AE-IPF.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07299695-I-age",
+                "reason": "Patient is 47; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07299695-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "eligible",
+            "explanation": "The supplied indexed criteria are satisfied. ECOG 3 does not violate this trial because no ECOG limit was supplied, and follow-up confirms the acute-exacerbation setting required by the raw criteria.",
+            "follow_up_questions": [
+              {
+                "question": "Is the patient hospitalized with definite or suspected AE-IPF, and is acute worsening due to uncontrolled heart failure or pulmonary embolism excluded?",
+                "question_id": "SYN-GEN-00085-NCT07299695-Q1",
+                "targets": [
+                  "NCT07299695-I-condition",
+                  "NCT07299695-E-uncontrolled-cardiac-disease",
+                  "raw_ae_ipf_setting"
+                ]
+              }
+            ],
+            "rank": 1,
+            "simulated_patient_answers": [
+              {
+                "answer": "Yes, current hospitalization is for suspected AE-IPF; uncontrolled heart failure and pulmonary embolism are not present.",
+                "derived_facts": {
+                  "pulmonary_embolism": false,
+                  "suspected_ae_ipf_hospitalization": true,
+                  "uncontrolled_cardiac_disease": false
+                },
+                "question_id": "SYN-GEN-00085-NCT07299695-Q1"
+              }
+            ],
+            "trial_id": "NCT07299695",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07299695",
+            "trial_title": "Intravenous Immunoglobulin for the Treatment of Acute Exacerbations of Idiopathic Pulmonary Fibrosis"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT04724018-I-condition",
+                "reason": "Patient has idiopathic pulmonary fibrosis, not urothelial cancer/bladder cancer.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-age",
+                "reason": "Patient is 47; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-I-stage",
+                "reason": "No stage IV urothelial cancer diagnosis is present; the patient has IPF.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-ecog",
+                "reason": "ECOG is 3, which exceeds the trial maximum of 1.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT04724018-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT04724018-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient has IPF rather than metastatic urothelial cancer and fails multiple indexed criteria.",
+            "follow_up_questions": [
+              {
+                "question": "Any urothelial cancer, stage IV urothelial disease, prior platinum therapy, active ILD, autoimmune disease, or uncontrolled cardiac disease?",
+                "question_id": "SYN-GEN-00085-NCT04724018-Q1",
+                "targets": [
+                  "NCT04724018-I-condition",
+                  "NCT04724018-I-stage",
+                  "NCT04724018-I-prior-platinum-chemotherapy",
+                  "NCT04724018-E-active-interstitial-lung-disease",
+                  "NCT04724018-E-active-autoimmune-disease",
+                  "NCT04724018-E-uncontrolled-cardiac-disease"
+                ]
+              }
+            ],
+            "rank": 4,
+            "simulated_patient_answers": [
+              {
+                "answer": "No urothelial cancer, no stage IV urothelial diagnosis, and no prior platinum therapy. Active IPF/AE-IPF is present; no active autoimmune or uncontrolled cardiac disease.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "prior_platinum_chemotherapy": false,
+                  "stage_iv_urothelial": false,
+                  "uncontrolled_cardiac_disease": false,
+                  "urothelial_cancer": false
+                },
+                "question_id": "SYN-GEN-00085-NCT04724018-Q1"
+              }
+            ],
+            "trial_id": "NCT04724018",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT04724018",
+            "trial_title": "Sacituzumab Govitecan Plus EV in Metastatic UC"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT03237780-I-condition",
+                "reason": "Patient has idiopathic pulmonary fibrosis, not urothelial carcinoma.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-age",
+                "reason": "Patient is 47; trial age bound is >= 18.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-I-stage",
+                "reason": "No stage IV urothelial cancer diagnosis is present; the patient has IPF.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-ecog",
+                "reason": "ECOG is 3, which exceeds the trial maximum of 2.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-I-prior-platinum-chemotherapy",
+                "reason": "No prior systemic therapy or platinum chemotherapy is listed, and follow-up confirms none.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-active-uncontrolled-infection",
+                "reason": "No active uncontrolled infection is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT03237780-E-organ-transplant",
+                "reason": "No organ transplant is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The trial is for recurrent/metastatic urothelial carcinoma; the patient has IPF with poor performance status and no urothelial treatment history.",
+            "follow_up_questions": [
+              {
+                "question": "Any urothelial cancer, stage IV urothelial disease, prior platinum therapy, active ILD, autoimmune disease, cardiac disease, infection, or transplant?",
+                "question_id": "SYN-GEN-00085-NCT03237780-Q1",
+                "targets": [
+                  "NCT03237780-I-condition",
+                  "NCT03237780-I-stage",
+                  "NCT03237780-I-prior-platinum-chemotherapy",
+                  "NCT03237780-E-active-interstitial-lung-disease",
+                  "NCT03237780-E-active-autoimmune-disease",
+                  "NCT03237780-E-uncontrolled-cardiac-disease",
+                  "NCT03237780-E-active-uncontrolled-infection",
+                  "NCT03237780-E-organ-transplant"
+                ]
+              }
+            ],
+            "rank": 5,
+            "simulated_patient_answers": [
+              {
+                "answer": "No urothelial cancer, no stage IV urothelial diagnosis, and no prior platinum therapy. Active IPF/AE-IPF is present; no autoimmune disease, uncontrolled cardiac disease, active infection, or transplant.",
+                "derived_facts": {
+                  "active_autoimmune_disease": false,
+                  "active_interstitial_lung_disease": true,
+                  "active_uncontrolled_infection": false,
+                  "organ_transplant": false,
+                  "prior_platinum_chemotherapy": false,
+                  "stage_iv_urothelial": false,
+                  "uncontrolled_cardiac_disease": false,
+                  "urothelial_cancer": false
+                },
+                "question_id": "SYN-GEN-00085-NCT03237780-Q1"
+              }
+            ],
+            "trial_id": "NCT03237780",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT03237780",
+            "trial_title": "Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07447102-I-condition",
+                "reason": "Diagnosis is idiopathic pulmonary fibrosis, matching the IPF condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-I-age",
+                "reason": "Patient is 47; trial age bound is >= 40.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-E-active-interstitial-lung-disease",
+                "reason": "Current ILD/IPF is present, so the active interstitial lung disease exclusion is triggered.",
+                "status": "violated"
+              },
+              {
+                "criterion_id": "NCT07447102-E-active-autoimmune-disease",
+                "reason": "No active autoimmune disease is reported or simulated.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07447102-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The patient has IPF, but current suspected AE-IPF makes this non-acute IPF trial unsuitable.",
+            "follow_up_questions": [
+              {
+                "question": "Is IPF confirmed, and is there a current or recent acute exacerbation/active ILD?",
+                "question_id": "SYN-GEN-00085-NCT07447102-Q1",
+                "targets": [
+                  "NCT07447102-I-condition",
+                  "NCT07447102-E-active-interstitial-lung-disease",
+                  "raw_acute_exacerbation_window"
+                ]
+              }
+            ],
+            "rank": 3,
+            "simulated_patient_answers": [
+              {
+                "answer": "IPF is confirmed, but the patient is currently hospitalized for suspected AE-IPF, within the acute-exacerbation exclusion window.",
+                "derived_facts": {
+                  "active_interstitial_lung_disease": true,
+                  "acute_exacerbation_within_3_months": true,
+                  "ipf_confirmed": true
+                },
+                "question_id": "SYN-GEN-00085-NCT07447102-Q1"
+              }
+            ],
+            "trial_id": "NCT07447102",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07447102",
+            "trial_title": "Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis"
+          },
+          {
+            "criterion_results": [
+              {
+                "criterion_id": "NCT07359963-I-condition",
+                "reason": "Diagnosis is idiopathic pulmonary fibrosis, matching the IPF condition.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07359963-I-age",
+                "reason": "Patient is 47; trial age bound is 40-80.",
+                "status": "satisfied"
+              },
+              {
+                "criterion_id": "NCT07359963-E-uncontrolled-cardiac-disease",
+                "reason": "No uncontrolled cardiac disease is reported or simulated.",
+                "status": "satisfied"
+              }
+            ],
+            "eligibility": "ineligible",
+            "explanation": "The indexed criteria pass, but the supplied raw criteria exclude acute exacerbation within the recent screening window.",
+            "follow_up_questions": [
+              {
+                "question": "Is IPF confirmed, and has acute exacerbation occurred within 4 weeks?",
+                "question_id": "SYN-GEN-00085-NCT07359963-Q1",
+                "targets": [
+                  "NCT07359963-I-condition",
+                  "raw_acute_exacerbation_window"
+                ]
+              }
+            ],
+            "rank": 2,
+            "simulated_patient_answers": [
+              {
+                "answer": "IPF is confirmed, and the current suspected AE-IPF occurred within the 4-week exclusion window.",
+                "derived_facts": {
+                  "acute_exacerbation_within_4_weeks": true,
+                  "ipf_confirmed": true
+                },
+                "question_id": "SYN-GEN-00085-NCT07359963-Q1"
+              }
+            ],
+            "trial_id": "NCT07359963",
+            "trial_source_url": "https://clinicaltrials.gov/study/NCT07359963",
+            "trial_title": "Treatment of Idiopathic Pulmonary Fibrosis (IPF) by REGEND007 Cell Therapy"
+          }
+        ],
+        "recommended_trial_order": [
+          "NCT07299695",
+          "NCT07359963",
+          "NCT07447102",
+          "NCT04724018",
+          "NCT03237780"
+        ]
+      },
+      "input": {
+        "candidate_trial_ids": [
+          "NCT07299695",
+          "NCT04724018",
+          "NCT03237780",
+          "NCT07447102",
+          "NCT07359963"
+        ],
+        "patient_information_string": "Oncology referral note: SYN-GEN-00085 is a 47-year-old male with idiopathic pulmonary fibrosis. No formal stage is documented. ECOG performance status is 3. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No uncontrolled cardiac disease is reported. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart."
+      },
+      "patient_id": "SYN-GEN-00085"
+    }
+  ],
+  "source": "artifacts\\gpt-e2e-teacher-labeling\\responses\\gpt_e2e_teacher_response_batch_17.raw.json"
+}

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GPT E2E Teacher Label",
+  "type": "object",
+  "required": [
+    "patient_id",
+    "patient_information_string",
+    "input",
+    "agent_trace",
+    "final_output"
+  ],
+  "properties": {
+    "patient_id": { "type": "string" },
+    "patient_information_string": { "type": "string" },
+    "synthetic_source_profile": { "type": "object" },
+    "input": {
+      "type": "object",
+      "required": ["patient_information_string", "candidate_trial_ids"],
+      "properties": {
+        "patient_information_string": { "type": "string" },
+        "candidate_trial_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+    "agent_trace": {
+      "type": "object",
+      "required": [
+        "criteria_parser_agent",
+        "patient_information_understanding_agent",
+        "inference_matching_agent",
+        "question_generation_agent",
+        "interaction_simulation_agent",
+        "recommendation_agent",
+        "result_explanation_agent"
+      ]
+    },
+    "final_output": {
+      "type": "object",
+      "required": [
+        "patient_id",
+        "recommendations",
+        "recommended_trial_order",
+        "medical_disclaimer"
+      ],
+      "properties": {
+        "patient_id": { "type": "string" },
+        "medical_disclaimer": { "type": "string" },
+        "recommended_trial_order": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "rank",
+              "trial_id",
+              "eligibility",
+              "criterion_results",
+              "follow_up_questions",
+              "simulated_patient_answers",
+              "explanation"
+            ],
+            "properties": {
+              "rank": { "type": "integer", "minimum": 1 },
+              "trial_id": { "type": "string" },
+              "trial_title": { "type": "string" },
+              "trial_source_url": { "type": "string" },
+              "eligibility": {
+                "type": "string",
+                "enum": ["eligible", "ineligible", "uncertain"]
+              },
+              "criterion_results": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["criterion_id", "status", "reason"],
+                  "properties": {
+                    "criterion_id": { "type": "string" },
+                    "status": {
+                      "type": "string",
+                      "enum": ["satisfied", "violated", "unknown", "not_applicable"]
+                    },
+                    "reason": { "type": "string" }
+                  }
+                }
+              },
+              "follow_up_questions": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "simulated_patient_answers": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "explanation": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

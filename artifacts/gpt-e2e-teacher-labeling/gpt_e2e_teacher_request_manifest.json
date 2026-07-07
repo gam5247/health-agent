@@ -1,0 +1,30 @@
+{
+  "patient_count": 100,
+  "candidate_count": 5,
+  "batch_size": 5,
+  "batch_count": 20,
+  "input_json": "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\gpt_e2e_teacher_input_100.json",
+  "request_files": [
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_01.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_02.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_03.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_04.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_05.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_06.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_07.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_08.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_09.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_10.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_11.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_12.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_13.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_14.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_15.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_16.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_17.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_18.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_19.md",
+    "C:\\Users\\kll45\\OneDrive\\문서\\헬스 에이전트\\artifacts\\gpt-e2e-teacher-labeling\\requests\\gpt_e2e_teacher_request_batch_20.md"
+  ],
+  "expected_response_format": "JSONL, one object per patient"
+}

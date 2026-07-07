@@ -1,0 +1,52 @@
+{
+  "artifact": "gpt-e2e-teacher-labels-100",
+  "artifact_version": 1,
+  "generated_date": "2026-07-08",
+  "source_commit_before_generation": "0d3179d88d3e65ba0316f0d8f972db440704afa4",
+  "provider": {
+    "name": "ChatGPT web via agbrowse",
+    "model_mode": "ChatGPT web current mode; Pro selection was requested for some runs but not consistently machine-confirmed",
+    "temperature": "not available through ChatGPT web automation",
+    "raw_response_captures_committed": false,
+    "raw_response_capture_policy": "raw captures are local-only and ignored by git; normalized validated responses are committed"
+  },
+  "scale": {
+    "patients": 100,
+    "candidate_trials_per_patient": 5,
+    "final_trial_judgments": 500,
+    "criterion_level_judgments": 2934,
+    "batch_count": 20,
+    "patients_per_batch": 5
+  },
+  "validation": {
+    "commands": [
+      "python scripts\\combine_gpt_e2e_teacher_labels.py",
+      "python -m unittest discover -s tests",
+      "git diff --cached --check"
+    ],
+    "structural_validation_errors": 0,
+    "semantic_consistency_warnings": 28,
+    "unit_tests": "22 passed"
+  },
+  "canonical_outputs": {
+    "jsonl": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.jsonl",
+    "json": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.json",
+    "summary": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100_summary.json"
+  },
+  "hashes_sha256": {
+    "artifacts/gpt-e2e-teacher-labeling/README.md": "507cf8dd971b496f92591223253536b2cae08a2938ce0b0d129c6650b97b3919",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_input_100.json": "fc822e11420129b79e167e1e0ef6780cece840ce2394d2433e091c0edd71bb20",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.jsonl": "469ed744467ace4b4bf1b61e982c974785293072e8e2dae03fbf3eb8c21f156c",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.json": "4013baff89e816222b0c9bd103bdc7379ba64fbb15c28c4b1dcc5ca9fb6af391",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100_summary.json": "840007287316fc6138074c80ce5e4ace69f16dfc87ca1af7bae116b57c2b64d2",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_request_manifest.json": "bc1f905821a8125ddf86c437a539e69ba1b9fdf751d84c18fe94b31ca8f8a496",
+    "scripts/build_gpt_e2e_teacher_requests.py": "bffea1b83f85071806ff06a6fc37805e8ee5bc935c41da12d4446a3d9f90e770",
+    "scripts/ingest_gpt_e2e_teacher_response.py": "9fd223eedab561d5adfe174a2d35890b6e0faae32531123bafb8e87f0831774f",
+    "scripts/combine_gpt_e2e_teacher_labels.py": "23c16a3ef62f713910a26feb27104f9d5b75c1defcfa8d8d4bd7eaee1be9eb9b",
+    "src/health_agent/teacher_student.py": "5aab09c07d030ca82a7a0b857d5e93ef037940d87ae829a008dbb0eddf198a37",
+    "tests/test_teacher_student.py": "b6d8d09bbc5aa168d422919aa71e480605dc53beec0d765b6403dd6b7a8202b0",
+    "schemas/gpt_e2e_teacher_label.schema.json": "4bda881956bf3d51fe2ddcca906f23021ff41fcf83f0d3fd0f8f42d18511bedd",
+    "tests/test_gpt_e2e_teacher_artifact.py": "539b4edee963955273f5f813b2237ada314a7b7d5eea671972d8aad9dd0eb624"
+  },
+  "medical_scope": "Synthetic software-evaluation artifact only; not medical advice and not a real clinical eligibility decision."
+}
