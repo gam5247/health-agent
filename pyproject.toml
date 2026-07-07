@@ -7,7 +7,7 @@ name = "health-agent"
 version = "0.1.0"
 description = "Explainable multi-agent scaffold for clinical trial matching."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 authors = [
   { name = "Health Agent Contributors" }
 ]
@@ -15,7 +15,7 @@ dependencies = []
 
 [project.scripts]
 health-agent-demo = "health_agent.__main__:main"
+health-agent-llm-eval = "health_agent.llm_eval:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/health_agent"]
-

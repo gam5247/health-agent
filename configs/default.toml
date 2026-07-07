@@ -7,3 +7,11 @@ max_recommendations_per_patient = 3
 patients_path = "data/raw/synthetic-patients.json"
 trials_path = "data/raw/sample-trials.json"
 
+[llm]
+provider = "friendli"
+base_url = "https://api.friendli.ai/dedicated/v1"
+chat_completions_url = "https://api.friendli.ai/dedicated/v1/chat/completions"
+enable_thinking = false
+parse_reasoning = true
+temperature = 0
+request_timeout_sec = 180

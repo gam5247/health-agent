@@ -14,6 +14,8 @@ For production or competition submission work, use documented public sources
 where allowed by the competition rules:
 
 - ClinicalTrials.gov API v2 for trial metadata and eligibility text.
+- Friendli dedicated endpoint for K-EXAONE model calls, configured only through
+  local environment variables.
 - Trial sponsor protocol PDFs only when redistribution and processing are
   permitted.
 - Public disease ontology or terminology sources when licensing permits.
@@ -25,4 +27,3 @@ where allowed by the competition rules:
 - Store citation spans for protocol-derived eligibility criteria when possible.
 - Do not ingest real patient records into this repository without a documented
   privacy, consent, retention, and access-control plan.
-

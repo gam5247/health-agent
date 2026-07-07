@@ -473,7 +473,54 @@ python -m unittest discover -s tests
 ```bash
 pip install -e .
 health-agent-demo --limit 3
+health-agent-llm-eval --dry-run --max-patients 2 --top-k 2
 ```
+
+추가 로컬 검증:
+
+```bash
+python -m unittest discover -s tests
+python scripts/run_demo.py --limit 3
+python scripts/run_llm_eval.py --dry-run --max-patients 2 --top-k 2
+```
+
+## K-EXAONE / Friendli Evaluation
+
+LLM evaluation path는 선택 기능이며, API key는 저장소에 넣지 않는다. OS
+environment 또는 로컬 `.env` 파일에서만 읽는다.
+
+Required environment variables:
+
+- `FRIENDLI_API_KEY`, or fallback `K_EXAONE_API_KEY`
+- `K_EXAONE_ENDPOINT_ID`, or fallback `FRIENDLI_ENDPOINT_ID` / `K_EXAONE_MODEL`
+
+Optional variables:
+
+- `FRIENDLI_BASE_URL`, default `https://api.friendli.ai/dedicated/v1`
+- `FRIENDLI_CHAT_COMPLETIONS_URL`, default
+  `https://api.friendli.ai/dedicated/v1/chat/completions`
+
+API 호출 없는 dry-run:
+
+```bash
+python scripts/run_llm_eval.py --dry-run --max-patients 3 --top-k 3
+```
+
+실제 Friendli/K-EXAONE smoke test:
+
+```bash
+python scripts/run_llm_eval.py \
+  --env-file "<path-to-local-env-file>" \
+  --max-patients 1 \
+  --top-k 1 \
+  --concurrency 1
+```
+
+Evaluator는 local RAG retrieval, PatientExtractor, EligibilityMatcher,
+TrialOrchestrator prompt 호출, JSON repair/loose parsing, deterministic
+baseline 비교를 수행하고 `outputs/` 아래에 JSON report를 쓴다.
+`--labels-output outputs/labels.tsv`를 추가하면
+`PATIENT_ID<TAB>TRIAL_ID<TAB>LABEL` 형식의 batch labeling 파일도 만든다.
 
 ## Codex 작업 순서
 
