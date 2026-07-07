@@ -1,12 +1,47 @@
 # Health Agent
 
-Healthcare Agentic AI Challenge 2026 대응용 멀티 에이전트 임상시험 추천 시스템입니다.
+Healthcare Agentic AI Challenge 2026 대응용 멀티 에이전트 임상시험 적합도 사전심사 시스템입니다.
 
-이 저장소의 목표는 단순한 질의응답 챗봇이 아니라, 임상시험 프로토콜과 환자 프로파일을 구조적으로 비교하고, 근거 기반으로 참여 가능성을 판정하며, 정보가 부족한 경우 확인 질문을 생성하고, 환자별 임상시험 추천 순위를 산출하는 재현 가능한 파이프라인을 만드는 것입니다.
+이 저장소의 목표는 단순한 질의응답 챗봇이나 돈벌이 임상시험 추천기가 아니라, **질환 또는 임상적 문제가 있는 환자에게 관련 임상시험 후보를 사전 탐색하고, 공개 임상시험 프로토콜의 inclusion/exclusion 기준과 환자 정보를 비교하여 참여 가능성·부족 정보·추천 우선순위를 근거와 함께 제시하는 재현 가능한 agentic workflow**를 만드는 것입니다.
 
-## 대회 요약
+## 1. 상황 정의
 
-대회 주제는 Interactive Clinical Trial Recommendation입니다.
+이 프로젝트의 기본 시나리오는 다음과 같습니다.
+
+```text
+환자 또는 의료진이 특정 질환/증상/검사 결과를 가진 환자에게
+관련 임상시험 후보가 있는지 사전 탐색한다.
+
+시스템은 임상시험 등록을 확정하지 않는다.
+시스템은 치료 효과를 보장하지 않는다.
+시스템은 보상금 목적의 임상시험 아르바이트를 추천하지 않는다.
+
+시스템은 공개 trial protocol과 환자 정보를 비교해
+eligible / ineligible / uncertain 상태를 근거와 함께 제시하고,
+판단에 필요한 정보가 부족하면 follow-up question을 생성한다.
+```
+
+따라서 이 프로젝트의 정확한 문제 정의는 다음에 가깝습니다.
+
+```text
+Clinical trial pre-screening / patient-trial matching assistant
+= 환자-임상시험 적합도 사전심사 보조 시스템
+```
+
+예를 들어 `68세 남성, 장기 흡연력, 무통성 혈뇨, CT상 방광벽 종괴`라는 환자 정보가 주어졌다면, 시스템은 보상금이 높은 건강자원자 trial을 찾는 것이 아니라 다음을 수행해야 합니다.
+
+```text
+1. bladder cancer / urothelial carcinoma 관련 trial을 찾는다.
+2. trial의 inclusion/exclusion 기준을 atomic criterion으로 나눈다.
+3. 환자의 나이, 성별, 의심 진단, 병리 확진 여부, 병기, ECOG, 신장기능, 이전 치료력을 비교한다.
+4. 부족한 정보가 있으면 질문한다.
+5. 현재 정보만으로 eligible / ineligible / uncertain을 판단한다.
+6. 여러 후보 trial을 근거 기반으로 순위화한다.
+```
+
+## 2. 대회 요약
+
+대회 주제는 **Interactive Clinical Trial Recommendation**입니다.
 
 입력은 다음 두 축입니다.
 
@@ -35,13 +70,11 @@ Healthcare Agentic AI Challenge 2026 대응용 멀티 에이전트 임상시험 
 4. 환자별 임상시험 추천 순위와 설명
 5. 의료적 면책 고지
 
-평가 비중은 매칭 정확성 30%, 랩 내 정성 평가 30%, 발표 점수 40%로 본다. 따라서 단순 accuracy만이 아니라, 에이전트 구성, 오케스트레이션, 근거 제시, 오류 분석, 발표 가능성이 중요하다.
+평가 비중은 매칭 정확성 30%, 랩 내 정성 평가 30%, 발표 점수 40%로 본다. 따라서 단순 accuracy만이 아니라, 에이전트 구성, 오케스트레이션, 근거 제시, 오류 분석, 발표 가능성이 중요합니다.
 
-## 핵심 설계 원칙
+## 3. 핵심 설계 원칙
 
-이 프로젝트는 LLM 하나에 모든 판단을 맡기지 않는다.
-
-기본 원칙은 다음과 같다.
+이 프로젝트는 LLM 하나에 모든 판단을 맡기지 않습니다.
 
 ```text
 자연어 이해와 애매한 의미 판단  -> LLM agent
@@ -51,9 +84,9 @@ Healthcare Agentic AI Challenge 2026 대응용 멀티 에이전트 임상시험 
 최종 출력                           -> schema-validated report
 ```
 
-LLM은 classifier 자체라기보다, 임상시험 기준과 환자 정보를 구조화하고 애매한 의미 판단을 보조하는 semantic module로 사용한다.
+LLM은 classifier 자체라기보다, 임상시험 기준과 환자 정보를 구조화하고 애매한 의미 판단을 보조하는 semantic module로 사용합니다.
 
-## 전체 아키텍처
+## 4. 전체 아키텍처
 
 ```text
 ClinicalTrials.gov protocol text
@@ -95,7 +128,7 @@ trial_ranker
 final_explainer
 ```
 
-## 에이전트 역할
+## 5. 에이전트 역할
 
 | Agent | 역할 | 1차 구현 | 이후 확장 |
 |---|---|---|---|
@@ -109,7 +142,7 @@ final_explainer
 | `trial_ranker` | 환자별 trial ranking | score formula | learning-to-rank / LLM explanation |
 | `final_explainer` | 최종 보고서 생성 | template | Solar Pro 3 |
 
-## 모델 운영 전략
+## 6. 모델 운영 전략
 
 현재 자원 가정:
 
@@ -173,7 +206,7 @@ should_escalate = (
 - recent infection
 - numeric laboratory threshold
 
-## 데이터 전략
+## 7. 데이터 전략
 
 ### 사용 가능한 데이터
 
@@ -210,7 +243,7 @@ criterion-level silver labels: 50,000+
 human-reviewed gold pairs: 300-700
 ```
 
-중요한 것은 단순 개수가 아니라 coverage다.
+중요한 것은 단순 개수가 아니라 coverage입니다.
 
 Coverage 축:
 
@@ -224,9 +257,9 @@ Coverage 축:
 - exclusion: infection, pregnancy, organ dysfunction, prior malignancy 등
 - missing information: unknown을 질문으로 바꾸는 케이스
 
-## 내부 스키마 원칙
+## 8. 내부 스키마 원칙
 
-모든 중간 산출물은 Pydantic schema를 통과해야 한다.
+모든 중간 산출물은 Pydantic schema를 통과해야 합니다.
 
 예상 criterion result:
 
@@ -265,7 +298,7 @@ required information missing -> uncertain
 all required inclusion satisfied and no exclusion violated -> eligible
 ```
 
-## 개발 로드맵
+## 9. 개발 로드맵
 
 ### Phase 0. 저장소 정리
 
@@ -279,7 +312,7 @@ all required inclusion satisfied and no exclusion violated -> eligible
 
 작업:
 
-1. `data/raw/oncology-synthetic-patients.json` loader 완성
+1. `data/raw/synthetic-patients.json` 및 oncology fixture loader 완성
 2. `data/raw/sample-trials.json` loader 완성
 3. trial / patient / criterion / result Pydantic schema 고정
 4. deterministic eligibility scorer 구현
@@ -422,7 +455,7 @@ Ablation:
 11. Limitations and medical disclaimer
 12. Conclusion
 
-## Repository layout
+## 10. Repository layout
 
 ```text
 README.md
@@ -460,7 +493,7 @@ src/
 tests/
 ```
 
-## Quick start
+## 11. Quick start
 
 ```bash
 python -m venv .venv
@@ -485,10 +518,9 @@ python scripts/run_demo.py --limit 3
 python scripts/run_llm_eval.py --dry-run --max-patients 2 --top-k 2
 ```
 
-## K-EXAONE / Friendli Evaluation
+## 12. K-EXAONE / Friendli Evaluation
 
-LLM evaluation path는 선택 기능이며, API key는 저장소에 넣지 않는다. OS
-environment 또는 로컬 `.env` 파일에서만 읽는다.
+LLM evaluation path는 선택 기능이며, API key는 저장소에 넣지 않는다. OS environment 또는 로컬 `.env` 파일에서만 읽는다.
 
 Required environment variables:
 
@@ -498,8 +530,7 @@ Required environment variables:
 Optional variables:
 
 - `FRIENDLI_BASE_URL`, default `https://api.friendli.ai/dedicated/v1`
-- `FRIENDLI_CHAT_COMPLETIONS_URL`, default
-  `https://api.friendli.ai/dedicated/v1/chat/completions`
+- `FRIENDLI_CHAT_COMPLETIONS_URL`, default `https://api.friendli.ai/dedicated/v1/chat/completions`
 
 API 호출 없는 dry-run:
 
@@ -517,55 +548,7 @@ python scripts/run_llm_eval.py \
   --concurrency 1
 ```
 
-Evaluator는 local RAG retrieval, PatientExtractor, EligibilityMatcher,
-TrialOrchestrator prompt 호출, JSON repair/loose parsing, deterministic
-baseline 비교를 수행하고 `outputs/` 아래에 JSON report를 쓴다.
-`--labels-output outputs/labels.tsv`를 추가하면
-`PATIENT_ID<TAB>TRIAL_ID<TAB>LABEL` 형식의 batch labeling 파일도 만든다.
-
-## 축소 대회 산출물 파이프라인
-
-현재 repo는 대회 기준의 축소 end-to-end artifact를 생성할 수 있다.
-
-```bash
-python scripts/run_competition_pipeline.py \
-  --trial-limit 120 \
-  --patient-count 1000 \
-  --top-k 30
-```
-
-K-EXAONE smoke까지 포함하려면:
-
-```bash
-python scripts/run_competition_pipeline.py \
-  --trial-limit 120 \
-  --patient-count 1000 \
-  --top-k 30 \
-  --with-llm-smoke \
-  --env-file "<path-to-local-env-file>"
-```
-
-현재 생성된 기준 산출물:
-
-- `data/processed/trials.jsonl`: ClinicalTrials.gov에서 수집/정규화한 116개 trial
-- `data/processed/synthetic_patients.jsonl`: synthetic patient 1,000명
-- `outputs/retrieval_candidates.jsonl`: 30,000개 retrieved patient-trial pair
-- `artifacts/health-agent-submission/competition_predictions.json`: 공식 예시 10명에 대한 대회 포맷 출력
-- `artifacts/health-agent-submission/synthetic_predictions_sample.json`: synthetic sample에 대한 동일 스키마 출력
-- `artifacts/health-agent-submission/`: manifest, evaluation summary, labels TSV, demo cases, disclaimer
-
-현재 smoke 지표:
-
-- retrieval target trial recall@30: `0.743`
-- retrieval potential recall@30: `0.590`
-- retrieval recommend recall@30: `0.520`
-- candidate pairs: `30,000`
-- K-EXAONE smoke: 1명, top-2, 3 agent calls, HTTP 200 `3/3`
-- LLM valid label rate: `1.0`
-- LLM JSON parse rate: `0.667`
-- LLM deterministic agreement: `0.5`
-
-## Codex 작업 순서
+## 13. Codex 작업 순서
 
 Codex는 다음 순서로 읽고 작업한다.
 
@@ -586,6 +569,6 @@ Codex는 다음 순서로 읽고 작업한다.
 4. 그 다음 ClinicalTrials.gov ingestion stub을 구현한다.
 ```
 
-## Medical disclaimer
+## 14. Medical disclaimer
 
 이 프로젝트의 출력은 연구 및 참고용이며, 의학적 자문이나 실제 임상 의사결정으로 사용해서는 안 된다. 실제 환자 진료, 임상시험 등록, 치료 결정에는 반드시 자격 있는 의료 전문가와 공식 임상시험 담당자의 판단이 필요하다.
