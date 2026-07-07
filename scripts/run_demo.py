@@ -18,7 +18,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the Health Agent demo.")
     parser.add_argument(
         "--patients",
-        default=str(ROOT / "data" / "raw" / "synthetic-patients.json"),
+        default=str(ROOT / "data" / "raw" / "oncology-synthetic-patients.json"),
         help="Path to patient JSON.",
     )
     parser.add_argument(
@@ -39,4 +39,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

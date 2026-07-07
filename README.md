@@ -17,7 +17,8 @@ Healthcare Agentic AI Challenge 2026 대응용 멀티 에이전트 임상시험 
    - condition, intervention, phase 등 metadata
 2. 환자 프로파일
    - 나이, 성별, 병력, 증상, 검사 결과, 투약, 과거 치료력 등
-   - 제공 예시는 `data/raw/synthetic-patients.json`의 10개 synthetic vignette
+   - 공식 예시는 `data/raw/synthetic-patients.json`의 10개 synthetic topic
+   - oncology 개발 fixture는 `data/raw/oncology-synthetic-patients.json`
 
 최종 출력은 다음을 포함해야 합니다.
 
@@ -278,7 +279,7 @@ all required inclusion satisfied and no exclusion violated -> eligible
 
 작업:
 
-1. `data/raw/synthetic-patients.json` loader 완성
+1. `data/raw/oncology-synthetic-patients.json` loader 완성
 2. `data/raw/sample-trials.json` loader 완성
 3. trial / patient / criterion / result Pydantic schema 고정
 4. deterministic eligibility scorer 구현

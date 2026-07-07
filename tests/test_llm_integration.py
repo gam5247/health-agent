@@ -25,7 +25,7 @@ from health_agent.scoring import evaluate_trial
 
 class LlmIntegrationSupportTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.patients = load_patients(ROOT / "data" / "raw" / "synthetic-patients.json")
+        self.patients = load_patients(ROOT / "data" / "raw" / "oncology-synthetic-patients.json")
         self.trials = load_trials(ROOT / "data" / "raw" / "sample-trials.json")
 
     def test_sse_parser_concatenates_openai_compatible_chunks(self) -> None:

@@ -1,0 +1,123 @@
+[
+  {
+    "patient_id": "SYN-001",
+    "age": 62,
+    "sex": "female",
+    "diagnosis": "metastatic non-small cell lung cancer",
+    "stage": "IV",
+    "ecog": 1,
+    "biomarkers": {"EGFR": "L858R", "ALK": "negative", "PD-L1": "60%"},
+    "prior_treatments": ["platinum chemotherapy"],
+    "flags": {"untreated_brain_metastases": false, "active_interstitial_lung_disease": false},
+    "location": {"country": "US", "state": "CA"}
+  },
+  {
+    "patient_id": "SYN-002",
+    "age": 48,
+    "sex": "male",
+    "diagnosis": "unresectable melanoma",
+    "stage": "IV",
+    "ecog": 1,
+    "biomarkers": {"BRAF": "V600E"},
+    "prior_treatments": ["anti-PD-1 therapy"],
+    "flags": {"active_autoimmune_disease": false},
+    "location": {"country": "US", "state": "NY"}
+  },
+  {
+    "patient_id": "SYN-003",
+    "age": 55,
+    "sex": "female",
+    "diagnosis": "metastatic breast cancer",
+    "stage": "IV",
+    "ecog": 2,
+    "biomarkers": {"HER2": "positive", "ER": "negative", "PR": "negative"},
+    "prior_treatments": ["trastuzumab", "taxane chemotherapy"],
+    "flags": {"uncontrolled_cardiac_disease": false},
+    "location": {"country": "US", "state": "TX"}
+  },
+  {
+    "patient_id": "SYN-004",
+    "age": 70,
+    "sex": "male",
+    "diagnosis": "relapsed acute myeloid leukemia",
+    "stage": null,
+    "ecog": 2,
+    "biomarkers": {"FLT3": "ITD", "NPM1": "mutated"},
+    "prior_treatments": ["induction chemotherapy"],
+    "flags": {"active_uncontrolled_infection": false},
+    "location": {"country": "US", "state": "WA"}
+  },
+  {
+    "patient_id": "SYN-005",
+    "age": 67,
+    "sex": "male",
+    "diagnosis": "metastatic castration-resistant prostate cancer",
+    "stage": "IV",
+    "ecog": 1,
+    "biomarkers": {"BRCA2": "pathogenic", "MSI": "stable"},
+    "prior_treatments": ["androgen receptor inhibitor"],
+    "flags": {"organ_transplant": false},
+    "location": {"country": "US", "state": "IL"}
+  },
+  {
+    "patient_id": "SYN-006",
+    "age": 59,
+    "sex": "female",
+    "diagnosis": "metastatic colorectal cancer",
+    "stage": "IV",
+    "ecog": 1,
+    "biomarkers": {"MSI": "MSI-H", "KRAS": "wild type"},
+    "prior_treatments": ["fluoropyrimidine", "oxaliplatin"],
+    "flags": {"active_autoimmune_disease": false, "organ_transplant": false},
+    "location": {"country": "US", "state": "MA"}
+  },
+  {
+    "patient_id": "SYN-007",
+    "age": 44,
+    "sex": "female",
+    "diagnosis": "advanced non-small cell lung cancer",
+    "stage": "IV",
+    "ecog": 0,
+    "biomarkers": {"ALK": "positive", "EGFR": "negative"},
+    "prior_treatments": [],
+    "flags": {"untreated_brain_metastases": false, "active_interstitial_lung_disease": false},
+    "location": {"country": "US", "state": "FL"}
+  },
+  {
+    "patient_id": "SYN-008",
+    "age": 61,
+    "sex": "female",
+    "diagnosis": "recurrent ovarian cancer",
+    "stage": "III",
+    "ecog": 1,
+    "biomarkers": {"BRCA1": "pathogenic", "MSI": "stable"},
+    "prior_treatments": ["platinum chemotherapy"],
+    "flags": {"active_autoimmune_disease": false},
+    "location": {"country": "US", "state": "PA"}
+  },
+  {
+    "patient_id": "SYN-009",
+    "age": 64,
+    "sex": "male",
+    "diagnosis": "metastatic non-small cell lung cancer",
+    "stage": "IV",
+    "ecog": null,
+    "biomarkers": {},
+    "prior_treatments": ["platinum chemotherapy"],
+    "flags": {"untreated_brain_metastases": false},
+    "location": {"country": "US", "state": "CO"}
+  },
+  {
+    "patient_id": "SYN-010",
+    "age": 52,
+    "sex": "male",
+    "diagnosis": "advanced renal cell carcinoma",
+    "stage": "IV",
+    "ecog": 1,
+    "biomarkers": {"PD-L1": "10%", "MSI": "stable"},
+    "prior_treatments": ["vegf tyrosine kinase inhibitor"],
+    "flags": {"active_autoimmune_disease": true},
+    "location": {"country": "US", "state": "AZ"}
+  }
+]
+

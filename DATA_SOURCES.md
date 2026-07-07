@@ -2,9 +2,12 @@
 
 ## Bundled Data
 
-- `data/raw/synthetic-patients.json`: ten synthetic patient records created for
-  local development and testing. They are not real patients and should not be
-  treated as clinical records.
+- `data/raw/synthetic-patients.json`: official challenge example input with ten
+  synthetic patient topics (`S001`-`S010`). This is a core reference input and
+  should be preserved exactly.
+- `data/raw/oncology-synthetic-patients.json`: ten local oncology-focused
+  synthetic patient records created for development and deterministic tests.
+  They are not real patients and should not be treated as clinical records.
 - `data/raw/sample-trials.json`: sample protocol-like records created for local
   development and testing. The `NCT-SAMPLE-*` identifiers are placeholders.
 

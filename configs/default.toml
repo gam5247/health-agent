@@ -4,7 +4,7 @@ needs_more_info_threshold = 0.45
 max_recommendations_per_patient = 3
 
 [data]
-patients_path = "data/raw/synthetic-patients.json"
+patients_path = "data/raw/oncology-synthetic-patients.json"
 trials_path = "data/raw/sample-trials.json"
 
 [llm]

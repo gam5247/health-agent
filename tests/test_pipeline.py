@@ -16,7 +16,7 @@ from health_agent.pipeline import run_recommendations
 
 class HealthAgentPipelineTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.patients_path = ROOT / "data" / "raw" / "synthetic-patients.json"
+        self.patients_path = ROOT / "data" / "raw" / "oncology-synthetic-patients.json"
         self.trials_path = ROOT / "data" / "raw" / "sample-trials.json"
 
     def test_loads_synthetic_patients(self) -> None:

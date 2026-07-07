@@ -127,7 +127,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument(
         "--patients",
         type=Path,
-        default=root / "data" / "raw" / "synthetic-patients.json",
+        default=root / "data" / "raw" / "oncology-synthetic-patients.json",
     )
     parser.add_argument(
         "--trials",

@@ -7,7 +7,8 @@ This scaffold is designed for iterative Codex work.
 - Python package: `src/health_agent`
 - Demo command: `python scripts/run_demo.py`
 - Tests: `python -m unittest discover -s tests`
-- Data: synthetic patients and sample trial protocols under `data/raw`
+- Official challenge example input: `data/raw/synthetic-patients.json`
+- Demo fixture: `data/raw/oncology-synthetic-patients.json`
 - LLM eval: `python scripts/run_llm_eval.py --dry-run --max-patients 2 --top-k 2`
 - Scaled artifact: `python scripts/run_competition_pipeline.py --trial-limit 120 --patient-count 1000 --top-k 30`
 
