@@ -120,8 +120,26 @@ def choose_diagnosis(trial: Trial, scenario: str, rng: random.Random) -> str:
             ]
         )
     if trial.conditions:
-        return f"metastatic {trial.conditions[0].lower()}"
+        condition = trial.conditions[0].lower()
+        if is_oncology_condition(condition):
+            return f"metastatic {condition}"
+        return condition
     return "advanced solid tumor"
+
+
+def is_oncology_condition(condition: str) -> bool:
+    oncology_terms = [
+        "cancer",
+        "carcinoma",
+        "leukemia",
+        "lymphoma",
+        "melanoma",
+        "myeloma",
+        "neoplasm",
+        "sarcoma",
+        "tumor",
+    ]
+    return any(term in condition for term in oncology_terms)
 
 
 def choose_stage(trial: Trial, scenario: str, rng: random.Random) -> str | None:
@@ -162,4 +180,3 @@ def choose_flags(trial: Trial, scenario: str) -> dict[str, bool]:
     if scenario == "exclusion_conflict" and trial.excluded_flags:
         flags[trial.excluded_flags[0]] = True
     return flags
-

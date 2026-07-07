@@ -547,18 +547,23 @@ python scripts/run_competition_pipeline.py \
 
 현재 생성된 기준 산출물:
 
-- `data/processed/trials.jsonl`: ClinicalTrials.gov에서 수집/정규화한 120개 trial
+- `data/processed/trials.jsonl`: ClinicalTrials.gov에서 수집/정규화한 116개 trial
 - `data/processed/synthetic_patients.jsonl`: synthetic patient 1,000명
 - `outputs/retrieval_candidates.jsonl`: 30,000개 retrieved patient-trial pair
+- `artifacts/health-agent-submission/competition_predictions.json`: 공식 예시 10명에 대한 대회 포맷 출력
+- `artifacts/health-agent-submission/synthetic_predictions_sample.json`: synthetic sample에 대한 동일 스키마 출력
 - `artifacts/health-agent-submission/`: manifest, evaluation summary, labels TSV, demo cases, disclaimer
 
 현재 smoke 지표:
 
-- retrieval target trial recall@30: `0.523`
+- retrieval target trial recall@30: `0.743`
+- retrieval potential recall@30: `0.590`
+- retrieval recommend recall@30: `0.520`
 - candidate pairs: `30,000`
-- K-EXAONE smoke: 2명, top-2, 6 agent calls, HTTP 200 `6/6`
+- K-EXAONE smoke: 1명, top-2, 3 agent calls, HTTP 200 `3/3`
 - LLM valid label rate: `1.0`
-- LLM JSON parse rate: `1.0`
+- LLM JSON parse rate: `0.667`
+- LLM deterministic agreement: `0.5`
 
 ## Codex 작업 순서
 

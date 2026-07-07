@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import html
 import urllib.parse
@@ -65,10 +66,12 @@ def fetch_trials(
     allowed_statuses = statuses or RECRUITING_STATUSES
     seen: set[str] = set()
     studies: list[dict[str, Any]] = []
+    per_condition_limit = max(1, math.ceil(limit / max(1, len(conditions))))
 
     for condition in conditions:
         page_token = ""
-        while len(studies) < limit:
+        condition_count = 0
+        while len(studies) < limit and condition_count < per_condition_limit:
             payload = fetch_studies_page(
                 condition=condition,
                 page_size=page_size,
@@ -85,7 +88,8 @@ def fetch_trials(
                     continue
                 studies.append(study)
                 seen.add(nct_id)
-                if len(studies) >= limit:
+                condition_count += 1
+                if len(studies) >= limit or condition_count >= per_condition_limit:
                     break
             page_token = str(payload.get("nextPageToken") or "")
             if not page_token:
@@ -128,9 +132,12 @@ def normalize_study(study: dict[str, Any]) -> dict[str, Any]:
     nct_id = str(identification.get("nctId") or "")
     criteria = clean_text(eligibility.get("eligibilityCriteria"))
     inclusion, exclusion = split_criteria(criteria)
+    allowed_stages = infer_allowed_stages(criteria)
+    max_ecog = infer_max_ecog(criteria)
     required_biomarkers = infer_required_biomarkers(
         " ".join([criteria, clean_text(identification.get("briefTitle")), clean_text(description.get("briefSummary"))])
     )
+    required_prior_treatments = infer_prior_treatments(criteria)
     excluded_flags = infer_exclusion_flags(criteria)
     return {
         "trial_id": nct_id,
@@ -145,12 +152,17 @@ def normalize_study(study: dict[str, Any]) -> dict[str, Any]:
         "min_age": parse_age_years(eligibility.get("minimumAge")),
         "max_age": parse_age_years(eligibility.get("maximumAge")),
         "sex": normalize_sex(eligibility.get("sex")),
-        "allowed_stages": infer_allowed_stages(criteria),
-        "max_ecog": infer_max_ecog(criteria),
+        "allowed_stages": allowed_stages,
+        "max_ecog": max_ecog,
         "required_biomarkers": required_biomarkers,
-        "required_prior_treatments": infer_prior_treatments(criteria),
+        "required_prior_treatments": required_prior_treatments,
         "excluded_flags": excluded_flags,
-        "required_patient_fields": infer_required_patient_fields(required_biomarkers),
+        "required_patient_fields": infer_required_patient_fields(
+            required_biomarkers=required_biomarkers,
+            required_prior_treatments=required_prior_treatments,
+            allowed_stages=allowed_stages,
+            max_ecog=max_ecog,
+        ),
         "summary": clean_text(description.get("briefSummary")),
         "status": clean_text(status_module.get("overallStatus")),
         "enrollment": get_in(design, "enrollmentInfo", "count"),
@@ -290,10 +302,22 @@ def infer_exclusion_flags(text: str) -> list[str]:
     ]
 
 
-def infer_required_patient_fields(required_biomarkers: dict[str, str]) -> list[str]:
-    fields = ["diagnosis", "stage", "ecog"]
+def infer_required_patient_fields(
+    *,
+    required_biomarkers: dict[str, str],
+    required_prior_treatments: list[str],
+    allowed_stages: list[str],
+    max_ecog: int | None,
+) -> list[str]:
+    fields = ["diagnosis"]
+    if allowed_stages:
+        fields.append("stage")
+    if max_ecog is not None:
+        fields.append("ecog")
     if required_biomarkers:
         fields.append("biomarkers")
+    if required_prior_treatments:
+        fields.append("prior_treatments")
     return fields
 
 

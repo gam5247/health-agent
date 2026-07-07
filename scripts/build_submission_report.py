@@ -13,6 +13,10 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from health_agent.competition import (
+    build_competition_predictions,
+    internal_decision_to_eligibility,
+)
 from health_agent.data import load_patients, load_records, load_trials
 
 
@@ -32,6 +36,13 @@ def main() -> None:
     parser.add_argument("--retrieval-summary", type=Path, default=ROOT / "outputs" / "retrieval_summary.json")
     parser.add_argument("--llm-report", type=Path, default=None)
     parser.add_argument(
+        "--example-patients",
+        type=Path,
+        default=ROOT / "data" / "raw" / "synthetic-patients.json",
+    )
+    parser.add_argument("--prediction-top-k", type=int, default=5)
+    parser.add_argument("--synthetic-prediction-sample", type=int, default=25)
+    parser.add_argument(
         "--output-dir",
         type=Path,
         default=ROOT / "artifacts" / "health-agent-submission",
@@ -41,19 +52,23 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     trials = load_trials(args.trials)
     patients = load_patients(args.patients)
+    example_patients = load_patients(args.example_patients)
     candidates = load_records(args.candidates) if args.candidates.exists() else []
     retrieval_summary = read_json(args.retrieval_summary)
     llm_report = read_json(args.llm_report) if args.llm_report else {}
+    disclaimer = read_text(ROOT / "MEDICAL_DISCLAIMER.md")
     manifest = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "trial_count": len(trials),
         "synthetic_patient_count": len(patients),
+        "official_example_patient_count": len(example_patients),
         "candidate_pair_count": sum(len(row.get("retrieved", [])) for row in candidates),
         "retrieval_summary": retrieval_summary,
         "llm_summary": llm_report.get("summary", {}),
         "source_files": {
             "trials": str(args.trials),
             "patients": str(args.patients),
+            "official_examples": str(args.example_patients),
             "candidates": str(args.candidates),
             "llm_report": str(args.llm_report) if args.llm_report else "",
         },
@@ -62,6 +77,25 @@ def main() -> None:
     write_json(args.output_dir / "manifest.json", manifest)
     write_json(args.output_dir / "evaluation_summary.json", build_evaluation_summary(manifest))
     (args.output_dir / "labels.tsv").write_text(build_labels_tsv(candidates), encoding="utf-8")
+    write_json(
+        args.output_dir / "competition_predictions.json",
+        build_competition_predictions(
+            patients=example_patients,
+            trials=trials,
+            top_k=args.prediction_top_k,
+            disclaimer=disclaimer,
+        ),
+    )
+    write_json(
+        args.output_dir / "synthetic_predictions_sample.json",
+        build_competition_predictions(
+            patients=patients,
+            trials=trials,
+            top_k=args.prediction_top_k,
+            disclaimer=disclaimer,
+            max_patients=args.synthetic_prediction_sample,
+        ),
+    )
     (args.output_dir / "demo_cases.md").write_text(build_demo_cases(candidates[:10]), encoding="utf-8")
     (args.output_dir / "README.md").write_text(build_readme(manifest), encoding="utf-8")
     copy_if_exists(ROOT / "MEDICAL_DISCLAIMER.md", args.output_dir / "MEDICAL_DISCLAIMER.md")
@@ -72,6 +106,12 @@ def read_json(path: Path | None) -> dict:
     if path is None or not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def read_text(path: Path) -> str:
+    if not path.exists():
+        return "Synthetic software evaluation only; not medical advice."
+    return path.read_text(encoding="utf-8")
 
 
 def write_json(path: Path, value: dict) -> None:
@@ -94,18 +134,22 @@ def build_evaluation_summary(manifest: dict) -> dict:
 
 
 def build_labels_tsv(candidates: list[dict]) -> str:
-    lines = ["PATIENT_ID\tTRIAL_ID\tBASELINE_LABEL\tBASELINE_SCORE\tRANK"]
+    lines = [
+        "PATIENT_ID\tTRIAL_ID\tELIGIBILITY\tINTERNAL_BASELINE_LABEL\tBASELINE_SCORE\tRANK"
+    ]
     for row in candidates:
         labels = {item["trial_id"]: item for item in row.get("baseline_labels", [])}
         for rank, retrieved in enumerate(row.get("retrieved", []), start=1):
             trial_id = retrieved.get("trial_id", "")
             label = labels.get(trial_id, {})
+            internal_label = str(label.get("decision", ""))
             lines.append(
                 "\t".join(
                     [
                         str(row.get("patient_id", "")),
                         str(trial_id),
-                        str(label.get("decision", "")),
+                        internal_decision_to_eligibility(internal_label),
+                        internal_label,
                         str(label.get("score", "")),
                         str(rank),
                     ]
@@ -154,9 +198,17 @@ def build_readme(manifest: dict) -> str:
             "",
             "- `manifest.json`: run metadata and source paths",
             "- `evaluation_summary.json`: retrieval and LLM summary metrics",
-            "- `labels.tsv`: deterministic baseline labels for retrieved pairs",
+            "- `labels.tsv`: competition eligibility labels for retrieved pairs",
+            "- `competition_predictions.json`: official example patient outputs with criterion-level evidence",
+            "- `synthetic_predictions_sample.json`: scaled synthetic sample outputs with the same schema",
             "- `demo_cases.md`: patient-level demo cases",
             "- `MEDICAL_DISCLAIMER.md`: required medical disclaimer",
+            "",
+            "Validation:",
+            "",
+            "```bash",
+            "python scripts/validate_submission_artifact.py",
+            "```",
             "",
             "This artifact is for research prototyping only and is not medical advice.",
             "",

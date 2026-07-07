@@ -12,6 +12,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from health_agent.clinicaltrials import normalize_study
+from health_agent.competition import build_competition_predictions
 from health_agent.data import load_patients, load_trials, write_jsonl
 from health_agent.models import Trial
 from health_agent.synthetic import generate_synthetic_patients
@@ -49,6 +50,32 @@ class CompetitionPipelineTests(unittest.TestCase):
         self.assertIn("EGFR", trial["required_biomarkers"])
         self.assertIn("IV", trial["allowed_stages"])
         self.assertIn("untreated_brain_metastases", trial["excluded_flags"])
+        self.assertIn("stage", trial["required_patient_fields"])
+        self.assertIn("ecog", trial["required_patient_fields"])
+
+    def test_general_trial_does_not_require_oncology_fields(self) -> None:
+        study = {
+            "protocolSection": {
+                "identificationModule": {"nctId": "NCT456", "briefTitle": "Migraine trial"},
+                "descriptionModule": {"briefSummary": "Migraine prevention."},
+                "statusModule": {"overallStatus": "RECRUITING"},
+                "conditionsModule": {"conditions": ["Migraine With Aura"]},
+                "designModule": {"phases": ["PHASE2"]},
+                "armsInterventionsModule": {"interventions": [{"name": "drug"}]},
+                "eligibilityModule": {
+                    "minimumAge": "18 Years",
+                    "sex": "ALL",
+                    "eligibilityCriteria": """
+                    Inclusion Criteria:
+                    Diagnosis of migraine with aura.
+                    Exclusion Criteria:
+                    Significant uncontrolled cardiac disease.
+                    """,
+                },
+            }
+        }
+        trial = normalize_study(study)
+        self.assertEqual(trial["required_patient_fields"], ["diagnosis"])
 
     def test_jsonl_loader_supports_processed_records(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -93,7 +120,49 @@ class CompetitionPipelineTests(unittest.TestCase):
         self.assertTrue(all(record["target_trial_id"] == "T1" for record in records))
         self.assertTrue(all(record["clinical_note"] for record in records))
 
+    def test_synthetic_generator_does_not_make_non_oncology_metastatic(self) -> None:
+        trial = Trial(
+            trial_id="T2",
+            title="Acute pancreatitis trial",
+            phase="Phase 2",
+            conditions=["Acute Pancreatitis"],
+            interventions=["supportive care"],
+            min_age=18,
+            max_age=None,
+            sex="all",
+            allowed_stages=[],
+            max_ecog=None,
+            required_biomarkers={},
+            required_prior_treatments=[],
+            excluded_flags=[],
+            required_patient_fields=["diagnosis"],
+        )
+        records = generate_synthetic_patients([trial], count=1, seed=1)
+        self.assertEqual(records[0]["diagnosis"], "acute pancreatitis")
+
+    def test_competition_predictions_use_required_label_sets(self) -> None:
+        patients = load_patients(ROOT / "data" / "raw" / "oncology-synthetic-patients.json")
+        trials = load_trials(ROOT / "data" / "raw" / "sample-trials.json")
+        report = build_competition_predictions(
+            patients=patients[:1],
+            trials=trials,
+            top_k=2,
+            disclaimer="Synthetic testing only.",
+        )
+        self.assertEqual(report["schema_version"], "health-agent-competition-v1")
+        recommendation = report["patients"][0]["recommendations"][0]
+        self.assertIn(recommendation["eligibility"], {"eligible", "ineligible", "uncertain"})
+        statuses = {
+            item["status"]
+            for item in recommendation["criterion_results"]
+        }
+        self.assertTrue(statuses)
+        self.assertLessEqual(
+            statuses,
+            {"satisfied", "violated", "unknown", "not_applicable"},
+        )
+        self.assertIn("follow_up_questions", recommendation)
+
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -16,14 +16,16 @@ from health_agent.data import write_jsonl
 
 
 DEFAULT_CONDITIONS = [
-    "non-small cell lung cancer",
-    "breast cancer",
-    "colorectal cancer",
-    "melanoma",
-    "acute myeloid leukemia",
-    "prostate cancer",
-    "ovarian cancer",
-    "renal cell carcinoma",
+    "acute pancreatitis",
+    "Graves disease",
+    "nephrotic syndrome",
+    "bladder cancer",
+    "migraine with aura",
+    "mucormycosis",
+    "hypertrophic pyloric stenosis",
+    "idiopathic pulmonary fibrosis",
+    "infectious mononucleosis",
+    "retinal detachment",
 ]
 
 
@@ -71,4 +73,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

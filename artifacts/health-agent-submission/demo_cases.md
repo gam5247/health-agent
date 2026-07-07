@@ -2,120 +2,120 @@
 
 ## SYN-GEN-00001
 
-Oncology referral note: SYN-GEN-00001 is a 71-year-old male with metastatic nsclc stage iv. Stage is recorded as III. ECOG performance status is 0. Molecular testing results are not available in the note. Prior therapy includes platinum chemotherapy. No active interstitial lung disease is reported. No uncontrolled cardiac disease is reported. No organ transplant is reported. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart.
+Oncology referral note: SYN-GEN-00001 is a 44-year-old male with acute pancreatitis. No formal stage is documented. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No organ transplant is reported. The patient receives care in CA. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.705 |
-| 2 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.579 |
-| 3 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.673 |
-| 4 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.673 |
-| 5 | NCT06907615 | A Phase II Clinical Study to Evaluate HLX43 in Subjects With Advanced Non-small Cell Lung Cancer (NSCLC) | not_recommended | 0.732 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.483 |
+| 2 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.425 |
+| 3 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.445 |
+| 4 | NCT07153809 | Fecal Microbiota Transplantation (FMT) in Patients With Moderate to Severe Acute Pancreatitis | needs_more_info | 0.783 |
+| 5 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.508 |
 
 ## SYN-GEN-00002
 
-Tumor board intake: SYN-GEN-00002 is a 34-year-old female with metastatic non-small cell lung cancer. Stage is recorded as IV. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No active interstitial lung disease is reported. No active autoimmune disease is reported. No uncontrolled cardiac disease is reported. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart.
+Tumor board intake: SYN-GEN-00002 is a 73-year-old female with post-ercp acute pancreatitis. Stage is recorded as III. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No uncontrolled cardiac disease is reported. The patient receives care in NY. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.64 |
-| 2 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.604 |
-| 3 | NCT05841472 | Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.646 |
-| 4 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.523 |
-| 5 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.614 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.464 |
+| 2 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.489 |
+| 3 | NCT03215862 | Lactated Ringer's Solution to Prevent Post-ERCP Pancreatitis | recommend | 1.0 |
+| 4 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.617 |
+| 5 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.333 |
 
 ## SYN-GEN-00003
 
-Oncology referral note: SYN-GEN-00003 is a 76-year-old female with metastatic non-small cell lung cancer. Stage is recorded as IV. ECOG performance status is 0. Molecular testing shows EGFR positive. No prior systemic therapy is listed in the referral. The note reports active interstitial lung disease. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart.
+Oncology referral note: SYN-GEN-00003 is a 21-year-old female with sepsis. Stage is recorded as IV. ECOG performance status is 2. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in TX. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.561 |
-| 2 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.496 |
-| 3 | NCT05841472 | Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.523 |
-| 4 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.44 |
-| 5 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.44 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.495 |
+| 2 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.667 |
+| 3 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.417 |
+| 4 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.342 |
+| 5 | NCT04916990 | Improving Care for Rural Patients With Solid Tumors | not_recommended | 0.667 |
 
 ## SYN-GEN-00004
 
-Tumor board intake: SYN-GEN-00004 is a 80-year-old female with metastatic bronchial cancer. Stage is recorded as I. ECOG performance status is 2. Molecular testing results are not available in the note. Prior therapy includes platinum chemotherapy. No explicit exclusion comorbidities are addressed. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart.
+Tumor board intake: SYN-GEN-00004 is a 20-year-old female with metastatic pancreatic ductal adenocarcinoma (mpdac). Stage is recorded as I. ECOG performance status is 2. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in WA. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.41 |
-| 2 | NCT06907615 | A Phase II Clinical Study to Evaluate HLX43 in Subjects With Advanced Non-small Cell Lung Cancer (NSCLC) | not_recommended | 0.464 |
-| 3 | NCT05624996 | Testing the Addition of High Dose, Targeted Radiation to the Usual Treatment for Locally-Advanced Inoperable Non-Small Cell Lung Cancer | not_recommended | 0.45 |
-| 4 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.314 |
-| 5 | NCT06704620 | Study of Tislelizumab and Platinum-based Chemotherapy Combination With H1 Receptor AntagonistDiphenhydraminein Advanced and Metastatic Non-Small Cell Lung Cancer | not_recommended | 0.288 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.495 |
+| 2 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.417 |
+| 3 | NCT06861244 | Embryonal Tumor With Multilayered Rosettes | not_recommended | 0.175 |
+| 4 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.333 |
+| 5 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.342 |
 
 ## SYN-GEN-00005
 
-Oncology referral note: SYN-GEN-00005 is a 57-year-old male with metastatic epithelial tumors, malignant. Stage is recorded as IV. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No active interstitial lung disease is reported. No active autoimmune disease is reported. No uncontrolled cardiac disease is reported. No active uncontrolled infection is reported. No organ transplant is reported. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart.
+Oncology referral note: SYN-GEN-00005 is a 56-year-old male with acute pancreatitis (ap). No formal stage is documented. ECOG performance status is 3. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in MA. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.625 |
-| 2 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.77 |
-| 3 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.732 |
-| 4 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.641 |
-| 5 | NCT05815173 | Ladarixin With Sotorasib in Advanced NSCLC | not_recommended | 0.671 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.346 |
+| 2 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.425 |
+| 3 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.345 |
+| 4 | NCT06401577 | Diabetes RElated to Acute Pancreatitis and Its Mechanisms: Metabolic Outcomes Using Novel CGM Metrics | needs_more_info | 0.783 |
+| 5 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.342 |
 
 ## SYN-GEN-00006
 
-Tumor board intake: SYN-GEN-00006 is a 71-year-old female with relapsed acute myeloid leukemia. Stage is recorded as IV. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in IL. The note is a synthetic record created for software testing, not a real patient chart.
+Tumor board intake: SYN-GEN-00006 is a 40-year-old male with relapsed acute myeloid leukemia. Stage is recorded as III. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in IL. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.393 |
-| 2 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.51 |
-| 3 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.405 |
-| 4 | NCT06907615 | A Phase II Clinical Study to Evaluate HLX43 in Subjects With Advanced Non-small Cell Lung Cancer (NSCLC) | not_recommended | 0.495 |
-| 5 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.495 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.405 |
+| 2 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.508 |
+| 3 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.417 |
+| 4 | NCT07012447 | Venetoclax + Azacytidine for Newly Diagnosed ETP-like ALL and T-ALL With Myeloid Mutations | needs_more_info | 0.783 |
+| 5 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.333 |
 
 ## SYN-GEN-00007
 
-Oncology referral note: SYN-GEN-00007 is a 66-year-old female with metastatic local advanced non-small cell lung cancer. Stage is recorded as IV. ECOG performance status is not documented. Molecular testing shows ALK positive, EGFR positive. No prior systemic therapy is listed in the referral. No active interstitial lung disease is reported. No uncontrolled cardiac disease is reported. No active uncontrolled infection is reported. No organ transplant is reported. The patient receives care in FL. The note is a synthetic record created for software testing, not a real patient chart.
+Oncology referral note: SYN-GEN-00007 is a 39-year-old male with acute pancreatitis. Stage is recorded as III. ECOG performance status is not documented. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in FL. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.696 |
-| 2 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.77 |
-| 3 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.7 |
-| 4 | NCT05841472 | Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.7 |
-| 5 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.7 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.346 |
+| 2 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.333 |
+| 3 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.345 |
+| 4 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.393 |
+| 5 | NCT07447102 | Phase II Clinical Study of BC006 in Patients With Idiopathic Pulmonary Fibrosis | not_recommended | 0.21 |
 
 ## SYN-GEN-00008
 
-Tumor board intake: SYN-GEN-00008 is a 64-year-old male with metastatic advanced or metastatic non-small cell lung cancer. Stage is recorded as IV. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No active interstitial lung disease is reported. The patient receives care in PA. The note is a synthetic record created for software testing, not a real patient chart.
+Tumor board intake: SYN-GEN-00008 is a 66-year-old female with severe hypertriglyceridemia with a high risk of acute pancreatitis. No formal stage is documented. ECOG performance status is 0. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No uncontrolled cardiac disease is reported. The patient receives care in PA. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.575 |
-| 2 | NCT05841472 | Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.537 |
-| 3 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.439 |
-| 4 | NCT06907615 | A Phase II Clinical Study to Evaluate HLX43 in Subjects With Advanced Non-small Cell Lung Cancer (NSCLC) | needs_more_info | 0.645 |
-| 5 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.464 |
+| 1 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.51 |
+| 2 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.483 |
+| 3 | NCT07308392 | Phase II Clinical Trial Evaluating the Efficacy and Safety of HRS-7249 and SHR-1918 in Patients With Severe Hypertriglyceridemia at High Risk of Acute Pancreatitis | recommend | 1.0 |
+| 4 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.617 |
+| 5 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.425 |
 
 ## SYN-GEN-00009
 
-Oncology referral note: SYN-GEN-00009 is a 56-year-old female with metastatic stage iii lung cancer ajcc v8. Stage is recorded as III. ECOG performance status is 1. Molecular testing shows ALK positive, EGFR positive. No prior systemic therapy is listed in the referral. No active interstitial lung disease is reported. No uncontrolled cardiac disease is reported. No active uncontrolled infection is reported. No organ transplant is reported. The patient receives care in CO. The note is a synthetic record created for software testing, not a real patient chart.
+Oncology referral note: SYN-GEN-00009 is a 64-year-old male with acute pancreatitis. Stage is recorded as IV. ECOG performance status is 2. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No active autoimmune disease is reported. The patient receives care in CO. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | recommend | 1.0 |
-| 2 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | recommend | 1.0 |
-| 3 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.619 |
-| 4 | NCT07087223 | Phase Ib/II Study of Vebreltinib With Furmonertinib in NSCLC Patients With c-Met Amplification After EGFR-TKI Failure | not_recommended | 0.8 |
-| 5 | NCT05841472 | Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.791 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.555 |
+| 2 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.489 |
+| 3 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.45 |
+| 4 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.667 |
+| 5 | NCT05944237 | HTL0039732 in Participants With Advanced Solid Tumours | not_recommended | 0.617 |
 
 ## SYN-GEN-00010
 
-Tumor board intake: SYN-GEN-00010 is a 64-year-old male with metastatic lung cancer (nsclc). Stage is recorded as III. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in AZ. The note is a synthetic record created for software testing, not a real patient chart.
+Tumor board intake: SYN-GEN-00010 is a 55-year-old male with cholecystectomy. No formal stage is documented. ECOG performance status is 1. Molecular testing results are not available in the note. No prior systemic therapy is listed in the referral. No explicit exclusion comorbidities are addressed. The patient receives care in AZ. The note is a synthetic record created for software testing, not a real patient chart.
 
 | Rank | Trial ID | Title | Baseline Label | Score |
 |---:|---|---|---|---:|
-| 1 | NCT05198830 | Testing the Addition of an Anti-Cancer Drug, TRC102, to the Usual Chemotherapy Treatment (Pemetrexed, Cisplatin or Carboplatin) During Radiation Therapy for Stage III Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.51 |
-| 2 | NCT06908733 | Integrating Surgery and Radiotherapy Following Tislelizumab-based Conversion Therapy in N3-Stage III NSCLC | not_recommended | 0.321 |
-| 3 | NCT04892953 | Local Consolidative Therapy and Durvalumab for Oligoprogressive and Polyprogressive Stage III NSCLC After Chemoradiation and Anti-PD-L1 Therapy | not_recommended | 0.495 |
-| 4 | NCT06907615 | A Phase II Clinical Study to Evaluate HLX43 in Subjects With Advanced Non-small Cell Lung Cancer (NSCLC) | not_recommended | 0.495 |
-| 5 | NCT05841472 | Anti-PD-1 Antibody Therapies of Camrelizumab in Combination With Pemetrexed and Carboplatin as First-line Treatment in Patients With Advanced or Metastatic Non-Squamous Non-Small Cell Lung Cancer | not_recommended | 0.483 |
+| 1 | NCT03237780 | Atezolizumab With or Without Eribulin Mesylate in Treating Patients With Recurrent Locally Advanced or Metastatic Urothelial Cancer | not_recommended | 0.429 |
+| 2 | NCT04724018 | Sacituzumab Govitecan Plus EV in Metastatic UC | not_recommended | 0.445 |
+| 3 | NCT07091617 | Testing an Enhanced Digital Delivery Model for Inherited Cancer Genetic Testing in Young Adults With Cancer | not_recommended | 0.425 |
+| 4 | NCT06830031 | Clinical Study of C402-CD19-CAR Treatment in Subjects With Relapsed or Refractory B-cell Lymphoma | not_recommended | 0.508 |
+| 5 | NCT06861244 | Embryonal Tumor With Multilayered Rosettes | not_recommended | 0.28 |

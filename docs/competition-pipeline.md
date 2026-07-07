@@ -28,7 +28,8 @@ python scripts/run_competition_pipeline.py \
 ## Pipeline Stages
 
 1. `scripts/collect_trials.py`
-   - Collects public oncology trial records from ClinicalTrials.gov API v2.
+   - Collects public trial records from ClinicalTrials.gov API v2.
+   - Default condition queries are aligned to the official example topics.
    - Writes normalized records to `data/processed/trials.jsonl`.
    - Stores raw API pages under `data/raw/clinicaltrials/`, which is ignored by git.
 
@@ -47,30 +48,34 @@ python scripts/run_competition_pipeline.py \
 
 5. `scripts/build_submission_report.py`
    - Builds `artifacts/health-agent-submission/`.
-   - Includes manifest, summary metrics, labels TSV, demo cases, and disclaimer.
+   - Includes manifest, summary metrics, labels TSV, official example
+     predictions, synthetic prediction samples, demo cases, and disclaimer.
 
 ## Current Artifact Scale
 
-- Trials: 120
+- Trials: 116
+- Official example patients: 10
 - Synthetic patients: 1,000
 - Retrieved patient-trial pairs: 30,000
-- K-EXAONE smoke: 2 patients, top-2, 6 agent calls
+- K-EXAONE smoke: 1 patient, top-2, 3 agent calls
 
 ## Current Metrics
 
-- Retrieval target trial recall@30: 0.523
-- Retrieval potential recall@30: 0.218
-- Retrieval recommend recall@30: 0.095
-- K-EXAONE HTTP 200 rate in smoke test: 6/6
+- Retrieval target trial recall@30: 0.743
+- Retrieval potential recall@30: 0.590
+- Retrieval recommend recall@30: 0.520
+- K-EXAONE HTTP 200 rate in smoke test: 3/3
 - LLM valid label rate in smoke test: 1.0
-- LLM JSON parse rate in smoke test: 1.0
-- LLM deterministic agreement in smoke test: 1.0
+- LLM JSON parse rate in smoke test: 0.667
+- LLM deterministic agreement in smoke test: 0.5
+- Official example predictions: 10 patients, top-5 recommendations each,
+  5 eligible / 7 uncertain / 38 ineligible recommendation labels.
 
 ## Interpretation
 
 The artifact is a reproducible competition-style slice, not a clinical
-validation set. The most important current bottleneck is retrieval quality:
-target trial recall improves with a wider top-k, but lexical retrieval is still
-weak for many similar oncology protocols. The next improvement should be a
-hybrid condition/biomarker metadata filter before BM25, then batch matcher
-prompts to reduce K-EXAONE latency.
+validation set. The current bottlenecks are retrieval quality for sparse
+conditions, criterion extraction from free-text protocols, and K-EXAONE JSON
+stability. The next improvement should be a stronger condition metadata filter
+before BM25, then batch matcher prompts with strict line-protocol outputs to
+reduce K-EXAONE latency and parse failures.

@@ -6,37 +6,37 @@
     "Deterministic baseline disagreement, missing information, and low confidence should enter human review."
   ],
   "llm": {
-    "agentCalls": 6,
-    "agreementRate": 1.0,
+    "agentCalls": 3,
+    "agreementRate": 0.5,
     "dryRun": false,
-    "elapsedSec": 43.711,
-    "evaluatedPatients": 2,
+    "elapsedSec": 120.565,
+    "evaluatedPatients": 1,
     "failedAgentCalls": 0,
     "fallbackLabelRate": 0.0,
-    "jsonParseRate": 1.0,
-    "labelCount": 4,
-    "p50AgentLatencyMs": 13408,
-    "p95AgentLatencyMs": 14513,
+    "jsonParseRate": 0.667,
+    "labelCount": 2,
+    "p50AgentLatencyMs": 37722,
+    "p95AgentLatencyMs": 37722,
     "retryAfterValues": [],
     "statuses": {
-      "200": 6
+      "200": 3
     },
     "syntheticPatients": 1000,
-    "syntheticTrials": 120,
+    "syntheticTrials": 116,
     "topK": 2,
-    "validLabelCount": 4,
+    "validLabelCount": 2,
     "validLabelRate": 1.0
   },
   "retrieval": {
     "candidatePairs": 30000,
-    "outputPath": "outputs\\retrieval_candidates.jsonl",
+    "outputPath": "C:\\Users\\kll45\\OneDrive\\\ubb38\uc11c\\\ud5ec\uc2a4 \uc5d0\uc774\uc804\ud2b8\\outputs\\retrieval_candidates.jsonl",
     "patients": 1000,
-    "potentialRecallAtK": 0.218,
-    "recommendRecallAtK": 0.095,
-    "targetTrialRecallAtK": 0.523,
+    "potentialRecallAtK": 0.59,
+    "recommendRecallAtK": 0.52,
+    "targetTrialRecallAtK": 0.743,
     "topK": 30,
-    "trials": 120
+    "trials": 116
   },
   "synthetic_patient_count": 1000,
-  "trial_count": 120
+  "trial_count": 116
 }

@@ -26,6 +26,16 @@ def load_records(path: Path) -> list[dict[str, Any]]:
         return payload
     if isinstance(payload, dict) and isinstance(payload.get("records"), list):
         return payload["records"]
+    if isinstance(payload, dict) and isinstance(payload.get("topics"), list):
+        return [
+            {
+                "patient_id": str(item.get("num") or item.get("id") or index),
+                "clinical_note": str(item.get("title") or ""),
+                "source_topic": item,
+            }
+            for index, item in enumerate(payload["topics"], start=1)
+            if isinstance(item, dict)
+        ]
     raise ValueError(f"Expected a list or JSONL records in {path}")
 
 

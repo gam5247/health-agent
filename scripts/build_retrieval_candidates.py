@@ -12,6 +12,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from health_agent.data import load_patients, load_trials, write_jsonl
+from health_agent.competition import internal_decision_to_eligibility
 from health_agent.orchestrator import patient_to_clinical_note
 from health_agent.rag import build_rag_index, retrieve_trials
 from health_agent.scoring import evaluate_trial
@@ -91,6 +92,9 @@ def main() -> None:
                     {
                         "trial_id": item.trial.trial_id,
                         "decision": evaluate_trial(patient, item.trial).decision,
+                        "eligibility": internal_decision_to_eligibility(
+                            evaluate_trial(patient, item.trial).decision
+                        ),
                         "score": evaluate_trial(patient, item.trial).score,
                     }
                     for item in retrieved

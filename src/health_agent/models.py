@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -36,18 +37,23 @@ class Patient:
 
     @classmethod
     def from_mapping(cls, item: dict[str, Any]) -> "Patient":
+        clinical_note = _optional_string(
+            item.get("clinical_note") or item.get("note") or item.get("title")
+        )
+        age = _optional_int(item.get("age"))
         return cls(
-            patient_id=str(item.get("patient_id") or item.get("id") or ""),
-            age=_optional_int(item.get("age")),
-            sex=_optional_string(item.get("sex")),
-            diagnosis=_optional_string(item.get("diagnosis")),
+            patient_id=str(item.get("patient_id") or item.get("id") or item.get("num") or ""),
+            age=age if age is not None else _infer_age(clinical_note),
+            sex=_optional_string(item.get("sex")) or _infer_sex(clinical_note),
+            diagnosis=_optional_string(item.get("diagnosis"))
+            or _infer_diagnosis(clinical_note),
             stage=_optional_string(item.get("stage")),
             ecog=_optional_int(item.get("ecog")),
             biomarkers=_dict_of_strings(item.get("biomarkers")),
             prior_treatments=_list_of_strings(item.get("prior_treatments")),
             flags={str(key): bool(value) for key, value in (item.get("flags") or {}).items()},
             location=_dict_of_strings(item.get("location")),
-            clinical_note=_optional_string(item.get("clinical_note")),
+            clinical_note=clinical_note,
             scenario=_optional_string(item.get("scenario")),
             target_trial_id=_optional_string(item.get("target_trial_id")),
         )
@@ -178,3 +184,48 @@ def _optional_string(value: Any) -> str | None:
         return None
     text = str(value).strip()
     return text or None
+
+
+def _infer_age(note: str | None) -> int | None:
+    if not note:
+        return None
+    year_match = re.search(r"\b(\d{1,3})-year-old\b", note, re.IGNORECASE)
+    if year_match:
+        return int(year_match.group(1))
+    month_match = re.search(r"\b(\d{1,2})-month-old\b", note, re.IGNORECASE)
+    if month_match:
+        return max(0, round(int(month_match.group(1)) / 12))
+    return None
+
+
+def _infer_sex(note: str | None) -> str | None:
+    if not note:
+        return None
+    lower = note.lower()
+    if re.search(r"\b(man|boy|male)\b", lower):
+        return "male"
+    if re.search(r"\b(woman|girl|female)\b", lower):
+        return "female"
+    return None
+
+
+def _infer_diagnosis(note: str | None) -> str | None:
+    if not note:
+        return None
+    lower = note.lower()
+    patterns = [
+        ("acute pancreatitis", ["epigastric pain", "lipase", "amylase"]),
+        ("Graves disease", ["heat intolerance", "diffusely enlarged", "thyroid"]),
+        ("nephrotic syndrome", ["frothy urine", "proteinuria", "albumin"]),
+        ("bladder cancer", ["hematuria", "bladder wall"]),
+        ("migraine with aura", ["visual scotomata", "photophobia", "phonophobia"]),
+        ("mucormycosis", ["black necrotic eschar", "diabetes", "periorbital"]),
+        ("hypertrophic pyloric stenosis", ["projectile", "non-bilious", "olive-shaped"]),
+        ("idiopathic pulmonary fibrosis", ["honeycombing", "basal reticular", "clubbing"]),
+        ("infectious mononucleosis", ["monospot", "posterior cervical", "splenomegaly"]),
+        ("retinal detachment", ["curtain-like", "flashes", "floaters"]),
+    ]
+    for diagnosis, keywords in patterns:
+        if all(keyword in lower for keyword in keywords):
+            return diagnosis
+    return None

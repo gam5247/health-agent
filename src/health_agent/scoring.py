@@ -49,7 +49,7 @@ def _condition_evidence(patient: Patient, trial: Trial) -> list[MatchEvidence]:
     diagnosis = _norm(patient.diagnosis)
     for condition in trial.conditions:
         condition_norm = _norm(condition)
-        if condition_norm in diagnosis or diagnosis in condition_norm:
+        if _condition_matches(diagnosis, condition_norm):
             return [
                 MatchEvidence(
                     "condition",
@@ -288,8 +288,43 @@ def _biomarker_matches(observed: str, required: str) -> bool:
     return observed_norm in options
 
 
+def _condition_matches(diagnosis: str, condition: str) -> bool:
+    if condition in diagnosis or diagnosis in condition:
+        return True
+    diagnosis_tokens = _condition_tokens(diagnosis)
+    condition_tokens = _condition_tokens(condition)
+    return bool(diagnosis_tokens and diagnosis_tokens & condition_tokens)
+
+
+def _condition_tokens(value: str) -> set[str]:
+    generic = {
+        "adult",
+        "adults",
+        "cancer",
+        "chronic",
+        "children",
+        "disease",
+        "diseases",
+        "disorder",
+        "disorders",
+        "headache",
+        "headaches",
+        "idiopathic",
+        "pediatric",
+        "primary",
+        "pulmonary",
+        "syndrome",
+        "with",
+        "without",
+    }
+    return {
+        token
+        for token in value.split()
+        if len(token) > 3 and token not in generic
+    }
+
+
 def _norm(value: str | None) -> str:
     if value is None:
         return ""
     return str(value).strip().lower().replace("-", " ")
-

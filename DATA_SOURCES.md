@@ -33,13 +33,19 @@ where allowed by the competition rules:
 
 ## Current Processed Dataset
 
-- `data/processed/trials.jsonl`: 120 oncology-focused trial records collected
-  from ClinicalTrials.gov API v2 through `scripts/collect_trials.py`.
+- `data/processed/trials.jsonl`: 116 trial records collected from
+  ClinicalTrials.gov API v2 through `scripts/collect_trials.py`. The current
+  condition queries are aligned to the official example topics: acute
+  pancreatitis, Graves disease, nephrotic syndrome, bladder cancer, migraine
+  with aura, mucormycosis, hypertrophic pyloric stenosis, idiopathic pulmonary
+  fibrosis, infectious mononucleosis, and retinal detachment.
 - `data/processed/synthetic_patients.jsonl`: 1,000 synthetic patient notes
   generated from normalized trial criteria. These are synthetic software test
   records, not real patients.
 - `artifacts/health-agent-submission/`: scaled competition artifact generated
-  from the processed trial and synthetic patient files.
+  from the processed trial, synthetic patient files, and official example
+  topics. The bundle includes `competition_predictions.json` with official
+  example outputs in the required eligibility and criterion-level label sets.
 
 Raw ClinicalTrials.gov API pages are written to `data/raw/clinicaltrials/` for
 local inspection and are intentionally ignored by git.
