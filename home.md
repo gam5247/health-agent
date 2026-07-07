@@ -1,3 +1,0 @@
-# health-agent
-
-Project scaffold.

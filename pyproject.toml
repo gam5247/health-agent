@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "health-agent"
+version = "0.1.0"
+description = "Explainable multi-agent scaffold for clinical trial matching."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Health Agent Contributors" }
+]
+dependencies = []
+
+[project.scripts]
+health-agent-demo = "health_agent.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/health_agent"]
+

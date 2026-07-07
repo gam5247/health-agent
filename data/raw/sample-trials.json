@@ -1,0 +1,98 @@
+[
+  {
+    "trial_id": "NCT-SAMPLE-001",
+    "title": "Targeted Therapy for EGFR-Mutated Advanced NSCLC",
+    "phase": "Phase 2",
+    "conditions": ["non-small cell lung cancer", "NSCLC"],
+    "interventions": ["osimertinib"],
+    "min_age": 18,
+    "max_age": null,
+    "sex": "all",
+    "allowed_stages": ["IV"],
+    "max_ecog": 2,
+    "required_biomarkers": {
+      "EGFR": "L858R_or_exon19del"
+    },
+    "required_prior_treatments": [],
+    "excluded_flags": ["untreated_brain_metastases", "active_interstitial_lung_disease"],
+    "required_patient_fields": ["diagnosis", "stage", "ecog", "biomarkers"],
+    "summary": "Sample protocol for advanced EGFR-mutated non-small cell lung cancer."
+  },
+  {
+    "trial_id": "NCT-SAMPLE-002",
+    "title": "BRAF/MEK Combination for BRAF V600E Melanoma",
+    "phase": "Phase 3",
+    "conditions": ["melanoma"],
+    "interventions": ["braf inhibitor", "mek inhibitor"],
+    "min_age": 18,
+    "max_age": null,
+    "sex": "all",
+    "allowed_stages": ["III", "IV"],
+    "max_ecog": 1,
+    "required_biomarkers": {
+      "BRAF": "V600E"
+    },
+    "required_prior_treatments": [],
+    "excluded_flags": ["active_autoimmune_disease"],
+    "required_patient_fields": ["diagnosis", "stage", "ecog", "biomarkers"],
+    "summary": "Sample protocol for BRAF V600E melanoma."
+  },
+  {
+    "trial_id": "NCT-SAMPLE-003",
+    "title": "HER2-Directed Therapy for Metastatic Breast Cancer",
+    "phase": "Phase 2",
+    "conditions": ["breast cancer"],
+    "interventions": ["anti-HER2 antibody drug conjugate"],
+    "min_age": 18,
+    "max_age": null,
+    "sex": "all",
+    "allowed_stages": ["IV"],
+    "max_ecog": 2,
+    "required_biomarkers": {
+      "HER2": "positive"
+    },
+    "required_prior_treatments": ["trastuzumab"],
+    "excluded_flags": ["uncontrolled_cardiac_disease"],
+    "required_patient_fields": ["diagnosis", "stage", "ecog", "biomarkers", "prior_treatments"],
+    "summary": "Sample protocol for HER2-positive metastatic breast cancer."
+  },
+  {
+    "trial_id": "NCT-SAMPLE-004",
+    "title": "Immunotherapy for MSI-H Solid Tumors",
+    "phase": "Phase 2",
+    "conditions": ["solid tumor", "colorectal cancer", "endometrial cancer"],
+    "interventions": ["pd-1 inhibitor"],
+    "min_age": 18,
+    "max_age": null,
+    "sex": "all",
+    "allowed_stages": ["III", "IV"],
+    "max_ecog": 2,
+    "required_biomarkers": {
+      "MSI": "MSI-H"
+    },
+    "required_prior_treatments": [],
+    "excluded_flags": ["active_autoimmune_disease", "organ_transplant"],
+    "required_patient_fields": ["diagnosis", "stage", "ecog", "biomarkers"],
+    "summary": "Sample basket protocol for MSI-H advanced solid tumors."
+  },
+  {
+    "trial_id": "NCT-SAMPLE-005",
+    "title": "FLT3 Inhibitor for Relapsed or Refractory AML",
+    "phase": "Phase 1/2",
+    "conditions": ["acute myeloid leukemia", "AML"],
+    "interventions": ["flt3 inhibitor"],
+    "min_age": 18,
+    "max_age": 75,
+    "sex": "all",
+    "allowed_stages": [],
+    "max_ecog": 2,
+    "required_biomarkers": {
+      "FLT3": "ITD_or_TKD"
+    },
+    "required_prior_treatments": ["induction chemotherapy"],
+    "excluded_flags": ["active_uncontrolled_infection"],
+    "required_patient_fields": ["diagnosis", "ecog", "biomarkers", "prior_treatments"],
+    "summary": "Sample protocol for FLT3-mutated relapsed or refractory AML."
+  }
+]
+

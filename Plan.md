@@ -1,3 +1,0 @@
-# Plan
-
-Build a project.
