@@ -27,3 +27,16 @@ where allowed by the competition rules:
 - Store citation spans for protocol-derived eligibility criteria when possible.
 - Do not ingest real patient records into this repository without a documented
   privacy, consent, retention, and access-control plan.
+
+## Current Processed Dataset
+
+- `data/processed/trials.jsonl`: 120 oncology-focused trial records collected
+  from ClinicalTrials.gov API v2 through `scripts/collect_trials.py`.
+- `data/processed/synthetic_patients.jsonl`: 1,000 synthetic patient notes
+  generated from normalized trial criteria. These are synthetic software test
+  records, not real patients.
+- `artifacts/health-agent-submission/`: scaled competition artifact generated
+  from the processed trial and synthetic patient files.
+
+Raw ClinicalTrials.gov API pages are written to `data/raw/clinicaltrials/` for
+local inspection and are intentionally ignored by git.

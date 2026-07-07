@@ -1,0 +1,42 @@
+{
+  "candidate_pair_count": 30000,
+  "interpretation": [
+    "This is a scaled-down competition artifact, not a clinical validation set.",
+    "LLM labels are silver-label drafts and must be reviewed for clinical use.",
+    "Deterministic baseline disagreement, missing information, and low confidence should enter human review."
+  ],
+  "llm": {
+    "agentCalls": 6,
+    "agreementRate": 1.0,
+    "dryRun": false,
+    "elapsedSec": 43.711,
+    "evaluatedPatients": 2,
+    "failedAgentCalls": 0,
+    "fallbackLabelRate": 0.0,
+    "jsonParseRate": 1.0,
+    "labelCount": 4,
+    "p50AgentLatencyMs": 13408,
+    "p95AgentLatencyMs": 14513,
+    "retryAfterValues": [],
+    "statuses": {
+      "200": 6
+    },
+    "syntheticPatients": 1000,
+    "syntheticTrials": 120,
+    "topK": 2,
+    "validLabelCount": 4,
+    "validLabelRate": 1.0
+  },
+  "retrieval": {
+    "candidatePairs": 30000,
+    "outputPath": "outputs\\retrieval_candidates.jsonl",
+    "patients": 1000,
+    "potentialRecallAtK": 0.218,
+    "recommendRecallAtK": 0.095,
+    "targetTrialRecallAtK": 0.523,
+    "topK": 30,
+    "trials": 120
+  },
+  "synthetic_patient_count": 1000,
+  "trial_count": 120
+}

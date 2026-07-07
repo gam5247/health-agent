@@ -30,6 +30,9 @@ class Patient:
     prior_treatments: list[str] = field(default_factory=list)
     flags: dict[str, bool] = field(default_factory=dict)
     location: dict[str, str] = field(default_factory=dict)
+    clinical_note: str | None = None
+    scenario: str | None = None
+    target_trial_id: str | None = None
 
     @classmethod
     def from_mapping(cls, item: dict[str, Any]) -> "Patient":
@@ -44,6 +47,9 @@ class Patient:
             prior_treatments=_list_of_strings(item.get("prior_treatments")),
             flags={str(key): bool(value) for key, value in (item.get("flags") or {}).items()},
             location=_dict_of_strings(item.get("location")),
+            clinical_note=_optional_string(item.get("clinical_note")),
+            scenario=_optional_string(item.get("scenario")),
+            target_trial_id=_optional_string(item.get("target_trial_id")),
         )
 
 
@@ -64,6 +70,12 @@ class Trial:
     excluded_flags: list[str]
     required_patient_fields: list[str]
     summary: str | None = None
+    status: str | None = None
+    enrollment: int | None = None
+    source_url: str | None = None
+    eligibility_criteria: str | None = None
+    inclusion_criteria: list[str] = field(default_factory=list)
+    exclusion_criteria: list[str] = field(default_factory=list)
 
     @classmethod
     def from_mapping(cls, item: dict[str, Any]) -> "Trial":
@@ -83,7 +95,38 @@ class Trial:
             excluded_flags=_list_of_strings(item.get("excluded_flags")),
             required_patient_fields=_list_of_strings(item.get("required_patient_fields")),
             summary=_optional_string(item.get("summary")),
+            status=_optional_string(item.get("status")),
+            enrollment=_optional_int(item.get("enrollment")),
+            source_url=_optional_string(item.get("source_url")),
+            eligibility_criteria=_optional_string(item.get("eligibility_criteria")),
+            inclusion_criteria=_list_of_strings(item.get("inclusion_criteria")),
+            exclusion_criteria=_list_of_strings(item.get("exclusion_criteria")),
         )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "trial_id": self.trial_id,
+            "title": self.title,
+            "phase": self.phase,
+            "conditions": list(self.conditions),
+            "interventions": list(self.interventions),
+            "min_age": self.min_age,
+            "max_age": self.max_age,
+            "sex": self.sex,
+            "allowed_stages": list(self.allowed_stages),
+            "max_ecog": self.max_ecog,
+            "required_biomarkers": dict(self.required_biomarkers),
+            "required_prior_treatments": list(self.required_prior_treatments),
+            "excluded_flags": list(self.excluded_flags),
+            "required_patient_fields": list(self.required_patient_fields),
+            "summary": self.summary,
+            "status": self.status,
+            "enrollment": self.enrollment,
+            "source_url": self.source_url,
+            "eligibility_criteria": self.eligibility_criteria,
+            "inclusion_criteria": list(self.inclusion_criteria),
+            "exclusion_criteria": list(self.exclusion_criteria),
+        }
 
 
 @dataclass(frozen=True)
@@ -135,4 +178,3 @@ def _optional_string(value: Any) -> str | None:
         return None
     text = str(value).strip()
     return text or None
-

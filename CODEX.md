@@ -9,6 +9,7 @@ This scaffold is designed for iterative Codex work.
 - Tests: `python -m unittest discover -s tests`
 - Data: synthetic patients and sample trial protocols under `data/raw`
 - LLM eval: `python scripts/run_llm_eval.py --dry-run --max-patients 2 --top-k 2`
+- Scaled artifact: `python scripts/run_competition_pipeline.py --trial-limit 120 --patient-count 1000 --top-k 30`
 
 ## Implementation Rules
 
@@ -26,4 +27,6 @@ This scaffold is designed for iterative Codex work.
 - Add ClinicalTrials.gov v2 API ingestion.
 - Add extracted protocol citation spans to each evidence item.
 - Batch matcher and orchestrator prompts to reduce K-EXAONE latency.
+- Improve retrieval with condition/biomarker metadata filters before lexical
+  ranking.
 - Add a human review status field for each recommendation.

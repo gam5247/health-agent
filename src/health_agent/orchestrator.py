@@ -313,6 +313,8 @@ def orchestrator_messages(
 
 
 def patient_to_clinical_note(patient: Patient, index: int = 0) -> str:
+    if patient.clinical_note:
+        return patient.clinical_note
     prefix = "Oncology referral note" if index % 2 == 0 else "Tumor board intake"
     age_sex = (
         "Adult patient"

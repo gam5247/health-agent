@@ -122,6 +122,7 @@ def trial_to_sections(trial: Trial) -> dict[str, str]:
             [
                 f"{trial.trial_id}: {trial.title}.",
                 f"Phase: {trial.phase or 'not specified'}.",
+                f"Status: {trial.status or 'not specified'}.",
                 f"Conditions: {_join(trial.conditions)}.",
                 f"Interventions: {_join(trial.interventions)}.",
                 trial.summary or "",
@@ -156,6 +157,16 @@ def trial_to_sections(trial: Trial) -> dict[str, str]:
             if trial.excluded_flags
             else "No explicit exclusion flags are listed."
         ),
+        "raw_criteria": " ".join(
+            [
+                "Inclusion criteria:",
+                " ".join(trial.inclusion_criteria[:12]),
+                "Exclusion criteria:",
+                " ".join(trial.exclusion_criteria[:12]),
+                "Raw eligibility criteria:",
+                trial.eligibility_criteria or "",
+            ]
+        ).strip(),
     }
 
 
@@ -174,6 +185,7 @@ def format_retrieved_context(retrieved: Iterable[RetrievedTrial]) -> str:
                     sections["inclusion"],
                     sections["biomarkers"],
                     sections["exclusions"],
+                    sections["raw_criteria"],
                 ]
             )
         )

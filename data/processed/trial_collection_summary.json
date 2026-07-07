@@ -1,0 +1,17 @@
+{
+  "fetched_studies": 120,
+  "normalized_trials": 120,
+  "output_path": "data\\processed\\trials.jsonl",
+  "raw_dir": "C:\\Users\\kll45\\OneDrive\\\ubb38\uc11c\\\ud5ec\uc2a4 \uc5d0\uc774\uc804\ud2b8\\data\\raw\\clinicaltrials",
+  "requested_conditions": [
+    "non-small cell lung cancer",
+    "breast cancer",
+    "colorectal cancer",
+    "melanoma",
+    "acute myeloid leukemia",
+    "prostate cancer",
+    "ovarian cancer",
+    "renal cell carcinoma"
+  ],
+  "source": "https://clinicaltrials.gov/api/v2/studies"
+}

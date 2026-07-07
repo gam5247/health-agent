@@ -1,0 +1,45 @@
+{
+  "candidate_pair_count": 30000,
+  "created_at_utc": "2026-07-07T13:24:15.426342+00:00",
+  "disclaimer": "Synthetic software evaluation only; not medical advice.",
+  "llm_summary": {
+    "agentCalls": 6,
+    "agreementRate": 1.0,
+    "dryRun": false,
+    "elapsedSec": 43.711,
+    "evaluatedPatients": 2,
+    "failedAgentCalls": 0,
+    "fallbackLabelRate": 0.0,
+    "jsonParseRate": 1.0,
+    "labelCount": 4,
+    "p50AgentLatencyMs": 13408,
+    "p95AgentLatencyMs": 14513,
+    "retryAfterValues": [],
+    "statuses": {
+      "200": 6
+    },
+    "syntheticPatients": 1000,
+    "syntheticTrials": 120,
+    "topK": 2,
+    "validLabelCount": 4,
+    "validLabelRate": 1.0
+  },
+  "retrieval_summary": {
+    "candidatePairs": 30000,
+    "outputPath": "outputs\\retrieval_candidates.jsonl",
+    "patients": 1000,
+    "potentialRecallAtK": 0.218,
+    "recommendRecallAtK": 0.095,
+    "targetTrialRecallAtK": 0.523,
+    "topK": 30,
+    "trials": 120
+  },
+  "source_files": {
+    "candidates": "outputs\\retrieval_candidates.jsonl",
+    "llm_report": "outputs\\llm_eval_smoke.json",
+    "patients": "data\\processed\\synthetic_patients.jsonl",
+    "trials": "data\\processed\\trials.jsonl"
+  },
+  "synthetic_patient_count": 1000,
+  "trial_count": 120
+}

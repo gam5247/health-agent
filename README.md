@@ -522,6 +522,43 @@ baseline 비교를 수행하고 `outputs/` 아래에 JSON report를 쓴다.
 `--labels-output outputs/labels.tsv`를 추가하면
 `PATIENT_ID<TAB>TRIAL_ID<TAB>LABEL` 형식의 batch labeling 파일도 만든다.
 
+## 축소 대회 산출물 파이프라인
+
+현재 repo는 대회 기준의 축소 end-to-end artifact를 생성할 수 있다.
+
+```bash
+python scripts/run_competition_pipeline.py \
+  --trial-limit 120 \
+  --patient-count 1000 \
+  --top-k 30
+```
+
+K-EXAONE smoke까지 포함하려면:
+
+```bash
+python scripts/run_competition_pipeline.py \
+  --trial-limit 120 \
+  --patient-count 1000 \
+  --top-k 30 \
+  --with-llm-smoke \
+  --env-file "<path-to-local-env-file>"
+```
+
+현재 생성된 기준 산출물:
+
+- `data/processed/trials.jsonl`: ClinicalTrials.gov에서 수집/정규화한 120개 trial
+- `data/processed/synthetic_patients.jsonl`: synthetic patient 1,000명
+- `outputs/retrieval_candidates.jsonl`: 30,000개 retrieved patient-trial pair
+- `artifacts/health-agent-submission/`: manifest, evaluation summary, labels TSV, demo cases, disclaimer
+
+현재 smoke 지표:
+
+- retrieval target trial recall@30: `0.523`
+- candidate pairs: `30,000`
+- K-EXAONE smoke: 2명, top-2, 6 agent calls, HTTP 200 `6/6`
+- LLM valid label rate: `1.0`
+- LLM JSON parse rate: `1.0`
+
 ## Codex 작업 순서
 
 Codex는 다음 순서로 읽고 작업한다.
