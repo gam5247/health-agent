@@ -89,6 +89,56 @@ The deterministic local runner is a structural baseline, not the target model.
 It verifies the full workflow shape and hidden-eval harness before running a
 K-EXAONE/Friendli or other LLM-backed orchestration.
 
+## K-EXAONE Pure Run
+
+The pure K-EXAONE runner uses the same blinded input and does not accept an
+answer-key argument. It makes one Friendli/K-EXAONE chat-completions call per
+patient and normalizes the model's JSON into the competition v2 contract.
+
+Smoke command:
+
+```powershell
+python scripts\run_exaone_e2e_orchestration.py `
+  --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
+  --max-patients 3 `
+  --concurrency 1 `
+  --confirm-live-exaone-api `
+  --output-jsonl outputs\exaone_e2e_predictions_smoke.jsonl `
+  --output-json outputs\exaone_e2e_predictions_smoke.json `
+  --summary outputs\exaone_e2e_predictions_smoke_summary.json `
+  --raw-output-jsonl outputs\exaone_e2e_raw_responses_smoke.jsonl `
+  --audit-output-jsonl outputs\exaone_e2e_normalization_audit_smoke.jsonl `
+  --manifest outputs\exaone_e2e_run_manifest_smoke.json
+```
+
+Full 100-patient command:
+
+```powershell
+python scripts\run_exaone_e2e_orchestration.py `
+  --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
+  --concurrency 4 `
+  --resume `
+  --confirm-live-exaone-api
+```
+
+The explicit `--confirm-live-exaone-api` flag is required so the command cannot
+accidentally call the live API during local preflight. The runner also writes
+raw model responses, normalization/fallback audit rows, and a run manifest under
+`outputs/`.
+
+Then score the EXAONE predictions:
+
+```powershell
+python scripts\evaluate_hidden_e2e_predictions.py `
+  --predictions outputs\exaone_e2e_predictions.jsonl `
+  --output outputs\exaone_e2e_hidden_eval_report.json `
+  --fail-on-contract-errors
+```
+
+For strict isolation, run `scripts\run_exaone_e2e_orchestration.py` from an
+answer-key-free agent workspace and copy only the prediction JSONL back to the
+evaluator environment.
+
 Latest local dry run:
 
 - patients compared: 100
