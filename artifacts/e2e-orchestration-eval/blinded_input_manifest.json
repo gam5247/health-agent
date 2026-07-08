@@ -1,0 +1,16 @@
+{
+  "blinded_input": "artifacts\\e2e-orchestration-eval\\blinded_input_100.jsonl",
+  "blinded_input_sha256": "6c4683111941191febe86ce3806da75074cf947bca13023f3e143a22aa12a6c3",
+  "contains_hidden_labels": false,
+  "note": "This file is safe for the agent runner. The hidden answer key remains evaluator-only.",
+  "patient_count": 100,
+  "recursive_audit": "passed",
+  "recursive_audit_error_count": 0,
+  "schema_version": "health-agent-hidden-e2e-input-v1",
+  "source_answer_key": "evaluator-only; path intentionally omitted from the agent-visible manifest",
+  "visible_fields": [
+    "patient_id",
+    "patient_information_string",
+    "candidate_trials"
+  ]
+}
