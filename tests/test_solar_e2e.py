@@ -275,6 +275,74 @@ class SolarE2ETests(unittest.TestCase):
         self.assertEqual(audit["simulated_answers_dropped"], 1)
         self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
 
+    def test_structural_questions_are_based_on_initial_unknowns(self) -> None:
+        trial = self.blinded["candidate_trials"][0]
+        payload = {
+            "patient_id": self.blinded["patient_id"],
+            "initial_assessment": {
+                "evaluated_trials": [
+                    {
+                        "trial_id": trial["trial_id"],
+                        "eligibility": "uncertain",
+                        "criterion_results": [
+                            {
+                                "criterion_id": criterion["criterion_id"],
+                                "status": "unknown",
+                                "reason": "Missing before follow-up.",
+                            }
+                            for criterion in trial["criteria_to_assess"]
+                        ],
+                        "explanation": "Initial judgment needs more information.",
+                    }
+                ]
+            },
+            "follow_up_questions": [],
+            "simulated_patient_answers": [],
+            "final_assessment_after_answers": {
+                "evaluated_trials": [
+                    {
+                        "trial_id": trial["trial_id"],
+                        "eligibility": "eligible",
+                        "criterion_results": [
+                            {
+                                "criterion_id": criterion["criterion_id"],
+                                "status": "satisfied",
+                                "reason": "Resolved after follow-up simulation.",
+                            }
+                            for criterion in trial["criteria_to_assess"]
+                        ],
+                        "explanation": "Final judgment changed after follow-up.",
+                    }
+                ]
+            },
+            "patient_level_summary": "The second-pass judgment changed after follow-up.",
+        }
+        call = ChatResult(
+            ok=True,
+            http_status=200,
+            retry_after="",
+            ms=123,
+            content=json.dumps(payload),
+            finish_reason="stop",
+        )
+        prediction = normalize_solar_prediction(
+            self.blinded,
+            call,
+            parse_json_object(call.content),
+        )
+        questions = prediction["final_output"]["follow_up_questions"]
+        self.assertEqual(len(questions), 1)
+        needed_for = {
+            (item["trial_id"], item["criterion_id"])
+            for item in questions[0]["needed_for"]
+        }
+        expected_links = {
+            (trial["trial_id"], criterion["criterion_id"])
+            for criterion in trial["criteria_to_assess"]
+        }
+        self.assertTrue(expected_links.issubset(needed_for))
+        self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
+
     def test_failed_solar_parse_still_builds_contract_complete_prediction(self) -> None:
         call = ChatResult(
             ok=True,

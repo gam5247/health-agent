@@ -541,7 +541,7 @@ def normalize_final_output(
     questions = normalize_questions(
         payload.get("follow_up_questions", []),
         input_record,
-        final_rows,
+        initial_rows,
     )
     answer_rows = normalize_simulated_answers(
         payload.get("simulated_patient_answers", []),
