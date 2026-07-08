@@ -399,6 +399,7 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
     json_ok = 0
     call_ok = 0
     question_count = 0
+    simulated_answer_count = 0
     final_trial_count = 0
     tool_turn_count = 0
     tool_call_count = 0
@@ -406,6 +407,7 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
     for prediction in predictions:
         final = prediction.get("final_output", {})
         question_count += len(final.get("follow_up_questions", []))
+        simulated_answer_count += len(final.get("simulated_patient_answers", []))
         for row in final.get("final_assessment_after_answers", {}).get("evaluated_trials", []):
             final_trial_count += 1
             eligibility[row.get("eligibility", "")] += 1
@@ -437,6 +439,7 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
         "patient_count": len(predictions),
         "final_trial_judgment_count": final_trial_count,
         "follow_up_question_count": question_count,
+        "simulated_patient_answer_count": simulated_answer_count,
         "eligibility_distribution": dict(sorted(eligibility.items())),
         "criterion_status_distribution": dict(sorted(criterion_status.items())),
         "call_ok_rate": ratio(call_ok, len(predictions)),

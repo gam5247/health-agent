@@ -528,6 +528,10 @@ function calling으로 로컬 trial DB를 조회한다. 실제 API 호출은 명
 없이는 실행되지 않는다. 3명을 초과하는 live run은 추가로
 `--confirm-full-hidden-eval`이 필요하다.
 
+출력은 두 단계 판단을 분리한다. `initial_assessment`는 부족 정보가 아직
+없는 상태의 판단이고, `follow_up_questions`와 `simulated_patient_answers`
+뒤의 `final_assessment_after_answers`는 그 답변을 반영한 재판단이다.
+
 ```powershell
 python scripts\run_solar_e2e_orchestration.py `
   --env-file "<path-to-local-env-file>" `

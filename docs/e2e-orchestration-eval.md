@@ -63,13 +63,20 @@ The prediction must contain:
 
 - criteria parser output
 - patient information understanding output
-- initial matching output
+- initial matching output before follow-up answers
 - follow-up questions
-- simulated patient answers, if externally supplied
-- final matching output
+- simulated patient answers for the generated follow-up questions
+- final matching output after applying the simulated answers
 - recommended, uncertain, and excluded trial lists
 - result explanation
 - medical disclaimer
+
+The two matching outputs are intentionally separate. `initial_assessment`
+represents the judgment with missing information still unresolved, so criteria
+can remain `unknown` and trials can remain `uncertain`. `final_assessment_after_answers`
+represents the second-pass judgment after `simulated_patient_answers` are
+applied. These simulated answers are synthetic workflow data, not facts from
+the original patient note.
 
 The hidden evaluator checks:
 

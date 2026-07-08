@@ -189,6 +189,92 @@ class SolarE2ETests(unittest.TestCase):
             len(self.blinded["candidate_trials"]),
         )
 
+    def test_simulated_patient_answers_are_preserved_and_validated(self) -> None:
+        trial = self.blinded["candidate_trials"][0]
+        question_id = f"{self.blinded['patient_id']}-Q01"
+        payload = {
+            "patient_id": self.blinded["patient_id"],
+            "initial_assessment": {
+                "evaluated_trials": [
+                    {
+                        "trial_id": trial["trial_id"],
+                        "eligibility": "uncertain",
+                        "criterion_results": [
+                            {
+                                "criterion_id": criterion["criterion_id"],
+                                "status": "unknown",
+                                "reason": "Missing before follow-up.",
+                            }
+                            for criterion in trial["criteria_to_assess"]
+                        ],
+                        "explanation": "Initial judgment needs more information.",
+                    }
+                ]
+            },
+            "follow_up_questions": [
+                {
+                    "question_id": question_id,
+                    "question": "Is the missing eligibility fact present?",
+                    "needed_for": [
+                        {
+                            "trial_id": trial["trial_id"],
+                            "criterion_id": trial["criteria_to_assess"][0]["criterion_id"],
+                        }
+                    ],
+                    "reason": "Needed to resolve the initial unknown status.",
+                }
+            ],
+            "simulated_patient_answers": [
+                {
+                    "question_id": question_id,
+                    "answer": "No, the missing exclusion finding is absent.",
+                },
+                {
+                    "question_id": "not-a-real-question",
+                    "answer": "This answer must be dropped.",
+                },
+            ],
+            "final_assessment_after_answers": {
+                "evaluated_trials": [
+                    {
+                        "trial_id": trial["trial_id"],
+                        "eligibility": "eligible",
+                        "criterion_results": [
+                            {
+                                "criterion_id": criterion["criterion_id"],
+                                "status": "satisfied",
+                                "reason": "Resolved using the simulated follow-up answer.",
+                            }
+                            for criterion in trial["criteria_to_assess"]
+                        ],
+                        "explanation": "Final judgment uses the simulated follow-up answer.",
+                    }
+                ]
+            },
+            "patient_level_summary": "The second-pass judgment changed after follow-up.",
+        }
+        call = ChatResult(
+            ok=True,
+            http_status=200,
+            retry_after="",
+            ms=123,
+            content=json.dumps(payload),
+            finish_reason="stop",
+        )
+        prediction = normalize_solar_prediction(
+            self.blinded,
+            call,
+            parse_json_object(call.content),
+        )
+        answers = prediction["final_output"]["simulated_patient_answers"]
+        self.assertEqual(len(answers), 1)
+        self.assertEqual(answers[0]["question_id"], question_id)
+        self.assertIn("exclusion finding is absent", answers[0]["answer"])
+        audit = prediction["agent_trace"]["solar_normalization_audit"]
+        self.assertEqual(audit["simulated_answers_kept"], 1)
+        self.assertEqual(audit["simulated_answers_dropped"], 1)
+        self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
+
     def test_failed_solar_parse_still_builds_contract_complete_prediction(self) -> None:
         call = ChatResult(
             ok=True,

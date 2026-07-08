@@ -192,7 +192,9 @@ def build_solar_e2e_messages(
                     "Allowed trial eligibility labels: eligible, ineligible, uncertain.",
                     "Allowed criterion statuses: satisfied, violated, unknown, not_applicable.",
                     "Eligibility semantics: any violated required criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
-                    "No patient answers are supplied in this run, so simulated_patient_answers must be an empty list.",
+                    "Initial assessment must use only facts stated in the patient note and tool results.",
+                    "For workflow simulation, generate simulated_patient_answers to your own follow-up questions when missing facts block eligibility resolution.",
+                    "Final assessment must be a separate second pass after applying those simulated answers.",
                     "This is synthetic software evaluation only, not medical advice.",
                 ]
             ),
@@ -244,7 +246,13 @@ def build_solar_e2e_messages(
                                     "reason": "string",
                                 }
                             ],
-                            "simulated_patient_answers": [],
+                            "simulated_patient_answers": [
+                                {
+                                    "question_id": "string",
+                                    "answer": "synthetic patient answer used only for workflow simulation",
+                                    "source": "solar-pro3-simulated-follow-up",
+                                }
+                            ],
                             "final_assessment_after_answers": {
                                 "evaluated_trials": [
                                     {
@@ -285,7 +293,10 @@ def build_solar_e2e_messages(
                     "- Include every candidate trial_id exactly once in final_assessment_after_answers.evaluated_trials.",
                     "- For each trial, include every criteria_to_assess criterion_id exactly once.",
                     "- Use the exact trial_id and criterion_id strings from the input.",
-                    "- Keep final_assessment_after_answers the same as initial_assessment unless the empty simulated_patient_answers list somehow provides no new facts.",
+                    "- initial_assessment is the judgment before follow-up answers; missing facts should remain unknown there.",
+                    "- simulated_patient_answers must answer the generated follow_up_questions for this synthetic workflow simulation.",
+                    "- final_assessment_after_answers is the judgment after applying simulated_patient_answers; cite the simulated answer in reasons when it changes a criterion.",
+                    "- If no follow-up questions are needed, simulated_patient_answers must be empty and final_assessment_after_answers may match initial_assessment.",
                     "- recommended_trials may contain only final trials labelled eligible.",
                     "- uncertain_but_actionable_trials may contain only final trials labelled uncertain.",
                     "- excluded_trials may contain only final trials labelled ineligible.",
@@ -309,7 +320,13 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
         },
         "initial_assessment": {"evaluated_trials": []},
         "follow_up_questions": [],
-        "simulated_patient_answers": [],
+        "simulated_patient_answers": [
+            {
+                "question_id": "string",
+                "answer": "synthetic patient answer used only for workflow simulation",
+                "source": "solar-pro3-simulated-follow-up",
+            }
+        ],
         "final_assessment_after_answers": {"evaluated_trials": []},
         "recommended_trials": [],
         "uncertain_but_actionable_trials": [],
@@ -330,7 +347,10 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
                     "Allowed trial eligibility labels: eligible, ineligible, uncertain.",
                     "Allowed criterion statuses: satisfied, violated, unknown, not_applicable.",
                     "Eligibility semantics: any violated required criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
-                    "No patient answers are supplied in this run, so simulated_patient_answers must be an empty list.",
+                    "Initial assessment must use only facts stated in the patient note and tool results.",
+                    "For workflow simulation, generate simulated_patient_answers to your own follow-up questions when missing facts block eligibility resolution.",
+                    "Final assessment must be a separate second pass after applying those simulated answers.",
+                    "Do not present simulated answers as original patient-note facts.",
                     "This is synthetic software evaluation only, not medical advice.",
                 ]
             ),
@@ -362,6 +382,10 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
                     "- Include every candidate trial_id exactly once in final_assessment_after_answers.evaluated_trials.",
                     "- For each trial, include every criteria_to_assess criterion_id exactly once.",
                     "- Use exact trial_id and criterion_id strings returned by the tools.",
+                    "- initial_assessment is the judgment before follow-up answers; missing facts should remain unknown there.",
+                    "- simulated_patient_answers must answer the generated follow_up_questions for this synthetic workflow simulation.",
+                    "- final_assessment_after_answers is the judgment after applying simulated_patient_answers; cite the simulated answer in reasons when it changes a criterion.",
+                    "- If no follow-up questions are needed, simulated_patient_answers must be empty and final_assessment_after_answers may match initial_assessment.",
                     "- recommended_trials may contain only final trials labelled eligible.",
                     "- uncertain_but_actionable_trials may contain only final trials labelled uncertain.",
                     "- excluded_trials may contain only final trials labelled ineligible.",
@@ -499,6 +523,8 @@ def normalize_final_output(
         "final_fallback_eligibility_count": 0,
         "initial_fallback_criterion_status_count": 0,
         "final_fallback_criterion_status_count": 0,
+        "simulated_answers_kept": 0,
+        "simulated_answers_dropped": 0,
     }
     initial_rows = normalize_trial_rows(
         input_record,
@@ -517,13 +543,18 @@ def normalize_final_output(
         input_record,
         final_rows,
     )
+    answer_rows = normalize_simulated_answers(
+        payload.get("simulated_patient_answers", []),
+        questions,
+        audit,
+    )
     attach_question_ids(final_rows, questions)
     attach_question_ids(initial_rows, questions)
     recommended, uncertain, excluded = partition_trials(final_rows)
     return {
         "initial_assessment": {"evaluated_trials": initial_rows},
         "follow_up_questions": questions,
-        "simulated_patient_answers": [],
+        "simulated_patient_answers": answer_rows,
         "final_assessment_after_answers": {"evaluated_trials": final_rows},
         "recommended_trials": recommended,
         "uncertain_but_actionable_trials": uncertain,
@@ -666,6 +697,45 @@ def normalize_questions(
     if questions:
         return questions
     return structural_questions_for_unknowns(input_record["patient_id"], final_rows)
+
+
+def normalize_simulated_answers(
+    rows: Any,
+    questions: list[dict[str, Any]],
+    audit: dict[str, Any],
+) -> list[dict[str, Any]]:
+    valid_question_ids = {question["question_id"] for question in questions}
+    answer_rows = rows if isinstance(rows, list) else []
+    normalized = []
+    seen = set()
+    for row in answer_rows:
+        if not isinstance(row, dict):
+            audit["simulated_answers_dropped"] += 1
+            continue
+        question_id = str(row.get("question_id", "")).strip()
+        if question_id not in valid_question_ids or question_id in seen:
+            audit["simulated_answers_dropped"] += 1
+            continue
+        answer = normalize_text_field(
+            row.get("answer") or row.get("response") or row.get("patient_answer"),
+            "",
+        )
+        if not answer:
+            audit["simulated_answers_dropped"] += 1
+            continue
+        seen.add(question_id)
+        audit["simulated_answers_kept"] += 1
+        normalized.append(
+            {
+                "question_id": question_id,
+                "answer": answer,
+                "source": normalize_text_field(
+                    row.get("source"),
+                    "solar-pro3-simulated-follow-up",
+                ),
+            }
+        )
+    return normalized
 
 
 def structural_questions_for_unknowns(patient_id: str, final_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
