@@ -127,10 +127,10 @@ final_explainer
 
 | Agent | 역할 | 1차 구현 | 이후 확장 |
 |---|---|---|---|
-| `trial_criteria_parser` | inclusion/exclusion을 atomic rule로 분해 | deterministic / fixture | K-EXAONE 또는 Solar |
-| `patient_profiler` | vignette에서 핵심 환자 정보 추출 | JSON loader | K-EXAONE |
+| `trial_criteria_parser` | inclusion/exclusion을 atomic rule로 분해 | deterministic / fixture | Solar Pro 3 |
+| `patient_profiler` | vignette에서 핵심 환자 정보 추출 | JSON loader | Solar Pro 3 |
 | `candidate_trial_retriever` | 환자별 후보 trial top-k 검색 | metadata filter | BM25 + vector retrieval |
-| `eligibility_matcher` | criterion별 satisfied/violated/unknown 판정 | rule scorer | K-EXAONE |
+| `eligibility_matcher` | criterion별 satisfied/violated/unknown 판정 | rule scorer | Solar Pro 3 |
 | `python_rule_validator` | 나이, 성별, 수치, 기간 조건 검증 | Python | 강화 |
 | `conflict_adjudicator` | 불일치, low-confidence, exclusion conflict 판정 | stub | GLM-class model |
 | `missing_info_question_generator` | unknown criterion 질문 생성 | template | Solar Pro 3 |
@@ -141,31 +141,29 @@ final_explainer
 
 현재 자원 가정:
 
-- K-EXAONE: 무제한 사용 가능
 - Solar Pro 3: 무제한 또는 사실상 무제한 사용 가능
+- K-EXAONE: legacy smoke path only
 - GLM급 모델: 상위 adjudicator로 유료 사용
 - GPT / Claude: 필요 시 hard-case spot check만 사용
 
 권장 라우팅:
 
 ```text
-K-EXAONE
+Solar Pro 3
   - primary worker model
   - trial criteria parsing
   - patient profiling
   - first-pass eligibility matching
   - semantic clinical context 판단
-
-Solar Pro 3
+  - native function calling으로 local trial DB 조회
   - JSON repair
   - question generation
   - explanation draft
-  - second opinion / baseline
 
 GLM-class model
   - hard case adjudication
   - exclusion conflict
-  - K-EXAONE vs Solar disagreement
+  - Solar vs deterministic baseline disagreement
   - low confidence cases
 
 Python
@@ -180,7 +178,7 @@ GLM으로 올리는 조건:
 ```python
 should_escalate = (
     confidence < 0.75
-    or k_exaone_disagrees_with_solar
+    or solar_disagrees_with_rule_baseline
     or has_exclusion_conflict
     or evidence_span_missing
     or unknown_count_is_high
@@ -362,7 +360,7 @@ outputs/retrieval_candidates.jsonl
 
 ### Phase 4. LLM worker integration
 
-목표: K-EXAONE / Solar를 provider-neutral interface 뒤에 붙인다.
+목표: Solar Pro 3 native function calling을 provider-neutral interface 뒤에 붙인다.
 
 작업:
 
@@ -375,8 +373,8 @@ outputs/retrieval_candidates.jsonl
 초기 agent routing:
 
 ```text
-criteria parser: K-EXAONE
-patient profiler: K-EXAONE
+criteria parser: Solar Pro 3
+patient profiler: Solar Pro 3
 question generator: Solar Pro 3
 explanation generator: Solar Pro 3
 format repair: Solar Pro 3
@@ -388,12 +386,11 @@ format repair: Solar Pro 3
 
 작업:
 
-1. K-EXAONE first-pass matcher
-2. Solar second opinion option
-3. Python rule validator 적용
-4. disagreement detector
-5. GLM escalation
-6. final aggregation policy 고정
+1. Solar Pro 3 first-pass matcher with local DB tools
+2. Python rule validator 적용
+3. disagreement detector
+4. GLM escalation
+5. final aggregation policy 고정
 
 Hard case 조건:
 
@@ -424,10 +421,9 @@ Metric:
 Ablation:
 
 - deterministic baseline
-- K-EXAONE only
 - Solar only
-- K-EXAONE + Python validator
-- K-EXAONE + Solar disagreement routing
+- Solar + Python validator
+- Solar native tools vs inline prompt
 - GLM adjudication on hard cases
 - retrieval top-k variants
 
@@ -513,35 +509,45 @@ python scripts/run_demo.py --limit 3
 python scripts/run_llm_eval.py --dry-run --max-patients 2 --top-k 2
 ```
 
-## 12. K-EXAONE / Friendli Evaluation
+## 12. Solar Pro 3 / Upstage Evaluation
 
 LLM evaluation path는 선택 기능이며, API key는 저장소에 넣지 않는다. OS environment 또는 로컬 `.env` 파일에서만 읽는다.
 
 Required environment variables:
 
-- `FRIENDLI_API_KEY`, or fallback `K_EXAONE_API_KEY`
-- `K_EXAONE_ENDPOINT_ID`, or fallback `FRIENDLI_ENDPOINT_ID` / `K_EXAONE_MODEL`
+- `UPSTAGE_API_KEY`, or fallback `SOLAR_API_KEY`
 
 Optional variables:
 
-- `FRIENDLI_BASE_URL`, default `https://api.friendli.ai/dedicated/v1`
-- `FRIENDLI_CHAT_COMPLETIONS_URL`, default `https://api.friendli.ai/dedicated/v1/chat/completions`
+- `SOLAR_MODEL`, default `solar-pro3`
+- `UPSTAGE_BASE_URL` / `SOLAR_BASE_URL`, default `https://api.upstage.ai/v1`
+- `UPSTAGE_CHAT_COMPLETIONS_URL` / `SOLAR_CHAT_COMPLETIONS_URL`
 
-API 호출 없는 dry-run:
+Solar Pro 3 E2E runner는 숨긴 정답지를 받지 않고, 기본적으로 native
+function calling으로 로컬 trial DB를 조회한다. 실제 API 호출은 명시 플래그
+없이는 실행되지 않는다. 3명을 초과하는 live run은 추가로
+`--confirm-full-hidden-eval`이 필요하다.
 
-```bash
-python scripts/run_llm_eval.py --dry-run --max-patients 3 --top-k 3
+```powershell
+python scripts\run_solar_e2e_orchestration.py `
+  --env-file "<path-to-local-env-file>" `
+  --mode tool `
+  --max-patients 3 `
+  --concurrency 1 `
+  --confirm-live-solar-api
 ```
 
-실제 Friendli/K-EXAONE smoke test:
+결과 채점:
 
-```bash
-python scripts/run_llm_eval.py \
-  --env-file "<path-to-local-env-file>" \
-  --max-patients 1 \
-  --top-k 1 \
-  --concurrency 1
+```powershell
+python scripts\evaluate_hidden_e2e_predictions.py `
+  --predictions outputs\solar_e2e_predictions.jsonl `
+  --output outputs\solar_e2e_hidden_eval_report.json `
+  --fail-on-contract-errors
 ```
+
+Legacy `scripts/run_llm_eval.py`는 Friendli/K-EXAONE smoke path로 남아 있지만,
+대회 포맷 E2E hidden evaluation은 Solar Pro 3 runner를 사용한다.
 
 ## 13. Codex 작업 순서
 

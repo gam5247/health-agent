@@ -17,14 +17,32 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from health_agent.exaone_e2e import PROMPT_VERSION, run_exaone_e2e_orchestration
-from health_agent.llm_client import FriendliClient, FriendliConfig
+from health_agent.llm_client import SolarClient, SolarConfig
+from health_agent.solar_e2e import (
+    PROMPT_VERSION,
+    run_solar_e2e_orchestration,
+    run_solar_inline_e2e_orchestration,
+)
 
 
 def main() -> None:
     args = parse_args()
     started = time.perf_counter()
-    config = FriendliConfig.from_env(args.env_file)
+    if not args.confirm_live_solar_api:
+        print(
+            json.dumps(
+                {
+                    "error": "live_solar_api_confirmation_required",
+                    "hint": "Re-run with --confirm-live-solar-api after the user approves the live API call.",
+                    "runnerAnswerKeyAccess": False,
+                },
+                indent=2,
+                sort_keys=True,
+            ),
+            file=sys.stderr,
+        )
+        raise SystemExit(3)
+    config = SolarConfig.from_env(args.env_file)
     if not config.configured:
         print(
             json.dumps(
@@ -39,12 +57,17 @@ def main() -> None:
             file=sys.stderr,
         )
         raise SystemExit(2)
-    if not args.confirm_live_exaone_api:
+
+    input_records = read_jsonl(args.input)
+    if args.max_patients is not None:
+        input_records = input_records[: args.max_patients]
+    if len(input_records) > 3 and not args.confirm_full_hidden_eval:
         print(
             json.dumps(
                 {
-                    "error": "live_exaone_api_confirmation_required",
-                    "hint": "Re-run with --confirm-live-exaone-api after the user approves the live API call.",
+                    "error": "full_hidden_eval_confirmation_required",
+                    "hint": "For smoke runs, pass --max-patients 1, 2, or 3. For larger live runs, also pass --confirm-full-hidden-eval.",
+                    "resolvedPatientCount": len(input_records),
                     "runnerAnswerKeyAccess": False,
                 },
                 indent=2,
@@ -52,11 +75,42 @@ def main() -> None:
             ),
             file=sys.stderr,
         )
-        raise SystemExit(3)
-
-    input_records = read_jsonl(args.input)
-    if args.max_patients is not None:
-        input_records = input_records[: args.max_patients]
+        raise SystemExit(4)
+    hidden_input_paths = forbidden_key_paths(input_records)
+    if hidden_input_paths:
+        print(
+            json.dumps(
+                {
+                    "error": "hidden_label_key_detected_in_runner_input",
+                    "paths": hidden_input_paths[:20],
+                    "runnerAnswerKeyAccess": False,
+                },
+                indent=2,
+                sort_keys=True,
+            ),
+            file=sys.stderr,
+        )
+        raise SystemExit(5)
+    trial_database_records = (
+        read_jsonl(args.trial_database)
+        if args.mode == "tool" and args.trial_database.exists()
+        else []
+    )
+    hidden_trial_db_paths = forbidden_key_paths(trial_database_records)
+    if hidden_trial_db_paths:
+        print(
+            json.dumps(
+                {
+                    "error": "hidden_label_key_detected_in_trial_database",
+                    "paths": hidden_trial_db_paths[:20],
+                    "runnerAnswerKeyAccess": False,
+                },
+                indent=2,
+                sort_keys=True,
+            ),
+            file=sys.stderr,
+        )
+        raise SystemExit(5)
     existing_records = read_jsonl(args.output_jsonl) if args.resume and args.output_jsonl.exists() else []
     existing_by_patient = {record["patient_id"]: record for record in existing_records if record.get("patient_id")}
     pending = [record for record in input_records if record["patient_id"] not in existing_by_patient]
@@ -70,18 +124,25 @@ def main() -> None:
         args.audit_output_jsonl.write_text("", encoding="utf-8")
         existing_records = []
         existing_by_patient = {}
-    write_json(args.manifest, build_manifest(args, config, input_records, pending))
+    write_json(
+        args.manifest,
+        build_manifest(args, config, input_records, pending, trial_database_records),
+    )
 
     print(
         json.dumps(
             {
-                "mode": "k-exaone-pure-e2e-orchestration",
+                "mode": f"solar-pro3-{args.mode}-e2e-orchestration",
                 "configured": config.public_status(),
                 "inputPatientCount": len(input_records),
                 "alreadyCompleted": len(existing_by_patient),
                 "pending": len(pending),
                 "concurrency": args.concurrency,
                 "maxTokens": args.max_tokens,
+                "toolMaxTokens": args.tool_max_tokens,
+                "maxToolRounds": args.max_tool_rounds,
+                "trialDatabaseRecords": len(trial_database_records),
+                "confirmFullHiddenEval": args.confirm_full_hidden_eval,
                 "runnerAnswerKeyAccess": False,
             },
             ensure_ascii=False,
@@ -97,8 +158,12 @@ def main() -> None:
                 run_one,
                 record,
                 config,
+                args.mode,
+                trial_database_records,
                 args.request_timeout_sec,
                 args.max_tokens,
+                args.tool_max_tokens,
+                args.max_tool_rounds,
                 args.max_excerpt_chars,
             ): record
             for record in pending
@@ -123,7 +188,7 @@ def main() -> None:
                 audit_handle.write("\n")
                 audit_handle.flush()
                 results.append(prediction)
-                call = prediction.get("agent_trace", {}).get("exaone_call", {})
+                call = prediction.get("agent_trace", {}).get("solar_call", {})
                 print(
                     json.dumps(
                         {
@@ -146,7 +211,7 @@ def main() -> None:
         args.output_json,
         {
             "schema_version": "health-agent-e2e-orchestration-v2-batch",
-            "runner": "k-exaone-pure-single-call",
+            "runner": f"solar-pro3-{args.mode}",
             "patient_count": len(results),
             "patients": results,
         },
@@ -158,7 +223,7 @@ def main() -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run K-EXAONE pure single-call E2E orchestration on blinded input. This runner does not accept an answer-key argument."
+        description="Run Solar Pro 3 E2E orchestration on blinded input. This runner does not accept an answer-key argument."
     )
     parser.add_argument(
         "--input",
@@ -169,59 +234,92 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output-jsonl",
         type=Path,
-        default=ROOT / "outputs" / "exaone_e2e_predictions.jsonl",
+        default=ROOT / "outputs" / "solar_e2e_predictions.jsonl",
     )
     parser.add_argument(
         "--output-json",
         type=Path,
-        default=ROOT / "outputs" / "exaone_e2e_predictions.json",
+        default=ROOT / "outputs" / "solar_e2e_predictions.json",
     )
     parser.add_argument(
         "--summary",
         type=Path,
-        default=ROOT / "outputs" / "exaone_e2e_predictions_summary.json",
+        default=ROOT / "outputs" / "solar_e2e_predictions_summary.json",
     )
     parser.add_argument(
         "--raw-output-jsonl",
         type=Path,
-        default=ROOT / "outputs" / "exaone_e2e_raw_responses.jsonl",
+        default=ROOT / "outputs" / "solar_e2e_raw_responses.jsonl",
     )
     parser.add_argument(
         "--audit-output-jsonl",
         type=Path,
-        default=ROOT / "outputs" / "exaone_e2e_normalization_audit.jsonl",
+        default=ROOT / "outputs" / "solar_e2e_normalization_audit.jsonl",
     )
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=ROOT / "outputs" / "exaone_e2e_run_manifest.json",
+        default=ROOT / "outputs" / "solar_e2e_run_manifest.json",
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["tool", "inline"],
+        default="tool",
+        help="tool uses native Solar function calling; inline sends compact candidate data directly.",
+    )
+    parser.add_argument(
+        "--trial-database",
+        type=Path,
+        default=ROOT / "data" / "processed" / "trials.jsonl",
+        help="Public processed trial database exposed to Solar through local tools.",
     )
     parser.add_argument("--max-patients", type=int, default=None)
     parser.add_argument("--concurrency", type=int, default=2)
     parser.add_argument("--request-timeout-sec", type=int, default=300)
     parser.add_argument("--max-tokens", type=int, default=5000)
+    parser.add_argument("--tool-max-tokens", type=int, default=1600)
+    parser.add_argument("--max-tool-rounds", type=int, default=3)
     parser.add_argument("--max-excerpt-chars", type=int, default=1200)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument(
-        "--confirm-live-exaone-api",
+        "--confirm-full-hidden-eval",
         action="store_true",
-        help="Required guard acknowledging that this command will call the live Friendli/K-EXAONE API.",
+        help="Required in addition to --confirm-live-solar-api when more than 3 patients are resolved for a live run.",
+    )
+    parser.add_argument(
+        "--confirm-live-solar-api",
+        action="store_true",
+        help="Required guard acknowledging that this command will call the live Upstage/Solar Pro 3 API.",
     )
     return parser.parse_args()
 
 
 def run_one(
     record: dict[str, Any],
-    config: FriendliConfig,
+    config: SolarConfig,
+    mode: str,
+    trial_database_records: list[dict[str, Any]],
     request_timeout_sec: int,
     max_tokens: int,
+    tool_max_tokens: int,
+    max_tool_rounds: int,
     max_excerpt_chars: int,
 ) -> dict[str, Any]:
-    client = FriendliClient(config, timeout_sec=request_timeout_sec)
-    return run_exaone_e2e_orchestration(
+    client = SolarClient(config, timeout_sec=request_timeout_sec)
+    if mode == "inline":
+        return run_solar_inline_e2e_orchestration(
+            record,
+            client=client,
+            max_tokens=max_tokens,
+            max_excerpt_chars=max_excerpt_chars,
+        )
+    return run_solar_e2e_orchestration(
         record,
         client=client,
+        trial_database_records=trial_database_records,
         max_tokens=max_tokens,
+        tool_max_tokens=tool_max_tokens,
+        max_tool_rounds=max_tool_rounds,
         max_excerpt_chars=max_excerpt_chars,
     )
 
@@ -233,6 +331,50 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
             if line.strip():
                 records.append(json.loads(line))
     return records
+
+
+def forbidden_key_paths(value: Any, path: str = "$") -> list[str]:
+    exact_forbidden = {
+        "answer",
+        "answer_key",
+        "answers",
+        "expected",
+        "expected_label",
+        "expected_output",
+        "final_output",
+        "gold",
+        "gold_label",
+        "ground_truth",
+        "label",
+        "labels",
+        "teacher_label",
+        "teacher_rationale",
+        "target_label",
+        "true_label",
+    }
+    fragment_forbidden = (
+        "answer_key",
+        "gold_label",
+        "ground_truth",
+        "teacher_",
+        "target_label",
+        "true_label",
+    )
+    hits: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            key_text = str(key)
+            lowered = key_text.lower()
+            child_path = f"{path}.{key_text}"
+            if lowered in exact_forbidden or any(
+                fragment in lowered for fragment in fragment_forbidden
+            ):
+                hits.append(child_path)
+            hits.extend(forbidden_key_paths(child, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            hits.extend(forbidden_key_paths(child, f"{path}[{index}]"))
+    return hits
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -258,6 +400,8 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
     call_ok = 0
     question_count = 0
     final_trial_count = 0
+    tool_turn_count = 0
+    tool_call_count = 0
     audit_totals = Counter()
     for prediction in predictions:
         final = prediction.get("final_output", {})
@@ -267,7 +411,7 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
             eligibility[row.get("eligibility", "")] += 1
             for criterion in row.get("criterion_results", []):
                 criterion_status[criterion.get("status", "")] += 1
-        call = prediction.get("agent_trace", {}).get("exaone_call", {})
+        call = prediction.get("agent_trace", {}).get("solar_call", {})
         http_statuses[str(call.get("http_status", ""))] += 1
         if call.get("ok"):
             call_ok += 1
@@ -275,16 +419,21 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
             json_ok += 1
         if isinstance(call.get("ms"), int):
             latencies.append(int(call["ms"]))
-        audit = prediction.get("agent_trace", {}).get("exaone_normalization_audit", {})
+        audit = prediction.get("agent_trace", {}).get("solar_normalization_audit", {})
         for key, value in audit.items():
             if isinstance(value, bool):
                 audit_totals[key] += int(value)
             elif isinstance(value, int):
                 audit_totals[key] += value
+        for trace_row in prediction.get("agent_trace", {}).get("solar_tool_trace", []):
+            if trace_row.get("type") == "assistant_tool_turn":
+                tool_turn_count += 1
+                if isinstance(trace_row.get("tool_call_count"), int):
+                    tool_call_count += trace_row["tool_call_count"]
     latencies.sort()
     return {
-        "schema_version": "health-agent-exaone-e2e-summary-v1",
-        "runner": "k-exaone-pure-single-call",
+        "schema_version": "health-agent-solar-e2e-summary-v1",
+        "runner": "solar-pro3",
         "patient_count": len(predictions),
         "final_trial_judgment_count": final_trial_count,
         "follow_up_question_count": question_count,
@@ -295,6 +444,8 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
         "http_statuses": dict(sorted(http_statuses.items())),
         "p50_latency_ms": percentile(latencies, 0.5),
         "p95_latency_ms": percentile(latencies, 0.95),
+        "tool_turn_count": tool_turn_count,
+        "tool_call_count": tool_call_count,
         "normalization_audit_totals": dict(sorted(audit_totals.items())),
         "elapsed_sec": round(max(0.001, time.perf_counter() - started), 3),
         "runner_answer_key_access": False,
@@ -304,14 +455,15 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
 
 def build_manifest(
     args: argparse.Namespace,
-    config: FriendliConfig,
+    config: SolarConfig,
     input_records: list[dict[str, Any]],
     pending: list[dict[str, Any]],
+    trial_database_records: list[dict[str, Any]],
 ) -> dict[str, Any]:
     return {
-        "schema_version": "health-agent-exaone-run-manifest-v1",
-        "runner": "k-exaone-pure-single-call",
-        "provider": "Friendli",
+        "schema_version": "health-agent-solar-run-manifest-v1",
+        "runner": f"solar-pro3-{args.mode}",
+        "provider": "Upstage",
         "model": config.model,
         "chat_completions_url": config.chat_completions_url,
         "prompt_version": PROMPT_VERSION,
@@ -320,8 +472,16 @@ def build_manifest(
         "input_sha256": sha256_file(args.input) if args.input.exists() else "",
         "input_patient_count": len(input_records),
         "pending_patient_count": len(pending),
+        "mode": args.mode,
+        "trial_database": str(args.trial_database),
+        "trial_database_sha256": sha256_file(args.trial_database) if args.trial_database.exists() else "",
+        "trial_database_record_count": len(trial_database_records),
+        "confirm_full_hidden_eval": args.confirm_full_hidden_eval,
+        "hidden_label_key_scan": "passed",
         "temperature": 0,
         "max_tokens": args.max_tokens,
+        "tool_max_tokens": args.tool_max_tokens,
+        "max_tool_rounds": args.max_tool_rounds,
         "max_excerpt_chars": args.max_excerpt_chars,
         "request_timeout_sec": args.request_timeout_sec,
         "concurrency": args.concurrency,
@@ -334,7 +494,7 @@ def build_manifest(
 
 
 def raw_response_row(prediction: dict[str, Any]) -> dict[str, Any]:
-    call = prediction.get("agent_trace", {}).get("exaone_call", {})
+    call = prediction.get("agent_trace", {}).get("solar_call", {})
     return {
         "patient_id": prediction.get("patient_id", ""),
         "ok": call.get("ok"),
@@ -349,8 +509,8 @@ def raw_response_row(prediction: dict[str, Any]) -> dict[str, Any]:
 
 
 def audit_row(prediction: dict[str, Any]) -> dict[str, Any]:
-    call = prediction.get("agent_trace", {}).get("exaone_call", {})
-    audit = prediction.get("agent_trace", {}).get("exaone_normalization_audit", {})
+    call = prediction.get("agent_trace", {}).get("solar_call", {})
+    audit = prediction.get("agent_trace", {}).get("solar_normalization_audit", {})
     return {
         "patient_id": prediction.get("patient_id", ""),
         "ok": call.get("ok"),
@@ -396,7 +556,7 @@ def error_prediction(input_record: dict[str, Any], error: str) -> dict[str, Any]
             {
                 "criterion_id": criterion["criterion_id"],
                 "status": "unknown",
-                "reason": "K-EXAONE runner raised an exception before this criterion could be judged.",
+                "reason": "Solar Pro 3 runner raised an exception before this criterion could be judged.",
             }
             for criterion in trial.get("criteria_to_assess", [])
         ]
@@ -408,19 +568,19 @@ def error_prediction(input_record: dict[str, Any], error: str) -> dict[str, Any]
                 "eligibility": "uncertain",
                 "criterion_results": criteria,
                 "related_question_ids": [],
-                "explanation": "K-EXAONE runner exception; eligibility is unresolved.",
-                "source": "k-exaone-runner-exception",
+                "explanation": "Solar Pro 3 runner exception; eligibility is unresolved.",
+                "source": "solar-pro3-runner-exception",
                 "patient_id": patient_id,
             }
         )
     return {
         "schema_version": "health-agent-e2e-orchestration-v2",
-        "runner": "k-exaone-pure-single-call",
+        "runner": "solar-pro3",
         "patient_id": patient_id,
         "patient_information_string": input_record.get("patient_information_string", ""),
         "candidate_trials": input_record.get("candidate_trials", []),
         "agent_trace": {
-            "exaone_call": {
+            "solar_call": {
                 "ok": False,
                 "http_status": "CLIENT_EXCEPTION",
                 "retry_after": "",
@@ -432,7 +592,7 @@ def error_prediction(input_record: dict[str, Any], error: str) -> dict[str, Any]
                 "content_preview": "",
                 "content": "",
             },
-            "exaone_normalization_audit": {
+            "solar_normalization_audit": {
                 "prompt_version": PROMPT_VERSION,
                 "raw_json_valid": False,
                 "parse_repaired": False,
@@ -471,7 +631,7 @@ def error_prediction(input_record: dict[str, Any], error: str) -> dict[str, Any]
                 for row in final_rows
             ],
             "excluded_trials": [],
-            "patient_level_summary": "K-EXAONE call failed before a contract-complete prediction could be built.",
+            "patient_level_summary": "Solar Pro 3 call failed before a contract-complete prediction could be built.",
             "medical_disclaimer": "Synthetic software-evaluation output only. Not medical advice and not a real clinical eligibility decision.",
         },
     }

@@ -14,7 +14,7 @@ python scripts/run_competition_pipeline.py \
   --top-k 30
 ```
 
-With a small K-EXAONE/Friendli smoke test:
+With a small legacy K-EXAONE/Friendli smoke test:
 
 ```bash
 python scripts/run_competition_pipeline.py \
@@ -42,9 +42,14 @@ python scripts/run_competition_pipeline.py \
    - Writes retrieved candidates to `outputs/retrieval_candidates.jsonl`.
 
 4. `scripts/run_llm_eval.py`
-   - Optional K-EXAONE/Friendli smoke test.
+   - Optional legacy K-EXAONE/Friendli smoke test.
    - Runs PatientExtractor, EligibilityMatcher, and TrialOrchestrator.
    - Compares LLM labels with the deterministic baseline.
+
+4b. `scripts/run_solar_e2e_orchestration.py`
+   - Solar Pro 3 hidden-eval runner for the competition-format E2E contract.
+   - Uses native function calling to read the local patient/trial database.
+   - Does not accept an answer-key argument.
 
 5. `scripts/build_submission_report.py`
    - Builds `artifacts/health-agent-submission/`.
@@ -57,14 +62,14 @@ python scripts/run_competition_pipeline.py \
 - Official example patients: 10
 - Synthetic patients: 1,000
 - Retrieved patient-trial pairs: 30,000
-- K-EXAONE smoke: 1 patient, top-2, 3 agent calls
+- Legacy K-EXAONE smoke: 1 patient, top-2, 3 agent calls
 
 ## Current Metrics
 
 - Retrieval target trial recall@30: 0.743
 - Retrieval potential recall@30: 0.590
 - Retrieval recommend recall@30: 0.520
-- K-EXAONE HTTP 200 rate in smoke test: 3/3
+- Legacy K-EXAONE HTTP 200 rate in smoke test: 3/3
 - LLM valid label rate in smoke test: 1.0
 - LLM JSON parse rate in smoke test: 0.667
 - LLM deterministic agreement in smoke test: 0.5
@@ -75,7 +80,7 @@ python scripts/run_competition_pipeline.py \
 
 The artifact is a reproducible competition-style slice, not a clinical
 validation set. The current bottlenecks are retrieval quality for sparse
-conditions, criterion extraction from free-text protocols, and K-EXAONE JSON
-stability. The next improvement should be a stronger condition metadata filter
-before BM25, then batch matcher prompts with strict line-protocol outputs to
-reduce K-EXAONE latency and parse failures.
+conditions and criterion extraction from free-text protocols. The next
+competition-format LLM experiment should use the Solar Pro 3 native-tool runner
+against the hidden-eval input, then compare its output with the synthetic silver
+labels.

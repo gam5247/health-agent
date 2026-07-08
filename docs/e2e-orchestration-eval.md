@@ -87,55 +87,63 @@ The hidden evaluator checks:
 
 The deterministic local runner is a structural baseline, not the target model.
 It verifies the full workflow shape and hidden-eval harness before running a
-K-EXAONE/Friendli or other LLM-backed orchestration.
+Solar Pro 3/Upstage or other LLM-backed orchestration.
 
-## K-EXAONE Pure Run
+## Solar Pro 3 Native Tool Run
 
-The pure K-EXAONE runner uses the same blinded input and does not accept an
-answer-key argument. It makes one Friendli/K-EXAONE chat-completions call per
-patient and normalizes the model's JSON into the competition v2 contract.
+The Solar Pro 3 runner uses the same blinded input and does not accept an
+answer-key argument. By default it uses Upstage/Solar Pro 3 native function
+calling: Solar can request local read-only tools for the patient note,
+candidate trials, and processed public trial details, then the runner returns
+tool results before asking for the final competition v2 JSON.
 
 Smoke command:
 
 ```powershell
-python scripts\run_exaone_e2e_orchestration.py `
+python scripts\run_solar_e2e_orchestration.py `
   --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
+  --mode tool `
   --max-patients 3 `
   --concurrency 1 `
-  --confirm-live-exaone-api `
-  --output-jsonl outputs\exaone_e2e_predictions_smoke.jsonl `
-  --output-json outputs\exaone_e2e_predictions_smoke.json `
-  --summary outputs\exaone_e2e_predictions_smoke_summary.json `
-  --raw-output-jsonl outputs\exaone_e2e_raw_responses_smoke.jsonl `
-  --audit-output-jsonl outputs\exaone_e2e_normalization_audit_smoke.jsonl `
-  --manifest outputs\exaone_e2e_run_manifest_smoke.json
+  --confirm-live-solar-api `
+  --output-jsonl outputs\solar_e2e_predictions_smoke.jsonl `
+  --output-json outputs\solar_e2e_predictions_smoke.json `
+  --summary outputs\solar_e2e_predictions_smoke_summary.json `
+  --raw-output-jsonl outputs\solar_e2e_raw_responses_smoke.jsonl `
+  --audit-output-jsonl outputs\solar_e2e_normalization_audit_smoke.jsonl `
+  --manifest outputs\solar_e2e_run_manifest_smoke.json
 ```
 
 Full 100-patient command:
 
 ```powershell
-python scripts\run_exaone_e2e_orchestration.py `
+python scripts\run_solar_e2e_orchestration.py `
   --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
+  --mode tool `
   --concurrency 4 `
   --resume `
-  --confirm-live-exaone-api
+  --confirm-live-solar-api `
+  --confirm-full-hidden-eval
 ```
 
-The explicit `--confirm-live-exaone-api` flag is required so the command cannot
+The explicit `--confirm-live-solar-api` flag is required so the command cannot
 accidentally call the live API during local preflight. The runner also writes
 raw model responses, normalization/fallback audit rows, and a run manifest under
 `outputs/`.
+Any live run resolving more than 3 patients also requires
+`--confirm-full-hidden-eval`, so the 100-patient hidden-eval path cannot be
+started by accidentally omitting `--max-patients`.
 
-Then score the EXAONE predictions:
+Then score the Solar Pro 3 predictions:
 
 ```powershell
 python scripts\evaluate_hidden_e2e_predictions.py `
-  --predictions outputs\exaone_e2e_predictions.jsonl `
-  --output outputs\exaone_e2e_hidden_eval_report.json `
+  --predictions outputs\solar_e2e_predictions.jsonl `
+  --output outputs\solar_e2e_hidden_eval_report.json `
   --fail-on-contract-errors
 ```
 
-For strict isolation, run `scripts\run_exaone_e2e_orchestration.py` from an
+For strict isolation, run `scripts\run_solar_e2e_orchestration.py` from an
 answer-key-free agent workspace and copy only the prediction JSONL back to the
 evaluator environment.
 

@@ -6,7 +6,12 @@ from dataclasses import dataclass
 from typing import Any
 
 from health_agent.e2e_orchestrator import CRITERION_STATUSES, DISCLAIMER, ELIGIBILITY_LABELS
-from health_agent.llm_client import ChatResult, FriendliClient
+from health_agent.llm_client import ChatResult, SolarClient
+from health_agent.solar_tools import (
+    SolarToolDatabase,
+    parse_solar_tool_calls,
+    solar_tool_definitions,
+)
 
 
 @dataclass(frozen=True)
@@ -17,29 +22,152 @@ class ParsedJson:
     repaired: bool = False
 
 
-PROMPT_VERSION = "k-exaone-pure-e2e-v1"
+PROMPT_VERSION = "solar-pro3-native-tools-e2e-v1"
 
 
-def run_exaone_e2e_orchestration(
+def run_solar_e2e_orchestration(
     input_record: dict[str, Any],
     *,
-    client: FriendliClient,
+    client: SolarClient,
+    trial_database_records: list[dict[str, Any]] | None = None,
+    max_tokens: int = 5000,
+    tool_max_tokens: int = 1600,
+    max_tool_rounds: int = 3,
+    max_excerpt_chars: int = 12000,
+) -> dict[str, Any]:
+    db = SolarToolDatabase(
+        input_record,
+        trial_database_records=trial_database_records,
+        max_excerpt_chars=max_excerpt_chars,
+    )
+    messages = build_solar_tool_messages(input_record)
+    tools = solar_tool_definitions()
+    tool_trace: list[dict[str, Any]] = []
+    final_call: ChatResult | None = None
+    final_parsed = ParsedJson(False, {}, "no final response")
+    used_tool_call = False
+
+    for round_index in range(max(1, max_tool_rounds)):
+        first_tool_choice: str | dict[str, Any]
+        first_tool_choice = {
+            "type": "function",
+            "function": {"name": "get_patient_candidate_bundle"},
+        } if round_index == 0 else "auto"
+        call = client.chat(
+            messages,
+            tools=tools,
+            tool_choice=first_tool_choice,
+            parallel_tool_calls=False if round_index == 0 else True,
+            max_tokens=tool_max_tokens,
+            temperature=0,
+        )
+        calls = parse_solar_tool_calls(call.tool_calls)
+        parsed = parse_json_object(call.content) if not calls else ParsedJson(False, {}, "tool call turn")
+        tool_trace.append(
+            {
+                "type": "assistant_tool_turn",
+                "round": round_index + 1,
+                "ok": call.ok,
+                "http_status": call.http_status,
+                "ms": call.ms,
+                "json_ok": parsed.ok,
+                "tool_call_count": len(calls),
+                "tool_call_names": [item.name for item in calls],
+                "tool_choice": first_tool_choice,
+                "content_preview": sanitize_text(call.content, 1200),
+            }
+        )
+        if not calls:
+            if not used_tool_call:
+                final_call = ChatResult(
+                    ok=False,
+                    http_status=call.http_status,
+                    retry_after=call.retry_after,
+                    ms=call.ms,
+                    content="",
+                    finish_reason=call.finish_reason,
+                    error=call.error
+                    or "Solar Pro 3 returned no native tool call before final output.",
+                )
+                final_parsed = ParsedJson(False, {}, final_call.error)
+                tool_trace.append(
+                    {
+                        "type": "missing_required_tool_call",
+                        "round": round_index + 1,
+                        "required_tool": "get_patient_candidate_bundle",
+                    }
+                )
+                break
+            final_call = call
+            final_parsed = parsed
+            break
+        results = [db.execute(item) for item in calls]
+        used_tool_call = True
+        tool_trace.append({"type": "tool_results", "results": results})
+        messages.append(
+            {
+                "role": "assistant",
+                "content": call.content,
+                "tool_calls": list(call.tool_calls),
+            }
+        )
+        messages.extend(
+            db.tool_result_message(item, result)
+            for item, result in zip(calls, results)
+        )
+
+    if final_call is None:
+        messages.append(
+            {
+                "role": "user",
+                "content": "No more tool rounds are available. Return the final competition JSON now using only the tool results already provided. Do not call another tool.",
+            }
+        )
+        final_call = client.chat(
+            messages,
+            max_tokens=max_tokens,
+            temperature=0,
+        )
+        final_parsed = parse_json_object(final_call.content)
+        tool_trace.append(
+            {
+                "type": "assistant_final_turn",
+                "ok": final_call.ok,
+                "http_status": final_call.http_status,
+                "ms": final_call.ms,
+                "json_ok": final_parsed.ok,
+                "content_preview": sanitize_text(final_call.content, 1200),
+            }
+        )
+
+    return normalize_solar_prediction(
+        input_record,
+        final_call,
+        final_parsed,
+        runner="solar-pro3-native-tools",
+        extra_trace={"solar_tool_trace": tool_trace},
+    )
+
+
+def run_solar_inline_e2e_orchestration(
+    input_record: dict[str, Any],
+    *,
+    client: SolarClient,
     max_tokens: int = 5000,
     max_excerpt_chars: int = 1200,
 ) -> dict[str, Any]:
-    messages = build_exaone_e2e_messages(input_record, max_excerpt_chars=max_excerpt_chars)
-    call = client.chat(
-        messages,
-        max_tokens=max_tokens,
-        temperature=0,
-        enable_thinking=False,
-        parse_reasoning=True,
-    )
+    messages = build_solar_e2e_messages(input_record, max_excerpt_chars=max_excerpt_chars)
+    call = client.chat(messages, max_tokens=max_tokens, temperature=0)
     parsed = parse_json_object(call.content)
-    return normalize_exaone_prediction(input_record, call, parsed)
+    return normalize_solar_prediction(
+        input_record,
+        call,
+        parsed,
+        runner="solar-pro3-inline",
+    )
 
 
-def build_exaone_e2e_messages(
+def build_solar_e2e_messages(
     input_record: dict[str, Any],
     *,
     max_excerpt_chars: int = 1200,
@@ -57,7 +185,7 @@ def build_exaone_e2e_messages(
             "role": "system",
             "content": "\n".join(
                 [
-                    "You are K-EXAONE running a clinical-trial matching multi-agent workflow.",
+                    "You are Solar Pro 3 running a clinical-trial matching multi-agent workflow.",
                     "Use only the supplied synthetic patient note and candidate-trial criteria.",
                     "Do not invent patient facts. If information is missing, mark the criterion unknown and ask a follow-up question.",
                     "Return one valid JSON object only. Do not use markdown.",
@@ -170,6 +298,79 @@ def build_exaone_e2e_messages(
     ]
 
 
+def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, str]]:
+    candidate_count = len(input_record.get("candidate_trials", []))
+    output_shape = {
+        "patient_id": input_record["patient_id"],
+        "criteria_parser_agent": {"parsed_trials": []},
+        "patient_information_understanding_agent": {
+            "extracted_patient_facts": {},
+            "known_fact_summary": "",
+        },
+        "initial_assessment": {"evaluated_trials": []},
+        "follow_up_questions": [],
+        "simulated_patient_answers": [],
+        "final_assessment_after_answers": {"evaluated_trials": []},
+        "recommended_trials": [],
+        "uncertain_but_actionable_trials": [],
+        "excluded_trials": [],
+        "patient_level_summary": "string",
+        "medical_disclaimer": DISCLAIMER,
+    }
+    return [
+        {
+            "role": "system",
+            "content": "\n".join(
+                [
+                    "You are Solar Pro 3 running a clinical-trial matching multi-agent workflow.",
+                    "You have access to a local, read-only trial database through native function tools.",
+                    "Use the provided tools to fetch the same visible patient and candidate-trial information available to the local agent.",
+                    "Do not invent patient facts. If information is missing, mark the criterion unknown and ask a follow-up question.",
+                    "When you have enough tool results, return one final JSON object only. Do not use markdown.",
+                    "Allowed trial eligibility labels: eligible, ineligible, uncertain.",
+                    "Allowed criterion statuses: satisfied, violated, unknown, not_applicable.",
+                    "Eligibility semantics: any violated required criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
+                    "No patient answers are supplied in this run, so simulated_patient_answers must be an empty list.",
+                    "This is synthetic software evaluation only, not medical advice.",
+                ]
+            ),
+        },
+        {
+            "role": "user",
+            "content": "\n".join(
+                [
+                    "Task:",
+                    f"Evaluate one synthetic patient against {candidate_count} candidate clinical trials.",
+                    "The database is visible only through the function tools attached to this request.",
+                    "",
+                    "Recommended efficient first step:",
+                    "Call get_patient_candidate_bundle to retrieve the patient note and all candidate-trial criteria.",
+                    "",
+                    "After tool results are provided, perform these agent steps internally:",
+                    "1. Criteria parser: structure every supplied criterion.",
+                    "2. Patient information understanding: extract only facts stated in the note.",
+                    "3. Initial matching: judge every criterion for every candidate trial.",
+                    "4. Question generation: ask about missing information needed for unknown criteria.",
+                    "5. Recommendation: rank eligible trials and separate uncertain/excluded trials.",
+                    "6. Result explanation: explain every final trial judgment.",
+                    "",
+                    "Final output JSON shape:",
+                    json.dumps(output_shape, ensure_ascii=False, indent=2, sort_keys=True),
+                    "",
+                    "Strict final-output requirements:",
+                    "- Include every candidate trial_id exactly once in initial_assessment.evaluated_trials.",
+                    "- Include every candidate trial_id exactly once in final_assessment_after_answers.evaluated_trials.",
+                    "- For each trial, include every criteria_to_assess criterion_id exactly once.",
+                    "- Use exact trial_id and criterion_id strings returned by the tools.",
+                    "- recommended_trials may contain only final trials labelled eligible.",
+                    "- uncertain_but_actionable_trials may contain only final trials labelled uncertain.",
+                    "- excluded_trials may contain only final trials labelled ineligible.",
+                ]
+            ),
+        },
+    ]
+
+
 def compact_trial(trial: dict[str, Any], *, max_excerpt_chars: int) -> dict[str, Any]:
     raw_excerpt = trial.get("raw_criteria_excerpt") if isinstance(trial.get("raw_criteria_excerpt"), dict) else {}
     return {
@@ -189,10 +390,10 @@ def compact_trial(trial: dict[str, Any], *, max_excerpt_chars: int) -> dict[str,
     }
 
 
-def parse_json_object(content: str) -> ParsedJson:
+def parse_json_object(content: Any) -> ParsedJson:
     if not content or not content.strip():
         return ParsedJson(False, {}, "empty content")
-    cleaned = strip_code_fence(content.strip())
+    cleaned = strip_code_fence(str(content).strip())
     candidates = [cleaned, repair_json_text(cleaned)]
     sliced = slice_json_candidate(cleaned)
     if sliced:
@@ -212,15 +413,18 @@ def parse_json_object(content: str) -> ParsedJson:
     return ParsedJson(False, {}, last_error)
 
 
-def normalize_exaone_prediction(
+def normalize_solar_prediction(
     input_record: dict[str, Any],
     call: ChatResult,
     parsed: ParsedJson,
+    *,
+    runner: str = "solar-pro3-native-tools",
+    extra_trace: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     payload = parsed.value if parsed.ok else {}
     final_output = normalize_final_output(input_record, payload, parsed)
     trace = {
-        "exaone_call": {
+        "solar_call": {
             "ok": call.ok,
             "http_status": call.http_status,
             "retry_after": call.retry_after,
@@ -232,7 +436,7 @@ def normalize_exaone_prediction(
             "content_preview": sanitize_text(call.content, 1500),
             "content": call.content,
         },
-        "exaone_normalization_audit": final_output["normalization_audit"],
+        "solar_normalization_audit": final_output["normalization_audit"],
         "criteria_parser_agent": payload.get("criteria_parser_agent", {}),
         "patient_information_understanding_agent": payload.get(
             "patient_information_understanding_agent", {}
@@ -255,9 +459,11 @@ def normalize_exaone_prediction(
             "medical_disclaimer": final_output["medical_disclaimer"],
         },
     }
+    if extra_trace:
+        trace.update(extra_trace)
     return {
         "schema_version": "health-agent-e2e-orchestration-v2",
-        "runner": "k-exaone-pure-single-call",
+        "runner": runner,
         "patient_id": input_record["patient_id"],
         "patient_information_string": input_record["patient_information_string"],
         "candidate_trials": input_record.get("candidate_trials", []),
@@ -363,7 +569,7 @@ def normalize_trial_rows(
             eligibility = aggregate_from_criterion_statuses(criterion_results)
         explanation = normalize_text_field(
             row.get("explanation"),
-            f"{source} EXAONE judgment normalized as {eligibility}.",
+            f"{source} Solar Pro 3 judgment normalized as {eligibility}.",
         )
         normalized.append(
             {
@@ -374,7 +580,7 @@ def normalize_trial_rows(
                 "criterion_results": criterion_results,
                 "related_question_ids": [],
                 "explanation": explanation,
-                "source": "k-exaone-pure-single-call",
+                "source": "solar-pro3-native-tools",
                 "patient_id": input_record["patient_id"],
             }
         )
@@ -411,7 +617,7 @@ def normalize_criterion_results(
                 "status": status,
                 "reason": normalize_text_field(
                     row.get("reason"),
-                    "K-EXAONE did not provide a usable reason for this criterion.",
+                    "Solar Pro 3 did not provide a usable reason for this criterion.",
                 ),
             }
         )
@@ -453,8 +659,8 @@ def normalize_questions(
                     {"trial_id": trial_id, "criterion_id": criterion_id}
                     for trial_id, criterion_id in needed_for
                 ],
-                "reason": normalize_text_field(row.get("reason"), "K-EXAONE marked related criteria unknown."),
-                "source": "k-exaone-pure-single-call",
+                "reason": normalize_text_field(row.get("reason"), "Solar Pro 3 marked related criteria unknown."),
+                "source": "solar-pro3-native-tools",
             }
         )
     if questions:
@@ -480,8 +686,8 @@ def structural_questions_for_unknowns(patient_id: str, final_rows: list[dict[str
             "question_id": f"{patient_id}-Q01",
             "question": "What missing clinical details are needed to resolve the unknown eligibility criteria?",
             "needed_for": links,
-            "reason": "One or more K-EXAONE criterion judgments were unknown.",
-            "source": "structural_question_fallback_from_exaone_unknowns",
+            "reason": "One or more Solar Pro 3 criterion judgments were unknown.",
+            "source": "structural_question_fallback_from_solar_unknowns",
         }
     ]
 
@@ -589,10 +795,10 @@ def default_summary(
     excluded: list[dict[str, Any]],
 ) -> str:
     if recommended:
-        return "K-EXAONE identified eligible trials: " + ", ".join(row["trial_id"] for row in recommended) + "."
+        return "Solar Pro 3 identified eligible trials: " + ", ".join(row["trial_id"] for row in recommended) + "."
     if uncertain:
-        return "K-EXAONE found no eligible trials; unresolved trials need more information: " + ", ".join(row["trial_id"] for row in uncertain) + "."
-    return f"K-EXAONE excluded all supplied candidate trials; excluded trial count: {len(excluded)}."
+        return "Solar Pro 3 found no eligible trials; unresolved trials need more information: " + ", ".join(row["trial_id"] for row in uncertain) + "."
+    return f"Solar Pro 3 excluded all supplied candidate trials; excluded trial count: {len(excluded)}."
 
 
 def truncate_list(value: Any, max_chars: int) -> list[str]:

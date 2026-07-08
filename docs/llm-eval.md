@@ -1,4 +1,8 @@
-# K-EXAONE / Friendli Evaluation
+# Legacy K-EXAONE / Friendli Evaluation
+
+This is the older Friendli/K-EXAONE smoke-evaluation path. For the
+competition-format hidden E2E evaluation, use
+`scripts/run_solar_e2e_orchestration.py`.
 
 This repository can run a reproducible local evaluation that combines:
 

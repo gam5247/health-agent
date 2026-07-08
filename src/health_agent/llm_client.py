@@ -11,6 +11,7 @@ from typing import Any
 
 
 DEFAULT_FRIENDLI_BASE_URL = "https://api.friendli.ai/dedicated/v1"
+DEFAULT_UPSTAGE_BASE_URL = "https://api.upstage.ai/v1"
 
 
 @dataclass(frozen=True)
@@ -62,15 +63,64 @@ class FriendliConfig:
 
 
 @dataclass(frozen=True)
+class SolarConfig:
+    api_key: str
+    model: str
+    chat_completions_url: str
+
+    @classmethod
+    def from_env(cls, env_file: Path | None = None) -> "SolarConfig":
+        values = load_dotenv_values(env_file) if env_file else {}
+        env = {**values, **os.environ}
+        base_url = (
+            env.get("UPSTAGE_BASE_URL")
+            or env.get("SOLAR_BASE_URL")
+            or DEFAULT_UPSTAGE_BASE_URL
+        )
+        chat_url = env.get("UPSTAGE_CHAT_COMPLETIONS_URL") or env.get(
+            "SOLAR_CHAT_COMPLETIONS_URL"
+        ) or f"{base_url.rstrip('/')}/chat/completions"
+        return cls(
+            api_key=env.get("UPSTAGE_API_KEY") or env.get("SOLAR_API_KEY") or "",
+            model=env.get("UPSTAGE_MODEL") or env.get("SOLAR_MODEL") or "solar-pro3",
+            chat_completions_url=chat_url,
+        )
+
+    @property
+    def configured(self) -> bool:
+        return bool(self.api_key and self.model)
+
+    @property
+    def missing(self) -> list[str]:
+        missing = []
+        if not self.api_key:
+            missing.append("UPSTAGE_API_KEY")
+        if not self.model:
+            missing.append("SOLAR_MODEL")
+        return missing
+
+    def public_status(self) -> dict[str, Any]:
+        return {
+            "configured": self.configured,
+            "hasApiKey": bool(self.api_key),
+            "model": self.model,
+            "chatCompletionsUrl": self.chat_completions_url,
+            "missing": self.missing,
+        }
+
+
+@dataclass(frozen=True)
 class ChatResult:
     ok: bool
     http_status: int | str
     retry_after: str
     ms: int
-    content: str
+    content: str | None
     reasoning: str = ""
     finish_reason: str = ""
     error: str = ""
+    tool_calls: tuple[dict[str, Any], ...] = ()
+    raw_response: dict[str, Any] | None = None
 
 
 @dataclass(frozen=True)
@@ -160,6 +210,104 @@ class FriendliClient:
             )
 
 
+class SolarClient:
+    def __init__(self, config: SolarConfig, timeout_sec: int = 180) -> None:
+        if not config.configured:
+            raise ValueError(f"Missing API configuration: {', '.join(config.missing)}")
+        self.config = config
+        self.timeout_sec = timeout_sec
+
+    def chat(
+        self,
+        messages: list[dict[str, Any]],
+        *,
+        tools: list[dict[str, Any]] | None = None,
+        tool_choice: str | dict[str, Any] | None = None,
+        parallel_tool_calls: bool | None = None,
+        max_tokens: int = 5000,
+        temperature: float = 0,
+    ) -> ChatResult:
+        started = time.perf_counter()
+        payload: dict[str, Any] = {
+            "model": self.config.model,
+            "messages": normalize_openai_messages(messages),
+            "stream": False,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        if tools:
+            payload["tools"] = tools
+            payload["tool_choice"] = tool_choice or "auto"
+        if parallel_tool_calls is not None:
+            payload["parallel_tool_calls"] = parallel_tool_calls
+
+        request = urllib.request.Request(
+            self.config.chat_completions_url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {self.config.api_key}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            method="POST",
+        )
+
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout_sec) as response:
+                raw = response.read().decode("utf-8", errors="replace")
+                parsed = json.loads(raw)
+                choice = _first_choice(parsed)
+                message = choice.get("message") or choice.get("delta") or {}
+                return ChatResult(
+                    ok=200 <= response.status < 300,
+                    http_status=response.status,
+                    retry_after=response.headers.get("retry-after", ""),
+                    ms=_elapsed_ms(started),
+                    content=_pick_text(message.get("content")).strip(),
+                    reasoning=_pick_text(_pick_reasoning(message)),
+                    finish_reason=str(choice.get("finish_reason") or ""),
+                    tool_calls=tuple(normalize_tool_calls(message.get("tool_calls"))),
+                    raw_response=parsed,
+                )
+        except urllib.error.HTTPError as error:
+            detail = _safe_error_body(error)
+            return ChatResult(
+                ok=False,
+                http_status=error.code,
+                retry_after=error.headers.get("retry-after", "") if error.headers else "",
+                ms=_elapsed_ms(started),
+                content="",
+                error=detail,
+            )
+        except TimeoutError:
+            return ChatResult(
+                ok=False,
+                http_status="TIMEOUT",
+                retry_after="",
+                ms=_elapsed_ms(started),
+                content="",
+                error=f"timeout after {self.timeout_sec}s",
+            )
+        except OSError as error:
+            return ChatResult(
+                ok=False,
+                http_status="ERR",
+                retry_after="",
+                ms=_elapsed_ms(started),
+                content="",
+                error=str(error),
+            )
+        except json.JSONDecodeError as error:
+            return ChatResult(
+                ok=False,
+                http_status="BAD_JSON",
+                retry_after="",
+                ms=_elapsed_ms(started),
+                content="",
+                error=str(error),
+            )
+
+
 def load_dotenv_values(path: Path | None) -> dict[str, str]:
     if path is None or not path.exists():
         return {}
@@ -186,6 +334,39 @@ def normalize_messages(messages: list[dict[str, str]]) -> list[dict[str, str]]:
         if not isinstance(content, str) or not content.strip():
             continue
         normalized.append({"role": role, "content": content.strip()})
+    if not normalized:
+        raise ValueError("At least one non-empty chat message is required.")
+    return normalized
+
+
+def normalize_openai_messages(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    normalized: list[dict[str, Any]] = []
+    for message in messages:
+        role = str(message.get("role", ""))
+        content = message.get("content", "")
+        if role in {"system", "user"}:
+            if isinstance(content, str) and content.strip():
+                normalized.append({"role": role, "content": content.strip()})
+        elif role == "assistant":
+            item: dict[str, Any] = {"role": "assistant"}
+            if isinstance(content, str):
+                item["content"] = content
+            if isinstance(message.get("tool_calls"), list):
+                item["tool_calls"] = message["tool_calls"]
+            if item.get("content") or item.get("tool_calls"):
+                normalized.append(item)
+        elif role == "tool":
+            if not isinstance(content, str):
+                content = json.dumps(content, ensure_ascii=False, sort_keys=True)
+            item = {
+                "role": "tool",
+                "content": content,
+                "tool_call_id": str(message.get("tool_call_id") or ""),
+            }
+            if message.get("name"):
+                item["name"] = str(message["name"])
+            if item["tool_call_id"]:
+                normalized.append(item)
     if not normalized:
         raise ValueError("At least one non-empty chat message is required.")
     return normalized
@@ -267,6 +448,29 @@ def _pick_text(value: Any) -> str:
                 parts.append(str(item.get("text") or item.get("content") or ""))
         return "".join(parts)
     return ""
+
+
+def normalize_tool_calls(value: Any) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    calls: list[dict[str, Any]] = []
+    for index, item in enumerate(value, start=1):
+        if not isinstance(item, dict):
+            continue
+        function = item.get("function") if isinstance(item.get("function"), dict) else {}
+        name = str(function.get("name") or item.get("name") or "")
+        arguments = function.get("arguments", item.get("arguments", "{}"))
+        calls.append(
+            {
+                "id": str(item.get("id") or f"call_{index}"),
+                "type": str(item.get("type") or "function"),
+                "function": {
+                    "name": name,
+                    "arguments": arguments if isinstance(arguments, str) else json.dumps(arguments),
+                },
+            }
+        )
+    return calls
 
 
 def _safe_error_body(error: urllib.error.HTTPError) -> str:
