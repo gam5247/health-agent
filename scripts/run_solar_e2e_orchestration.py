@@ -276,7 +276,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-patients", type=int, default=None)
     parser.add_argument("--concurrency", type=int, default=2)
     parser.add_argument("--request-timeout-sec", type=int, default=300)
-    parser.add_argument("--max-tokens", type=int, default=5000)
+    parser.add_argument("--max-tokens", type=int, default=12000)
     parser.add_argument("--tool-max-tokens", type=int, default=1600)
     parser.add_argument("--max-tool-rounds", type=int, default=3)
     parser.add_argument("--max-excerpt-chars", type=int, default=1200)
