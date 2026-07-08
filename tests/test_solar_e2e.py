@@ -13,11 +13,13 @@ if str(SRC) not in sys.path:
 
 from health_agent.e2e_orchestrator import blinded_input_from_answer_record
 from health_agent.solar_e2e import (
+    aggregate_from_criterion_statuses,
     build_solar_e2e_messages,
     build_solar_tool_messages,
     normalize_solar_prediction,
     parse_json_object,
     run_solar_e2e_orchestration,
+    run_solar_multi_agent_e2e_orchestration,
 )
 from health_agent.hidden_eval import validate_prediction_contract
 from health_agent.llm_client import ChatResult
@@ -343,6 +345,75 @@ class SolarE2ETests(unittest.TestCase):
         self.assertTrue(expected_links.issubset(needed_for))
         self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
 
+    def test_inconsistent_trial_eligibility_is_corrected_from_criteria(self) -> None:
+        trial = self.blinded["candidate_trials"][0]
+        payload = {
+            "patient_id": self.blinded["patient_id"],
+            "initial_assessment": {
+                "evaluated_trials": [
+                    {
+                        "trial_id": trial["trial_id"],
+                        "eligibility": "eligible",
+                        "criterion_results": [
+                            {
+                                "criterion_id": criterion["criterion_id"],
+                                "status": "unknown" if index == 0 else "satisfied",
+                                "reason": "Synthetic test reason.",
+                            }
+                            for index, criterion in enumerate(trial["criteria_to_assess"])
+                        ],
+                        "explanation": "Model-level label conflicts with criterion statuses.",
+                    }
+                ]
+            },
+            "final_assessment_after_answers": {
+                "evaluated_trials": [
+                    {
+                        "trial_id": trial["trial_id"],
+                        "eligibility": "eligible",
+                        "criterion_results": [
+                            {
+                                "criterion_id": criterion["criterion_id"],
+                                "status": "unknown" if index == 0 else "satisfied",
+                                "reason": "Synthetic test reason.",
+                            }
+                            for index, criterion in enumerate(trial["criteria_to_assess"])
+                        ],
+                        "explanation": "Model-level label conflicts with criterion statuses.",
+                    }
+                ]
+            },
+            "follow_up_questions": [],
+            "simulated_patient_answers": [],
+        }
+        prediction = normalize_solar_prediction(
+            self.blinded,
+            ChatResult(
+                ok=True,
+                http_status=200,
+                retry_after="",
+                ms=123,
+                content=json.dumps(payload),
+            ),
+            parse_json_object(json.dumps(payload)),
+        )
+        final_row = prediction["final_output"]["final_assessment_after_answers"]["evaluated_trials"][0]
+        self.assertEqual(final_row["eligibility"], "uncertain")
+        audit = prediction["agent_trace"]["solar_normalization_audit"]
+        self.assertEqual(audit["final_inconsistent_eligibility_corrected"], 1)
+        self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
+
+    def test_not_applicable_criterion_makes_trial_ineligible(self) -> None:
+        self.assertEqual(
+            aggregate_from_criterion_statuses(
+                [
+                    {"criterion_id": "A", "status": "satisfied"},
+                    {"criterion_id": "B", "status": "not_applicable"},
+                ]
+            ),
+            "ineligible",
+        )
+
     def test_failed_solar_parse_still_builds_contract_complete_prediction(self) -> None:
         call = ChatResult(
             ok=True,
@@ -456,6 +527,122 @@ class SolarE2ETests(unittest.TestCase):
         )
         self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
 
+    def test_six_call_multi_agent_orchestration_satisfies_contract(self) -> None:
+        initial_rows = build_test_evaluated_rows(
+            self.blinded,
+            eligibility="uncertain",
+            status="unknown",
+            reason="The patient note does not state this detail.",
+        )
+        final_rows = build_test_evaluated_rows(
+            self.blinded,
+            eligibility="eligible",
+            status="satisfied",
+            reason="The simulated follow-up answer resolves this detail.",
+        )
+        first_trial = self.blinded["candidate_trials"][0]
+        first_criterion = first_trial["criteria_to_assess"][0]
+        question_id = f"{self.blinded['patient_id']}-Q01"
+        client = FakeSequenceSolarClient(
+            [
+                {
+                    "patient_id": self.blinded["patient_id"],
+                    "parsed_trials": [
+                        {
+                            "trial_id": trial["trial_id"],
+                            "trial_title": trial["trial_title"],
+                            "parsed_criteria": trial["criteria_to_assess"],
+                        }
+                        for trial in self.blinded["candidate_trials"]
+                    ],
+                },
+                {
+                    "patient_id": self.blinded["patient_id"],
+                    "extracted_patient_facts": {"diagnosis": "synthetic diagnosis"},
+                    "missing_patient_fields": ["follow_up_detail"],
+                    "known_fact_summary": "Synthetic patient facts were extracted.",
+                },
+                {
+                    "patient_id": self.blinded["patient_id"],
+                    "evaluated_trials": initial_rows,
+                },
+                {
+                    "patient_id": self.blinded["patient_id"],
+                    "follow_up_questions": [
+                        {
+                            "question_id": question_id,
+                            "question": "Can the missing eligibility detail be confirmed?",
+                            "needed_for": [
+                                {
+                                    "trial_id": first_trial["trial_id"],
+                                    "criterion_id": first_criterion["criterion_id"],
+                                }
+                            ],
+                            "reason": "The initial pass marked this criterion unknown.",
+                        }
+                    ],
+                    "simulated_patient_answers": [
+                        {
+                            "question_id": question_id,
+                            "answer": "Yes, the missing detail is confirmed for this synthetic workflow.",
+                            "source": "solar-pro3-simulated-follow-up",
+                        }
+                    ],
+                },
+                {
+                    "patient_id": self.blinded["patient_id"],
+                    "final_assessment_after_answers": {
+                        "evaluated_trials": final_rows,
+                    },
+                    "recommended_trials": [],
+                    "uncertain_but_actionable_trials": [],
+                    "excluded_trials": [],
+                },
+                {
+                    "patient_id": self.blinded["patient_id"],
+                    "trial_explanations": [
+                        {
+                            "trial_id": trial["trial_id"],
+                            "explanation": "Final explanation from the result explanation agent.",
+                        }
+                        for trial in self.blinded["candidate_trials"]
+                    ],
+                    "patient_level_summary": "All supplied trials are eligible in this fake response.",
+                    "medical_disclaimer": "Synthetic software-evaluation output only. Not medical advice and not a real clinical eligibility decision.",
+                },
+            ]
+        )
+        prediction = run_solar_multi_agent_e2e_orchestration(
+            self.blinded,
+            client=client,
+            trial_database_records=[],
+        )
+        self.assertEqual(validate_prediction_contract(prediction, self.answer), [])
+        self.assertEqual(prediction["runner"], "solar-pro3-six-call-multi-agent")
+        self.assertEqual(len(client.requests), 6)
+        self.assertEqual(
+            prediction["agent_trace"]["solar_multi_agent_api_call_count"],
+            6,
+        )
+        self.assertEqual(
+            [
+                row["agent"]
+                for row in prediction["agent_trace"]["solar_multi_agent_calls"]
+            ],
+            [
+                "criteria_parser_agent",
+                "patient_information_understanding_agent",
+                "inference_matching_agent_initial",
+                "question_generation_agent",
+                "recommendation_agent",
+                "result_explanation_agent",
+            ],
+        )
+        self.assertIn(
+            "result explanation agent",
+            prediction["final_output"]["final_assessment_after_answers"]["evaluated_trials"][0]["explanation"],
+        )
+
 
 class FakeSolarClient:
     def __init__(self, final_content: str, *, first_tool_calls=None) -> None:
@@ -495,6 +682,53 @@ class FakeSolarClient:
             content=self.final_content,
             finish_reason="stop",
         )
+
+
+class FakeSequenceSolarClient:
+    def __init__(self, payloads: list[dict[str, object]]) -> None:
+        self.payloads = payloads
+        self.requests: list[dict[str, object]] = []
+
+    def chat(self, messages, **kwargs) -> ChatResult:
+        self.requests.append({"messages": messages, **kwargs})
+        index = len(self.requests) - 1
+        if index >= len(self.payloads):
+            raise AssertionError("Unexpected extra Solar API call")
+        return ChatResult(
+            ok=True,
+            http_status=200,
+            retry_after="",
+            ms=10 + index,
+            content=json.dumps(self.payloads[index]),
+            finish_reason="stop",
+        )
+
+
+def build_test_evaluated_rows(
+    input_record: dict[str, object],
+    *,
+    eligibility: str,
+    status: str,
+    reason: str,
+) -> list[dict[str, object]]:
+    rows = []
+    for trial in input_record["candidate_trials"]:
+        rows.append(
+            {
+                "trial_id": trial["trial_id"],
+                "eligibility": eligibility,
+                "criterion_results": [
+                    {
+                        "criterion_id": criterion["criterion_id"],
+                        "status": status,
+                        "reason": reason,
+                    }
+                    for criterion in trial["criteria_to_assess"]
+                ],
+                "explanation": reason,
+            }
+        )
+    return rows
 
 
 if __name__ == "__main__":

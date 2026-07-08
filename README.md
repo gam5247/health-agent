@@ -523,9 +523,11 @@ Optional variables:
 - `UPSTAGE_BASE_URL` / `SOLAR_BASE_URL`, default `https://api.upstage.ai/v1`
 - `UPSTAGE_CHAT_COMPLETIONS_URL` / `SOLAR_CHAT_COMPLETIONS_URL`
 
-Solar Pro 3 E2E runner는 숨긴 정답지를 받지 않고, 기본적으로 native
-function calling으로 로컬 trial DB를 조회한다. 실제 API 호출은 명시 플래그
-없이는 실행되지 않는다. 3명을 초과하는 live run은 추가로
+Solar Pro 3 E2E runner는 숨긴 정답지를 받지 않는다. 기본 `multi-agent`
+모드는 환자 1명당 Solar API를 6회 호출해 기준 파싱, 환자 정보 이해,
+초기 매칭, 질문/가상 답변 생성, 최종 추천, 결과 설명을 단계별로 수행한다.
+`tool`과 `inline`은 단일 Solar 호출 비교군이다. 실제 API 호출은 명시
+플래그 없이는 실행되지 않는다. 3명을 초과하는 live run은 추가로
 `--confirm-full-hidden-eval`이 필요하다.
 
 출력은 두 단계 판단을 분리한다. `initial_assessment`는 부족 정보가 아직
@@ -535,7 +537,7 @@ function calling으로 로컬 trial DB를 조회한다. 실제 API 호출은 명
 ```powershell
 python scripts\run_solar_e2e_orchestration.py `
   --env-file "<path-to-local-env-file>" `
-  --mode tool `
+  --mode multi-agent `
   --max-patients 3 `
   --concurrency 1 `
   --confirm-live-solar-api

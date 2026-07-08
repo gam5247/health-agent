@@ -9,6 +9,7 @@ from health_agent.e2e_orchestrator import CRITERION_STATUSES, DISCLAIMER, ELIGIB
 from health_agent.llm_client import ChatResult, SolarClient
 from health_agent.solar_tools import (
     SolarToolDatabase,
+    ToolCall,
     parse_solar_tool_calls,
     solar_tool_definitions,
 )
@@ -23,6 +24,14 @@ class ParsedJson:
 
 
 PROMPT_VERSION = "solar-pro3-native-tools-e2e-v1"
+MULTI_AGENT_PROMPT_VERSION = "solar-pro3-six-call-e2e-v1"
+
+
+@dataclass(frozen=True)
+class AgentJsonResult:
+    name: str
+    call: ChatResult
+    parsed: ParsedJson
 
 
 def run_solar_e2e_orchestration(
@@ -172,6 +181,635 @@ def run_solar_inline_e2e_orchestration(
     )
 
 
+def run_solar_multi_agent_e2e_orchestration(
+    input_record: dict[str, Any],
+    *,
+    client: SolarClient,
+    trial_database_records: list[dict[str, Any]] | None = None,
+    max_tokens: int = 12000,
+    max_excerpt_chars: int = 1200,
+) -> dict[str, Any]:
+    visible_bundle = build_visible_candidate_bundle(
+        input_record,
+        trial_database_records=trial_database_records,
+        max_excerpt_chars=max_excerpt_chars,
+    )
+    criteria = call_solar_json_agent(
+        client,
+        "criteria_parser_agent",
+        build_criteria_parser_agent_messages(input_record, visible_bundle),
+        max_tokens=max_tokens,
+    )
+    patient = call_solar_json_agent(
+        client,
+        "patient_information_understanding_agent",
+        build_patient_understanding_agent_messages(input_record, criteria.parsed.value),
+        max_tokens=max_tokens,
+    )
+    initial = call_solar_json_agent(
+        client,
+        "inference_matching_agent_initial",
+        build_initial_matching_agent_messages(
+            input_record,
+            criteria.parsed.value,
+            patient.parsed.value,
+        ),
+        max_tokens=max_tokens,
+    )
+    questions = call_solar_json_agent(
+        client,
+        "question_generation_agent",
+        build_question_generation_agent_messages(
+            input_record,
+            criteria.parsed.value,
+            patient.parsed.value,
+            initial.parsed.value,
+        ),
+        max_tokens=max_tokens,
+    )
+    recommendation = call_solar_json_agent(
+        client,
+        "recommendation_agent",
+        build_recommendation_agent_messages(
+            input_record,
+            criteria.parsed.value,
+            patient.parsed.value,
+            initial.parsed.value,
+            questions.parsed.value,
+        ),
+        max_tokens=max_tokens,
+    )
+    explanation = call_solar_json_agent(
+        client,
+        "result_explanation_agent",
+        build_result_explanation_agent_messages(
+            input_record,
+            initial.parsed.value,
+            questions.parsed.value,
+            recommendation.parsed.value,
+        ),
+        max_tokens=max_tokens,
+    )
+    agent_results = [criteria, patient, initial, questions, recommendation, explanation]
+    payload = assemble_multi_agent_payload(
+        input_record,
+        criteria=criteria.parsed.value,
+        patient=patient.parsed.value,
+        initial=initial.parsed.value,
+        questions=questions.parsed.value,
+        recommendation=recommendation.parsed.value,
+        explanation=explanation.parsed.value,
+    )
+    aggregate_call = aggregate_multi_agent_call(agent_results, payload)
+    aggregate_parsed = ParsedJson(
+        ok=all(item.call.ok and item.parsed.ok for item in agent_results),
+        value=payload,
+        error="; ".join(
+            f"{item.name}: {item.call.error or item.parsed.error}"
+            for item in agent_results
+            if not (item.call.ok and item.parsed.ok)
+        ),
+        repaired=any(item.parsed.repaired for item in agent_results),
+    )
+    return normalize_solar_prediction(
+        input_record,
+        aggregate_call,
+        aggregate_parsed,
+        runner="solar-pro3-six-call-multi-agent",
+        extra_trace={
+            "solar_multi_agent_api_call_count": len(agent_results),
+            "solar_multi_agent_calls": [
+                multi_agent_trace_row(item) for item in agent_results
+            ],
+        },
+        payload_override=payload,
+        prompt_version=MULTI_AGENT_PROMPT_VERSION,
+    )
+
+
+def build_visible_candidate_bundle(
+    input_record: dict[str, Any],
+    *,
+    trial_database_records: list[dict[str, Any]] | None,
+    max_excerpt_chars: int,
+) -> dict[str, Any]:
+    db = SolarToolDatabase(
+        input_record,
+        trial_database_records=trial_database_records,
+        max_excerpt_chars=max_excerpt_chars,
+    )
+    result = db.execute(
+        ToolCall(
+            call_id="local_bundle",
+            name="get_patient_candidate_bundle",
+            arguments={},
+        )
+    )
+    if result.get("ok") and isinstance(result.get("result"), dict):
+        return result["result"]
+    return {
+        "patient_id": input_record["patient_id"],
+        "patient_information_string": input_record["patient_information_string"],
+        "candidate_trials": [
+            compact_trial(trial, max_excerpt_chars=max_excerpt_chars)
+            for trial in input_record.get("candidate_trials", [])
+        ],
+    }
+
+
+def call_solar_json_agent(
+    client: SolarClient,
+    name: str,
+    messages: list[dict[str, str]],
+    *,
+    max_tokens: int,
+) -> AgentJsonResult:
+    call = client.chat(messages, max_tokens=max_tokens, temperature=0)
+    parsed = parse_json_object(call.content)
+    return AgentJsonResult(name=name, call=call, parsed=parsed)
+
+
+def aggregate_multi_agent_call(
+    agent_results: list[AgentJsonResult],
+    payload: dict[str, Any],
+) -> ChatResult:
+    ok = all(item.call.ok and item.parsed.ok for item in agent_results)
+    statuses = [str(item.call.http_status) for item in agent_results]
+    return ChatResult(
+        ok=ok,
+        http_status=200 if ok else ",".join(statuses),
+        retry_after="",
+        ms=sum(int(item.call.ms or 0) for item in agent_results),
+        content=json.dumps(payload, ensure_ascii=False, sort_keys=True),
+        finish_reason="six_call_multi_agent_complete" if ok else "six_call_multi_agent_partial",
+        error="; ".join(
+            f"{item.name}: {item.call.error or item.parsed.error}"
+            for item in agent_results
+            if not (item.call.ok and item.parsed.ok)
+        ),
+    )
+
+
+def multi_agent_trace_row(item: AgentJsonResult) -> dict[str, Any]:
+    return {
+        "agent": item.name,
+        "ok": item.call.ok,
+        "http_status": item.call.http_status,
+        "retry_after": item.call.retry_after,
+        "ms": item.call.ms,
+        "finish_reason": item.call.finish_reason,
+        "json_ok": item.parsed.ok,
+        "json_repaired": item.parsed.repaired,
+        "error": item.call.error or item.parsed.error,
+        "content_preview": sanitize_text(item.call.content, 1500),
+        "content": item.call.content,
+    }
+
+
+def assemble_multi_agent_payload(
+    input_record: dict[str, Any],
+    *,
+    criteria: dict[str, Any],
+    patient: dict[str, Any],
+    initial: dict[str, Any],
+    questions: dict[str, Any],
+    recommendation: dict[str, Any],
+    explanation: dict[str, Any],
+) -> dict[str, Any]:
+    initial_assessment = assessment_from_payload(initial, "initial_assessment")
+    final_assessment = assessment_from_payload(
+        recommendation,
+        "final_assessment_after_answers",
+    )
+    final_assessment = merge_final_assessment_with_initial(
+        input_record,
+        initial_assessment,
+        final_assessment,
+    )
+    apply_result_explanations(final_assessment, explanation)
+    return {
+        "patient_id": input_record["patient_id"],
+        "criteria_parser_agent": criteria,
+        "patient_information_understanding_agent": patient,
+        "initial_assessment": initial_assessment,
+        "follow_up_questions": list_payload(questions, "follow_up_questions"),
+        "simulated_patient_answers": list_payload(questions, "simulated_patient_answers"),
+        "final_assessment_after_answers": final_assessment,
+        "recommended_trials": list_payload(recommendation, "recommended_trials"),
+        "uncertain_but_actionable_trials": list_payload(
+            recommendation,
+            "uncertain_but_actionable_trials",
+        ),
+        "excluded_trials": list_payload(recommendation, "excluded_trials"),
+        "patient_level_summary": normalize_text_field(
+            explanation.get("patient_level_summary"),
+            "",
+        ),
+        "medical_disclaimer": normalize_text_field(
+            explanation.get("medical_disclaimer"),
+            DISCLAIMER,
+        ),
+    }
+
+
+def assessment_from_payload(payload: dict[str, Any], preferred_key: str) -> dict[str, Any]:
+    if isinstance(payload.get(preferred_key), dict):
+        return payload[preferred_key]
+    for fallback_key in ("assessment", "initial_assessment", "final_assessment_after_answers"):
+        if isinstance(payload.get(fallback_key), dict):
+            return payload[fallback_key]
+    if isinstance(payload.get("evaluated_trials"), list):
+        return {"evaluated_trials": payload["evaluated_trials"]}
+    return {"evaluated_trials": []}
+
+
+def list_payload(payload: dict[str, Any], key: str) -> list[Any]:
+    value = payload.get(key)
+    return value if isinstance(value, list) else []
+
+
+def apply_result_explanations(
+    final_assessment: dict[str, Any],
+    explanation: dict[str, Any],
+) -> None:
+    rows = final_assessment.get("evaluated_trials")
+    if not isinstance(rows, list):
+        return
+    explanation_by_trial = {}
+    for row in explanation.get("trial_explanations", []):
+        if not isinstance(row, dict):
+            continue
+        trial_id = str(row.get("trial_id", ""))
+        text = str(row.get("explanation", "")).strip()
+        if trial_id and text:
+            explanation_by_trial[trial_id] = text
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        text = explanation_by_trial.get(str(row.get("trial_id", "")))
+        if text:
+            row["explanation"] = text
+
+
+def merge_final_assessment_with_initial(
+    input_record: dict[str, Any],
+    initial_assessment: dict[str, Any],
+    final_assessment: dict[str, Any],
+) -> dict[str, Any]:
+    initial_by_trial = trial_rows_by_id(initial_assessment.get("evaluated_trials"))
+    final_by_trial = trial_rows_by_id(final_assessment.get("evaluated_trials"))
+    merged = []
+    for trial in input_record.get("candidate_trials", []):
+        trial_id = trial["trial_id"]
+        final_row = final_by_trial.get(trial_id)
+        initial_row = initial_by_trial.get(trial_id)
+        if final_row:
+            merged.append(merge_trial_row_criteria(trial, initial_row or {}, final_row))
+        elif initial_row:
+            merged.append(dict(initial_row))
+    return {"evaluated_trials": merged}
+
+
+def trial_rows_by_id(rows: Any) -> dict[str, dict[str, Any]]:
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row.get("trial_id", "")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("trial_id")
+    }
+
+
+def merge_trial_row_criteria(
+    trial: dict[str, Any],
+    initial_row: dict[str, Any],
+    final_row: dict[str, Any],
+) -> dict[str, Any]:
+    initial_criteria = criterion_rows_by_id(initial_row.get("criterion_results"))
+    final_criteria = criterion_rows_by_id(final_row.get("criterion_results"))
+    merged = dict(final_row)
+    criteria = []
+    for criterion in trial.get("criteria_to_assess", []):
+        criterion_id = criterion["criterion_id"]
+        if criterion_id in final_criteria:
+            criteria.append(dict(final_criteria[criterion_id]))
+        elif criterion_id in initial_criteria:
+            criteria.append(dict(initial_criteria[criterion_id]))
+    merged["criterion_results"] = criteria
+    return merged
+
+
+def criterion_rows_by_id(rows: Any) -> dict[str, dict[str, Any]]:
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row.get("criterion_id", "")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("criterion_id")
+    }
+
+
+def build_criteria_parser_agent_messages(
+    input_record: dict[str, Any],
+    visible_bundle: dict[str, Any],
+) -> list[dict[str, str]]:
+    return multi_agent_messages(
+        role_name="criteria_parser_agent",
+        task_lines=[
+            "Agent 1/6: convert each candidate trial's inclusion/exclusion criteria into structured rules.",
+            "Use only the supplied candidate trial information.",
+            "Do not judge the patient yet.",
+            "Keep every trial_id and criterion_id unchanged.",
+        ],
+        output_shape={
+            "patient_id": input_record["patient_id"],
+            "parsed_trials": [
+                {
+                    "trial_id": "string",
+                    "trial_title": "string",
+                    "parsed_criteria": [
+                        {
+                            "criterion_id": "string",
+                            "criterion_type": "inclusion|exclusion",
+                            "required": True,
+                            "field": "condition|age|stage|ecog|biomarker|prior_treatment|exclusion_flag|other",
+                            "operator": "matches|within_range|<=|must_be_present|must_be_absent|other",
+                            "value": "structured value or null",
+                            "source_text": "criterion text",
+                            "patient_information_needed": ["field name"],
+                        }
+                    ],
+                }
+            ],
+        },
+        input_payload={
+            "patient_id": input_record["patient_id"],
+            "candidate_trials": visible_bundle.get("candidate_trials", []),
+        },
+    )
+
+
+def build_patient_understanding_agent_messages(
+    input_record: dict[str, Any],
+    criteria_payload: dict[str, Any],
+) -> list[dict[str, str]]:
+    return multi_agent_messages(
+        role_name="patient_information_understanding_agent",
+        task_lines=[
+            "Agent 2/6: extract patient facts from the synthetic patient information string.",
+            "Use the criteria parser output only to know which facts may matter.",
+            "Do not infer facts that are not stated in the note.",
+            "List missing or unstated facts separately.",
+        ],
+        output_shape={
+            "patient_id": input_record["patient_id"],
+            "extracted_patient_facts": {
+                "age": "number or null",
+                "sex": "string or null",
+                "diagnosis": "string or null",
+                "stage": "string or null",
+                "ecog": "number or null",
+                "biomarkers": {},
+                "prior_treatments": {},
+                "exclusion_flags": {},
+                "other_relevant_facts": {},
+            },
+            "missing_patient_fields": ["string"],
+            "known_fact_summary": "short summary",
+        },
+        input_payload={
+            "patient_id": input_record["patient_id"],
+            "patient_information_string": input_record["patient_information_string"],
+            "criteria_parser_agent": criteria_payload,
+        },
+    )
+
+
+def build_initial_matching_agent_messages(
+    input_record: dict[str, Any],
+    criteria_payload: dict[str, Any],
+    patient_payload: dict[str, Any],
+) -> list[dict[str, str]]:
+    return multi_agent_messages(
+        role_name="inference_matching_agent_initial",
+        task_lines=[
+            "Agent 3/6: judge initial eligibility for every candidate trial before follow-up answers.",
+            "Use only patient facts stated in the original note.",
+            "If a needed fact is missing, mark that criterion unknown.",
+            "Any violated required criterion makes the trial ineligible.",
+            "No violations but at least one unknown makes the trial uncertain.",
+            "No violations and no unknown required criteria makes the trial eligible.",
+        ],
+        output_shape={
+            "patient_id": input_record["patient_id"],
+            "evaluated_trials": evaluated_trials_skeleton(input_record),
+        },
+        input_payload={
+            "patient_id": input_record["patient_id"],
+            "criteria_parser_agent": criteria_payload,
+            "patient_information_understanding_agent": patient_payload,
+        },
+    )
+
+
+def build_question_generation_agent_messages(
+    input_record: dict[str, Any],
+    criteria_payload: dict[str, Any],
+    patient_payload: dict[str, Any],
+    initial_payload: dict[str, Any],
+) -> list[dict[str, str]]:
+    return multi_agent_messages(
+        role_name="question_generation_agent",
+        task_lines=[
+            "Agent 4/6: generate follow-up questions for unknown initial criteria.",
+            "Each question must include needed_for links to exact trial_id and criterion_id values.",
+            "Then simulate a concise synthetic patient answer for each question so the workflow can run end-to-end.",
+            "Do not present simulated answers as original note facts.",
+            "Simulated answers must stay clinically consistent with the original patient note.",
+            "Do not invent unrelated cancer stage, biomarker, or prior oncology treatment for a non-cancer diagnosis just to satisfy a trial.",
+            "For missing exclusion-condition questions such as active autoimmune disease, active infection, organ transplant, or uncontrolled cardiac disease, you may simulate a clear absent/no answer when it does not contradict the note.",
+            "If the requested fact is not applicable to the documented condition, answer that it is not applicable or not documented.",
+            "If there are no unknown criteria, return empty follow_up_questions and simulated_patient_answers arrays.",
+        ],
+        output_shape={
+            "patient_id": input_record["patient_id"],
+            "follow_up_questions": [
+                {
+                    "question_id": f"{input_record['patient_id']}-Q01",
+                    "question": "string",
+                    "needed_for": [{"trial_id": "string", "criterion_id": "string"}],
+                    "reason": "why this fact is needed",
+                }
+            ],
+            "simulated_patient_answers": [
+                {
+                    "question_id": f"{input_record['patient_id']}-Q01",
+                    "answer": "synthetic patient answer used only for workflow simulation",
+                    "source": "solar-pro3-simulated-follow-up",
+                }
+            ],
+        },
+        input_payload={
+            "patient_id": input_record["patient_id"],
+            "criteria_parser_agent": criteria_payload,
+            "patient_information_understanding_agent": patient_payload,
+            "initial_assessment": assessment_from_payload(
+                initial_payload,
+                "initial_assessment",
+            ),
+        },
+    )
+
+
+def build_recommendation_agent_messages(
+    input_record: dict[str, Any],
+    criteria_payload: dict[str, Any],
+    patient_payload: dict[str, Any],
+    initial_payload: dict[str, Any],
+    questions_payload: dict[str, Any],
+) -> list[dict[str, str]]:
+    return multi_agent_messages(
+        role_name="recommendation_agent",
+        task_lines=[
+            "Agent 5/6: perform the second eligibility pass after applying simulated follow-up answers.",
+            "Use the original patient facts plus simulated_patient_answers.",
+            "A simulated answer can clarify missing information but cannot contradict the original diagnosis or create unrelated disease facts.",
+            "If a simulated answer says an exclusion condition is absent, mark that exclusion criterion satisfied.",
+            "If a stage, biomarker, or treatment question is not applicable to the documented condition, keep the criterion unknown or violated as appropriate.",
+            "Return final_assessment_after_answers with every candidate trial exactly once.",
+            "Important JSON shape rule: evaluated_trials is an array of trial objects, and each trial object has a criterion_results array.",
+            "Do not put criterion objects directly inside evaluated_trials.",
+            "Also return simple trial-id recommendation buckets. The runner will build the final detailed recommendation rows from final_assessment_after_answers.",
+        ],
+        output_shape={
+            "patient_id": input_record["patient_id"],
+            "final_assessment_after_answers": {
+                "evaluated_trials": evaluated_trials_skeleton(input_record)
+            },
+            "recommended_trial_ids": ["eligible trial_id"],
+            "uncertain_trial_ids": ["uncertain trial_id"],
+            "excluded_trial_ids": ["ineligible trial_id"],
+        },
+        input_payload={
+            "patient_id": input_record["patient_id"],
+            "criteria_parser_agent": criteria_payload,
+            "patient_information_understanding_agent": patient_payload,
+            "initial_assessment": assessment_from_payload(
+                initial_payload,
+                "initial_assessment",
+            ),
+            "follow_up_questions": list_payload(
+                questions_payload,
+                "follow_up_questions",
+            ),
+            "simulated_patient_answers": list_payload(
+                questions_payload,
+                "simulated_patient_answers",
+            ),
+        },
+    )
+
+
+def build_result_explanation_agent_messages(
+    input_record: dict[str, Any],
+    initial_payload: dict[str, Any],
+    questions_payload: dict[str, Any],
+    recommendation_payload: dict[str, Any],
+) -> list[dict[str, str]]:
+    return multi_agent_messages(
+        role_name="result_explanation_agent",
+        task_lines=[
+            "Agent 6/6: write final explanations for the already computed judgments.",
+            "Do not change trial eligibility labels or criterion statuses.",
+            "Explain why each final trial is recommended, uncertain, or excluded.",
+            "Include the required medical disclaimer exactly.",
+        ],
+        output_shape={
+            "patient_id": input_record["patient_id"],
+            "trial_explanations": [
+                {"trial_id": "string", "explanation": "string"}
+            ],
+            "patient_level_summary": "string",
+            "medical_disclaimer": DISCLAIMER,
+        },
+        input_payload={
+            "patient_id": input_record["patient_id"],
+            "initial_assessment": assessment_from_payload(
+                initial_payload,
+                "initial_assessment",
+            ),
+            "follow_up_questions": list_payload(
+                questions_payload,
+                "follow_up_questions",
+            ),
+            "simulated_patient_answers": list_payload(
+                questions_payload,
+                "simulated_patient_answers",
+            ),
+            "recommendation_agent": recommendation_payload,
+        },
+    )
+
+
+def multi_agent_messages(
+    *,
+    role_name: str,
+    task_lines: list[str],
+    output_shape: dict[str, Any],
+    input_payload: dict[str, Any],
+) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": "\n".join(
+                [
+                    f"You are Solar Pro 3 acting as the {role_name} in a six-call clinical-trial matching orchestration.",
+                    "This is synthetic software evaluation only, not medical advice.",
+                    "Return one valid JSON object only. Do not use markdown.",
+                    "Use only the supplied input JSON. Do not use hidden labels or invent original patient facts.",
+                    "Allowed trial eligibility labels: eligible, ineligible, uncertain.",
+                    "Allowed criterion statuses: satisfied, violated, unknown, not_applicable.",
+                    "Eligibility semantics: any violated or required not_applicable criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
+                    "Keep all patient_id, trial_id, criterion_id, and question_id strings exact.",
+                ]
+            ),
+        },
+        {
+            "role": "user",
+            "content": "\n".join(
+                [
+                    *task_lines,
+                    "",
+                    "Required output JSON shape:",
+                    json.dumps(output_shape, ensure_ascii=False, indent=2, sort_keys=True),
+                    "",
+                    "Input JSON:",
+                    json.dumps(input_payload, ensure_ascii=False, indent=2, sort_keys=True),
+                ]
+            ),
+        },
+    ]
+
+
+def evaluated_trials_skeleton(input_record: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {
+            "trial_id": trial["trial_id"],
+            "eligibility": "eligible|ineligible|uncertain",
+            "criterion_results": [
+                {
+                    "criterion_id": criterion["criterion_id"],
+                    "status": "satisfied|violated|unknown|not_applicable",
+                    "reason": "evidence-based reason",
+                }
+                for criterion in trial.get("criteria_to_assess", [])
+            ],
+            "explanation": "trial-level explanation",
+        }
+        for trial in input_record.get("candidate_trials", [])
+    ]
+
+
 def build_solar_e2e_messages(
     input_record: dict[str, Any],
     *,
@@ -196,7 +834,7 @@ def build_solar_e2e_messages(
                     "Return one valid JSON object only. Do not use markdown.",
                     "Allowed trial eligibility labels: eligible, ineligible, uncertain.",
                     "Allowed criterion statuses: satisfied, violated, unknown, not_applicable.",
-                    "Eligibility semantics: any violated required criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
+                    "Eligibility semantics: any violated or required not_applicable criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
                     "Initial assessment must use only facts stated in the patient note and tool results.",
                     "For workflow simulation, generate simulated_patient_answers to your own follow-up questions when missing facts block eligibility resolution.",
                     "Final assessment must be a separate second pass after applying those simulated answers.",
@@ -346,7 +984,7 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
                     "When you have enough tool results, return one final JSON object only. Do not use markdown.",
                     "Allowed trial eligibility labels: eligible, ineligible, uncertain.",
                     "Allowed criterion statuses: satisfied, violated, unknown, not_applicable.",
-                    "Eligibility semantics: any violated required criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
+                    "Eligibility semantics: any violated or required not_applicable criterion means ineligible; no violations but at least one unknown means uncertain; otherwise eligible.",
                     "Initial assessment must use only facts stated in the patient note and tool results.",
                     "For workflow simulation, generate simulated_patient_answers to your own follow-up questions when missing facts block eligibility resolution.",
                     "Final assessment must be a separate second pass after applying those simulated answers.",
@@ -517,9 +1155,19 @@ def normalize_solar_prediction(
     *,
     runner: str = "solar-pro3-native-tools",
     extra_trace: dict[str, Any] | None = None,
+    payload_override: dict[str, Any] | None = None,
+    prompt_version: str = PROMPT_VERSION,
+    source_name: str | None = None,
 ) -> dict[str, Any]:
-    payload = parsed.value if parsed.ok else {}
-    final_output = normalize_final_output(input_record, payload, parsed)
+    payload = payload_override if payload_override is not None else (parsed.value if parsed.ok else {})
+    source = source_name or runner
+    final_output = normalize_final_output(
+        input_record,
+        payload,
+        parsed,
+        prompt_version=prompt_version,
+        source_name=source,
+    )
     trace = {
         "solar_call": {
             "ok": call.ok,
@@ -573,6 +1221,9 @@ def normalize_final_output(
     input_record: dict[str, Any],
     payload: dict[str, Any],
     parsed: ParsedJson,
+    *,
+    prompt_version: str = PROMPT_VERSION,
+    source_name: str = "solar-pro3-native-tools",
 ) -> dict[str, Any]:
     initial = payload.get("initial_assessment") if isinstance(payload.get("initial_assessment"), dict) else {}
     final = (
@@ -581,7 +1232,7 @@ def normalize_final_output(
         else initial
     )
     audit = {
-        "prompt_version": PROMPT_VERSION,
+        "prompt_version": prompt_version,
         "raw_json_valid": parsed.ok,
         "parse_repaired": parsed.repaired,
         "initial_missing_trials_filled": 0,
@@ -594,6 +1245,8 @@ def normalize_final_output(
         "final_extra_criterion_ids_dropped": 0,
         "initial_fallback_eligibility_count": 0,
         "final_fallback_eligibility_count": 0,
+        "initial_inconsistent_eligibility_corrected": 0,
+        "final_inconsistent_eligibility_corrected": 0,
         "initial_fallback_criterion_status_count": 0,
         "final_fallback_criterion_status_count": 0,
         "simulated_answers_kept": 0,
@@ -604,17 +1257,20 @@ def normalize_final_output(
         initial.get("evaluated_trials") if isinstance(initial, dict) else [],
         source="initial",
         audit=audit,
+        source_name=source_name,
     )
     final_rows = normalize_trial_rows(
         input_record,
         final.get("evaluated_trials") if isinstance(final, dict) else [],
         source="final",
         audit=audit,
+        source_name=source_name,
     )
     questions = normalize_questions(
         payload.get("follow_up_questions", []),
         input_record,
         initial_rows,
+        source_name=source_name,
     )
     answer_rows = normalize_simulated_answers(
         payload.get("simulated_patient_answers", []),
@@ -647,6 +1303,7 @@ def normalize_trial_rows(
     *,
     source: str,
     audit: dict[str, Any],
+    source_name: str,
 ) -> list[dict[str, Any]]:
     by_trial = {
         str(row.get("trial_id", "")): row
@@ -668,9 +1325,13 @@ def normalize_trial_rows(
             audit=audit,
         )
         eligibility = normalize_eligibility(row.get("eligibility"))
+        aggregate_eligibility = aggregate_from_criterion_statuses(criterion_results)
         if not eligibility:
             audit[f"{source}_fallback_eligibility_count"] += 1
-            eligibility = aggregate_from_criterion_statuses(criterion_results)
+            eligibility = aggregate_eligibility
+        elif eligibility != aggregate_eligibility:
+            audit[f"{source}_inconsistent_eligibility_corrected"] += 1
+            eligibility = aggregate_eligibility
         explanation = normalize_text_field(
             row.get("explanation"),
             f"{source} Solar Pro 3 judgment normalized as {eligibility}.",
@@ -684,7 +1345,7 @@ def normalize_trial_rows(
                 "criterion_results": criterion_results,
                 "related_question_ids": [],
                 "explanation": explanation,
-                "source": "solar-pro3-native-tools",
+                "source": source_name,
                 "patient_id": input_record["patient_id"],
             }
         )
@@ -732,6 +1393,8 @@ def normalize_questions(
     rows: Any,
     input_record: dict[str, Any],
     final_rows: list[dict[str, Any]],
+    *,
+    source_name: str,
 ) -> list[dict[str, Any]]:
     valid_pairs = {
         (trial["trial_id"], criterion["criterion_id"])
@@ -764,7 +1427,7 @@ def normalize_questions(
                     for trial_id, criterion_id in needed_for
                 ],
                 "reason": normalize_text_field(row.get("reason"), "Solar Pro 3 marked related criteria unknown."),
-                "source": "solar-pro3-native-tools",
+                "source": source_name,
             }
         )
     if questions:
@@ -904,7 +1567,7 @@ def attach_question_ids(rows: list[dict[str, Any]], questions: list[dict[str, An
 
 def aggregate_from_criterion_statuses(criteria: list[dict[str, str]]) -> str:
     statuses = {item["status"] for item in criteria}
-    if "violated" in statuses:
+    if "violated" in statuses or "not_applicable" in statuses:
         return "ineligible"
     if "unknown" in statuses:
         return "uncertain"

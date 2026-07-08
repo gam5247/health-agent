@@ -19,9 +19,11 @@ if str(SRC) not in sys.path:
 
 from health_agent.llm_client import SolarClient, SolarConfig
 from health_agent.solar_e2e import (
+    MULTI_AGENT_PROMPT_VERSION,
     PROMPT_VERSION,
     run_solar_e2e_orchestration,
     run_solar_inline_e2e_orchestration,
+    run_solar_multi_agent_e2e_orchestration,
 )
 
 
@@ -93,7 +95,7 @@ def main() -> None:
         raise SystemExit(5)
     trial_database_records = (
         read_jsonl(args.trial_database)
-        if args.mode == "tool" and args.trial_database.exists()
+        if args.mode in {"tool", "multi-agent"} and args.trial_database.exists()
         else []
     )
     hidden_trial_db_paths = forbidden_key_paths(trial_database_records)
@@ -152,6 +154,7 @@ def main() -> None:
     )
 
     results = list(existing_by_patient.values())
+    runtime_invariant_failures: list[dict[str, Any]] = []
     with ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as executor:
         futures = {
             executor.submit(
@@ -178,6 +181,17 @@ def main() -> None:
                     prediction = future.result()
                 except Exception as exc:  # pragma: no cover - defensive CLI guard
                     prediction = error_prediction(record, str(exc))
+                    runtime_invariant_failures.append(
+                        {
+                            "patient_id": patient_id,
+                            "errors": [f"runner_exception: {exc}"],
+                        }
+                    )
+                invariant_errors = runtime_invariant_errors(prediction, args.mode)
+                if invariant_errors:
+                    runtime_invariant_failures.append(
+                        {"patient_id": patient_id, "errors": invariant_errors}
+                    )
                 handle.write(json.dumps(prediction, ensure_ascii=False, sort_keys=True))
                 handle.write("\n")
                 handle.flush()
@@ -219,6 +233,21 @@ def main() -> None:
     summary = build_summary(results, started)
     write_json(args.summary, summary)
     print(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True))
+    if runtime_invariant_failures:
+        print(
+            json.dumps(
+                {
+                    "error": "runtime_invariant_failed",
+                    "failures": runtime_invariant_failures[:20],
+                    "runnerAnswerKeyAccess": False,
+                },
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            ),
+            file=sys.stderr,
+        )
+        raise SystemExit(6)
 
 
 def parse_args() -> argparse.Namespace:
@@ -263,9 +292,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--mode",
-        choices=["tool", "inline"],
-        default="tool",
-        help="tool uses native Solar function calling; inline sends compact candidate data directly.",
+        choices=["multi-agent", "tool", "inline"],
+        default="multi-agent",
+        help=(
+            "multi-agent makes six sequential Solar calls; tool and inline are "
+            "single-agent comparison modes."
+        ),
     )
     parser.add_argument(
         "--trial-database",
@@ -306,6 +338,14 @@ def run_one(
     max_excerpt_chars: int,
 ) -> dict[str, Any]:
     client = SolarClient(config, timeout_sec=request_timeout_sec)
+    if mode == "multi-agent":
+        return run_solar_multi_agent_e2e_orchestration(
+            record,
+            client=client,
+            trial_database_records=trial_database_records,
+            max_tokens=max_tokens,
+            max_excerpt_chars=max_excerpt_chars,
+        )
     if mode == "inline":
         return run_solar_inline_e2e_orchestration(
             record,
@@ -377,6 +417,33 @@ def forbidden_key_paths(value: Any, path: str = "$") -> list[str]:
     return hits
 
 
+def runtime_invariant_errors(prediction: dict[str, Any], mode: str) -> list[str]:
+    if mode != "multi-agent":
+        return []
+    errors = []
+    if prediction.get("runner") != "solar-pro3-six-call-multi-agent":
+        errors.append("runner is not solar-pro3-six-call-multi-agent")
+    trace = prediction.get("agent_trace", {})
+    calls = trace.get("solar_multi_agent_calls", [])
+    if not isinstance(calls, list):
+        errors.append("solar_multi_agent_calls is missing or not a list")
+        calls = []
+    if len(calls) != 6:
+        errors.append(f"expected 6 Solar agent calls, found {len(calls)}")
+    if trace.get("solar_multi_agent_api_call_count") != 6:
+        errors.append("solar_multi_agent_api_call_count is not 6")
+    for row in calls:
+        if not isinstance(row, dict):
+            errors.append("solar_multi_agent_calls contains a non-object row")
+            continue
+        agent = row.get("agent", "unknown_agent")
+        if not row.get("ok"):
+            errors.append(f"{agent}: API call failed")
+        if not row.get("json_ok"):
+            errors.append(f"{agent}: JSON parse failed")
+    return errors
+
+
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes((json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8"))
@@ -403,8 +470,11 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
     final_trial_count = 0
     tool_turn_count = 0
     tool_call_count = 0
+    agent_api_call_count = 0
+    runner_counts = Counter()
     audit_totals = Counter()
     for prediction in predictions:
+        runner_counts[prediction.get("runner", "")] += 1
         final = prediction.get("final_output", {})
         question_count += len(final.get("follow_up_questions", []))
         simulated_answer_count += len(final.get("simulated_patient_answers", []))
@@ -432,10 +502,14 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
                 tool_turn_count += 1
                 if isinstance(trace_row.get("tool_call_count"), int):
                     tool_call_count += trace_row["tool_call_count"]
+        multi_agent_calls = prediction.get("agent_trace", {}).get("solar_multi_agent_calls", [])
+        if isinstance(multi_agent_calls, list):
+            agent_api_call_count += len(multi_agent_calls)
     latencies.sort()
     return {
         "schema_version": "health-agent-solar-e2e-summary-v1",
         "runner": "solar-pro3",
+        "runner_distribution": dict(sorted(runner_counts.items())),
         "patient_count": len(predictions),
         "final_trial_judgment_count": final_trial_count,
         "follow_up_question_count": question_count,
@@ -449,6 +523,7 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
         "p95_latency_ms": percentile(latencies, 0.95),
         "tool_turn_count": tool_turn_count,
         "tool_call_count": tool_call_count,
+        "agent_api_call_count": agent_api_call_count,
         "normalization_audit_totals": dict(sorted(audit_totals.items())),
         "elapsed_sec": round(max(0.001, time.perf_counter() - started), 3),
         "runner_answer_key_access": False,
@@ -469,7 +544,7 @@ def build_manifest(
         "provider": "Upstage",
         "model": config.model,
         "chat_completions_url": config.chat_completions_url,
-        "prompt_version": PROMPT_VERSION,
+        "prompt_version": prompt_version_for_mode(args.mode),
         "code_version": git_head(),
         "input": str(args.input),
         "input_sha256": sha256_file(args.input) if args.input.exists() else "",
@@ -494,6 +569,10 @@ def build_manifest(
         "runner_answer_key_access": False,
         "started_at_utc": datetime.now(timezone.utc).isoformat(),
     }
+
+
+def prompt_version_for_mode(mode: str) -> str:
+    return MULTI_AGENT_PROMPT_VERSION if mode == "multi-agent" else PROMPT_VERSION
 
 
 def raw_response_row(prediction: dict[str, Any]) -> dict[str, Any]:

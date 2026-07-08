@@ -96,20 +96,32 @@ The deterministic local runner is a structural baseline, not the target model.
 It verifies the full workflow shape and hidden-eval harness before running a
 Solar Pro 3/Upstage or other LLM-backed orchestration.
 
-## Solar Pro 3 Native Tool Run
+## Solar Pro 3 Six-Call Multi-Agent Run
 
 The Solar Pro 3 runner uses the same blinded input and does not accept an
-answer-key argument. By default it uses Upstage/Solar Pro 3 native function
-calling: Solar can request local read-only tools for the patient note,
-candidate trials, and processed public trial details, then the runner returns
-tool results before asking for the final competition v2 JSON.
+answer-key argument. The default `multi-agent` mode makes six sequential
+Upstage/Solar Pro 3 API calls per patient:
+
+1. criteria parser
+2. patient information understanding
+3. initial inference/matching
+4. follow-up question generation plus simulated patient answers
+5. final recommendation after applying simulated answers
+6. result explanation
+
+The runner then normalizes those six JSON outputs into the competition v2
+contract. `tool` and `inline` remain available as single-agent comparison
+modes.
+In `multi-agent` mode the runner fails the process if any patient does not have
+exactly six recorded Solar agent calls, or if any of the six calls fails API or
+JSON parsing.
 
 Smoke command:
 
 ```powershell
 python scripts\run_solar_e2e_orchestration.py `
   --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
-  --mode tool `
+  --mode multi-agent `
   --max-patients 3 `
   --concurrency 1 `
   --confirm-live-solar-api `
@@ -126,7 +138,7 @@ Full 100-patient command:
 ```powershell
 python scripts\run_solar_e2e_orchestration.py `
   --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
-  --mode tool `
+  --mode multi-agent `
   --concurrency 4 `
   --resume `
   --confirm-live-solar-api `
