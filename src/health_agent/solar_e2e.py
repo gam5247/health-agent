@@ -98,8 +98,13 @@ def run_solar_e2e_orchestration(
                     }
                 )
                 break
-            final_call = call
-            final_parsed = parsed
+            tool_trace.append(
+                {
+                    "type": "assistant_no_more_tools",
+                    "round": round_index + 1,
+                    "content_preview": sanitize_text(call.content, 1200),
+                }
+            )
             break
         results = [db.execute(item) for item in calls]
         used_tool_call = True
@@ -116,7 +121,7 @@ def run_solar_e2e_orchestration(
             for item, result in zip(calls, results)
         )
 
-    if final_call is None:
+    if final_call is None and used_tool_call:
         messages.append(
             {
                 "role": "user",
