@@ -125,7 +125,7 @@ def run_solar_e2e_orchestration(
         messages.append(
             {
                 "role": "user",
-                "content": "No more tool rounds are available. Return the final competition JSON now using only the tool results already provided. Do not call another tool.",
+                "content": build_final_only_instruction(input_record),
             }
         )
         final_call = client.chat(
@@ -318,11 +318,6 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
     candidate_count = len(input_record.get("candidate_trials", []))
     output_shape = {
         "patient_id": input_record["patient_id"],
-        "criteria_parser_agent": {"parsed_trials": []},
-        "patient_information_understanding_agent": {
-            "extracted_patient_facts": {},
-            "known_fact_summary": "",
-        },
         "initial_assessment": {"evaluated_trials": []},
         "follow_up_questions": [],
         "simulated_patient_answers": [
@@ -383,6 +378,8 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
                     json.dumps(output_shape, ensure_ascii=False, indent=2, sort_keys=True),
                     "",
                     "Strict final-output requirements:",
+                    "- Do not spend final-answer tokens restating parsed criteria or raw trial text.",
+                    "- Do not include criteria_parser_agent, patient_information_understanding_agent, parsed_trials, criteria, or reasons arrays in the final JSON.",
                     "- Include every candidate trial_id exactly once in initial_assessment.evaluated_trials.",
                     "- Include every candidate trial_id exactly once in final_assessment_after_answers.evaluated_trials.",
                     "- For each trial, include every criteria_to_assess criterion_id exactly once.",
@@ -398,6 +395,77 @@ def build_solar_tool_messages(input_record: dict[str, Any]) -> list[dict[str, st
             ),
         },
     ]
+
+
+def build_final_only_instruction(input_record: dict[str, Any]) -> str:
+    return "\n".join(
+        [
+            "No more tool rounds are available. Return the final competition JSON now using only the tool results already provided.",
+            "Do not call another tool.",
+            "Return JSON only. Do not use markdown.",
+            "Do not include criteria_parser_agent, patient_information_understanding_agent, parsed_trials, criteria, or reasons arrays.",
+            "Every evaluated trial row must include criterion_results. Do not replace criterion_results with a reasons array.",
+            "Use only these top-level keys:",
+            "patient_id, initial_assessment, follow_up_questions, simulated_patient_answers, final_assessment_after_answers, recommended_trials, uncertain_but_actionable_trials, excluded_trials, patient_level_summary, medical_disclaimer.",
+            "Fill this skeleton exactly. Keep all trial_id and criterion_id values unchanged:",
+            json.dumps(final_output_skeleton(input_record), ensure_ascii=False, indent=2, sort_keys=True),
+        ]
+    )
+
+
+def final_output_skeleton(input_record: dict[str, Any]) -> dict[str, Any]:
+    evaluated = []
+    for trial in input_record.get("candidate_trials", []):
+        evaluated.append(
+            {
+                "trial_id": trial["trial_id"],
+                "eligibility": "eligible|ineligible|uncertain",
+                "criterion_results": [
+                    {
+                        "criterion_id": criterion["criterion_id"],
+                        "status": "satisfied|violated|unknown|not_applicable",
+                        "reason": "evidence-based reason",
+                    }
+                    for criterion in trial.get("criteria_to_assess", [])
+                ],
+                "explanation": "trial-level explanation",
+            }
+        )
+    return {
+        "patient_id": input_record["patient_id"],
+        "initial_assessment": {"evaluated_trials": evaluated},
+        "follow_up_questions": [
+            {
+                "question_id": "string",
+                "question": "string",
+                "needed_for": [{"trial_id": "string", "criterion_id": "string"}],
+                "reason": "string",
+            }
+        ],
+        "simulated_patient_answers": [
+            {
+                "question_id": "string",
+                "answer": "synthetic patient answer used only for workflow simulation",
+                "source": "solar-pro3-simulated-follow-up",
+            }
+        ],
+        "final_assessment_after_answers": {"evaluated_trials": evaluated},
+        "recommended_trials": [
+            {
+                "rank": 1,
+                "trial_id": "string",
+                "trial_title": "string",
+                "eligibility": "eligible",
+                "recommendation_reason": "string",
+                "supporting_criterion_ids": [],
+                "related_question_ids": [],
+            }
+        ],
+        "uncertain_but_actionable_trials": [],
+        "excluded_trials": [],
+        "patient_level_summary": "string",
+        "medical_disclaimer": DISCLAIMER,
+    }
 
 
 def compact_trial(trial: dict[str, Any], *, max_excerpt_chars: int) -> dict[str, Any]:
