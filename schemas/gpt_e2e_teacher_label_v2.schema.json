@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GPT E2E Teacher Label V2",
+  "type": "object",
+  "required": [
+    "patient_id",
+    "patient_information_string",
+    "candidate_trials",
+    "agent_trace",
+    "final_output",
+    "quality_flags"
+  ],
+  "properties": {
+    "patient_id": { "type": "string" },
+    "patient_information_string": { "type": "string" },
+    "candidate_trials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["trial_id", "trial_title", "criteria_to_assess"],
+        "properties": {
+          "trial_id": { "type": "string" },
+          "trial_title": { "type": "string" },
+          "trial_source_url": { "type": "string" },
+          "criteria_to_assess": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["criterion_id", "criterion_type", "criterion", "required"]
+            }
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "agent_trace": {
+      "type": "object",
+      "required": [
+        "criteria_parser_agent",
+        "patient_information_understanding_agent",
+        "initial_matching_agent",
+        "question_generation_agent",
+        "interaction_simulation_agent",
+        "final_matching_agent",
+        "recommendation_agent",
+        "result_explanation_agent"
+      ]
+    },
+    "final_output": {
+      "type": "object",
+      "required": [
+        "initial_assessment",
+        "follow_up_questions",
+        "simulated_patient_answers",
+        "final_assessment_after_answers",
+        "recommended_trials",
+        "uncertain_but_actionable_trials",
+        "excluded_trials",
+        "patient_level_summary",
+        "medical_disclaimer"
+      ]
+    },
+    "quality_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

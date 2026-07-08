@@ -1,6 +1,6 @@
 {
   "artifact": "gpt-e2e-teacher-labels-100",
-  "artifact_version": 1,
+  "artifact_version": 2,
   "generated_date": "2026-07-08",
   "source_commit_before_generation": "0d3179d88d3e65ba0316f0d8f972db440704afa4",
   "provider": {
@@ -13,40 +13,67 @@
   "scale": {
     "patients": 100,
     "candidate_trials_per_patient": 5,
+    "initial_trial_judgments": 500,
     "final_trial_judgments": 500,
     "criterion_level_judgments": 2934,
+    "follow_up_questions": 449,
+    "simulated_patient_answers": 420,
+    "final_eligible_recommendations": 100,
+    "uncertain_but_actionable_trials": 8,
+    "excluded_trials": 392,
     "batch_count": 20,
     "patients_per_batch": 5
   },
   "validation": {
     "commands": [
       "python scripts\\combine_gpt_e2e_teacher_labels.py",
+      "python scripts\\build_gpt_e2e_teacher_final_v2.py",
       "python -m unittest discover -s tests",
       "git diff --cached --check"
     ],
     "structural_validation_errors": 0,
-    "semantic_consistency_warnings": 28,
-    "unit_tests": "22 passed"
+    "semantic_consistency_warnings_v1": 28,
+    "normalization_warning_counts_v2": {
+      "derived_final_explanation": 125,
+      "initial_assessment_fallback_from_final": 150,
+      "no_follow_up_questions_available": 5,
+      "questions_without_answers": 15
+    },
+    "unit_tests": "26 passed"
   },
   "canonical_outputs": {
+    "jsonl": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2.jsonl",
+    "json": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2.json",
+    "summary": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2_summary.json",
+    "schema": "schemas/gpt_e2e_teacher_label_v2.schema.json"
+  },
+  "legacy_outputs": {
     "jsonl": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.jsonl",
     "json": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.json",
-    "summary": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100_summary.json"
+    "summary": "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100_summary.json",
+    "schema": "schemas/gpt_e2e_teacher_label.schema.json"
   },
   "hashes_sha256": {
-    "artifacts/gpt-e2e-teacher-labeling/README.md": "507cf8dd971b496f92591223253536b2cae08a2938ce0b0d129c6650b97b3919",
+    ".gitattributes": "21b10d0f0562ee96e8fbdf9c3035bdd8b7005791502e0771c65ff510cec82bba",
+    "artifacts/gpt-e2e-teacher-labeling/README.md": "11627ebfb5fb7bc10273605ca84a21d7ab686a02f2ec10cee72d6d3810236567",
     "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_input_100.json": "fc822e11420129b79e167e1e0ef6780cece840ce2394d2433e091c0edd71bb20",
-    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.jsonl": "469ed744467ace4b4bf1b61e982c974785293072e8e2dae03fbf3eb8c21f156c",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.jsonl": "ee48c2444ef7f208398e3909f386f12b4898b1304ec1ed68cd35d0a9a21a52e4",
     "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.json": "4013baff89e816222b0c9bd103bdc7379ba64fbb15c28c4b1dcc5ca9fb6af391",
     "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100_summary.json": "840007287316fc6138074c80ce5e4ace69f16dfc87ca1af7bae116b57c2b64d2",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2.jsonl": "c0db7179e593a0a547de127c8a65501a39002fe75aa3188100690832f82d61f2",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2.json": "d636e92b2d97f2b84ed09d0e9771e43e498cac5669ee645742dcc39651242c0e",
+    "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2_summary.json": "b511165af532d399a8a040f4844947787f9194e5a035681e983587f247e9f0d9",
     "artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_request_manifest.json": "bc1f905821a8125ddf86c437a539e69ba1b9fdf751d84c18fe94b31ca8f8a496",
-    "scripts/build_gpt_e2e_teacher_requests.py": "bffea1b83f85071806ff06a6fc37805e8ee5bc935c41da12d4446a3d9f90e770",
-    "scripts/ingest_gpt_e2e_teacher_response.py": "9fd223eedab561d5adfe174a2d35890b6e0faae32531123bafb8e87f0831774f",
-    "scripts/combine_gpt_e2e_teacher_labels.py": "23c16a3ef62f713910a26feb27104f9d5b75c1defcfa8d8d4bd7eaee1be9eb9b",
-    "src/health_agent/teacher_student.py": "5aab09c07d030ca82a7a0b857d5e93ef037940d87ae829a008dbb0eddf198a37",
-    "tests/test_teacher_student.py": "b6d8d09bbc5aa168d422919aa71e480605dc53beec0d765b6403dd6b7a8202b0",
-    "schemas/gpt_e2e_teacher_label.schema.json": "4bda881956bf3d51fe2ddcca906f23021ff41fcf83f0d3fd0f8f42d18511bedd",
-    "tests/test_gpt_e2e_teacher_artifact.py": "539b4edee963955273f5f813b2237ada314a7b7d5eea671972d8aad9dd0eb624"
+    "scripts/build_gpt_e2e_teacher_requests.py": "655a0081f3041ccda2ea7702c0bb74d1583f7a2efa4c9c2cc88a5c9d6ccdd012",
+    "scripts/ingest_gpt_e2e_teacher_response.py": "fe60b5d825c026ee1b136605e4f6fc5c91095f10dc458b1873e6dd9b651b88b5",
+    "scripts/combine_gpt_e2e_teacher_labels.py": "5257f418b342317a4386256a77434841a0c65726422c7b782eb4e6896e5590df",
+    "scripts/build_gpt_e2e_teacher_final_v2.py": "9ee26e2afe23de88e188420c93b68cda247c89a68837cbd1abd8eb9532bf6efc",
+    "src/health_agent/teacher_student.py": "f77e6b754f479a95d4fee3725e4421572960e482b45399a180eb9cceb504b215",
+    "tests/test_teacher_student.py": "9caf4e2da9938455abbbd8971f80f9030e2b530ae33d217fc2e748785734a621",
+    "schemas/gpt_e2e_teacher_label.schema.json": "ead885f029cd236c0024a27df5e6405e63c1c472c7003daffb39646697fed672",
+    "schemas/gpt_e2e_teacher_label_v2.schema.json": "2c94b0a10f340499850f24d4794dad9de6590919dfaecde68522bec57778b3eb",
+    "tests/test_gpt_e2e_teacher_artifact.py": "0a315705d9a6aa4c8ce3f153b454bc658f8c263072c9bd7b83f1585f5796e6fc",
+    "tests/test_gpt_e2e_teacher_artifact_v2.py": "c32599fb02608cb6687da1a6aa1565ccd2d54977b5e4e34367198afef3887782"
   },
   "medical_scope": "Synthetic software-evaluation artifact only; not medical advice and not a real clinical eligibility decision."
 }

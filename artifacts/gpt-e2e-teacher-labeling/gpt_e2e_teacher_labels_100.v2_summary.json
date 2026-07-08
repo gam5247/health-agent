@@ -1,0 +1,29 @@
+{
+  "criterion_status_distribution": {
+    "not_applicable": 37,
+    "satisfied": 1634,
+    "unknown": 501,
+    "violated": 762
+  },
+  "eligibility_distribution": {
+    "eligible": 100,
+    "ineligible": 392,
+    "uncertain": 8
+  },
+  "excluded_trial_count": 392,
+  "final_evaluated_trial_count": 500,
+  "follow_up_question_count": 449,
+  "initial_evaluated_trial_count": 500,
+  "patient_count": 100,
+  "recommended_trial_count": 100,
+  "simulated_patient_answer_count": 420,
+  "uncertain_but_actionable_trial_count": 8,
+  "validation_error_count": 0,
+  "validation_errors": [],
+  "warning_counts": {
+    "derived_final_explanation": 125,
+    "initial_assessment_fallback_from_final": 150,
+    "no_follow_up_questions_available": 5,
+    "questions_without_answers": 15
+  }
+}

@@ -1,0 +1,9 @@
+* text=auto
+
+.gitattributes text eol=lf
+artifacts/gpt-e2e-teacher-labeling/*.json text eol=lf
+artifacts/gpt-e2e-teacher-labeling/*.jsonl text eol=lf
+artifacts/gpt-e2e-teacher-labeling/*.md text eol=lf
+schemas/*.json text eol=lf
+scripts/*.py text eol=lf
+tests/*.py text eol=lf

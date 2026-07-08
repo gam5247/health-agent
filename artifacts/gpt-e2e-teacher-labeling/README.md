@@ -12,16 +12,23 @@ trial matching workflow.
 ## Main Files
 
 - `gpt_e2e_teacher_input_100.json`: source input given to GPT.
-- `gpt_e2e_teacher_labels_100.jsonl`: final answer key, one patient per line.
-- `gpt_e2e_teacher_labels_100.json`: same answer key as a JSON document.
-- `gpt_e2e_teacher_labels_100_summary.json`: validation and label-count summary.
+- `gpt_e2e_teacher_labels_100.v2.jsonl`: canonical final answer key, one
+  patient per line.
+- `gpt_e2e_teacher_labels_100.v2.json`: same v2 answer key as a JSON document.
+- `gpt_e2e_teacher_labels_100.v2_summary.json`: v2 validation and label-count
+  summary.
+- `gpt_e2e_teacher_labels_100.jsonl`: legacy normalized GPT draft kept for
+  provenance.
+- `gpt_e2e_teacher_labels_100.json`: same legacy draft as a JSON document.
+- `gpt_e2e_teacher_labels_100_summary.json`: legacy validation summary.
 - `MANIFEST.json`: provenance, scale, validation commands, and hashes.
 - `inputs/`: 20 input batches, 5 patients each.
 - `requests/`: prompt/request files for the 20 batches.
 - `responses/`: normalized, validated GPT responses for each batch. Raw ChatGPT
   response captures are intentionally ignored by git.
 
-The canonical schema is `schemas/gpt_e2e_teacher_label.schema.json`.
+The canonical schema is `schemas/gpt_e2e_teacher_label_v2.schema.json`. The
+legacy v1 schema is kept at `schemas/gpt_e2e_teacher_label.schema.json`.
 
 ## Each Patient Record Contains
 
@@ -32,21 +39,31 @@ The canonical schema is `schemas/gpt_e2e_teacher_label.schema.json`.
 - follow-up question generation
 - simulated patient answers
 - recommendation agent output
-- final trial judgments, criterion-level rationales, explanations, and medical
-  disclaimer
+- initial assessment before follow-up
+- follow-up questions and simulated patient answers
+- final assessment after simulated answers
+- separate `recommended_trials`, `uncertain_but_actionable_trials`, and
+  `excluded_trials`
+- criterion-level rationales, patient-level explanation, and medical disclaimer
 
 ## Validation Summary
 
-Current generated answer key:
+Canonical v2 answer key:
 
 - patient count: 100
+- candidate trials per patient: 5
+- initial trial judgments: 500
 - final trial judgments: 500
 - criterion-level judgments: 2,934
-- follow-up questions: 255
-- simulated patient answers: 255
+- follow-up questions: 449
+- simulated patient answers: 420
+- final eligible recommendations: 100
+- uncertain but actionable trials: 8
+- excluded trials: 392
 - validation errors: 0
-- semantic consistency warnings: 28
+- normalization warnings: 295
 
-Semantic consistency warnings mean the final trial label is not fully implied
-by the normalized `criteria_to_assess` subset alone. Some GPT judgments use
-the supplied raw criteria excerpt in addition to the structured criterion IDs.
+Normalization warnings identify where the v2 builder had to preserve a weaker
+legacy draft shape, such as deriving a missing explanation from criterion-level
+judgments or using the final draft as the initial-assessment fallback. They are
+recorded in `quality_flags` and do not indicate structural validation failure.
