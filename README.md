@@ -572,12 +572,18 @@ python scripts\run_solar_e2e_orchestration.py `
 | contract errors | 0 |
 | follow-up questions | 580 |
 | simulated patient answers | 580 |
+| final clean artifact token estimate | about 6.57M tokens |
+| actual live-run token estimate including 4-patient rerun | about 6.85M tokens |
 | eligibility accuracy vs hidden silver labels | 84.0% |
 | criterion status accuracy vs hidden silver labels | 73.21% |
 | exact recommendation-set match | 55.0% |
 
 이 점수는 합성 데이터와 hidden silver label 기준의 소프트웨어 벤치마크다.
 의학적 ground truth나 실제 임상 적합성 판정으로 해석하지 않는다.
+토큰 수는 Solar API의 billing `usage` 값이 아니라, 저장된 프롬프트와 응답
+문자량을 기준으로 한 근사치다. 100명 실행에서 가장 큰 토큰 사용처는
+`criteria_parser_agent`였고, 실제 연구 단계에서는 trial criteria parsing을
+환자마다 반복하지 말고 사전 구조화/캐싱해 비용과 지연 시간을 줄여야 한다.
 
 Legacy `scripts/run_llm_eval.py`는 Friendli/K-EXAONE smoke path로 남아 있지만,
 대회 포맷 E2E hidden evaluation은 Solar Pro 3 runner를 사용한다.
