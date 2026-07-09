@@ -137,8 +137,21 @@ class CompetitionPipelineTests(unittest.TestCase):
             excluded_flags=[],
             required_patient_fields=["diagnosis"],
         )
-        records = generate_synthetic_patients([trial], count=1, seed=1)
+        records = generate_synthetic_patients([trial], count=6, seed=1)
         self.assertEqual(records[0]["diagnosis"], "acute pancreatitis")
+        self.assertEqual(records[0]["generator_version"], "health-agent-synthetic-v2")
+        self.assertEqual(
+            {record["scenario"] for record in records},
+            {"age_conflict", "clear_candidate", "missing_age", "wrong_condition"},
+        )
+        records_by_scenario = {record["scenario"]: record for record in records}
+        self.assertIsNone(records_by_scenario["missing_age"]["age"])
+        self.assertEqual(records_by_scenario["age_conflict"]["age"], 17)
+        self.assertTrue(all(record["stage"] is None for record in records))
+        self.assertTrue(all(record["ecog"] is None for record in records))
+        self.assertTrue(records[0]["clinical_note"].startswith("Clinical referral note"))
+        self.assertNotIn("Tumor board", records[0]["clinical_note"])
+        self.assertNotIn("Molecular testing", records[0]["clinical_note"])
 
     def test_competition_predictions_use_required_label_sets(self) -> None:
         patients = load_patients(ROOT / "data" / "raw" / "oncology-synthetic-patients.json")

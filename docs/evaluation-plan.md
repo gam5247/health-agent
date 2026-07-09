@@ -11,12 +11,18 @@
 
 ## Suggested Competition Metrics
 
-- Patient-level top-k trial recall against a labeled reference set.
+- Patient-level eligible-trial recall at fixed candidate counts.
 - Eligibility contradiction rate.
 - Missing-question usefulness rate.
 - Evidence citation completeness.
 - Latency per patient-trial pair.
 - Parse/repair rate for LLM structured outputs.
+- Per-label precision, recall, and F1 for eligibility and criterion statuses.
+- Criterion accuracy by family: condition, age, sex, stage, ECOG, biomarker,
+  prior treatment, and exclusion.
+- Initial-to-final transition accuracy after follow-up answers.
+- Recommendation precision, recall, F1, exact-set agreement, and NDCG.
+- API-reported token usage per agent when available.
 
 ## Review Checklist
 
@@ -25,3 +31,6 @@
 - Exclusion criteria are visible in the output.
 - Data provenance is documented.
 - No real patient data is committed.
+- Public development silver labels are not reported as a private holdout.
+- Synthetic follow-up answers come from a pre-generated hidden patient state,
+  not from the question/recommendation agent itself.

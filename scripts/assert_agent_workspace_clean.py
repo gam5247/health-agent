@@ -43,6 +43,8 @@ FORBIDDEN_JSON_KEYS = {
 }
 SECRET_PATTERNS = [
     re.compile(r"sk-[A-Za-z0-9]{20,}"),
+    re.compile(r"\bup_[A-Za-z0-9]{20,}\b"),
+    re.compile(r"\bflp_[A-Za-z0-9]{20,}\b"),
     re.compile(r"Bearer\s+[A-Za-z0-9._-]{20,}", re.IGNORECASE),
 ]
 

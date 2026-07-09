@@ -79,6 +79,7 @@ def run_solar_e2e_orchestration(
                 "ok": call.ok,
                 "http_status": call.http_status,
                 "ms": call.ms,
+                "token_usage": dict(call.token_usage),
                 "json_ok": parsed.ok,
                 "tool_call_count": len(calls),
                 "tool_call_names": [item.name for item in calls],
@@ -97,6 +98,7 @@ def run_solar_e2e_orchestration(
                     finish_reason=call.finish_reason,
                     error=call.error
                     or "Solar Pro 3 returned no native tool call before final output.",
+                    token_usage=dict(call.token_usage),
                 )
                 final_parsed = ParsedJson(False, {}, final_call.error)
                 tool_trace.append(
@@ -149,6 +151,7 @@ def run_solar_e2e_orchestration(
                 "ok": final_call.ok,
                 "http_status": final_call.http_status,
                 "ms": final_call.ms,
+                "token_usage": dict(final_call.token_usage),
                 "json_ok": final_parsed.ok,
                 "content_preview": sanitize_text(final_call.content, 1200),
             }
@@ -347,6 +350,7 @@ def aggregate_multi_agent_call(
             for item in agent_results
             if not (item.call.ok and item.parsed.ok)
         ),
+        token_usage=sum_token_usage(item.call.token_usage for item in agent_results),
     )
 
 
@@ -357,6 +361,7 @@ def multi_agent_trace_row(item: AgentJsonResult) -> dict[str, Any]:
         "http_status": item.call.http_status,
         "retry_after": item.call.retry_after,
         "ms": item.call.ms,
+        "token_usage": dict(item.call.token_usage),
         "finish_reason": item.call.finish_reason,
         "json_ok": item.parsed.ok,
         "json_repaired": item.parsed.repaired,
@@ -364,6 +369,17 @@ def multi_agent_trace_row(item: AgentJsonResult) -> dict[str, Any]:
         "content_preview": sanitize_text(item.call.content, 1500),
         "content": item.call.content,
     }
+
+
+def sum_token_usage(usages: Any) -> dict[str, int]:
+    totals: dict[str, int] = {}
+    for usage in usages:
+        if not isinstance(usage, dict):
+            continue
+        for key, value in usage.items():
+            if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                totals[key] = totals.get(key, 0) + value
+    return totals
 
 
 def assemble_multi_agent_payload(
@@ -1174,6 +1190,7 @@ def normalize_solar_prediction(
             "http_status": call.http_status,
             "retry_after": call.retry_after,
             "ms": call.ms,
+            "token_usage": dict(call.token_usage),
             "finish_reason": call.finish_reason,
             "error": call.error or parsed.error,
             "json_ok": parsed.ok,

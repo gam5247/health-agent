@@ -47,7 +47,7 @@ python scripts/run_competition_pipeline.py \
    - Compares LLM labels with the deterministic baseline.
 
 4b. `scripts/run_solar_e2e_orchestration.py`
-   - Solar Pro 3 hidden-eval runner for the competition-format E2E contract.
+   - Solar Pro 3 isolated development-eval runner for the competition-format E2E contract.
    - Uses native function calling to read the local patient/trial database.
    - Does not accept an answer-key argument.
 
@@ -73,14 +73,20 @@ python scripts/run_competition_pipeline.py \
 - LLM valid label rate in smoke test: 1.0
 - LLM JSON parse rate in smoke test: 0.667
 - LLM deterministic agreement in smoke test: 0.5
-- Official example predictions: 10 patients, top-5 recommendations each,
-  5 eligible / 7 uncertain / 38 ineligible recommendation labels.
+- Official example predictions: 10 patients, five candidate judgments each,
+  5 eligible / 7 uncertain / 38 ineligible labels in the deterministic artifact.
 
 ## Interpretation
 
 The artifact is a reproducible competition-style slice, not a clinical
-validation set. The current bottlenecks are retrieval quality for sparse
-conditions and criterion extraction from free-text protocols. The next
-competition-format LLM experiment should use the Solar Pro 3 native-tool runner
-against the hidden-eval input, then compare its output with the synthetic silver
-labels.
+validation set. Its 1,000-patient file is a frozen v1 pilot snapshot and should
+not be used as an independent test set because patients were generated from the
+same trial records used for matching. Future generation uses
+`health-agent-synthetic-v2` to avoid oncology staging and oncology-note wording
+for non-oncology conditions.
+
+The main research bottlenecks are full free-text criterion coverage, retrieval
+quality for sparse conditions, valid question/answer simulation, and
+appropriateness ranking. The public GPT silver labels are a development set,
+not a private holdout. See [research-roadmap.md](research-roadmap.md) before
+starting another large Solar run.

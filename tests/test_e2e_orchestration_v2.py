@@ -80,7 +80,13 @@ class E2EOrchestrationV2Tests(unittest.TestCase):
         self.assertEqual(report["patient_count_compared"], 3)
         self.assertEqual(report["contract"]["error_count"], 0)
         self.assertIn("accuracy", report["eligibility"])
+        self.assertIn("macro_f1", report["eligibility"])
+        self.assertIn("initial_eligibility", report)
+        self.assertIn("by_family", report["criterion_status"])
+        self.assertIn("interaction_transition", report)
+        self.assertIn("f1", report["recommendation_set"])
         self.assertIn("precision", report["question_needed_for_links"])
+        self.assertIn("f1", report["question_needed_for_links"])
         self.assertEqual(report["label_source"], "GPT E2E teacher v2 synthetic silver labels")
 
     def test_simulated_answers_can_update_final_matching(self) -> None:
@@ -191,6 +197,27 @@ class E2EOrchestrationV2Tests(unittest.TestCase):
             )
             self.assertFalse((workspace / "artifacts" / "gpt-e2e-teacher-labeling").exists())
             self.assertFalse((workspace / "src" / "health_agent" / "hidden_eval.py").exists())
+
+    def test_agent_workspace_cleaner_rejects_upstage_key(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace = Path(temp_dir) / "agent-workspace"
+            workspace.mkdir()
+            (workspace / ".env").write_text(
+                "UPSTAGE_API_KEY=up_" + "A" * 24 + "\n",
+                encoding="utf-8",
+            )
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts" / "assert_agent_workspace_clean.py"),
+                    str(workspace),
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("possible secret", completed.stderr)
 
 
 if __name__ == "__main__":

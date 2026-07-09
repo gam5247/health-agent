@@ -122,17 +122,16 @@ def main(argv: list[str] | None = None) -> None:
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
-    root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(description="Run K-EXAONE/Friendli LLM evaluation.")
     parser.add_argument(
         "--patients",
         type=Path,
-        default=root / "data" / "raw" / "oncology-synthetic-patients.json",
+        default=Path("data/raw/oncology-synthetic-patients.json"),
     )
     parser.add_argument(
         "--trials",
         type=Path,
-        default=root / "data" / "raw" / "sample-trials.json",
+        default=Path("data/raw/sample-trials.json"),
     )
     parser.add_argument("--env-file", type=Path, default=None)
     parser.add_argument("--output", type=Path, default=None)

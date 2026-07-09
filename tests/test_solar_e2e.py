@@ -625,6 +625,14 @@ class SolarE2ETests(unittest.TestCase):
             6,
         )
         self.assertEqual(
+            prediction["agent_trace"]["solar_call"]["token_usage"],
+            {
+                "prompt_tokens": 615,
+                "completion_tokens": 120,
+                "total_tokens": 735,
+            },
+        )
+        self.assertEqual(
             [
                 row["agent"]
                 for row in prediction["agent_trace"]["solar_multi_agent_calls"]
@@ -701,6 +709,11 @@ class FakeSequenceSolarClient:
             ms=10 + index,
             content=json.dumps(self.payloads[index]),
             finish_reason="stop",
+            token_usage={
+                "prompt_tokens": 100 + index,
+                "completion_tokens": 20,
+                "total_tokens": 120 + index,
+            },
         )
 
 

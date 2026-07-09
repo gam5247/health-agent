@@ -471,8 +471,27 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
     tool_turn_count = 0
     tool_call_count = 0
     agent_api_call_count = 0
+    token_usage_reported_call_count = 0
+    token_usage_totals: Counter[str] = Counter()
+    token_usage_by_agent: dict[str, Counter[str]] = {}
     runner_counts = Counter()
     audit_totals = Counter()
+
+    def record_usage(agent: str, usage: Any) -> None:
+        nonlocal token_usage_reported_call_count
+        if not isinstance(usage, dict) or not usage:
+            return
+        valid = {
+            str(key): value
+            for key, value in usage.items()
+            if isinstance(value, int) and not isinstance(value, bool) and value >= 0
+        }
+        if not valid:
+            return
+        token_usage_reported_call_count += 1
+        token_usage_totals.update(valid)
+        token_usage_by_agent.setdefault(agent, Counter()).update(valid)
+
     for prediction in predictions:
         runner_counts[prediction.get("runner", "")] += 1
         final = prediction.get("final_output", {})
@@ -505,6 +524,22 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
         multi_agent_calls = prediction.get("agent_trace", {}).get("solar_multi_agent_calls", [])
         if isinstance(multi_agent_calls, list):
             agent_api_call_count += len(multi_agent_calls)
+        if isinstance(multi_agent_calls, list) and multi_agent_calls:
+            for row in multi_agent_calls:
+                if isinstance(row, dict):
+                    record_usage(str(row.get("agent") or "unknown_agent"), row.get("token_usage"))
+        else:
+            tool_trace = prediction.get("agent_trace", {}).get("solar_tool_trace", [])
+            usage_rows = [
+                row
+                for row in tool_trace
+                if isinstance(row, dict) and isinstance(row.get("token_usage"), dict)
+            ] if isinstance(tool_trace, list) else []
+            if usage_rows:
+                for row in usage_rows:
+                    record_usage(str(row.get("type") or "solar_tool_call"), row.get("token_usage"))
+            else:
+                record_usage("solar_call", call.get("token_usage"))
     latencies.sort()
     return {
         "schema_version": "health-agent-solar-e2e-summary-v1",
@@ -524,6 +559,12 @@ def build_summary(predictions: list[dict[str, Any]], started: float) -> dict[str
         "tool_turn_count": tool_turn_count,
         "tool_call_count": tool_call_count,
         "agent_api_call_count": agent_api_call_count,
+        "token_usage_reported_call_count": token_usage_reported_call_count,
+        "token_usage": dict(sorted(token_usage_totals.items())),
+        "token_usage_by_agent": {
+            agent: dict(sorted(usage.items()))
+            for agent, usage in sorted(token_usage_by_agent.items())
+        },
         "normalization_audit_totals": dict(sorted(audit_totals.items())),
         "elapsed_sec": round(max(0.001, time.perf_counter() - started), 3),
         "runner_answer_key_access": False,
@@ -585,6 +626,15 @@ def raw_response_row(prediction: dict[str, Any]) -> dict[str, Any]:
         "finish_reason": call.get("finish_reason"),
         "json_ok": call.get("json_ok"),
         "json_repaired": call.get("json_repaired"),
+        "token_usage": call.get("token_usage", {}),
+        "multi_agent_token_usage": [
+            {
+                "agent": row.get("agent", ""),
+                "token_usage": row.get("token_usage", {}),
+            }
+            for row in prediction.get("agent_trace", {}).get("solar_multi_agent_calls", [])
+            if isinstance(row, dict)
+        ],
         "error": call.get("error", ""),
         "content": call.get("content", ""),
     }

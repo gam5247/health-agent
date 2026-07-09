@@ -65,7 +65,7 @@ Clinical trial pre-screening / patient-trial matching assistant
 4. 환자별 임상시험 추천 순위와 설명
 5. 의료적 면책 고지
 
-평가 비중은 매칭 정확성 30%, 랩 내 정성 평가 30%, 발표 점수 40%로 본다. 따라서 단순 accuracy만이 아니라, 에이전트 구성, 오케스트레이션, 근거 제시, 오류 분석, 발표 가능성이 중요합니다.
+[공식 AIHC Lab 공지](https://github.com/skku-aihclab/aihc-lab/blob/main/data/notices/healthcare-agentic-ai-challenge-2026.json)에 따른 평가 비중은 매칭 정확성 30%, 랩 내 정성 평가 30%, 발표 점수 40%입니다. 따라서 단순 accuracy만이 아니라, 에이전트 구성, 오케스트레이션, 근거 제시, 오류 분석, 발표 가능성이 중요합니다.
 
 ## 3. 핵심 설계 원칙
 
@@ -243,7 +243,10 @@ Coverage 축:
 
 ## 8. 내부 스키마 원칙
 
-모든 중간 산출물은 Pydantic schema를 통과해야 합니다.
+최종 외부 산출물은 현재 dataclass/JSON 계약과 명시적 validator를 통과해야
+합니다. 모델의 원시 중간 출력은 별도 trace로 보존하고, normalization audit로
+누락·fallback을 기록합니다. 모든 agent 중간 구조의 완전한 schema validation은
+아직 연구 과제입니다.
 
 예상 criterion result:
 
@@ -286,7 +289,7 @@ all required inclusion satisfied and no exclusion violated -> eligible
 
 ### Phase 0. 저장소 정리
 
-- README, AGENTS, CODEX, TASKS를 사람이 읽을 수 있게 유지한다.
+- README, AGENTS, CODEX와 `docs/`를 사람이 읽을 수 있게 유지한다.
 - 실행 진입점과 테스트 진입점을 명확히 둔다.
 - 원본 데이터는 `data/raw/`에 보관한다.
 
@@ -298,7 +301,7 @@ all required inclusion satisfied and no exclusion violated -> eligible
 
 1. `data/raw/synthetic-patients.json` 및 oncology fixture loader 완성
 2. `data/raw/sample-trials.json` loader 완성
-3. trial / patient / criterion / result Pydantic schema 고정
+3. trial / patient / criterion / result JSON 계약과 validator 고정
 4. deterministic eligibility scorer 구현
 5. missing information question template 구현
 6. `scripts/run_demo.py`로 end-to-end demo 출력
@@ -355,11 +358,11 @@ outputs/retrieval_candidates.jsonl
 
 작업:
 
-1. `src/hc_agent/llm.py`에 provider abstraction 구현
-2. `configs/models.yaml`로 model routing 관리
+1. `src/health_agent/llm_client.py`의 provider interface 확장
+2. `configs/default.toml`과 CLI 인자로 model routing 관리
 3. structured output validation
 4. retry / repair loop 구현
-5. token usage와 latency logging
+5. API-reported token usage와 latency logging
 
 초기 agent routing:
 
@@ -444,51 +447,55 @@ README.md
 AGENTS.md
 CODEX.md
 CODEX_BOOTSTRAP_PROMPT.md
-TASKS.md
 DATA_SOURCES.md
 LICENSE_NOTES.md
 MEDICAL_DISCLAIMER.md
 pyproject.toml
 configs/
-  models.yaml
-  pipeline.yaml
+  default.toml
 data/
   raw/
   processed/
 docs/
   architecture.md
-  evaluation.md
-  model_strategy.md
-  project_plan.md
+  evaluation-plan.md
+  e2e-orchestration-eval.md
+  research-roadmap.md
 scripts/
   run_demo.py
-  inspect_sample_patients.py
+  run_solar_e2e_orchestration.py
+  evaluate_hidden_e2e_predictions.py
 src/
-  hc_agent/
-    schemas.py
-    config.py
-    llm.py
-    graph.py
-    nodes/
-    retrieval/
-    eval/
+  health_agent/
+    models.py
+    rag.py
+    llm_client.py
+    e2e_orchestrator.py
+    solar_e2e.py
 tests/
+.github/workflows/ci.yml
 ```
 
 ## 11. Quick start
 
-```bash
+Windows PowerShell:
+
+```powershell
 python -m venv .venv
-source .venv/bin/activate
+.\.venv\Scripts\Activate.ps1
+python -m pip install .
 python scripts/run_demo.py --limit 3
 python -m unittest discover -s tests
 ```
 
-설치형 프로젝트로 정리한 뒤에는 다음을 사용한다.
+Linux/macOS에서는 활성화 명령만 `source .venv/bin/activate`로 바꿉니다.
+Windows Python 3.9에서 프로젝트 경로에 한글이 포함된 경우 editable 설치의
+`.pth` 인코딩 문제가 생길 수 있으므로 위처럼 일반 설치를 사용합니다.
 
-```bash
-pip install -e .
-health-agent-demo --limit 3
+설치 후 console script를 사용할 때는 입력 파일을 명시합니다.
+
+```powershell
+health-agent-demo --patients data\raw\oncology-synthetic-patients.json --trials data\raw\sample-trials.json --limit 3
 health-agent-llm-eval --dry-run --max-patients 2 --top-k 2
 ```
 
@@ -499,6 +506,9 @@ python -m unittest discover -s tests
 python scripts/run_demo.py --limit 3
 python scripts/run_llm_eval.py --dry-run --max-patients 2 --top-k 2
 ```
+
+GitHub Actions도 Python 3.9와 3.12에서 unit test, compile, deterministic
+smoke, submission artifact validator, answer-key-free workspace audit를 실행합니다.
 
 ## 12. Solar Pro 3 / Upstage Evaluation
 
@@ -573,20 +583,28 @@ python scripts\run_solar_e2e_orchestration.py `
 | follow-up questions | 580 |
 | simulated patient answers | 580 |
 | final clean artifact token estimate | about 6.57M tokens |
-| actual live-run token estimate including 4-patient rerun | about 6.85M tokens |
-| eligibility accuracy vs hidden silver labels | 84.0% |
-| criterion status accuracy vs hidden silver labels | 73.21% |
+| estimated total including 4-patient rerun | about 6.85M tokens |
+| eligibility agreement vs public dev silver labels | 84.0% |
+| criterion status agreement vs public dev silver labels | 73.21% |
 | exact recommendation-set match | 55.0% |
 
-이 점수는 합성 데이터와 hidden silver label 기준의 소프트웨어 벤치마크다.
+이 점수는 합성 데이터와 **현재 공개 저장소에 포함된 dev silver label** 기준의
+소프트웨어 벤치마크다. 실행 프로세스는 answer key가 없는 격리 workspace를
+사용했지만, 공개된 라벨은 진짜 private holdout이 아니므로 최종 연구 성능으로
+해석하지 않는다.
 의학적 ground truth나 실제 임상 적합성 판정으로 해석하지 않는다.
 토큰 수는 Solar API의 billing `usage` 값이 아니라, 저장된 프롬프트와 응답
-문자량을 기준으로 한 근사치다. 100명 실행에서 가장 큰 토큰 사용처는
-`criteria_parser_agent`였고, 실제 연구 단계에서는 trial criteria parsing을
-환자마다 반복하지 말고 사전 구조화/캐싱해 비용과 지연 시간을 줄여야 한다.
+문자량을 기준으로 한 근사치다. 이번 개선 이후 새 run은 API 응답에 `usage`가
+포함되면 agent별 실제 token usage를 summary에 기록한다. 100명 실행에서 가장
+큰 토큰 사용처는 `criteria_parser_agent`였고, 실제 연구 단계에서는 trial
+criteria parsing을 환자마다 반복하지 말고 사전 구조화/캐싱해 비용과 지연
+시간을 줄여야 한다.
+
+현재 한계, 외부 벤치마크, 실험 순서, 8월 30일까지의 일정은
+[`docs/research-roadmap.md`](docs/research-roadmap.md)에 정리했습니다.
 
 Legacy `scripts/run_llm_eval.py`는 Friendli/K-EXAONE smoke path로 남아 있지만,
-대회 포맷 E2E hidden evaluation은 Solar Pro 3 runner를 사용한다.
+대회 포맷 E2E 격리 평가 실행은 Solar Pro 3 runner를 사용한다.
 
 ## 13. Codex 작업 순서
 
@@ -595,18 +613,20 @@ Codex는 다음 순서로 읽고 작업한다.
 1. `README.md`
 2. `AGENTS.md`
 3. `CODEX.md`
-4. `TASKS.md`
-5. `src/hc_agent/schemas.py`
-6. `scripts/run_demo.py`
-7. `tests/`
+4. `docs/research-roadmap.md`
+5. `src/health_agent/models.py`
+6. `src/health_agent/e2e_orchestrator.py`
+7. `src/health_agent/solar_e2e.py`
+8. `scripts/run_demo.py`
+9. `tests/`
 
 첫 작업은 다음이다.
 
 ```text
 1. 현재 테스트를 실행한다.
 2. 깨지는 테스트가 있으면 스키마 또는 import path부터 고친다.
-3. README의 Phase 1 항목을 기준으로 deterministic baseline을 완성한다.
-4. 그 다음 ClinicalTrials.gov ingestion stub을 구현한다.
+3. 현재 실험의 config, input hash, output hash, model/prompt version을 기록한다.
+4. 공개 dev silver label과 private holdout을 분리한다.
 ```
 
 ## 14. Medical disclaimer

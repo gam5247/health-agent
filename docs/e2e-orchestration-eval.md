@@ -1,12 +1,13 @@
-# E2E Orchestration Hidden Evaluation
+# E2E Orchestration Isolated Development Evaluation
 
 This workflow evaluates the multi-agent clinical-trial matching output against
-the GPT E2E teacher v2 answer key without passing hidden labels to the agent
-runner.
+the GPT E2E teacher v2 silver answer key without passing labels to the agent
+runner. The labels are committed in this public repository, so "hidden" means
+isolated from the prediction process, not a private holdout.
 
 ## Files
 
-- Hidden labels, evaluator-only:
+- Development silver labels, evaluator-only during a run:
   `artifacts/gpt-e2e-teacher-labeling/gpt_e2e_teacher_labels_100.v2.jsonl`
 - Agent-visible input:
   `artifacts/e2e-orchestration-eval/blinded_input_100.jsonl`
@@ -90,10 +91,15 @@ The hidden evaluator checks:
 - question `needed_for` links point to valid trials and criteria
 - simulated answers do not reference missing question IDs
 
+The report also includes per-label precision/recall/F1, criterion accuracy by
+family, initial versus final performance, question-loop transition accuracy,
+and recommendation precision/recall/F1. These metrics make prompt or validator
+changes diagnosable instead of reducing the experiment to one aggregate score.
+
 ## Current Baseline
 
 The deterministic local runner is a structural baseline, not the target model.
-It verifies the full workflow shape and hidden-eval harness before running a
+It verifies the full workflow shape and isolated evaluation harness before running a
 Solar Pro 3/Upstage or other LLM-backed orchestration.
 
 ## Solar Pro 3 Six-Call Multi-Agent Run
@@ -120,7 +126,7 @@ Smoke command:
 
 ```powershell
 python scripts\run_solar_e2e_orchestration.py `
-  --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
+  --env-file "<path-to-local-env-file>" `
   --mode multi-agent `
   --max-patients 3 `
   --concurrency 1 `
@@ -137,7 +143,7 @@ Full 100-patient command:
 
 ```powershell
 python scripts\run_solar_e2e_orchestration.py `
-  --env-file "C:\Users\kll45\OneDrive\문서\New project\.env" `
+  --env-file "<path-to-local-env-file>" `
   --mode multi-agent `
   --concurrency 4 `
   --resume `
@@ -177,14 +183,14 @@ Latest local dry run:
 - question-link precision: 0.6105
 - question-link recall: 0.6334
 
-These scores are expected to improve only after replacing or augmenting the
-deterministic baseline with stronger LLM agent calls. The labels remain
+These scores are a deterministic structural reference. The labels remain
 synthetic silver labels for software evaluation only, not clinical truth.
 
 ## Isolation Boundary
 
-The repo contains evaluator-only artifacts for development. A fully isolated
-agent run should use the generated agent workspace instead of a full repo
-checkout. The runner can only consume blinded input, but an unconstrained
-process with access to the full repository could still inspect hidden labels.
-Keep the scoring step in the main repo or another evaluator-only environment.
+The repo contains evaluator artifacts for development. An isolated agent run
+must use the generated agent workspace instead of a full repo checkout. The
+runner can only consume blinded input, but an unconstrained process with access
+to the full repository can inspect the public silver labels. Keep scoring in the
+main repo or another evaluator-only environment. Store a future private holdout
+outside this public repository and never expose it to the prediction process.

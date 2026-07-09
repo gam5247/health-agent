@@ -11,7 +11,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from health_agent.data import load_patients, load_trials
-from health_agent.llm_client import parse_openai_compatible_sse
+from health_agent.llm_client import extract_token_usage, parse_openai_compatible_sse
 from health_agent.orchestrator import (
     AgentTokenBudget,
     normalize_final_labels,
@@ -39,6 +39,28 @@ class LlmIntegrationSupportTests(unittest.TestCase):
         parsed = parse_openai_compatible_sse(stream)
         self.assertEqual(parsed.content, "hello")
         self.assertEqual(parsed.finish_reason, "stop")
+
+    def test_token_usage_normalizes_openai_compatible_aliases(self) -> None:
+        usage = extract_token_usage(
+            {
+                "usage": {
+                    "input_tokens": 120,
+                    "output_tokens": 30,
+                    "prompt_tokens_details": {"cached_tokens": 20},
+                    "completion_tokens_details": {"reasoning_tokens": 5},
+                }
+            }
+        )
+        self.assertEqual(
+            usage,
+            {
+                "prompt_tokens": 120,
+                "completion_tokens": 30,
+                "total_tokens": 150,
+                "cached_tokens": 20,
+                "reasoning_tokens": 5,
+            },
+        )
 
     def test_rag_retrieves_egfr_trial_for_egfr_note(self) -> None:
         index = build_rag_index(self.trials)

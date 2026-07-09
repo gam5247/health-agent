@@ -5,7 +5,7 @@ import os
 import time
 import urllib.error
 import urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -121,6 +121,7 @@ class ChatResult:
     error: str = ""
     tool_calls: tuple[dict[str, Any], ...] = ()
     raw_response: dict[str, Any] | None = None
+    token_usage: dict[str, int] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -268,6 +269,7 @@ class SolarClient:
                     finish_reason=str(choice.get("finish_reason") or ""),
                     tool_calls=tuple(normalize_tool_calls(message.get("tool_calls"))),
                     raw_response=parsed,
+                    token_usage=extract_token_usage(parsed),
                 )
         except urllib.error.HTTPError as error:
             detail = _safe_error_body(error)
@@ -471,6 +473,43 @@ def normalize_tool_calls(value: Any) -> list[dict[str, Any]]:
             }
         )
     return calls
+
+
+def extract_token_usage(payload: dict[str, Any]) -> dict[str, int]:
+    """Normalize OpenAI-compatible usage fields without assuming one provider version."""
+    raw = payload.get("usage")
+    if not isinstance(raw, dict):
+        return {}
+
+    usage: dict[str, int] = {}
+    aliases = {
+        "prompt_tokens": ("prompt_tokens", "input_tokens"),
+        "completion_tokens": ("completion_tokens", "output_tokens"),
+        "total_tokens": ("total_tokens",),
+    }
+    for normalized, candidates in aliases.items():
+        value = next((raw.get(key) for key in candidates if raw.get(key) is not None), None)
+        if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+            usage[normalized] = value
+
+    prompt_details = raw.get("prompt_tokens_details")
+    if isinstance(prompt_details, dict):
+        cached = prompt_details.get("cached_tokens")
+        if isinstance(cached, int) and not isinstance(cached, bool) and cached >= 0:
+            usage["cached_tokens"] = cached
+
+    completion_details = raw.get("completion_tokens_details")
+    if isinstance(completion_details, dict):
+        reasoning = completion_details.get("reasoning_tokens")
+        if isinstance(reasoning, int) and not isinstance(reasoning, bool) and reasoning >= 0:
+            usage["reasoning_tokens"] = reasoning
+
+    if "total_tokens" not in usage:
+        prompt = usage.get("prompt_tokens")
+        completion = usage.get("completion_tokens")
+        if prompt is not None and completion is not None:
+            usage["total_tokens"] = prompt + completion
+    return usage
 
 
 def _safe_error_body(error: urllib.error.HTTPError) -> str:

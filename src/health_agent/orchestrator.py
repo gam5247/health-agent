@@ -315,7 +315,11 @@ def orchestrator_messages(
 def patient_to_clinical_note(patient: Patient, index: int = 0) -> str:
     if patient.clinical_note:
         return patient.clinical_note
-    prefix = "Oncology referral note" if index % 2 == 0 else "Tumor board intake"
+    oncology = is_oncology_diagnosis(patient.diagnosis)
+    if oncology:
+        prefix = "Oncology referral note" if index % 2 == 0 else "Tumor board intake"
+    else:
+        prefix = "Clinical referral note" if index % 2 == 0 else "Clinical intake"
     age_sex = (
         "Adult patient"
         if patient.age is None or patient.sex is None
@@ -324,12 +328,12 @@ def patient_to_clinical_note(patient: Patient, index: int = 0) -> str:
     diagnosis = (
         f"with {patient.diagnosis}"
         if patient.diagnosis
-        else "with cancer diagnosis not clearly documented"
+        else "with diagnosis not clearly documented"
     )
     stage = (
         f"Stage is recorded as {patient.stage}."
         if patient.stage
-        else "No formal stage is documented."
+        else "No formal stage is documented." if oncology else ""
     )
     ecog = (
         "ECOG performance status is not documented."
@@ -339,7 +343,7 @@ def patient_to_clinical_note(patient: Patient, index: int = 0) -> str:
     treatments = (
         f"Prior therapy includes {', '.join(patient.prior_treatments)}."
         if patient.prior_treatments
-        else "No prior systemic therapy is listed in the referral."
+        else "No prior systemic therapy is listed in the referral." if oncology else ""
     )
     location = (
         f"The patient receives care in {patient.location['state']}."
@@ -352,7 +356,7 @@ def patient_to_clinical_note(patient: Patient, index: int = 0) -> str:
             f"{prefix}: {patient.patient_id} is a {age_sex} {diagnosis}.",
             stage,
             ecog,
-            biomarkers_to_sentence(patient.biomarkers),
+            biomarkers_to_sentence(patient.biomarkers) if oncology or patient.biomarkers else "",
             treatments,
             flags_to_sentence(patient.flags),
             location,
@@ -360,6 +364,24 @@ def patient_to_clinical_note(patient: Patient, index: int = 0) -> str:
         ]
         if item
     )
+
+
+def is_oncology_diagnosis(diagnosis: str | None) -> bool:
+    if not diagnosis:
+        return False
+    terms = (
+        "cancer",
+        "carcinoma",
+        "leukemia",
+        "lymphoma",
+        "melanoma",
+        "myeloma",
+        "neoplasm",
+        "sarcoma",
+        "tumor",
+    )
+    lower = diagnosis.lower()
+    return any(term in lower for term in terms)
 
 
 def biomarkers_to_sentence(biomarkers: dict[str, str]) -> str:

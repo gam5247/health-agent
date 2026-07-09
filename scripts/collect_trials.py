@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -30,7 +31,7 @@ DEFAULT_CONDITIONS = [
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Collect oncology trials from ClinicalTrials.gov.")
+    parser = argparse.ArgumentParser(description="Collect trials from ClinicalTrials.gov.")
     parser.add_argument("--conditions", nargs="*", default=DEFAULT_CONDITIONS)
     parser.add_argument("--limit", type=int, default=120)
     parser.add_argument("--page-size", type=int, default=50)
@@ -66,6 +67,8 @@ def main() -> None:
         "raw_dir": str(args.raw_dir),
         "output_path": str(args.output),
         "source": "https://clinicaltrials.gov/api/v2/studies",
+        "source_terms": "https://clinicaltrials.gov/about-site/terms-conditions",
+        "collected_at_utc": datetime.now(timezone.utc).isoformat(),
     }
     args.summary.write_text(json.dumps(summary_payload, indent=2, sort_keys=True), encoding="utf-8")
     print(json.dumps(summary_payload, indent=2, sort_keys=True))
